@@ -23,14 +23,18 @@ import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormFieldFactory;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
 public class MainLayout extends VerticalLayout {
 
-    public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory) {
+	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory) {
     	setSizeFull();
     	setMargin(true);
     	
@@ -79,10 +83,27 @@ public class MainLayout extends VerticalLayout {
 	    return layout;
     }
 
-	private RequestHistoryView createRequestHistory(RequestHistory requestHistory) {
-		RequestHistoryView view = new RequestHistoryView();
+	private Component createRequestHistory(final RequestHistory requestHistory) {
+		HorizontalLayout layout = new HorizontalLayout();
+		final RequestHistoryView view = new RequestHistoryView();
 		view.refresh(requestHistory);
-		return view;
+		view.setMargin(true);
+		layout.addComponent(view);
+		
+		VerticalLayout rightLayout = new VerticalLayout();
+		Button refreshButton = new Button("Refresh");
+		refreshButton.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				view.refresh(requestHistory);
+			}
+		});
+		
+		rightLayout.addComponent(refreshButton);
+		rightLayout.setMargin(true);
+		layout.addComponent(rightLayout);
+		
+		return layout;
 	}
 
 	private AddListener createAddListener(
