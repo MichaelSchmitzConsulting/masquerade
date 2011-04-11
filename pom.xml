@@ -124,4 +124,9 @@
 		</dependency>
 	</dependencies>
 
+	<scm>
+		<connection>scm:git:git@github.com:matf/masquerade.git</connection>
+		<url>scm:git:git@github.com:matf/masquerade.git</url>
+		<developerConnection>scm:git:git@github.com:matf/masquerade.git</developerConnection>
+	</scm>
 </project>
