@@ -7,14 +7,19 @@ import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
 import static masquerade.sim.ui.Icons.RESPONSE;
 import static masquerade.sim.ui.Icons.SCRIPT;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
 
 import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.db.ModelRepository;
+import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.RequestIdProvider;
@@ -23,8 +28,11 @@ import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
+import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Container;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -134,15 +142,27 @@ public class MainLayout extends VerticalLayout {
     }
 
 	private Component createRequestHistoryView(final RequestHistory requestHistory) {
-		HorizontalLayout layout = new HorizontalLayout();
-		final RequestHistoryView view = new RequestHistoryView();
-
 		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
+
+		HorizontalLayout layout = new HorizontalLayout();
 		
+		// History view
+		final RequestHistoryView view = new RequestHistoryView();
 		view.refresh(history.createContainer());
 		view.setMargin(true);
 		layout.addComponent(view);
 		
+		// Show request details on double click
+		view.addItemClickListener(new ItemClickListener() {
+			@Override
+			public void itemClick(ItemClickEvent event) {
+				if (event.isDoubleClick()) {
+					showRequestContent((HistoryEntry) event.getItemId());
+				}
+			}
+		});
+				
+		// Refresh button
 		VerticalLayout rightLayout = new VerticalLayout();
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addListener(new ClickListener() {
@@ -151,12 +171,25 @@ public class MainLayout extends VerticalLayout {
 				view.refresh(history.createContainer());
 			}
 		});
-		
 		rightLayout.addComponent(refreshButton);
+				
 		rightLayout.setMargin(true);
 		layout.addComponent(rightLayout);
 		
 		return layout;
+	}
+	
+	private void showRequestContent(HistoryEntry historyEntry) {
+		if (historyEntry != null) {
+			String content;
+			try {
+				InputStream stream = historyEntry.readRequestData();
+				content = IOUtils.toString(stream);
+				SourceViewWindow.showModal(getWindow(), "Request Viewer", content);
+			} catch (IOException e) {
+				WindowUtil.showErrorNotification(getWindow(), "Error retrieving content", "Unable to retrieve request: " + e.getMessage());
+			}
+		}
 	}
 
 	private AddListener createAddListener(

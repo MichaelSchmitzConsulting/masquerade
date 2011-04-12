@@ -43,7 +43,8 @@ public class HistoryEntry {
 		return requestId;
 	}
 	public String getFileName() {
-		return fileName;
+		File file = new File(fileName);
+		return file.getName();
 	}
 	public InputStream readRequestData() throws IOException {
 		return FileUtils.openInputStream(new File(fileName));	

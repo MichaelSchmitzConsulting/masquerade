@@ -1,19 +1,24 @@
 package masquerade.sim.ui;
 
 import com.vaadin.data.Container;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 
 public class RequestHistoryView extends HorizontalLayout {
 	
 	private Table table;
-
+	
 	public RequestHistoryView() {
 		buildLayout();
 	}
 	
 	public void refresh(Container container) {
         table.setContainerDataSource(container);
+	}
+	
+	public void addItemClickListener(ItemClickListener listener) {
+		table.addListener(listener);
 	}
 	
 	private void buildLayout() {

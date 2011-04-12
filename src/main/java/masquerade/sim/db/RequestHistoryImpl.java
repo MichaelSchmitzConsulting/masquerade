@@ -103,6 +103,6 @@ public class RequestHistoryImpl implements RequestHistory {
 			throw new IllegalStateException("Cannot write request data to file", e);
 		}
 		
-		return fileName;
+		return file.getAbsolutePath();
 	}
 }
