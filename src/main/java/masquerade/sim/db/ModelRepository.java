@@ -85,6 +85,12 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 			db.commit();
 		}
 	}
+	
+	public boolean contains(Object obj) {
+		synchronized (modelMonitor) {
+			return db.ext().isStored(obj);
+		}
+	}
 
 	public void endSession() {
 		synchronized (modelMonitor) { 
