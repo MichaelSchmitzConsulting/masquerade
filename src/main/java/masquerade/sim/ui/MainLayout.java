@@ -8,6 +8,8 @@ import static masquerade.sim.ui.Icons.RESPONSE;
 import static masquerade.sim.ui.Icons.SCRIPT;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
@@ -22,37 +24,54 @@ import masquerade.sim.model.Script;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
 
-import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.Container;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.VerticalLayout;
 
 public class MainLayout extends VerticalLayout {
 
+	protected static final String[] COLUMNS = new String[] { "name", "description" };
+
 	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory) {
     	setSizeFull();
-    	setMargin(true);
+    	setMargin(true);    	
     	
-    	FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository);
-    	
-    	// Create tabs
-        Component channels = createEditorTab(container(modelRepository.getChannels(), Channel.class), modelRepository, fieldFactory);
-        Component requestMapping = createEditorTab(container(modelRepository.getRequestMappings(), RequestMapping.class), modelRepository, fieldFactory);
-        Component responseSim = createEditorTab(container(modelRepository.getResponseSimulations(), ResponseSimulation.class), modelRepository, fieldFactory);
-        Component scripts = createEditorTab(container(modelRepository.getScripts(), Script.class), modelRepository, fieldFactory);
-        Component requestIdProviders = createEditorTab(container(modelRepository.getRequestIdProviders(), RequestIdProvider.class), modelRepository, fieldFactory);
-        
-        Component requestHistoryUi = createRequestHistory(requestHistory);
+    	TabSheet tabSheet = createTabSheet(modelRepository, requestHistory);
+        addComponent(tabSheet);
+    }
+
+	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory) {
+		// Container factories retrieving model objects from the model repository and packing
+    	// them into a Container suitable for binding to a view.
+        ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
+        ContainerFactory mappingFactory = new ModelContainerFactory(modelRepository, RequestMapping.class);
+        ContainerFactory responseFactory = new ModelContainerFactory(modelRepository, ResponseSimulation.class);
+        ContainerFactory scriptFactory = new ModelContainerFactory(modelRepository, Script.class);
+        ContainerFactory ripFactory = new ModelContainerFactory(modelRepository, RequestIdProvider.class);
+                
+        // Create tabs
+        FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository);
+		Component channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
+        Component requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
+        Component responseSim = createEditorTab(responseFactory, modelRepository, fieldFactory);
+        Component scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
+        Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
+        Component requestHistoryUi = createRequestHistoryView(requestHistory);
         
         TabSheet tabSheet = new TabSheet();
         tabSheet.setHeight("100%");
         tabSheet.setWidth("100%");
         
+        //  Add tabs
         tabSheet.addTab(channels, "Channels", CHANNELS.icon());
         tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
         tabSheet.addTab(responseSim, "Response Simulation", RESPONSE.icon());
@@ -60,33 +79,67 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(requestIdProviders, "Request ID Providers", REQUEST_ID_PROVIDER.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         
-        addComponent(tabSheet);
-    }
+        // Refresh master/detail view contents on tab selection
+        Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();
+        refreshMap.put(channels, channelFactory);
+        refreshMap.put(requestMapping, mappingFactory);
+        refreshMap.put(responseSim, responseFactory);
+        refreshMap.put(scripts, scriptFactory);
+        refreshMap.put(requestIdProviders, ripFactory);
+        tabSheet.addListener(createTabSelectionListener(refreshMap));
+        
+		return tabSheet;
+	}
 
-	private Component createEditorTab(BeanItemContainer<?> container, ModelRepository repo, FormFieldFactory fieldFactory) {
-		Class<?> modelType = container.getBeanType();
+	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, ContainerFactory> refreshMap) {
+		return new SelectedTabChangeListener() {
+			@Override
+			public void selectedTabChange(SelectedTabChangeEvent event) {
+				TabSheet tabSheet = event.getTabSheet();
+				refreshTab(refreshMap, tabSheet);
+			}
+		};
+	}
+	
+	private void refreshTab(final Map<Component, ContainerFactory> refreshMap, TabSheet tabSheet) {
+		Component tabLayout = tabSheet.getComponentIterator().next();
+		ContainerFactory containerFactory = refreshMap.get(tabLayout);
+		if (containerFactory != null) {
+			ComponentContainer container = (ComponentContainer) tabLayout;
+			MasterDetailView view = (MasterDetailView) container.getComponentIterator().next();
+			Container dataSource = containerFactory.createContainer();
+			view.setDataSource(dataSource, COLUMNS);
+		}
+	}
+
+	private Component createEditorTab(ContainerFactory containerFactory, ModelRepository repo, FormFieldFactory fieldFactory) {
+		Class<?> modelType = containerFactory.getType();
 		Collection<Class<?>> instanceTypes = repo.getModelImplementations(modelType);
+		
+		Container container = containerFactory.createContainer();
 		
 	    VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         layout.setSizeFull();
         MasterDetailView view = new MasterDetailView(fieldFactory);
-        String[] visibleColumns = new String[] { "name", "description" };
-		view.setDataSource(container, visibleColumns);
+        view.setDataSource(container, COLUMNS);
         view.addFormCommitListener(repo);
-        view.addFormCommitListener(createUpdateListener(view, container, visibleColumns));
+        view.addFormCommitListener(createUpdateListener(view, container));
         view.addDeleteListener(repo);
-        view.addDeleteListener(createDeleteListener(view, container, visibleColumns));
-        view.addAddListener(createAddListener(modelType, view, container, visibleColumns, instanceTypes, repo));
+        view.addDeleteListener(createDeleteListener(view, container));
+        view.addAddListener(createAddListener(modelType, view, container, instanceTypes, repo));
         layout.addComponent(view);
         
 	    return layout;
     }
 
-	private Component createRequestHistory(final RequestHistory requestHistory) {
+	private Component createRequestHistoryView(final RequestHistory requestHistory) {
 		HorizontalLayout layout = new HorizontalLayout();
 		final RequestHistoryView view = new RequestHistoryView();
-		view.refresh(requestHistory);
+
+		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
+		
+		view.refresh(history.createContainer());
 		view.setMargin(true);
 		layout.addComponent(view);
 		
@@ -95,7 +148,7 @@ public class MainLayout extends VerticalLayout {
 		refreshButton.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				view.refresh(requestHistory);
+				view.refresh(history.createContainer());
 			}
 		});
 		
@@ -109,8 +162,7 @@ public class MainLayout extends VerticalLayout {
 	private AddListener createAddListener(
 			final Class<?> baseType,
 			final MasterDetailView view, 
-			final BeanItemContainer<?> container, 
-			final String[] visibleColumns,
+			final Container container, 
 			final Collection<Class<?>> instanceTypes,
 			final ModelRepository repo) {
 		return new AddListener() {
@@ -120,43 +172,37 @@ public class MainLayout extends VerticalLayout {
 				if (name.length() > 1) {
 					name = name.substring(0, 1).toLowerCase() + name.substring(1);
 				}
-				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container, visibleColumns, repo), instanceTypes);
+				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container, repo), instanceTypes);
 			}
 		};
 	}
 	
-	private CreateListener objectCreatedListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns, final ModelRepository repo) {
+	private CreateListener objectCreatedListener(final MasterDetailView view, final Container container, final ModelRepository repo) {
 		return new CreateListener() {
 			@Override public void notifyCreate(Object value) {
 				repo.notifyCreate(value);
 				container.addItem(value);
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container, COLUMNS);
 				view.setSelection(value);
 			}
 		};
 	}
 	
-	private DeleteListener createDeleteListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns) {
+	private DeleteListener createDeleteListener(final MasterDetailView view, final Container container) {
 		return new DeleteListener() {
 			@Override
 			public void notifyDelete(Object obj) {
 				container.removeItem(obj);
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container, COLUMNS);
 			}
 		};
 	}
 
-	private UpdateListener createUpdateListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns) {
+	private UpdateListener createUpdateListener(final MasterDetailView view, final Container container) {
 		return new UpdateListener() { 
 			@Override public void notifyUpdated(Object obj) {
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container, COLUMNS);
 			}
 		};
     }
-
-	private static <T> BeanItemContainer<T> container(Collection<T> collection, Class<?> type) {
-		@SuppressWarnings("unchecked") // Makes it possible to pass List<X<?>>, X.class into container()
-        Class<T> cast = (Class<T>) type;
-		return new BeanItemContainer<T>(cast, collection);
-	}
 }
