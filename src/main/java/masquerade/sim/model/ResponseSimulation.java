@@ -1,6 +1,5 @@
 package masquerade.sim.model;
 
-import masquerade.sim.model.impl.NullRequestIdProvider;
 import masquerade.sim.model.impl.SequenceScript;
 
 /**
@@ -11,7 +10,7 @@ public class ResponseSimulation {
 	
 	private String name;
 	private String description = "";
-	private RequestIdProvider<?> requestIdProvider = new NullRequestIdProvider();
+	private RequestIdProvider<?> requestIdProvider = null;
 	private Script script;
 	
 	public ResponseSimulation(String name) {

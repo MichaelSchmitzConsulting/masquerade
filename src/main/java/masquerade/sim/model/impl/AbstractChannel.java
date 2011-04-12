@@ -119,6 +119,10 @@ public abstract class AbstractChannel implements Channel {
  
 	// Casts are safe because ResponseSimulation.matches() is typed
 	private String getRequestId(RequestIdProvider<?> requestIdProvider, Object request) {
+		if (requestIdProvider == null) {
+			return null;
+		}
+		
 		@SuppressWarnings("rawtypes")
 		RequestIdProvider cast = requestIdProvider;
 		@SuppressWarnings("unchecked")

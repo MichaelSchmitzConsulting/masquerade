@@ -9,11 +9,15 @@ public class ModelSelectFieldFactory extends CollectionSelectFieldFactory {
 	private Class<?> type;
 	
     public ModelSelectFieldFactory(ModelRepository modelRepository, Class<?> type, String defaultWidth) {
-		super(type, defaultWidth);
+		this(modelRepository, type, defaultWidth, true);
+    }
+    
+    public ModelSelectFieldFactory(ModelRepository modelRepository, Class<?> type, String defaultWidth, boolean isRequired) {
+		super(type, defaultWidth, isRequired);
 		this.type = type;
 	    this.modelRepository = modelRepository;
     }
-
+    
     @Override
     protected Collection<?> getAll() {
 		return modelRepository.getAll(type);

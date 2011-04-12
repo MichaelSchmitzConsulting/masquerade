@@ -12,14 +12,16 @@ public abstract class CollectionSelectFieldFactory implements FieldFactory {
 
 	private Class<?> type;
 	private String defaultWidth;
+	private boolean isRequired = true;
 
 	public CollectionSelectFieldFactory(Class<?> type) {
-		this(type, null);
+		this(type, null, true);
 	}
 	
-	public CollectionSelectFieldFactory(Class<?> type, String defaultWidth) {
+	public CollectionSelectFieldFactory(Class<?> type, String defaultWidth, boolean isRequired) {
 	    this.type = type;
 	    this.defaultWidth = defaultWidth;
+	    this.isRequired = isRequired;
     }
 
 	protected abstract Collection<?> getAll();
@@ -39,7 +41,7 @@ public abstract class CollectionSelectFieldFactory implements FieldFactory {
 		select.setContainerDataSource(container);
 		
 		select.select(existingValue);
-		select.setRequired(true);
+		select.setRequired(isRequired);
 		
 		return select;
     }

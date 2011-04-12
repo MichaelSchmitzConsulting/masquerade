@@ -36,7 +36,7 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 				new ModelSelectFieldFactory(modelRepository, ResponseSimulation.class, defaultWidth));
 		factories.put(
 				"requestIdProvider",
-				new ModelSelectFieldFactory(modelRepository, RequestIdProvider.class, defaultWidth));
+				new ModelSelectFieldFactory(modelRepository, RequestIdProvider.class, defaultWidth, false));
 		factories.put(
 				"script",
 				new ModelSelectFieldFactory(modelRepository, Script.class, defaultWidth));

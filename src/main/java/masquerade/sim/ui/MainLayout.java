@@ -33,6 +33,7 @@ import masquerade.sim.util.WindowUtil;
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -40,6 +41,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
@@ -144,13 +146,16 @@ public class MainLayout extends VerticalLayout {
 	private Component createRequestHistoryView(final RequestHistory requestHistory) {
 		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
 
-		HorizontalLayout layout = new HorizontalLayout();
+		VerticalLayout layout = new VerticalLayout();
+		layout.setSizeFull();
 		
 		// History view
 		final RequestHistoryView view = new RequestHistoryView();
 		view.refresh(history.createContainer());
 		view.setMargin(true);
+		view.setSizeFull();
 		layout.addComponent(view);
+		layout.setExpandRatio(view, 1.0f);
 		
 		// Show request details on double click
 		view.addItemClickListener(new ItemClickListener() {
@@ -163,7 +168,7 @@ public class MainLayout extends VerticalLayout {
 		});
 				
 		// Refresh button
-		VerticalLayout rightLayout = new VerticalLayout();
+		HorizontalLayout bottomLayout = new HorizontalLayout();
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addListener(new ClickListener() {
 			@Override
@@ -171,10 +176,16 @@ public class MainLayout extends VerticalLayout {
 				view.refresh(history.createContainer());
 			}
 		});
-		rightLayout.addComponent(refreshButton);
-				
-		rightLayout.setMargin(true);
-		layout.addComponent(rightLayout);
+		bottomLayout.addComponent(refreshButton);
+		
+		// Help label
+		Label label = new Label("Doubleclick on request to show payload");
+		bottomLayout.addComponent(label);
+		bottomLayout.setComponentAlignment(label, Alignment.MIDDLE_LEFT);
+
+		bottomLayout.setMargin(false, true, true, true);
+		bottomLayout.setSpacing(true);
+		layout.addComponent(bottomLayout);
 		
 		return layout;
 	}

@@ -1,5 +1,9 @@
 package masquerade.sim.ui;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.HorizontalLayout;
@@ -15,6 +19,9 @@ public class RequestHistoryView extends HorizontalLayout {
 	
 	public void refresh(Container container) {
         table.setContainerDataSource(container);
+        Set<Object> visCols = new LinkedHashSet<Object>(Arrays.asList(table.getVisibleColumns()));
+        visCols.remove("time");
+        table.setVisibleColumns(visCols.toArray());
 	}
 	
 	public void addItemClickListener(ItemClickListener listener) {

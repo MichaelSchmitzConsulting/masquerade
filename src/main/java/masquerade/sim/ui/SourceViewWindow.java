@@ -22,8 +22,8 @@ public class SourceViewWindow extends Window {
 		super(caption);
 		
 		setModal(true);
-		setWidth("800px");
-		setHeight("600px");
+		setWidth("600px");
+		setHeight("400px");
 		
 		VerticalLayout layout = (VerticalLayout) getContent();
 		layout.setMargin(true);
