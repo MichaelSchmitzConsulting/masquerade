@@ -67,7 +67,7 @@
 				<version>1.1</version>
 				<configuration>
 					<url>${tomcat.manager.url}</url>
-					<server>Local</server>
+					<server>masquerade-tomcat</server>
 					<path>/masquerade</path>
 				</configuration>
 			</plugin>
