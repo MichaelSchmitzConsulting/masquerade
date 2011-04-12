@@ -2,8 +2,10 @@ package masquerade.sim.db;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import masquerade.sim.history.RequestHistory;
 
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;
 
@@ -67,6 +70,22 @@ public class RequestHistoryImpl implements RequestHistory {
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public InputStream getRequest(final String requestId) throws IOException {
+		if (requestId == null || requestId.length() == 0) {
+			return null;
+		}
+		
+		ObjectSet<HistoryEntry> result = dbSession.query(new Predicate<HistoryEntry>() {
+			@Override public boolean match(HistoryEntry entry) {
+				return requestId.equals(entry.getRequestId());
+			}
+		});
+		
+		Iterator<HistoryEntry> it = result.iterator();
+		return it.hasNext() ? it.next().readRequestData() : null;
 	}
 
 	@Override

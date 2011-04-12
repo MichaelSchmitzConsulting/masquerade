@@ -1,5 +1,7 @@
 package masquerade.sim.history;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public interface RequestHistory {
@@ -8,4 +10,6 @@ public interface RequestHistory {
 	List<HistoryEntry> getLatestRequests(int maxAmount);
 	
 	void endSession();
+
+	InputStream getRequest(String requestId) throws IOException;
 }

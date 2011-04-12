@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import masquerade.sim.ApplicationLifecycle;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.model.impl.HttpChannel;
+import masquerade.sim.util.StringUtil;
 
 public class HttpChannelServlet extends HttpServlet {
 
@@ -79,23 +80,15 @@ public class HttpChannelServlet extends HttpServlet {
 			return null;
 		}
 		
-		pathInfo = removeLeadingSlash(pathInfo);
+		pathInfo = StringUtil.removeLeadingSlash(pathInfo);
 		
 		Collection<HttpChannel> channels = repo.getAll(HttpChannel.class);
 		for (HttpChannel channel : channels) {
-			String location = removeLeadingSlash(channel.getLocation());
+			String location = StringUtil.removeLeadingSlash(channel.getLocation());
 			if (pathInfo.equals(location)) {
 				return channel;
 			}
 		}
 		return null;
-	}
-
-	private static String removeLeadingSlash(String str) {
-		if (str.length() > 0 && str.charAt(0) == '/') {
-			return str.substring(1);
-		} else {
-			return str;
-		}
 	}
 }

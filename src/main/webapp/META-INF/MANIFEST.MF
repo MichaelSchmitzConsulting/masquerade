@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
-Class-Path: aopalliance-1.0.jar commons-io-2.0.1.jar commons-logging-1
- .1.1.jar customfield-0.9.0.jar db4o-full-java5-8.1-SNAPSHOT.jar sprin
- g-aop-3.0.5.RELEASE.jar spring-asm-3.0.5.RELEASE.jar spring-beans-3.0
- .5.RELEASE.jar spring-context-3.0.5.RELEASE.jar spring-core-3.0.5.REL
- EASE.jar spring-expression-3.0.5.RELEASE.jar spring-jms-3.0.5.RELEASE
- .jar spring-tx-3.0.5.RELEASE.jar vaadin-6.5.4.jar
+Class-Path: aopalliance-1.0.jar commons-io-2.0.1.jar commons-lang-2.5.
+ jar commons-logging-1.1.1.jar customfield-0.9.0.jar db4o-full-java5-8
+ .1-SNAPSHOT.jar spring-aop-3.0.5.RELEASE.jar spring-asm-3.0.5.RELEASE
+ .jar spring-beans-3.0.5.RELEASE.jar spring-context-3.0.5.RELEASE.jar 
+ spring-core-3.0.5.RELEASE.jar spring-expression-3.0.5.RELEASE.jar spr
+ ing-jms-3.0.5.RELEASE.jar spring-tx-3.0.5.RELEASE.jar vaadin-6.5.4.ja
+ r
 
