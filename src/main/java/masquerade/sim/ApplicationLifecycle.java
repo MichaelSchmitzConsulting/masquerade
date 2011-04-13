@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.channel.ChannelListenerRegistryImpl;
+import masquerade.sim.db.ChannelChangeTrigger;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.db.ModelRepositoryFactory;
@@ -20,6 +21,8 @@ import masquerade.sim.model.Channel;
 import org.apache.commons.io.FileUtils;
 
 import com.db4o.ObjectContainer;
+import com.db4o.events.EventRegistry;
+import com.db4o.events.EventRegistryFactory;
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
@@ -67,11 +70,14 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create application context
 			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory);
 			
+			// Add channel change trigger
+			registerChannelChangeTrigger(db, listenerRegistry);
+			
 			// Start channels
 			ModelRepository repo = applicationContext.getModelRepositoryFactory().startModelRepositorySession();
 			try {
 				for (Channel channel : repo.getChannels()) {
-					listenerRegistry.notifyChannelChanged(channel.getName(), channel);
+					listenerRegistry.notifyChannelChanged(channel);
 				}
 			} finally {
 				repo.endSession();
@@ -88,6 +94,11 @@ public class ApplicationLifecycle implements ServletContextListener {
 			close(db);
 			throw t;
 		}
+	}
+
+	private void registerChannelChangeTrigger(ObjectContainer db, ChannelListenerRegistry channelListenerRegistry) {
+		EventRegistry events = EventRegistryFactory.forObjectContainer(db);
+		events.committed().addListener(new ChannelChangeTrigger(channelListenerRegistry));
 	}
 
 	private void close(ObjectContainer db) {

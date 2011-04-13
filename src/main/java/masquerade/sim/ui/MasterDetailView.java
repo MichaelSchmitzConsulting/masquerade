@@ -172,6 +172,7 @@ public class MasterDetailView extends CustomComponent {
         // Add button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.setSpacing(true);
+        buttonLayout.setMargin(true, false, false, false);
         Button addButton = new Button("Add");
         addButton.addListener(new ClickListener() {
 			@Override

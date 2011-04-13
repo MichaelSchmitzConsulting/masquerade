@@ -43,10 +43,10 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 
 	@Override
-	public void notifyChannelChanged(String name, Channel changedChannel) {
+	public void notifyChannelChanged(Channel changedChannel) {
 		synchronized (channels) {
 			@SuppressWarnings("unchecked")
-			ChannelListener<Channel> listener = getChannelListener(name, ChannelListener.class);
+			ChannelListener<Channel> listener = getChannelListener(changedChannel.getName(), ChannelListener.class);
 			
 			if (listener == null) {
 				startChannel(changedChannel);

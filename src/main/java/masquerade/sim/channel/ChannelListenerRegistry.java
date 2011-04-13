@@ -10,6 +10,6 @@ public interface ChannelListenerRegistry {
 	
 	<T extends ChannelListener<?>> Collection<T> getAllListeners(Class<T> channelListenerTye);
 	
-	void notifyChannelChanged(String name, Channel channel);
+	void notifyChannelChanged(Channel channel);
 	void notifyChannelDeleted(String name);
 }
