@@ -34,26 +34,25 @@ public class SimulationRunnerImpl implements SimulationRunner {
 
 	@Override
 	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request) throws Exception {
-		boolean simulationMatches = false;
+
 		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
 				if (mapping.accepts(request.getClass()) && matches(mapping, request)) {
 					ResponseSimulation simulation = mapping.getResponseSimulation();
-					simulationMatches = true;
 					
 					String requestId = getRequestId(simulation.getRequestIdProvider(), request);
 					requestHistory.logRequest(channelName, simulation.getName(), clientInfo, requestId, converter.convert(request, String.class));
 					
 					Object response = simulation.getScript().run(request, converter, fileLoader);
 					marshalResponse(response, responseOutput);
+					return;
 				}
 			}
 			
-			if (!simulationMatches) {
-				requestHistory.logRequest(channelName, null, clientInfo, null, converter.convert(request, String.class));
-			}
+			// No match found
+			requestHistory.logRequest(channelName, null, clientInfo, null, converter.convert(request, String.class));
 		} finally {
 			requestHistory.endSession();
 		}
