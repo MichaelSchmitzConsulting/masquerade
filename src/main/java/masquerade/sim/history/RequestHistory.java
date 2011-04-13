@@ -12,4 +12,6 @@ public interface RequestHistory {
 	void endSession();
 
 	InputStream getRequest(String requestId) throws IOException;
+
+	void clear();
 }

@@ -57,6 +57,15 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 	
 	@Override
+	public void clear() {
+		ObjectSet<HistoryEntry> result = dbSession.query(HistoryEntry.class);
+		for (HistoryEntry entry : result) {
+			dbSession.delete(entry);
+		}
+		dbSession.commit();
+	}
+
+	@Override
 	public List<HistoryEntry> getLatestRequests(final int maxAmount) {
 		Query query = dbSession.query();
 		query.constrain(HistoryEntry.class);

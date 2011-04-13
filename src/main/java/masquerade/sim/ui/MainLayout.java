@@ -13,8 +13,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
-
 import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
@@ -29,6 +27,8 @@ import masquerade.sim.model.Script;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
+
+import org.apache.commons.io.IOUtils;
 
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
@@ -169,6 +169,7 @@ public class MainLayout extends VerticalLayout {
 				
 		// Refresh button
 		HorizontalLayout bottomLayout = new HorizontalLayout();
+		bottomLayout.setSpacing(true);
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addListener(new ClickListener() {
 			@Override
@@ -178,6 +179,17 @@ public class MainLayout extends VerticalLayout {
 		});
 		bottomLayout.addComponent(refreshButton);
 		
+		// Clear button
+		Button clearButton = new Button("Clear");
+		clearButton.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				requestHistory.clear();
+				view.refresh(history.createContainer());
+			}
+		});
+		bottomLayout.addComponent(clearButton);
+
 		// Help label
 		Label label = new Label("Doubleclick on request to show payload");
 		bottomLayout.addComponent(label);
