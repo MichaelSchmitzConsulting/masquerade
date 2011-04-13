@@ -1,4 +1,4 @@
-package masquerade.sim.model.impl;
+package masquerade.sim.model.impl.step;
 
 import masquerade.sim.model.SimulationContext;
 
