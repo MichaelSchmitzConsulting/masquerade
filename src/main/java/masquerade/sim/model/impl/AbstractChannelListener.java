@@ -41,7 +41,7 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 		String channelName = channel.getName();
 		
 		boolean simulationMatches = false;
-		RequestHistory requestHistory = requestHistoryFactory.createRequestHistory();
+		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {

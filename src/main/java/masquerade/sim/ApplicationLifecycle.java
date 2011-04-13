@@ -11,6 +11,9 @@ import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.channel.ChannelListenerRegistryImpl;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepository;
+import masquerade.sim.db.ModelRepositoryFactory;
+import masquerade.sim.db.ModelRepositorySessionFactory;
+import masquerade.sim.db.RequestHistorySessionFactory;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Channel;
 
@@ -58,11 +61,14 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create channel listener registry
 			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(requestHistoryFactory);
 
+			// Create model repository factory
+			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
+			
 			// Create application context
-			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory);
+			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory);
 			
 			// Start channels
-			ModelRepository repo = applicationContext.startModelRepositorySession();
+			ModelRepository repo = applicationContext.getModelRepositoryFactory().startModelRepositorySession();
 			try {
 				for (Channel channel : repo.getChannels()) {
 					listenerRegistry.notifyChannelChanged(channel.getName(), channel);

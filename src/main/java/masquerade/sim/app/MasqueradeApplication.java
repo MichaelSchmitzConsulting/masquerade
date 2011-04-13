@@ -21,8 +21,8 @@ public class MasqueradeApplication extends Application {
 		ApplicationContext context = ApplicationLifecycle.getApplicationContext(this);
 		
 		// Start db session
-		modelRepository = context.startModelRepositorySession();
-		RequestHistory requestHistory = context.getRequestHistoryFactory().createRequestHistory();
+		modelRepository = context.getModelRepositoryFactory().startModelRepositorySession();
+		RequestHistory requestHistory = context.getRequestHistoryFactory().startRequestHistorySession();
 		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");

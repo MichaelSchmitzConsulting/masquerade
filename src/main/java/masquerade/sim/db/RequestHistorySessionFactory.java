@@ -1,10 +1,9 @@
-package masquerade.sim;
+package masquerade.sim.db;
 
 import java.io.File;
 
 import com.db4o.ObjectContainer;
 
-import masquerade.sim.db.RequestHistoryImpl;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.history.RequestHistoryFactory;
 
@@ -22,7 +21,7 @@ public class RequestHistorySessionFactory implements RequestHistoryFactory {
 	 * Returns a {@link RequestHistory} instance. Call {@link RequestHistory#endSession()} when done!
 	 */
 	@Override
-	public RequestHistory createRequestHistory() {
+	public RequestHistory startRequestHistorySession() {
 		ObjectContainer session = db.ext().openSession();
 		return new RequestHistoryImpl(session, requestLogDir);
 	}
