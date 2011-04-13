@@ -2,10 +2,10 @@ package masquerade.sim.db;
 
 import java.io.File;
 
-import com.db4o.ObjectContainer;
-
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.history.RequestHistoryFactory;
+
+import com.db4o.ObjectContainer;
 
 public class RequestHistorySessionFactory implements RequestHistoryFactory {
 

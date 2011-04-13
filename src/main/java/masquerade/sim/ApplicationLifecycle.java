@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.channel.ChannelListenerRegistryImpl;
+import masquerade.sim.converter.CompoundConverter;
 import masquerade.sim.db.ChannelChangeTrigger;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepository;
@@ -17,6 +18,11 @@ import masquerade.sim.db.ModelRepositorySessionFactory;
 import masquerade.sim.db.RequestHistorySessionFactory;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Channel;
+import masquerade.sim.model.Converter;
+import masquerade.sim.model.FileLoader;
+import masquerade.sim.model.SimulationRunner;
+import masquerade.sim.model.impl.FileLoaderImpl;
+import masquerade.sim.model.impl.SimulationRunnerImpl;
 
 import org.apache.commons.io.FileUtils;
 
@@ -61,14 +67,23 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create request history factory
 			RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(db, requestLogDir);
 			
+			// Create converter
+			Converter converter = new CompoundConverter();
+			
+			// Create file loader
+			FileLoader fileLoader = createFileLoader(servletContext);
+			
+			// Create simulation runner
+			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader);
+			
 			// Create channel listener registry
-			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(requestHistoryFactory);
+			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner);
 
 			// Create model repository factory
 			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
 			
 			// Create application context
-			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory);
+			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory, fileLoader, converter);
 			
 			// Add channel change trigger
 			registerChannelChangeTrigger(db, listenerRegistry);
@@ -96,6 +111,10 @@ public class ApplicationLifecycle implements ServletContextListener {
 		}
 	}
 
+	private FileLoader createFileLoader(ServletContext servletContext) throws IOException {
+		return new FileLoaderImpl(getArtifactsDir(servletContext));
+	}
+
 	private void registerChannelChangeTrigger(ObjectContainer db, ChannelListenerRegistry channelListenerRegistry) {
 		EventRegistry events = EventRegistryFactory.forObjectContainer(db);
 		events.committed().addListener(new ChannelChangeTrigger(channelListenerRegistry));
@@ -120,7 +139,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		String dbFileLocation = System.getProperty("masquerade.db.file.location");
 		if (dbFileLocation == null) {
 			File workDir = getWorkDir(servletContext);
-			File dbFile = new File(workDir, getAppName(servletContext) + "Db.db4o");
+			File dbFile = new File(workDir, getAppName(servletContext) + "-db.db4o");
 			return dbFile;
 		} else {
 			return new File(dbFileLocation);
@@ -129,17 +148,41 @@ public class ApplicationLifecycle implements ServletContextListener {
 	
 	private static File getRequestLogDir(ServletContext servletContext) throws IOException {
 		String requestLogDir = System.getProperty("masquerade.request.log.dir");
+		File dir;
 		if (requestLogDir == null) {
-			String name = getAppName(servletContext);
-			File workDir = getWorkDir(servletContext);
-			return new File(workDir, name + "RequestLog");
+			dir = servletWorkDir(servletContext, "-requestLog");
 		} else {
 			File requestLog = new File(requestLogDir);
 			FileUtils.forceMkdir(requestLog.getParentFile());
-			return requestLog;
+			dir = requestLog;
 		}
+		return createDir(dir);
 	}
-
+	
+	private static File getArtifactsDir(ServletContext servletContext) throws IOException {		
+		String artifactDir = System.getProperty("masquerade.artifact.dir");
+		File dir;
+		if (artifactDir == null) {
+			dir = servletWorkDir(servletContext, "-artifact");
+		} else {
+			dir = new File(artifactDir);
+		}
+		return createDir(dir);
+	}
+	
+	private static File servletWorkDir(ServletContext servletContext, String subdir) {
+		File dir;
+		String name = getAppName(servletContext);
+		File workDir = getWorkDir(servletContext);
+		dir = new File(workDir, name + subdir);
+		return dir;
+	}
+	
+	private static File createDir(File dir) throws IOException {
+		FileUtils.forceMkdir(dir);
+		return dir;
+	}
+	
 	private static String getAppName(ServletContext servletContext) {
 		String name = servletContext.getContextPath().replace("/", "_");
 		return name.length() > 0 ? name.substring(1) : name; // Remove leading _

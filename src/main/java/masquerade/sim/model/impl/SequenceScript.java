@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import masquerade.sim.model.Converter;
+import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationStep;
-
 
 /**
  * A response simulation script executing one step after each other 
@@ -21,9 +22,8 @@ public class SequenceScript extends AbstractScript {
 	}
 	
 	@Override
-	public Object run(Object request) throws Exception {
-		SimulationContext context = new SimulationContextImpl();
-		context.setContent(request);
+	public Object run(Object request, Converter converter, FileLoader fileLoader) throws Exception {
+		SimulationContext context = new SimulationContextImpl(request, converter, fileLoader);
 		for (SimulationStep step : simulationSteps) {
 			step.execute(context);
 		}

@@ -7,21 +7,21 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
+import masquerade.sim.model.SimulationRunner;
 
 public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
 	private static final Logger log = Logger.getLogger(ChannelListenerRegistryImpl.class.getName());
 	
 	private Map<String, ChannelListener<?>> channels = new LinkedHashMap<String, ChannelListener<?>>();
-	private RequestHistoryFactory requestHistoryFactory;
+	private SimulationRunner simulationRunner;
 	
-	public ChannelListenerRegistryImpl(RequestHistoryFactory requestHistoryFactory) {
-		this.requestHistoryFactory = requestHistoryFactory;
+	public ChannelListenerRegistryImpl(SimulationRunner simulationRunner) {
+		this.simulationRunner = simulationRunner;
 	}
-	
+
 	@Override
 	public <T extends ChannelListener<?>> T getChannelListener(String name, Class<T> channelListenerType) {
 		synchronized (channels) {
@@ -75,7 +75,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 			if (changedChannel.isActive()) {
 				log.log(Level.INFO, "Starting channel " + channelName);
 				ChannelListener<Channel> listener = createListener(changedChannel.getListenerType());
-				listener.start(changedChannel, requestHistoryFactory);
+				listener.start(changedChannel, simulationRunner);
 				channels.put(channelName, listener);
 			} else {
 				log.log(Level.INFO, "Skipping channel start for inactive channel " + channelName);
@@ -98,6 +98,6 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	private void restartChannel(ChannelListener<Channel> listener, Channel changedChannel) {
 		log.log(Level.INFO, "Restarting channel " + changedChannel);
 		listener.stop();
-		listener.start(changedChannel, requestHistoryFactory);
+		listener.start(changedChannel, simulationRunner);
 	}
 }

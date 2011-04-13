@@ -1,7 +1,6 @@
 package masquerade.sim.model.impl;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import javax.servlet.ServletOutputStream;
 
@@ -21,13 +20,6 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 			Document doc = DomUtil.parse(content);
 			processRequest(channel, clientInfo, doc, servletOutputStream);
 		}
-	}
-	
-	@Override
-	protected void marshalResponse(Object response, OutputStream responseOutput) {
-		// TODO: Marshalling
-		Document doc = (Document) response;
-		DomUtil.write(doc, responseOutput);
 	}
 	
 	@Override

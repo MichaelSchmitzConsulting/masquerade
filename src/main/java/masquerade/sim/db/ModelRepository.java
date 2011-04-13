@@ -18,6 +18,8 @@ import masquerade.sim.model.SimulationStep;
 import masquerade.sim.model.impl.AddResponseElementStep;
 import masquerade.sim.model.impl.HttpChannel;
 import masquerade.sim.model.impl.JmsChannel;
+import masquerade.sim.model.impl.LoadTemplateStep;
+import masquerade.sim.model.impl.LoadTemplateToVariableStep;
 import masquerade.sim.model.impl.SequenceScript;
 import masquerade.sim.model.impl.WaitStep;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
@@ -52,6 +54,8 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		// Simulation Steps
 		declareModelImplementation(SimulationStep.class, AddResponseElementStep.class);
 		declareModelImplementation(SimulationStep.class, WaitStep.class);
+		declareModelImplementation(SimulationStep.class, LoadTemplateStep.class);
+		declareModelImplementation(SimulationStep.class, LoadTemplateToVariableStep.class);
 	}
 
 	// Common monitor entered by all threads accessing the model to synchronize

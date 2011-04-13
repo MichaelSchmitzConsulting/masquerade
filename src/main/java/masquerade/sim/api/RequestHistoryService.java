@@ -1,5 +1,8 @@
 package masquerade.sim.api;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,8 +18,6 @@ import masquerade.sim.history.RequestHistory;
 import masquerade.sim.util.StringUtil;
 
 import org.apache.commons.io.IOUtils;
-
-import static org.apache.commons.lang.StringUtils.*;
 
 /**
  * Returns request data for the specified request ID, or HTTP status 404 if not found
