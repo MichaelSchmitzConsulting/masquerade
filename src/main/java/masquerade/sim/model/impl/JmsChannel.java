@@ -1,5 +1,6 @@
 package masquerade.sim.model.impl;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import masquerade.sim.model.ChannelListener;
 
 /**
@@ -37,6 +38,11 @@ public class JmsChannel extends AbstractChannel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public boolean isActive() {
+		return isNotEmpty(url);
 	}
 
 	@Override

@@ -20,6 +20,8 @@ public interface Channel {
 	 * @return All {@link RequestMapping mappings} for this channel
 	 */
 	Set<RequestMapping<?>> getRequestMappings();
+	
+	boolean isActive();
 
 	void setRequestMappings(Set<RequestMapping<?>> requestMappings);
 	
