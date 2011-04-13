@@ -27,7 +27,7 @@ public class RequestHistoryService extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ApplicationContext applicationContext = ApplicationLifecycle.getApplicationContext(getServletContext());
-		RequestHistory requestHistory = applicationContext.startRequestHistorySession();
+		RequestHistory requestHistory = applicationContext.getRequestHistoryFactory().createRequestHistory();
 		
 		try {
 			streamRequestContent(req, resp, requestHistory);

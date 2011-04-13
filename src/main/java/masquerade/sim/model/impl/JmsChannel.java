@@ -1,6 +1,6 @@
 package masquerade.sim.model.impl;
 
-import java.io.OutputStream;
+import masquerade.sim.model.ChannelListener;
 
 /**
  * A channel receiving requests from a JMS queue
@@ -13,17 +13,6 @@ public class JmsChannel extends AbstractChannel {
 
 	public JmsChannel(String name) {
 		super(name);
-	}
-
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		System.out.println("Would connect to " + user + ":" + password + "@" + url);
-	}
-
-	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
 	}
 
 	public String getUrl() {
@@ -56,7 +45,8 @@ public class JmsChannel extends AbstractChannel {
 	}
 
 	@Override
-	protected void marshalResponse(Object response, OutputStream responseOutput) {
-		// TODO Auto-generated method stub		
+	public Class<? extends ChannelListener<?>> getListenerType() {
+		// TODO JMS Channel listener
+		return null;
 	}
 }

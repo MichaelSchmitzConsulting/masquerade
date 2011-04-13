@@ -22,7 +22,7 @@ public class MasqueradeApplication extends Application {
 		
 		// Start db session
 		modelRepository = context.startModelRepositorySession();
-		RequestHistory requestHistory = context.startRequestHistorySession();
+		RequestHistory requestHistory = context.getRequestHistoryFactory().createRequestHistory();
 		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");

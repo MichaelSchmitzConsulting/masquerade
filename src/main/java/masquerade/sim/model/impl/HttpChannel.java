@@ -1,13 +1,7 @@
 package masquerade.sim.model.impl;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import masquerade.sim.model.ChannelListener;
 
-import javax.servlet.ServletOutputStream;
-
-import masquerade.sim.util.DomUtil;
-
-import org.w3c.dom.Document;
 
 /**
  * A channel that receives HTTP requests
@@ -37,15 +31,9 @@ public class HttpChannel extends AbstractChannel {
 		this.contentType = contentType;
 	}
 
-	public void processPost(String clientInfo, InputStream content, ServletOutputStream servletOutputStream) throws Exception {
-		Document doc = DomUtil.parse(content);
-		processRequest(clientInfo, doc, servletOutputStream);
-	}
-	
 	@Override
-	protected void marshalResponse(Object response, OutputStream responseOutput) {
-		Document doc = (Document) response;
-		DomUtil.write(doc, responseOutput);
+	public Class<? extends ChannelListener<?>> getListenerType() {
+		return HttpChannelListener.class;
 	}
 
 	@Override

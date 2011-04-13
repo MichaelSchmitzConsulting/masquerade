@@ -4,5 +4,5 @@ public interface RequestHistoryFactory {
 	/**
 	 * Returns a {@link RequestHistory} instance. Call {@link RequestHistory#endSession()} when done!
 	 */
-	RequestHistory getRequestHistory();
+	RequestHistory createRequestHistory();
 }

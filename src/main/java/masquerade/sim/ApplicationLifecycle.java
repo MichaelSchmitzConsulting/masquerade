@@ -2,12 +2,13 @@ package masquerade.sim;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import masquerade.sim.channel.ChannelListenerRegistry;
+import masquerade.sim.channel.ChannelListenerRegistryImpl;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.RequestHistoryFactory;
@@ -40,6 +41,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			ServletContext servletContext = event.getServletContext();
 			servletContext.log("Starting masquerade simulator");
 			
+			// Determine db file location
 			File dbFile = getDbFileLocation(servletContext);
 			servletContext.log("Database location: " + dbFile.getAbsolutePath());
 			
@@ -50,20 +52,20 @@ public class ApplicationLifecycle implements ServletContextListener {
 			File requestLogDir = getRequestLogDir(servletContext);
 			servletContext.log("Request log dir: " + requestLogDir.getAbsolutePath());
 			
+			// Create request history factory
+			RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(db, requestLogDir);
+			
+			// Create channel listener registry
+			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(requestHistoryFactory);
+
+			// Create application context
+			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory);
+			
 			// Start channels
-			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, requestLogDir);
 			ModelRepository repo = applicationContext.startModelRepositorySession();
 			try {
-				RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(applicationContext);
-				List<Channel> channels = repo.getChannels();
-				for (Channel channel : channels) {
-					channel.start(requestHistoryFactory);
-					// Hold a strong ref to all started channels in the app context
-					// Otherwise the DB will recreate channels when garbage collected,
-					// and their transient attributes will be lost (requestHistoryFactory)
-					// Channels must exist only once as their lifecycle is application-scoped. TODO: Split channels into config/logic
-					// to avoid using a global session on the DB to get the same channel instances in all of the app.
-					applicationContext.addChannel(channel);
+				for (Channel channel : repo.getChannels()) {
+					listenerRegistry.notifyChannelChanged(channel.getName(), channel);
 				}
 			} finally {
 				repo.endSession();
@@ -71,6 +73,8 @@ public class ApplicationLifecycle implements ServletContextListener {
 			
 			// Save application context reference in servlet context
 			servletContext.setAttribute(CONTEXT, applicationContext);
+			
+			servletContext.log("Simulator started");
 		} catch (IOException ex) {
 			close(db);
 			throw new IllegalArgumentException("Cannot create dir", ex);
@@ -87,10 +91,12 @@ public class ApplicationLifecycle implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
-		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
 		servletContext.log("Shutting down masquerade simulator");
-		context.getDb().stop();
-		servletContext.removeAttribute(CONTEXT);
+		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
+		if (context != null) {
+			context.getDb().stop();
+			servletContext.removeAttribute(CONTEXT);
+		}
 	}
 	
 	private File getDbFileLocation(ServletContext servletContext) {

@@ -1,51 +1,39 @@
 package masquerade.sim;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-
+import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepository;
-import masquerade.sim.db.RequestHistoryImpl;
-import masquerade.sim.history.RequestHistory;
-import masquerade.sim.model.Channel;
+import masquerade.sim.history.RequestHistoryFactory;
 
 import com.db4o.ObjectContainer;
 
 public class ApplicationContext {
 
 	private DatabaseLifecycle databaseLifecycle;
-	private File requestLogDir;
-	private Collection<Channel> channels = new ArrayList<Channel>();
+	private ChannelListenerRegistry channelListenerRegistry;
+	private RequestHistoryFactory requestHistoryFactory;
 	
-	public ApplicationContext(DatabaseLifecycle db, File requestLogDir) {
+	public ApplicationContext(DatabaseLifecycle db, ChannelListenerRegistry channelListenerRegistry, RequestHistoryFactory requestHistoryFactory) {
 		this.databaseLifecycle = db;
-		this.requestLogDir = requestLogDir;
+		this.channelListenerRegistry = channelListenerRegistry;
+		this.requestHistoryFactory = requestHistoryFactory;
 	}
 	
-	public DatabaseLifecycle getDb() {
+	DatabaseLifecycle getDb() {
 		return databaseLifecycle;
 	}
 	
+	// TODO: Move to factory
 	public ModelRepository startModelRepositorySession() {
-		ObjectContainer db = openDbSession(true);
+		ObjectContainer db = databaseLifecycle.getDb();
 		return new ModelRepository(db);
 	}
 	
-	public RequestHistory startRequestHistorySession() {
-		ObjectContainer db = openDbSession(false);
-		return new RequestHistoryImpl(db, requestLogDir);
+	public RequestHistoryFactory getRequestHistoryFactory() {
+		return requestHistoryFactory;
 	}
 	
-	private ObjectContainer openDbSession(boolean sharedGlobalSession) {
-		if (sharedGlobalSession) {
-			return databaseLifecycle.getDb();
-		} else {
-			return databaseLifecycle.getDb().ext().openSession();
-		}
-	}
-	
-	public void addChannel(Channel channel) {
-		this.channels .add(channel);
-	}
+	public ChannelListenerRegistry getChannelListenerRegistry() {
+		return channelListenerRegistry;
+	}	
 }

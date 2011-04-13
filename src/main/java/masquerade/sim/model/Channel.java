@@ -2,8 +2,6 @@ package masquerade.sim.model;
 
 import java.util.Set;
 
-import masquerade.sim.history.RequestHistoryFactory;
-
 /**
  * A channel receives requests
  */
@@ -25,7 +23,5 @@ public interface Channel {
 
 	void setRequestMappings(Set<RequestMapping<?>> requestMappings);
 	
-	void start(RequestHistoryFactory requestHistoryFactory);
-	
-	void stop();
+	Class<? extends ChannelListener<? extends Channel>> getListenerType();
 }
