@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.vaadin.codemirror.client.ui.CodeStyle;
-
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
@@ -18,7 +16,8 @@ import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
 import masquerade.sim.ui.field.FieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
-import masquerade.sim.ui.field.TextAreaFieldFactory;
+
+import org.vaadin.codemirror.client.ui.CodeStyle;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -54,8 +53,8 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 				"groovyScript", 
 				new CodeMirrorFieldFactory("Script", CodeStyle.JAVA));
 		factories.put(
-				"rubycript", 
-				new TextAreaFieldFactory("Script"));
+				"rubyScript", 
+				new CodeMirrorFieldFactory("Script", CodeStyle.JAVA));
 		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(

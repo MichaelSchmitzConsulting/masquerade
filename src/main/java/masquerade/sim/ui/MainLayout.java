@@ -36,12 +36,14 @@ import org.vaadin.codemirror.client.ui.CodeStyle;
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -54,15 +56,19 @@ public class MainLayout extends VerticalLayout {
 
 	private static final String[] COLUMNS = new String[] { "name", "description" };
 
-	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot) {
+	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot, ActionListener<Channel, String, Object> sendTestRequestAction) {
     	setSizeFull();
     	setMargin(true);    	
     	
-    	TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot);
+    	Embedded image = new Embedded(null, new ExternalResource("logo.png"));
+    	addComponent(image);
+    	
+    	TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot, sendTestRequestAction);
         addComponent(tabSheet);
+        setExpandRatio(tabSheet, 1.0f);
     }
 
-	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot) {
+	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot, ActionListener<Channel, String, Object> sendTestRequestAction) {
 		// Container factories retrieving model objects from the model repository and packing
     	// them into a Container suitable for binding to a view.
         ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
@@ -80,7 +86,7 @@ public class MainLayout extends VerticalLayout {
         Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
         Component requestHistoryUi = createRequestHistoryView(requestHistory);
         Component fileManager = createFileManager(artifactRoot);
-        Component requestTester = createRequestTestView(modelRepository);
+        Component requestTester = createRequestTestView(modelRepository, sendTestRequestAction);
         
         TabSheet tabSheet = new TabSheet();
         tabSheet.setHeight("100%");
@@ -108,9 +114,9 @@ public class MainLayout extends VerticalLayout {
 		return tabSheet;
 	}
 
-	private Component createRequestTestView(ModelRepository modelRepository) {
+	private Component createRequestTestView(ModelRepository modelRepository, ActionListener<Channel, String, Object> sendTestRequestAction) {
 		Collection<Channel> channels = modelRepository.getAll(Channel.class);
-		RequestTestView requestTestView = new RequestTestView();
+		RequestTestView requestTestView = new RequestTestView(sendTestRequestAction);
 		requestTestView.setChannels(channels);
 		requestTestView.setMargin(true);
 		return requestTestView;

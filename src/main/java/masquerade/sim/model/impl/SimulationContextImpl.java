@@ -16,19 +16,24 @@ public class SimulationContextImpl implements SimulationContext {
 	private Object content;
 	private Map<String, Object> contextVariables = new HashMap<String, Object>();
 	private Converter converter;
-	private FileLoader fileLoader;	
+	private FileLoader fileLoader;
+	private Object request;	
 
-	public SimulationContextImpl(Object content, Converter converter, FileLoader fileLoader) {
-		this.content = content;
+	public SimulationContextImpl(Object request, Converter converter, FileLoader fileLoader) {
+		this.request = request;
+		this.content = "";
 		this.converter = converter;
 		this.fileLoader = fileLoader;
 	}
 
 	@Override
+	public <R> Object getRequest(Class<R> expectedType) {
+		return convert(request, expectedType);
+	}
+
+	@Override
 	public <R> R getContent(Class<R> expectedContentType) {
-		@SuppressWarnings("unchecked")
-		R content = (R) this.content;
-		return content;
+		return convert(content, expectedContentType);
 	}
 
 	@Override

@@ -2,11 +2,11 @@ package masquerade.sim.model.impl.step;
 
 public class RubyScriptStep extends AbstractScriptedStep {
 
+	private String rubyScript = "";
+	
 	public RubyScriptStep(String name) {
 		super(name);
 	}
-
-	private String rubyScript;
 	
 	/**
 	 * @return The Ruby Script

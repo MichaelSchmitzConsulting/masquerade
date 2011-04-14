@@ -4,7 +4,9 @@ import java.io.InputStream;
 import java.util.Map;
 
 public interface SimulationContext extends Converter {
-	<R> R getContent(Class<R> expectedType);
+	<R> Object getRequest(Class<R> expectedType);
+	
+	<C> C getContent(Class<C> expectedType);
 	void setContent(Object content);
 	
 	void setVariable(String name, Object value);

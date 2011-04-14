@@ -59,6 +59,10 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	}
 
 	private void marshalResponse(Object response, OutputStream responseOutput) throws IOException {
+		if (response == null) {
+			return;
+		}
+		
 		InputStream input = converter.convert(response, InputStream.class);
 		if (input == null) {
 			byte[] ba = converter.convert(response, byte[].class);
