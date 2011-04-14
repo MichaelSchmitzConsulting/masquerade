@@ -22,20 +22,17 @@ import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.model.Channel;
-import masquerade.sim.model.FileType;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.ui.MasterDetailView.AddListener;
-import masquerade.sim.ui.UploadFileWindow.UploadResultListener;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
 import org.apache.commons.io.IOUtils;
 
 import com.vaadin.data.Container;
-import com.vaadin.data.util.FilesystemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Alignment;
@@ -54,8 +51,6 @@ import com.vaadin.ui.VerticalLayout;
 
 public class MainLayout extends VerticalLayout {
 
-	private static final String[] VISIBLE_FILE_COLS = new String[] {
-		FilesystemContainer.PROPERTY_NAME, FilesystemContainer.PROPERTY_SIZE, FilesystemContainer.PROPERTY_LASTMODIFIED };
 	private static final String[] COLUMNS = new String[] { "name", "description" };
 
 	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot) {
@@ -83,7 +78,7 @@ public class MainLayout extends VerticalLayout {
         Component scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
         Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
         Component requestHistoryUi = createRequestHistoryView(requestHistory);
-        Component artifactManager = createArtifactManager(artifactRoot);
+        Component fileManager = createFileManager(artifactRoot);
         
         TabSheet tabSheet = new TabSheet();
         tabSheet.setHeight("100%");
@@ -96,7 +91,7 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(scripts, "Scripts", SCRIPT.icon());
         tabSheet.addTab(requestIdProviders, "Request ID Providers", REQUEST_ID_PROVIDER.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
-        tabSheet.addTab(artifactManager, "Artifacts", ARTIFACT.icon());
+        tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
         
         // Refresh master/detail view contents on tab selection
         Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();
@@ -110,44 +105,8 @@ public class MainLayout extends VerticalLayout {
 		return tabSheet;
 	}
 
-	private Component createArtifactManager(File artifactRoot) {
-		HorizontalLayout layout = new HorizontalLayout();
-        layout.setMargin(true);
-        layout.setSizeFull();
-
-        // Create file list view
-		final MasterDetailView view = new MasterDetailView();
-		layout.addComponent(view);
-
-		// Add filesystem container to display templates
-        final File templateRoot = new File(artifactRoot, FileType.TEMPLATE.name().toLowerCase());
-        if (templateRoot.exists()) {
-        	updateArtifactView(view, templateRoot);
-        }
-        
-/*        view.addFormCommitListener(commit);
-        view.addDeleteListener(del);*/
-        final UploadResultListener uploadListener = new UploadResultListener() {
-			@Override public void onUploadFailed() {
-				// Ignored, upload window already shows error notification
-			}
-			@Override public void onUploadDone(File file) {
-				updateArtifactView(view, templateRoot);
-			}        	
-        };
-        
-        view.addAddListener(new AddListener() {
-			@Override public void onAdd() {
-				UploadFileWindow.showModal(getWindow(), "Upload Artifact", templateRoot, uploadListener);
-			}
-		});
-        
-		return layout;
-	}
-
-	private void updateArtifactView(MasterDetailView view, final File templateRoot) {
-		Container container = new FilesystemContainer(templateRoot);
-		view.setDataSource(container, VISIBLE_FILE_COLS);
+	private Component createFileManager(File artifactRoot) {
+		return new FileManagerView(artifactRoot);
 	}
 
 	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, ContainerFactory> refreshMap) {
