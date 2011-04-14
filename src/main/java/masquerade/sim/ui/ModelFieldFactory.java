@@ -4,12 +4,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.vaadin.codemirror.client.ui.CodeStyle;
+
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.ui.field.CodeMirrorFieldFactory;
 import masquerade.sim.ui.field.CollectionSelectWindow;
 import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
@@ -46,7 +49,7 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 				new EditWindowFieldFactory("Steps", this, SimulationStep.class, modelRepository.getModelImplementations(SimulationStep.class)));
 		factories.put(
 				"javaScript", 
-				new TextAreaFieldFactory("Script"));
+				new CodeMirrorFieldFactory("Script", CodeStyle.JAVASCRIPT));
 		factories.put(
 				"groovyScript", 
 				new TextAreaFieldFactory("Script"));
