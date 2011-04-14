@@ -21,6 +21,10 @@
 			<param-name>application</param-name>
 			<param-value>masquerade.sim.app.MasqueradeApplication</param-value>
 		</init-param>
+		<init-param>
+    		<param-name>widgetset</param-name>
+    		<param-value>masquerade.sim.ui.widgetset.WidgetSet</param-value>
+		</init-param>
 	</servlet>
 	<servlet>
 		<servlet-name>httpChannel</servlet-name>

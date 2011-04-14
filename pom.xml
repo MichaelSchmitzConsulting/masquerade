@@ -71,6 +71,92 @@
 					<path>/masquerade</path>
 				</configuration>
 			</plugin>
+			<!-- Compiles your custom GWT components with the GWT compiler -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<!-- Version 2.1.0-1 works at least with Vaadin 6.5 -->
+				<version>2.1.0-1</version>
+				<configuration>
+					<!-- if you don't specify any modules, the plugin will find them -->
+					<!--modules> .. </modules -->
+					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
+					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<runTarget>clean</runTarget>
+					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+					<noServer>true</noServer>
+					<port>8080</port>
+					<soyc>false</soyc>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>resources</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
+			<plugin>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- if you don't specify any modules, the plugin will find them -->
+							<!-- <modules> <module>${package}.gwt.MyWidgetSet</module> </modules> -->
+						</configuration>
+						<goals>
+							<goal>update-widgetset</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Compiles your custom GWT components with the GWT compiler -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<!-- Version 2.1.0-1 works at least with Vaadin 6.5 -->
+				<version>2.1.0-1</version>
+				<configuration>
+					<!-- if you don't specify any modules, the plugin will find them -->
+					<!--modules> .. </modules -->
+					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
+					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<runTarget>clean</runTarget>
+					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+					<noServer>true</noServer>
+					<port>8080</port>
+					<soyc>false</soyc>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>resources</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
+			<plugin>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- if you don't specify any modules, the plugin will find them -->
+							<!-- <modules> <module>${package}.gwt.MyWidgetSet</module> </modules> -->
+						</configuration>
+						<goals>
+							<goal>update-widgetset</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -109,11 +195,11 @@
 			<artifactId>customfield</artifactId>
 			<version>0.9.0</version>
 		</dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>codemirror</artifactId>
-            <version>0.9.3</version>
-        </dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>codemirror</artifactId>
+			<version>0.9.3</version>
+		</dependency>
 		<!-- db4o -->
 		<dependency>
 			<groupId>com.db4o</groupId>
