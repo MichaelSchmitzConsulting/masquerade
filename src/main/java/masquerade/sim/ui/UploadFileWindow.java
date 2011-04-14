@@ -32,9 +32,9 @@ public class UploadFileWindow extends Window implements Receiver, FailedListener
 	}
 	
 	/**
-	 * @param caption
-	 * @param listener2 
-	 * @param uploadTargetDir2 
+	 * @param caption 
+	 * @param listener 
+	 * @param uploadTargetDir 
 	 */
 	private UploadFileWindow(String caption, File uploadTargetDir, UploadResultListener listener) {
 		super(caption);
@@ -42,10 +42,14 @@ public class UploadFileWindow extends Window implements Receiver, FailedListener
 		this.listener = listener;
 		
 		setModal(true);
+		setSizeUndefined();
 		
 		VerticalLayout layout = (VerticalLayout) getContent();
-		Upload upload = new Upload("Upload the file here", this);
-		layout.addComponent(layout);
+		layout.setSizeUndefined();
+		layout.setSpacing(true);
+		Upload upload = new Upload("Upload", this);
+		upload.setButtonCaption("Upload");
+		layout.addComponent(upload);
 		
 		 // Listen for events regarding the success of upload.
         upload.addListener((Upload.SucceededListener) this);
@@ -62,6 +66,7 @@ public class UploadFileWindow extends Window implements Receiver, FailedListener
         } catch (FileNotFoundException e) {
     		WindowUtil.showErrorNotification(this, "Upload failed", "File creation failed: " + e.getMessage());
     		listener.onUploadFailed();
+    		close();
             return null;
         }
 
@@ -74,10 +79,12 @@ public class UploadFileWindow extends Window implements Receiver, FailedListener
 		String msg = reason != null ? reason.getMessage() : "Unknown";
 		WindowUtil.showErrorNotification(this, "Upload failed", "Cause: " + msg);
 		listener.onUploadFailed();
+		close();
 	}
 
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		listener.onUploadDone(file);		
+		close();
 	}
 }
