@@ -68,7 +68,11 @@ public class SimulationRunnerImpl implements SimulationRunner {
 			byte[] ba = converter.convert(response, byte[].class);
 			if (ba == null) {
 				String str = converter.convert(response, String.class);
-				IOUtils.write(str, responseOutput);
+				if (str != null) {
+					IOUtils.write(str, responseOutput);
+				} else {
+					// TODO log
+				}
 			} else {
 				IOUtils.write(ba, responseOutput);
 			}

@@ -42,6 +42,7 @@ public class RequestTestView extends VerticalLayout {
 		requestContent = new CodeMirror("Test Request", CodeStyle.XML);
 		requestContent.setWidth("600px");
 		requestContent.setHeight("300px");
+		requestContent.setValue("<test/>");
 		addComponent(requestContent);
 		setExpandRatio(requestContent, 1.0f);
 		

@@ -16,14 +16,18 @@ public class CompoundConverter implements Converter {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T convert(Object value, Class<T> to) {
+		if (value == null) {
+			return null;
+		}
+		
 		Class<?> from = value.getClass();
-		if (from == to) {
+		if (to.isAssignableFrom(from)) {
 			return (T) value;
 		}
 		
 		// TODO: Hierarchical converter registry
 		
-		if (from == Document.class) {
+		if (Document.class.isAssignableFrom(from)) {
 			Document doc = (Document) value;
 			if (to == String.class) {
 				return (T) DomUtil.asString(doc);
@@ -33,7 +37,7 @@ public class CompoundConverter implements Converter {
 				String str = DomUtil.asString(doc);
 				return (T) new ByteArrayInputStream(str.getBytes());
 			}
-		} else if (from == String.class) {
+		} else if (String.class.isAssignableFrom(from)) {
 			String str = (String) value;
 			if (to == Document.class) {
 				return (T) DomUtil.parse(str);
@@ -42,7 +46,7 @@ public class CompoundConverter implements Converter {
 			} else if (to == InputStream.class) { 
 				return (T) new ByteArrayInputStream(str.getBytes());
 			}
-		} else if (from == InputStream.class) {
+		} else if (InputStream.class.isAssignableFrom(from)) {
 			InputStream is = (InputStream) value;
 			if (to == String.class){ 
 				return (T) toString(is);
