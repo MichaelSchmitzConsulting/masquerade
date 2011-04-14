@@ -109,6 +109,11 @@
 			<artifactId>customfield</artifactId>
 			<version>0.9.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>codemirror</artifactId>
+            <version>0.9.3</version>
+        </dependency>
 		<!-- db4o -->
 		<dependency>
 			<groupId>com.db4o</groupId>
