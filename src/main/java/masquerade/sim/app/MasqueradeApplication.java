@@ -26,7 +26,7 @@ public class MasqueradeApplication extends Application {
 		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");
-		mainWindow.setContent(new MainLayout(modelRepository, requestHistory));
+		mainWindow.setContent(new MainLayout(modelRepository, requestHistory, context.getArtifactRoot()));
 		setMainWindow(mainWindow);
 	}
 

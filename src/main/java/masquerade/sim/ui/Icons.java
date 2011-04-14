@@ -9,7 +9,8 @@ public enum Icons {
 	SCRIPT("document-txt.png"),
 	REQUEST_MAPPING("arrow-right.png"),
 	REQUEST_ID_PROVIDER("note.png"),
-	REQUEST_HISTORY("document-txt.png");
+	REQUEST_HISTORY("email-send.png"),
+	ARTIFACT("document-txt.png");
 	
 	private static final String BASE_PATH = "../runo/icons/32/";
 	

@@ -71,7 +71,8 @@ public class ApplicationLifecycle implements ServletContextListener {
 			Converter converter = new CompoundConverter();
 			
 			// Create file loader
-			FileLoader fileLoader = createFileLoader(servletContext);
+			File artifactsRoot = getArtifactsDir(servletContext);
+			FileLoader fileLoader = new FileLoaderImpl(artifactsRoot);
 			
 			// Create simulation runner
 			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader);
@@ -87,7 +88,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			
 			// Create application context
 			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory,
-				fileLoader, converter);
+				fileLoader, converter, artifactsRoot);
 			
 			// Save application context reference in servlet context
 			servletContext.setAttribute(CONTEXT, applicationContext);
@@ -110,10 +111,6 @@ public class ApplicationLifecycle implements ServletContextListener {
 			close(db);
 			throw t;
 		}
-	}
-
-	private FileLoader createFileLoader(ServletContext servletContext) throws IOException {
-		return new FileLoaderImpl(getArtifactsDir(servletContext));
 	}
 
 	private void registerChannelChangeTrigger(ObjectContainer db, ChannelListenerRegistry channelListenerRegistry) {

@@ -1,5 +1,7 @@
 package masquerade.sim;
 
+import java.io.File;
+
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepositoryFactory;
@@ -19,7 +21,8 @@ public class ApplicationContext {
 	private ModelRepositoryFactory modelRepositoryFactory;
 	private FileLoader fileLoader;
 	private Converter converter;
-
+	private File artifactRoot;
+	
 	/**
 	 * @param databaseLifecycle
 	 * @param channelListenerRegistry
@@ -27,15 +30,18 @@ public class ApplicationContext {
 	 * @param modelRepositoryFactory
 	 * @param fileLoader
 	 * @param converter
+	 * @param artifactRoot
 	 */
 	public ApplicationContext(DatabaseLifecycle databaseLifecycle, ChannelListenerRegistry channelListenerRegistry,
-		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter) {
+		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
+		File artifactRoot) {
 		this.databaseLifecycle = databaseLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
 		this.requestHistoryFactory = requestHistoryFactory;
 		this.modelRepositoryFactory = modelRepositoryFactory;
 		this.fileLoader = fileLoader;
 		this.converter = converter;
+		this.artifactRoot = artifactRoot;
 	}
 
 	/**
@@ -79,5 +85,12 @@ public class ApplicationContext {
 	 */
 	public Converter getConverter() {
 		return converter;
+	}
+
+	/**
+	 * @return the artifactRoot
+	 */
+	public File getArtifactRoot() {
+		return artifactRoot;
 	}
 }

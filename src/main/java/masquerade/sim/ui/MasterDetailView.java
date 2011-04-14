@@ -81,7 +81,9 @@ public class MasterDetailView extends CustomComponent {
 	// TODO: Move visibleCols to c'tor or own setter
 	public void setDataSource(Container dataSource, String[] visibleColumns) {
 		masterTable.setContainerDataSource(dataSource);
-	    masterTable.setVisibleColumns(visibleColumns);
+		if (visibleColumns != null) {
+			masterTable.setVisibleColumns(visibleColumns);
+		}
 	}
 	
 	public Container getDataSource() {
