@@ -82,11 +82,15 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create model repository factory
 			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
 			
-			// Create application context
-			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory, fileLoader, converter);
-			
 			// Add channel change trigger
 			registerChannelChangeTrigger(db, listenerRegistry);
+			
+			// Create application context
+			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory,
+				fileLoader, converter);
+			
+			// Save application context reference in servlet context
+			servletContext.setAttribute(CONTEXT, applicationContext);
 			
 			// Start channels
 			ModelRepository repo = applicationContext.getModelRepositoryFactory().startModelRepositorySession();
@@ -97,9 +101,6 @@ public class ApplicationLifecycle implements ServletContextListener {
 			} finally {
 				repo.endSession();
 			}
-			
-			// Save application context reference in servlet context
-			servletContext.setAttribute(CONTEXT, applicationContext);
 			
 			servletContext.log("Simulator started");
 		} catch (IOException ex) {
