@@ -10,10 +10,12 @@ import masquerade.sim.model.SimulationRunner;
 
 public abstract class AbstractChannelListener<T extends Channel> implements ChannelListener<T> {
 	private SimulationRunner simulationRunner;
+	private String channelName;
 
 	@Override
 	public final void start(T channel, SimulationRunner simulationRunner) {
 		this.simulationRunner = simulationRunner;
+		channelName = channel.getName();
 		onStart(channel);
 	}
 
@@ -25,10 +27,7 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	protected abstract void onStart(T channel);
 	protected abstract void onStop(); 
 
-	protected void processRequest(Channel channel, String clientInfo,  Object request, OutputStream responseOutput) throws Exception {
-		Set<RequestMapping<?>> requestMappings = channel.getRequestMappings();
-		String channelName = channel.getName();
-		
+	protected void processRequest(Set<RequestMapping<?>> requestMappings, String clientInfo,  Object request, OutputStream responseOutput) throws Exception {
 		simulationRunner.runSimulation(responseOutput, channelName, clientInfo, requestMappings, request);
 	}
 }

@@ -4,13 +4,12 @@ import java.util.logging.Logger;
 
 import javax.jms.ConnectionFactory;
 
-import masquerade.sim.model.ChannelListener;
-import masquerade.sim.model.SimulationRunner;
+import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.JmsChannel;
 
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 
-public class JmsChannelListener implements ChannelListener<JmsChannel> {
+public class JmsChannelListener extends AbstractChannelListener<JmsChannel> {
 
 	private final static Logger log = Logger.getLogger(JmsChannelListener.class.getName());
 
@@ -23,7 +22,7 @@ public class JmsChannelListener implements ChannelListener<JmsChannel> {
 	private SimpleMessageListenerContainer container;
 	
 	@Override
-	public void start(JmsChannel channel, SimulationRunner runner) {
+	public void onStart(JmsChannel channel) {
 		url = channel.getUrl();
 		user = channel.getUser();
 		password = channel.getPassword();
@@ -50,7 +49,7 @@ public class JmsChannelListener implements ChannelListener<JmsChannel> {
 	}
 
 	@Override
-	public void stop() {
+	public void onStop() {
 		log.info("Stopping JmsChannelListener");
 		if (container != null) {
 			container.stop();

@@ -80,6 +80,7 @@ public class MainLayout extends VerticalLayout {
         Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
         Component requestHistoryUi = createRequestHistoryView(requestHistory);
         Component fileManager = createFileManager(artifactRoot);
+        Component requestTester = createRequestTestView(modelRepository);
         
         TabSheet tabSheet = new TabSheet();
         tabSheet.setHeight("100%");
@@ -93,6 +94,7 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(requestIdProviders, "Request ID Providers", REQUEST_ID_PROVIDER.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
+        tabSheet.addTab(requestTester, "Test", ARTIFACT.icon());
         
         // Refresh master/detail view contents on tab selection
         Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();
@@ -104,6 +106,14 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addListener(createTabSelectionListener(refreshMap));
         
 		return tabSheet;
+	}
+
+	private Component createRequestTestView(ModelRepository modelRepository) {
+		Collection<Channel> channels = modelRepository.getAll(Channel.class);
+		RequestTestView requestTestView = new RequestTestView();
+		requestTestView.setChannels(channels);
+		requestTestView.setMargin(true);
+		return requestTestView;
 	}
 
 	private Component createFileManager(File artifactRoot) {

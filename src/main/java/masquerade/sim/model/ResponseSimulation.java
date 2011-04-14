@@ -1,6 +1,5 @@
 package masquerade.sim.model;
 
-import masquerade.sim.model.impl.SequenceScript;
 
 /**
  * Describes how a response is simulated for an incoming request. Simulation 

@@ -1,8 +1,7 @@
 package masquerade.sim.model.impl;
 
 import java.io.InputStream;
-
-import javax.servlet.ServletOutputStream;
+import java.io.OutputStream;
 
 import masquerade.sim.util.DomUtil;
 import masquerade.sim.util.StringUtil;
@@ -15,10 +14,10 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 	private String contentType;
 	private String location;
 
-	public void processRequest(String clientInfo, InputStream content, ServletOutputStream servletOutputStream) throws Exception {
+	public void processRequest(String clientInfo, InputStream content, OutputStream servletOutputStream) throws Exception {
 		if (channel != null) {
 			Document doc = DomUtil.parse(content);
-			processRequest(channel, clientInfo, doc, servletOutputStream);
+			processRequest(channel.getRequestMappings(), clientInfo, doc, servletOutputStream);
 		}
 	}
 	
