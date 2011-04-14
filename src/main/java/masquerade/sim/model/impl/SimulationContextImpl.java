@@ -1,6 +1,7 @@
 package masquerade.sim.model.impl;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,11 @@ public class SimulationContextImpl implements SimulationContext {
 		@SuppressWarnings("unchecked")
 		T value = (T) contextVariables.get(name);
 		return value;
+	}
+
+	@Override
+	public Map<String, Object> getVariables() {
+		return Collections.unmodifiableMap(contextVariables);
 	}
 
 	@Override

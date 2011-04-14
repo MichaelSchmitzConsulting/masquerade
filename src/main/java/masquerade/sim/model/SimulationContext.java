@@ -1,6 +1,7 @@
 package masquerade.sim.model;
 
 import java.io.InputStream;
+import java.util.Map;
 
 public interface SimulationContext {
 	<R> R getContent(Class<R> expectedType);
@@ -8,6 +9,7 @@ public interface SimulationContext {
 	
 	void setVariable(String name, Object value);
 	<T> T getVariable(String name);
+	Map<String, Object> getVariables();
 	
 	String substituteVariables(String content);
 	
