@@ -18,26 +18,6 @@ public class ClassUtil {
 	 */
 	public static String fromCamelCase(Class<?> type) {
 		String uqn = unqualifiedName(type);
-		StringBuffer name = new StringBuffer(uqn);
-		if (name.length() == 0) return "";
-		
-		// Convert first character to upper case
-		char low = name.charAt(0);
-		char upper = Character.toUpperCase(low);
-		name.setCharAt(0, upper);
-		
-		int shift = 0;
-		for (int i = 1; i < uqn.length(); ++i) {
-			if (isUpperCase(uqn, i) && !isUpperCase(uqn, i + 1)) {
-				name.insert(i + shift, ' ');
-				shift++;
-			}
-		}
-		return name.toString();
+		return StringUtil.fromCamelCase(uqn);
     }
-
-	private static boolean isUpperCase(String uqn, int i) {
-		return i < uqn.length() && Character.isUpperCase(uqn.charAt(i));
-	}
-
 }

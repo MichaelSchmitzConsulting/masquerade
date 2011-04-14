@@ -22,6 +22,8 @@ public class RequestTestView extends VerticalLayout {
 	private Select channelSelect;
 
 	public RequestTestView() {
+		setSpacing(true);
+		
 		CodeMirror codeMirror = new CodeMirror("Test Request", CodeStyle.XML);
 		codeMirror.setSizeFull();
 		addComponent(codeMirror);

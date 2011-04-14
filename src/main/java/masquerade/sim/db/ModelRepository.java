@@ -25,6 +25,7 @@ import masquerade.sim.model.impl.step.GroovyScriptStep;
 import masquerade.sim.model.impl.step.JavaScriptStep;
 import masquerade.sim.model.impl.step.LoadTemplateStep;
 import masquerade.sim.model.impl.step.LoadTemplateToVariableStep;
+import masquerade.sim.model.impl.step.RubyScriptStep;
 import masquerade.sim.model.impl.step.WaitStep;
 
 import com.db4o.ObjectContainer;
@@ -60,6 +61,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		declareModelImplementation(SimulationStep.class, LoadTemplateToVariableStep.class);
 		declareModelImplementation(SimulationStep.class, JavaScriptStep.class);
 		declareModelImplementation(SimulationStep.class, GroovyScriptStep.class);
+		declareModelImplementation(SimulationStep.class, RubyScriptStep.class);
 	}
 
 	// Common monitor entered by all threads accessing the model to synchronize
