@@ -2,9 +2,13 @@ package masquerade.sim.channel.jms;
 
 import java.util.logging.Logger;
 
+import javax.jms.ConnectionFactory;
+
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.impl.JmsChannel;
+
+import org.springframework.jms.listener.SimpleMessageListenerContainer;
 
 public class JmsChannelListener implements ChannelListener<JmsChannel> {
 
@@ -12,18 +16,45 @@ public class JmsChannelListener implements ChannelListener<JmsChannel> {
 
 	private String url;
 	private String user;
-	//private String password;
+	private String destinationName;
+	private String password;
+	private boolean isTopic;
+
+	private SimpleMessageListenerContainer container;
 	
 	@Override
 	public void start(JmsChannel channel, SimulationRunner runner) {
 		url = channel.getUrl();
 		user = channel.getUser();
-		//password = channel.getPassword();
+		password = channel.getPassword();
+		destinationName = channel.getDestinationName();
+		isTopic = channel.isTopic();
 		log.info("Starting JmsChannelListener at " + url + " with user " + user);
+		
+		ConnectionFactory connectionFactory = createConnectionFactory();
+		
+		container = new SimpleMessageListenerContainer();
+		container.setPubSubDomain(isTopic);
+		container.setConnectionFactory(connectionFactory);
+		container.setDestinationName(destinationName);
+		container.setMessageListener(this);
+		container.setAutoStartup(true);
+		container.initialize();
+		container.start();
+	}
+	
+	private ConnectionFactory createConnectionFactory() {
+		// TODO: implement factory for connection factories, with implementations
+		// for IBM MQ, Tibco EM, ActiveMQ, RabbitMQ
+		return null;
 	}
 
 	@Override
 	public void stop() {
 		log.info("Stopping JmsChannelListener");
+		if (container != null) {
+			container.stop();
+			container = null;
+		}
 	}
 }

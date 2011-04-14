@@ -31,6 +31,7 @@ import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
 import org.apache.commons.io.IOUtils;
+import org.vaadin.codemirror.client.ui.CodeStyle;
 
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
@@ -216,7 +217,7 @@ public class MainLayout extends VerticalLayout {
 			try {
 				InputStream stream = historyEntry.readRequestData();
 				content = IOUtils.toString(stream);
-				SourceViewWindow.showModal(getWindow(), "Request Viewer", content);
+				SourceViewWindow.showModal(getWindow(), "Request Viewer", content, CodeStyle.XML);
 			} catch (IOException e) {
 				WindowUtil.showErrorNotification(getWindow(), "Error retrieving content", "Unable to retrieve request: " + e.getMessage());
 			}

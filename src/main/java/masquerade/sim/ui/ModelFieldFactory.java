@@ -52,7 +52,7 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 				new CodeMirrorFieldFactory("Script", CodeStyle.JAVASCRIPT));
 		factories.put(
 				"groovyScript", 
-				new TextAreaFieldFactory("Script"));
+				new CodeMirrorFieldFactory("Script", CodeStyle.JAVA));
 		factories.put(
 				"rubycript", 
 				new TextAreaFieldFactory("Script"));

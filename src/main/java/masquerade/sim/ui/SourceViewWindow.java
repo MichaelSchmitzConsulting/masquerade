@@ -2,6 +2,9 @@ package masquerade.sim.ui;
 
 import masquerade.sim.util.WindowUtil;
 
+import org.vaadin.codemirror.CodeMirror;
+import org.vaadin.codemirror.client.ui.CodeStyle;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -12,13 +15,13 @@ import com.vaadin.ui.Window;
 public class SourceViewWindow extends Window {
 	private TextField view;
 	
-	public static void showModal(Window parent, String caption, String content) {
-		SourceViewWindow window = new SourceViewWindow(caption);
+	public static void showModal(Window parent, String caption, String content, CodeStyle style) {
+		SourceViewWindow window = new SourceViewWindow(caption, style);
 		window.setContent(content);
 		WindowUtil.getRoot(parent).addWindow(window);
 	}
 	
-	private SourceViewWindow(String caption) {
+	private SourceViewWindow(String caption, CodeStyle style) {
 		super(caption);
 		
 		setModal(true);
@@ -30,7 +33,11 @@ public class SourceViewWindow extends Window {
 		layout.setSpacing(true);
 		layout.setSizeFull();
 		
-		view = new TextField();
+		if (style == null) {
+			view = new TextField();
+		} else {
+			view = new CodeMirror(caption, style);
+		}
 		view.setSizeFull();
 		layout.addComponent(view);
 		layout.setExpandRatio(view, 1.0f);

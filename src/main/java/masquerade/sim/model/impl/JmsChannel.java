@@ -1,6 +1,7 @@
 package masquerade.sim.model.impl;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import masquerade.sim.channel.jms.JmsChannelListener;
 import masquerade.sim.model.ChannelListener;
 
 /**
@@ -11,6 +12,8 @@ public class JmsChannel extends AbstractChannel {
 	private String url;
 	private String user;
 	private String password;
+	private String destinationName;
+	private boolean isTopic;
 
 	public JmsChannel(String name) {
 		super(name);
@@ -40,9 +43,40 @@ public class JmsChannel extends AbstractChannel {
 		this.password = password;
 	}
 
+	/**
+	 * @return JMS destination name (queue/topic name)
+	 */
+	public String getDestinationName() {
+		return destinationName;
+	}
+
+	/**
+	 * @param destinationName The destination name to set
+	 */
+	public void setDestinationName(String destinationName) {
+		this.destinationName = destinationName;
+	}
+
+	/**
+	 * @return SimpleMessageListenerContainer
+	 */
+	public boolean isTopic() {
+		return isTopic;
+	}
+
+	/**
+	 * @param isTopic SimpleMessageListenerContainer
+	 */
+	public void setTopic(boolean isTopic) {
+		this.isTopic = isTopic;
+	}
+
+	/**
+	 * @return <code>true</code> If this channel is configured with an URL and a destination
+	 */
 	@Override
 	public boolean isActive() {
-		return isNotEmpty(url);
+		return isNotEmpty(url) && isNotEmpty(destinationName);
 	}
 
 	@Override
@@ -52,7 +86,6 @@ public class JmsChannel extends AbstractChannel {
 
 	@Override
 	public Class<? extends ChannelListener<?>> getListenerType() {
-		// TODO JMS Channel listener
-		return null;
+		return JmsChannelListener.class;
 	}
 }
