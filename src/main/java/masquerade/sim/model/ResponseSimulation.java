@@ -15,7 +15,6 @@ public class ResponseSimulation {
 	
 	public ResponseSimulation(String name) {
 		this.name = name;
-		this.script = new SequenceScript(name + "Script");
 	}
 
 	public RequestIdProvider<?> getRequestIdProvider() {

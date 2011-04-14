@@ -2,7 +2,7 @@ package masquerade.sim.model.impl.step;
 
 public class GroovyScriptStep extends AbstractScriptedStep {
 
-	private String groovyScript;
+	private String groovyScript = "";
 	
 	public GroovyScriptStep(String name) {
 		super(name);

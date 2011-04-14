@@ -14,8 +14,25 @@ public abstract class AbstractScriptedStep extends AbstractSimulationStep {
 
 	private static final String CONTEXT_VAR_NAME = "_context";
 
+	private String description = "";
+	
 	public AbstractScriptedStep(String name) {
 		super(name);
+	}
+
+	/**
+	 * @return the description
+	 */
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**
