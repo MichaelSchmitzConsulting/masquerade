@@ -20,8 +20,9 @@ public class StringUtil {
 		for (Map.Entry<String, Object> entry : contextVariables.entrySet()) {
 			String name = entry.getKey();
 			String value = converter.convert(entry.getValue(), String.class);
-			
-			ret = content.replace("${" + name + "}", value);
+			if (value != null) {
+				ret = content.replace("${" + name + "}", value);
+			}
 		}
 		return ret;
 	}
