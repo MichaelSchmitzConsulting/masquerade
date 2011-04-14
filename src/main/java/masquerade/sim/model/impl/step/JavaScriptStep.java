@@ -34,4 +34,9 @@ public class JavaScriptStep extends AbstractScriptedStep {
 	protected String getScript() {
 		return javaScript;
 	}
+
+	@Override
+	public String toString() {
+		return "Java Script Step";
+	}
 }

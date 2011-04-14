@@ -15,6 +15,7 @@ import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
 import masquerade.sim.ui.field.FieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
+import masquerade.sim.ui.field.TextAreaFieldFactory;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -43,6 +44,16 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		factories.put(
 				"simulationSteps",
 				new EditWindowFieldFactory("Steps", this, SimulationStep.class, modelRepository.getModelImplementations(SimulationStep.class)));
+		factories.put(
+				"javaScript", 
+				new TextAreaFieldFactory("Script"));
+		factories.put(
+				"groovyScript", 
+				new TextAreaFieldFactory("Script"));
+		factories.put(
+				"rubycript", 
+				new TextAreaFieldFactory("Script"));
+		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(
 			"requestMappings",

@@ -1,5 +1,7 @@
 package masquerade.sim.model.impl.step;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
 import java.io.InputStream;
 
 import masquerade.sim.model.FileType;
@@ -14,7 +16,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class LoadTemplateToVariableStep extends AbstractSubstitutingStep {
 	
-	private String templateName = null;
+	private String templateName = "";
 	private String variableName = "template";
 	
 	public LoadTemplateToVariableStep(String name) {
@@ -44,7 +46,7 @@ public class LoadTemplateToVariableStep extends AbstractSubstitutingStep {
 	 */
 	@Override
 	public void execute(SimulationContext context) throws Exception {
-		if (templateName == null || variableName == null) {
+		if (isEmpty(templateName) || isEmpty(variableName)) {
 			return;
 		}
 		
@@ -54,5 +56,10 @@ public class LoadTemplateToVariableStep extends AbstractSubstitutingStep {
 		content = substituteVariables(content, context);
 		
 		context.setVariable(variableName, content);
+	}
+
+	@Override
+	public String toString() {
+		return "Load template " + templateName + " to variable " + variableName;
 	}
 }

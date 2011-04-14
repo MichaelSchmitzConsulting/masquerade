@@ -33,6 +33,8 @@ public class FileLoaderImpl implements FileLoader {
 
 	@Override
 	public InputStream load(FileType type, String name)  {
+		name = name.replace("..", "");
+		
 		File subdir = new File(dir, dirName(type));
 		File file = new File(subdir, name);
 		if (!file.exists() || !file.canRead()) {
