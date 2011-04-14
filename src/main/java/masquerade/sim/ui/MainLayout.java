@@ -28,6 +28,7 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.ui.MasterDetailView.AddListener;
+import masquerade.sim.ui.UploadFileWindow.UploadResultListener;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
@@ -115,23 +116,38 @@ public class MainLayout extends VerticalLayout {
         layout.setSizeFull();
 
         // Create file list view
-		MasterDetailView view = new MasterDetailView();
+		final MasterDetailView view = new MasterDetailView();
 		layout.addComponent(view);
 
 		// Add filesystem container to display templates
-        File templateRoot = new File(artifactRoot, FileType.TEMPLATE.name().toLowerCase());
+        final File templateRoot = new File(artifactRoot, FileType.TEMPLATE.name().toLowerCase());
         if (templateRoot.exists()) {
-        	Container container = new FilesystemContainer(templateRoot);
-            view.setDataSource(container, VISIBLE_FILE_COLS);
+        	updateArtifactView(view, templateRoot);
         }
         
-        /*
-        view.addFormCommitListener(commit);
-        view.addDeleteListener(del);
-        view.addAddListener(add);
-        */
-
+/*        view.addFormCommitListener(commit);
+        view.addDeleteListener(del);*/
+        final UploadResultListener uploadListener = new UploadResultListener() {
+			@Override public void onUploadFailed() {
+				// Ignored, upload window already shows error notification
+			}
+			@Override public void onUploadDone(File file) {
+				updateArtifactView(view, templateRoot);
+			}        	
+        };
+        
+        view.addAddListener(new AddListener() {
+			@Override public void onAdd() {
+				UploadFileWindow.showModal(getWindow(), "Upload Artifact", templateRoot, uploadListener);
+			}
+		});
+        
 		return layout;
+	}
+
+	private void updateArtifactView(MasterDetailView view, final File templateRoot) {
+		Container container = new FilesystemContainer(templateRoot);
+		view.setDataSource(container, VISIBLE_FILE_COLS);
 	}
 
 	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, ContainerFactory> refreshMap) {
