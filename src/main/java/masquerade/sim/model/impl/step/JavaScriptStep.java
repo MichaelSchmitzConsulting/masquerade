@@ -32,7 +32,7 @@ public class JavaScriptStep extends AbstractScriptedStep {
 
 	@Override
 	protected String getScript() {
-		return javaScript;
+		return getJavaScript();
 	}
 
 	@Override
