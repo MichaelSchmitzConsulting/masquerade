@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
  * A {@link SimulationStep} loading a template
  * to a context variable.
  */
-public class LoadTemplateToVariableStep extends AbstractSimulationStep {
+public class LoadTemplateToVariableStep extends AbstractSubstitutingStep {
 	
 	private String templateName = null;
 	private String variableName = "template";
@@ -50,6 +50,9 @@ public class LoadTemplateToVariableStep extends AbstractSimulationStep {
 		
 		InputStream input = context.load(FileType.TEMPLATE, templateName);
 		String content = IOUtils.toString(input);
+		
+		content = substituteVariables(content, context);
+		
 		context.setVariable(variableName, content);
 	}
 }

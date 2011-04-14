@@ -11,10 +11,10 @@ import org.apache.commons.io.IOUtils;
 /**
  * A {@link SimulationStep} loading a template from a file as response content.
  */
-public class LoadTemplateStep extends AbstractSimulationStep {
+public class LoadTemplateStep extends AbstractSubstitutingStep {
 
 	private String templateName = null;
-	
+
 	public LoadTemplateStep(String name) {
 		super(name);
 	}
@@ -24,13 +24,6 @@ public class LoadTemplateStep extends AbstractSimulationStep {
 	 */
 	public String getTemplateName() {
 		return templateName;
-	}
-
-	/**
-	 * @param templateName the templateName to set
-	 */
-	public void setTemplateName(String templateName) {
-		this.templateName = templateName;
 	}
 
 	/**
@@ -46,6 +39,9 @@ public class LoadTemplateStep extends AbstractSimulationStep {
 		
 		InputStream input = context.load(FileType.TEMPLATE, templateName);
 		String content = IOUtils.toString(input);
+		
+		content = substituteVariables(content, context);
+		
 		context.setContent(content);
 	}
 }

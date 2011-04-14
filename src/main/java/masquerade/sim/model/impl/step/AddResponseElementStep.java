@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
  * {@link SimulationStep} adding an element to the response under a 
  * parent specified by an XPath
  */
-public class AddResponseElementStep extends AbstractSimulationStep {
+public class AddResponseElementStep extends AbstractSubstitutingStep {
 
 	private String parentXpath = "";
 	private String xmlContent = ""; // Modelled as String to be able to edit it directly on the client, 
@@ -28,15 +28,16 @@ public class AddResponseElementStep extends AbstractSimulationStep {
 
 	@Override
     public void execute(SimulationContext context) throws Exception {
-		Element response = parseResponseElement();
+		Element response = parseResponseElement(context);
 		
 	    Document request = context.getContent(Document.class);
 	    request.adoptNode(response);
 		request.getDocumentElement().appendChild(response);
     }
 
-	private Element parseResponseElement() throws ParserConfigurationException, SAXException, IOException {
-		return DomUtil.parse(xmlContent).getDocumentElement();
+	private Element parseResponseElement(SimulationContext context) throws ParserConfigurationException, SAXException, IOException {
+		String content = substituteVariables(xmlContent, context);
+		return DomUtil.parse(content).getDocumentElement();
     }
 
 	public String getXmlContent() {
