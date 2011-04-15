@@ -7,6 +7,9 @@ import masquerade.sim.history.RequestHistory;
 import masquerade.sim.ui.MainLayout;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.ExternalResource;
+import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.ui.Window;
 
 /**
@@ -24,9 +27,13 @@ public class MasqueradeApplication extends Application {
 		modelRepository = context.getModelRepositoryFactory().startModelRepositorySession();
 		RequestHistory requestHistory = context.getRequestHistoryFactory().startRequestHistorySession();
 		
+		// Logo url
+    	String imgUrl = ((WebApplicationContext)getContext()).getHttpSession().getServletContext().getContextPath() + "/logo.png";
+    	Resource logo = new ExternalResource(imgUrl);
+		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");
-		mainWindow.setContent(new MainLayout(modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context)));
+		mainWindow.setContent(new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context)));
 		setMainWindow(mainWindow);
 	}
 

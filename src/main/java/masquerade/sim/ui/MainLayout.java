@@ -36,7 +36,7 @@ import org.vaadin.codemirror.client.ui.CodeStyle;
 import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.terminal.ExternalResource;
+import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -56,11 +56,11 @@ public class MainLayout extends VerticalLayout {
 
 	private static final String[] COLUMNS = new String[] { "name", "description" };
 
-	public MainLayout(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot, ActionListener<Channel, String, Object> sendTestRequestAction) {
+	public MainLayout(Resource logo, ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot, ActionListener<Channel, String, Object> sendTestRequestAction) {
     	setSizeFull();
-    	setMargin(true);    	
+    	setMargin(true);
     	
-    	Embedded image = new Embedded(null, new ExternalResource("logo.png"));
+    	Embedded image = new Embedded(null, logo);
     	addComponent(image);
     	
     	TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot, sendTestRequestAction);

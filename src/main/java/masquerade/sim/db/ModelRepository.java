@@ -16,6 +16,7 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.model.impl.FileChannel;
 import masquerade.sim.model.impl.HttpChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.SequenceScript;
@@ -42,6 +43,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		// Channels
 		declareModelImplementation(Channel.class, HttpChannel.class);
 		declareModelImplementation(Channel.class, JmsChannel.class);
+		declareModelImplementation(Channel.class, FileChannel.class);
 		
 		// Scripts
 		declareModelImplementation(Script.class, SequenceScript.class);
