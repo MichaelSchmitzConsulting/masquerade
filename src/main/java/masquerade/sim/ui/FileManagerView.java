@@ -3,6 +3,7 @@ package masquerade.sim.ui;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import masquerade.sim.DeleteListener;
 import masquerade.sim.model.FileType;
@@ -26,8 +27,9 @@ public class FileManagerView extends VerticalLayout {
 	private static final String[] VISIBLE_FILE_COLS = new String[] {
 		FilesystemContainer.PROPERTY_NAME, FilesystemContainer.PROPERTY_SIZE, FilesystemContainer.PROPERTY_LASTMODIFIED };
 	
+	private static final Logger log = Logger.getLogger(FileManagerView.class.getName());
+	
 	private final File artifactRoot;
-
 	private Select fileTypeSelect;
 
 	public FileManagerView(final File artifactRoot) {
@@ -108,8 +110,13 @@ public class FileManagerView extends VerticalLayout {
 	 * @param subdir
 	 */
 	private void updateArtifactView(MasterDetailView view, final String subdir) {
-		Container container = new FilesystemContainer(new File(artifactRoot, subdir));
-		view.setDataSource(container, VISIBLE_FILE_COLS);
+		File root = new File(artifactRoot, subdir);
+		if (root.exists() && root.canRead() && root.isDirectory()) {
+			Container container = new FilesystemContainer(root);
+			view.setDataSource(container, VISIBLE_FILE_COLS);
+		} else {
+			log.warning("Artifact directory " + root.getAbsolutePath() + "does not exist or is not readable");
+		}
 	}
 
 	private static List<String> typeSelection(FileType[] values) {
