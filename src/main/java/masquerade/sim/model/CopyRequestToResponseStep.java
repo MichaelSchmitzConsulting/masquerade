@@ -14,4 +14,8 @@ public class CopyRequestToResponseStep extends AbstractSimulationStep {
 		context.setContent(request);
 	}
 
+	@Override
+	public String toString() {
+		return "Copy Request Payload To Response Content";
+	}
 }
