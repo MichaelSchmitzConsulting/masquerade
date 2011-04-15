@@ -22,10 +22,12 @@ import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.model.Channel;
+import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
+import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
@@ -76,9 +78,10 @@ public class MainLayout extends VerticalLayout {
         ContainerFactory responseFactory = new ModelContainerFactory(modelRepository, ResponseSimulation.class);
         ContainerFactory scriptFactory = new ModelContainerFactory(modelRepository, Script.class);
         ContainerFactory ripFactory = new ModelContainerFactory(modelRepository, RequestIdProvider.class);
+        FileLoader fileLoader = new FileLoaderImpl(artifactRoot);
                 
-        // Create tabs
-        FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository);
+		// Create tabs
+        FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository, fileLoader );
 		Component channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
         Component requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
         Component responseSim = createEditorTab(responseFactory, modelRepository, fieldFactory);

@@ -30,6 +30,7 @@ public class EditWindowField extends CustomField {
 	private WindowFactory windowFactory;
 	private Label editedLabel;
 	private HorizontalLayout mainLayout;
+	private int positionX = -1;
 
 	public EditWindowField(Class<?> valueType, Class<?> containedType, Collection<Class<?>> instanceTypes, FormFieldFactory fieldFactory) {
 		this(valueType, containedType, instanceTypes, fieldFactory, null);
@@ -67,6 +68,13 @@ public class EditWindowField extends CustomField {
 		setCompositionRoot(mainLayout);
 	}
 
+	/**
+	 * @param positionX Top position of the window. Centered if not specified.
+	 */
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+
 	@Override
 	public Class<?> getType() {
 		return type;
@@ -95,6 +103,9 @@ public class EditWindowField extends CustomField {
 		Window window;
 		if (windowFactory == null) {
 			window = new MasterDetailEditWindow("Edit", property, fieldFactory, containedType, instanceTypes);
+			if (positionX  != -1) {
+				window.setPositionX(positionX);
+			}
 		} else {
 			window = windowFactory.createWindow(property, containedType, fieldFactory);
 		}

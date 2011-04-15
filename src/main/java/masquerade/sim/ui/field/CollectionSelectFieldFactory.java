@@ -27,7 +27,7 @@ public abstract class CollectionSelectFieldFactory implements FieldFactory {
 	protected abstract Collection<?> getAll();
 	
 	@Override
-    public final Field createField(Object existingValue) {
+    public Field createField(Object existingValue) {
 		Select select = new Select();
 		select.setNewItemsAllowed(false);
 		if (defaultWidth != null) {
@@ -35,9 +35,9 @@ public abstract class CollectionSelectFieldFactory implements FieldFactory {
 		}
 		select.setCaption(ClassUtil.fromCamelCase(type));
 		
-		Collection<?> simulations = getAll();
+		Collection<?> all = getAll();
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-        BeanItemContainer<?> container = new BeanItemContainer(type, simulations);
+        BeanItemContainer<?> container = new BeanItemContainer(type, all);
 		select.setContainerDataSource(container);
 		
 		select.select(existingValue);

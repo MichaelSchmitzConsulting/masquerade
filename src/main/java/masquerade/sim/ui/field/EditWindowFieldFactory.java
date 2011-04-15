@@ -14,6 +14,7 @@ public class EditWindowFieldFactory implements FieldFactory {
 	private Class<?> containedType;
 	private Collection<Class<?>> instanceTypes;
 	private WindowFactory windowFactory;
+	private int positionX = -1;
 
 	public EditWindowFieldFactory(String caption, FormFieldFactory fieldFactory, Class<?> containedType, Collection<Class<?>> instanceTypes) {
 		this(caption, fieldFactory, containedType, instanceTypes, null);
@@ -27,9 +28,19 @@ public class EditWindowFieldFactory implements FieldFactory {
 		this.windowFactory = windowFactory;
 	}
 
+	/**
+	 * @param positionY the positionY to set
+	 */
+	public void setPositionX(int positionY) {
+		this.positionX = positionY;
+	}
+
 	@Override
 	public Field createField(Object existingValue) {
 		EditWindowField field = new EditWindowField(Collection.class, containedType, instanceTypes, fieldFactory, windowFactory);
+		if (positionX  != -1) {
+			field.setPositionX(positionX);
+		}
 		field.setCaption(caption);
 		return field;
 	}

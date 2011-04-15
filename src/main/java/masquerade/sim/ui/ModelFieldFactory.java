@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import masquerade.sim.db.ModelRepository;
+import masquerade.sim.model.FileLoader;
+import masquerade.sim.model.FileType;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
@@ -15,6 +17,7 @@ import masquerade.sim.ui.field.CollectionSelectWindow;
 import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
 import masquerade.sim.ui.field.FieldFactory;
+import masquerade.sim.ui.field.FileSelectFieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
 
 import org.vaadin.codemirror.client.ui.CodeStyle;
@@ -33,7 +36,7 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 	
 	private Map<String, FieldFactory> factories = new HashMap<String, FieldFactory>();
 	
-	public ModelFieldFactory(ModelRepository modelRepository) {
+	public ModelFieldFactory(ModelRepository modelRepository, FileLoader fileLoader) {
 		factories.put(
 				"responseSimulation",
 				new ModelSelectFieldFactory(modelRepository, ResponseSimulation.class, defaultWidth));
@@ -55,6 +58,9 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		factories.put(
 				"rubyScript", 
 				new CodeMirrorFieldFactory("Script", CodeStyle.JAVA));
+		factories.put(
+				"templateName",
+				new FileSelectFieldFactory("Template", fileLoader, FileType.TEMPLATE, defaultWidth));
 		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(
