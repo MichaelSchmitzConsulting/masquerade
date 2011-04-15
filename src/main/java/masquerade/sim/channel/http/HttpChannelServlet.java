@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.ApplicationLifecycle;
-import masquerade.sim.model.impl.HttpChannelListener;
 import masquerade.sim.util.StringUtil;
 
 public class HttpChannelServlet extends HttpServlet {

@@ -22,7 +22,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> {
 	private SimpleMessageListenerContainer container;
 	
 	@Override
-	public void onStart(JmsChannel channel) {
+	public synchronized void onStart(JmsChannel channel) {
 		url = channel.getUrl();
 		user = channel.getUser();
 		password = channel.getPassword();
@@ -49,7 +49,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> {
 	}
 
 	@Override
-	public void onStop() {
+	public synchronized void onStop() {
 		log.info("Stopping JmsChannelListener");
 		if (container != null) {
 			container.stop();

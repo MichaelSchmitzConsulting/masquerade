@@ -37,15 +37,31 @@ public class ApplicationLifecycle implements ServletContextListener {
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";
 
+	/**
+	 * Retrieves the current {@link ApplicationContext} for a webapp as stored
+	 * in the {@link ServletContext} as an attribute.
+	 * 
+	 * @param context {@link ServletContext}
+	 * @return The {@link ApplicationContext}
+	 */
 	public static ApplicationContext getApplicationContext(ServletContext context) {
 		return (ApplicationContext) context.getAttribute(CONTEXT);
 	}
 
+	/**
+	 * Retrieves the current {@link ApplicationContext} for a Vaadin application
+	 * 
+	 * @param app Vaadin application
+	 * @return The {@link ApplicationContext}
+	 */
 	public static ApplicationContext getApplicationContext(Application app) {
 		WebApplicationContext web = (WebApplicationContext) app.getContext();
 		return (ApplicationContext) web.getHttpSession().getServletContext().getAttribute(CONTEXT);
 	}
 	
+	/**
+	 * Application startup, initialize database, configuration and all channel listeners
+	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		ObjectContainer db = null;
@@ -118,10 +134,20 @@ public class ApplicationLifecycle implements ServletContextListener {
 		events.committed().addListener(new ChannelChangeTrigger(channelListenerRegistry));
 	}
 
-	private void close(ObjectContainer db) {
+	/**
+	 * Closes an {@link ObjectContainer} if not <code>null</code>
+	 * 
+	 * @param db {@link ObjectContainer}
+	 */
+	private static void close(ObjectContainer db) {
 		if (db != null) db.close();
 	}
 
+	/**
+	 * Application is being shut down, stop
+	 * all listeners and remove the application
+	 * context from the servlet context.
+	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
@@ -133,6 +159,14 @@ public class ApplicationLifecycle implements ServletContextListener {
 		}
 	}
 	
+	/**
+	 * Reads the masquerade reuest log settings from the system property
+	 * <code>masquerade.request.log.dir</code>, or places it in the webapp's
+	 * work directory if not set.
+	 * 
+	 * @param servletContext {@link ServletContext}
+	 * @return Where the masquerade database should be located
+	 */
 	private File getDbFileLocation(ServletContext servletContext) {
 		String dbFileLocation = System.getProperty("masquerade.db.file.location");
 		if (dbFileLocation == null) {
@@ -144,6 +178,14 @@ public class ApplicationLifecycle implements ServletContextListener {
 		}
 	}
 	
+	/**
+	 * Reads the masquerade reuest log location setting from the system property
+	 * <code>masquerade.request.log.dir</code>, or places it in the webapp's
+	 * work directory if not set.
+	 * 
+	 * @param servletContext {@link ServletContext}
+	 * @return Where the masquerade request log directory should be located
+	 */
 	private static File getRequestLogDir(ServletContext servletContext) throws IOException {
 		String requestLogDir = System.getProperty("masquerade.request.log.dir");
 		File dir;
@@ -154,9 +196,18 @@ public class ApplicationLifecycle implements ServletContextListener {
 			FileUtils.forceMkdir(requestLog.getParentFile());
 			dir = requestLog;
 		}
-		return createDir(dir);
+		FileUtils.forceMkdir(dir);
+		return dir;
 	}
 	
+	/**
+	 * Reads the artifact directory location setting from the system property
+	 * <code>masquerade.artifact.dir</code>, or places it in the webapp's
+	 * work directory if not set.
+	 * 
+	 * @param servletContext {@link ServletContext}
+	 * @return Where the masquerade request log directory should be located
+	 */
 	private static File getArtifactsDir(ServletContext servletContext) throws IOException {		
 		String artifactDir = System.getProperty("masquerade.artifact.dir");
 		File dir;
@@ -165,9 +216,15 @@ public class ApplicationLifecycle implements ServletContextListener {
 		} else {
 			dir = new File(artifactDir);
 		}
-		return createDir(dir);
+		FileUtils.forceMkdir(dir);
+		return dir;
 	}
 	
+	/**
+	 * @param servletContext
+	 * @param subdir
+	 * @return A {@link File} for the specified subdir in the webapp's working directory
+	 */
 	private static File servletWorkDir(ServletContext servletContext, String subdir) {
 		File dir;
 		String name = getAppName(servletContext);
@@ -176,16 +233,22 @@ public class ApplicationLifecycle implements ServletContextListener {
 		return dir;
 	}
 	
-	private static File createDir(File dir) throws IOException {
-		FileUtils.forceMkdir(dir);
-		return dir;
-	}
-	
+	/**
+	 * @param servletContext
+	 * @return The name of the webapp
+	 */
 	private static String getAppName(ServletContext servletContext) {
 		String name = servletContext.getContextPath().replace("/", "_");
 		return name.length() > 0 ? name.substring(1) : name; // Remove leading _
 	}
 
+	/**
+	 * The webapp's working directory as determined by the servlet context
+	 * attribute <code>javax.servlet.context.tempdir</code>.
+	 * 
+	 * @param servletContext
+	 * @return Location of the working directory
+	 */
 	private static File getWorkDir(ServletContext servletContext) {
 		File workDir = (File) servletContext.getAttribute(SERVLET_WORK_DIR);
 		return workDir;
