@@ -9,7 +9,6 @@ import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
-import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationStep;
 import masquerade.sim.ui.field.CodeMirrorFieldFactory;
@@ -37,9 +36,6 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 	private Map<String, FieldFactory> factories = new HashMap<String, FieldFactory>();
 	
 	public ModelFieldFactory(ModelRepository modelRepository, FileLoader fileLoader) {
-		factories.put(
-				"responseSimulation",
-				new ModelSelectFieldFactory(modelRepository, ResponseSimulation.class, defaultWidth));
 		factories.put(
 				"requestIdProvider",
 				new ModelSelectFieldFactory(modelRepository, RequestIdProvider.class, defaultWidth, false));

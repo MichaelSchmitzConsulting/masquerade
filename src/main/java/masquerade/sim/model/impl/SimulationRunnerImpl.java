@@ -11,7 +11,7 @@ import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
-import masquerade.sim.model.ResponseSimulation;
+import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationRunner;
 
 import org.apache.commons.io.IOUtils;
@@ -40,12 +40,12 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
 				if (mapping.accepts(request.getClass()) && matches(mapping, request)) {
-					ResponseSimulation simulation = mapping.getResponseSimulation();
+					Script script = mapping.getScript();
 					
-					String requestId = getRequestId(simulation.getRequestIdProvider(), request);
-					requestHistory.logRequest(channelName, simulation.getName(), clientInfo, requestId, converter.convert(request, String.class));
+					String requestId = getRequestId(script.getRequestIdProvider(), request);
+					requestHistory.logRequest(channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
 					
-					Object response = simulation.getScript().run(request, converter, fileLoader);
+					Object response = script.run(request, converter, fileLoader);
 					marshalResponse(response, responseOutput);
 					return;
 				}

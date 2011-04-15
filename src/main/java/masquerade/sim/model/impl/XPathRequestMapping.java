@@ -6,6 +6,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import masquerade.sim.model.Script;
+
 import org.w3c.dom.Document;
 
 /**
@@ -41,6 +43,8 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 
 	@Override
 	public String toString() {
-		return "XPathRequestMapping > " + getResponseSimulation();
+		Script script = getScript();
+		String name = script == null ? "<n/a>" : script.getName();
+		return "XPathRequestMapping > " + name;
 	}
 }

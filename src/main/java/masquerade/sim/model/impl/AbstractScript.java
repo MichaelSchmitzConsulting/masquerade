@@ -1,5 +1,6 @@
 package masquerade.sim.model.impl;
 
+import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.Script;
 
 /**
@@ -9,6 +10,7 @@ public abstract class AbstractScript implements Script {
 
 	private String name;
 	private String description = "";
+	private RequestIdProvider<?> requestIdProvider;
 
 	public AbstractScript(String name) {
 		super();
@@ -18,6 +20,15 @@ public abstract class AbstractScript implements Script {
 	@Override
 	public final String getName() {
 		return name;
+	}
+
+	@Override
+	public RequestIdProvider<?> getRequestIdProvider() {
+		return requestIdProvider;
+	}
+
+	public void setRequestIdProvider(RequestIdProvider<?> requestIdProvider) {
+		this.requestIdProvider = requestIdProvider;
 	}
 
 	@Override

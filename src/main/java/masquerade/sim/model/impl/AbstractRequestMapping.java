@@ -1,7 +1,7 @@
 package masquerade.sim.model.impl;
 
 import masquerade.sim.model.RequestMapping;
-import masquerade.sim.model.ResponseSimulation;
+import masquerade.sim.model.Script;
 
 /**
  * {@link RequestMapping} base providing common properties
@@ -9,12 +9,12 @@ import masquerade.sim.model.ResponseSimulation;
 public abstract class AbstractRequestMapping<R> implements RequestMapping<R> {
 
 	private String name;
-	private ResponseSimulation responseSimulation;
+	private Script script;
 	private Class<? extends R> acceptedRequestType;
 	
-	protected AbstractRequestMapping(String name, ResponseSimulation responseSimulation, Class<? extends R> acceptedRequestType) {
+	protected AbstractRequestMapping(String name, Script script, Class<? extends R> acceptedRequestType) {
 	    this.name = name;
-	    this.responseSimulation = responseSimulation;
+	    this.script = script;
 	    this.acceptedRequestType = acceptedRequestType;
     }
 
@@ -34,11 +34,11 @@ public abstract class AbstractRequestMapping<R> implements RequestMapping<R> {
 	}
 
 	@Override
-	public final ResponseSimulation getResponseSimulation() {
-		return responseSimulation;
+	public final Script getScript() {
+		return script;
 	}
 
-	public void setResponseSimulation(ResponseSimulation responseSimulation) {
-		this.responseSimulation = responseSimulation;
+	public void setScript(Script script) {
+		this.script = script;
 	}
 }

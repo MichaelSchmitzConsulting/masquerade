@@ -13,7 +13,6 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.CopyRequestToResponseStep;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
-import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationStep;
 import masquerade.sim.model.impl.FileChannel;
@@ -54,9 +53,6 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		
 		// Request Mapping
 		declareModelImplementation(RequestMapping.class, XPathRequestMapping.class);
-
-		// Response Simulation
-		declareModelImplementation(ResponseSimulation.class, ResponseSimulation.class);
 		
 		// Simulation Steps
 		declareModelImplementation(SimulationStep.class, AddResponseElementStep.class);
@@ -139,10 +135,6 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		Query query = startQuery();
 		query.constrain(RequestIdProvider.class);
 		return query.execute();
-	}
-
-	public Collection<ResponseSimulation> getResponseSimulations() {
-		return startQuery(ResponseSimulation.class);
 	}
 
 	public Collection<Script> getScripts() {

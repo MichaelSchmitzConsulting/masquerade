@@ -8,7 +8,7 @@ public interface RequestMapping<R> {
 	String getName();
 	String getDescription();
 	
-	ResponseSimulation getResponseSimulation();
+	Script getScript();
 	
 	/**
 	 * 

@@ -5,7 +5,6 @@ import static masquerade.sim.ui.Icons.CHANNELS;
 import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
 import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
-import static masquerade.sim.ui.Icons.RESPONSE;
 import static masquerade.sim.ui.Icons.SCRIPT;
 
 import java.io.File;
@@ -25,7 +24,6 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
-import masquerade.sim.model.ResponseSimulation;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.ui.MasterDetailView.AddListener;
@@ -75,7 +73,6 @@ public class MainLayout extends VerticalLayout {
     	// them into a Container suitable for binding to a view.
         ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
         ContainerFactory mappingFactory = new ModelContainerFactory(modelRepository, RequestMapping.class);
-        ContainerFactory responseFactory = new ModelContainerFactory(modelRepository, ResponseSimulation.class);
         ContainerFactory scriptFactory = new ModelContainerFactory(modelRepository, Script.class);
         ContainerFactory ripFactory = new ModelContainerFactory(modelRepository, RequestIdProvider.class);
         FileLoader fileLoader = new FileLoaderImpl(artifactRoot);
@@ -84,7 +81,6 @@ public class MainLayout extends VerticalLayout {
         FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository, fileLoader );
 		Component channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
         Component requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
-        Component responseSim = createEditorTab(responseFactory, modelRepository, fieldFactory);
         Component scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
         Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
         Component requestHistoryUi = createRequestHistoryView(requestHistory);
@@ -98,8 +94,7 @@ public class MainLayout extends VerticalLayout {
         //  Add tabs
         tabSheet.addTab(channels, "Channels", CHANNELS.icon());
         tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
-        tabSheet.addTab(responseSim, "Response Simulation", RESPONSE.icon());
-        tabSheet.addTab(scripts, "Scripts", SCRIPT.icon());
+        tabSheet.addTab(scripts, "Response Scripts", SCRIPT.icon());
         tabSheet.addTab(requestIdProviders, "Request ID Providers", REQUEST_ID_PROVIDER.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
@@ -109,7 +104,6 @@ public class MainLayout extends VerticalLayout {
         Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();
         refreshMap.put(channels, channelFactory);
         refreshMap.put(requestMapping, mappingFactory);
-        refreshMap.put(responseSim, responseFactory);
         refreshMap.put(scripts, scriptFactory);
         refreshMap.put(requestIdProviders, ripFactory);
         tabSheet.addListener(createTabSelectionListener(refreshMap));
