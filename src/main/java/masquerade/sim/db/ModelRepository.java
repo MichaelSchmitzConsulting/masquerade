@@ -10,7 +10,7 @@ import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.model.Channel;
-import masquerade.sim.model.EchoStep;
+import masquerade.sim.model.CopyRequestToResponseStep;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ResponseSimulation;
@@ -57,7 +57,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		
 		// Simulation Steps
 		declareModelImplementation(SimulationStep.class, AddResponseElementStep.class);
-		declareModelImplementation(SimulationStep.class, EchoStep.class);
+		declareModelImplementation(SimulationStep.class, CopyRequestToResponseStep.class);
 		declareModelImplementation(SimulationStep.class, WaitStep.class);
 		declareModelImplementation(SimulationStep.class, LoadTemplateStep.class);
 		declareModelImplementation(SimulationStep.class, LoadTemplateToVariableStep.class);

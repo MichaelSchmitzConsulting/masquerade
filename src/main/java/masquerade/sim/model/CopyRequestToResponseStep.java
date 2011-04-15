@@ -2,9 +2,9 @@ package masquerade.sim.model;
 
 import masquerade.sim.model.impl.step.AbstractSimulationStep;
 
-public class EchoStep extends AbstractSimulationStep {
+public class CopyRequestToResponseStep extends AbstractSimulationStep {
 
-	public EchoStep(String name) {
+	public CopyRequestToResponseStep(String name) {
 		super(name);
 	}
 
