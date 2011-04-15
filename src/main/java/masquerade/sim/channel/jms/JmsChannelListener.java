@@ -45,6 +45,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> {
 	private ConnectionFactory createConnectionFactory() {
 		// TODO: implement factory for connection factories, with implementations
 		// for IBM MQ, Tibco EM, ActiveMQ, RabbitMQ
+		user = password;
 		return null;
 	}
 
