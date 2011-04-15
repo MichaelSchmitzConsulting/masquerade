@@ -2,6 +2,7 @@ package masquerade.sim.ui;
 
 import static masquerade.sim.ui.Icons.ARTIFACT;
 import static masquerade.sim.ui.Icons.CHANNELS;
+import static masquerade.sim.ui.Icons.NAMESPACE_PREFIX;
 import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
 import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
@@ -22,6 +23,7 @@ import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.FileLoader;
+import masquerade.sim.model.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
@@ -74,6 +76,7 @@ public class MainLayout extends VerticalLayout {
         ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
         ContainerFactory mappingFactory = new ModelContainerFactory(modelRepository, RequestMapping.class);
         ContainerFactory scriptFactory = new ModelContainerFactory(modelRepository, Script.class);
+        ContainerFactory namespacePrefixFactory = new ModelContainerFactory(modelRepository, NamespacePrefix.class);
         ContainerFactory ripFactory = new ModelContainerFactory(modelRepository, RequestIdProvider.class);
         FileLoader fileLoader = new FileLoaderImpl(artifactRoot);
                 
@@ -82,6 +85,7 @@ public class MainLayout extends VerticalLayout {
 		Component channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
         Component requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
         Component scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
+        Component namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
         Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
         Component requestHistoryUi = createRequestHistoryView(requestHistory);
         Component fileManager = createFileManager(artifactRoot);
@@ -92,10 +96,11 @@ public class MainLayout extends VerticalLayout {
         tabSheet.setWidth("100%");
         
         //  Add tabs
-        tabSheet.addTab(channels, "Channels", CHANNELS.icon());
+        tabSheet.addTab(channels, "Channel", CHANNELS.icon());
         tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
-        tabSheet.addTab(scripts, "Response Scripts", SCRIPT.icon());
-        tabSheet.addTab(requestIdProviders, "Request ID Providers", REQUEST_ID_PROVIDER.icon());
+        tabSheet.addTab(scripts, "Response Script", SCRIPT.icon());
+        tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon());
+        tabSheet.addTab(namespacePrefixes, "Namespace Prefix", NAMESPACE_PREFIX.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
         tabSheet.addTab(requestTester, "Test", ARTIFACT.icon());

@@ -11,6 +11,7 @@ import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.CopyRequestToResponseStep;
+import masquerade.sim.model.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
@@ -64,6 +65,9 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		declareModelImplementation(SimulationStep.class, GroovyScriptStep.class);
 		declareModelImplementation(SimulationStep.class, RubyScriptStep.class);
 		declareModelImplementation(SimulationStep.class, SetContentStep.class);
+		
+		// Namespace prefix
+		declareModelImplementation(NamespacePrefix.class, NamespacePrefix.class);
 	}
 
 	// Common monitor entered by all threads accessing the model to synchronize
