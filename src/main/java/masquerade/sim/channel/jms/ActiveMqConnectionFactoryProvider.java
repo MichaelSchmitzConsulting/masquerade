@@ -1,12 +1,17 @@
 package masquerade.sim.channel.jms;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
+import java.lang.reflect.Constructor;
+
 import javax.jms.ConnectionFactory;
 
 import masquerade.sim.model.impl.JmsChannel;
 
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-
+/**
+ * {@link ConnectionFactoryProvider} able to provide JMS {@link ConnectionFactory} instances
+ * for Apache Active MQ. 
+ */
 public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvider {
 
 	@Override
@@ -15,14 +20,23 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 		String password = channel.getPassword();
 		String url = channel.getUrl();
 
-		return new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD,
-			ActiveMQConnection.DEFAULT_BROKER_URL);
-/*
-		if (isNotEmpty(user) && isNotEmpty(password)) {
-			return new ActiveMQConnectionFactory(user, password, url);
-		} else {
-			return new ActiveMQConnectionFactory(url);
+		if (isEmpty(user)) {
+			user = null;
 		}
-*/
+		if (isEmpty(password)) {
+			password = null;
+		}
+		
+		try {
+			return createFactory(user, password, url);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	private ConnectionFactory createFactory(String user, String password, String url) throws Exception {
+		Class<?> factoryType = Class.forName("org.apache.activemq.ActiveMQConnectionFactory");
+		Constructor<?> constructor = factoryType.getConstructor(String.class, String.class, String.class);
+		return (ConnectionFactory) constructor.newInstance(user, password, url);
 	}
 }
