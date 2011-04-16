@@ -12,9 +12,11 @@ import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.NamespaceResolver;
+import masquerade.sim.model.RequestContext;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
+import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationRunner;
 
 import org.apache.commons.io.IOUtils;
@@ -49,16 +51,18 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request) throws Exception {
 
 		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
+		RequestContext requestContext = new RequestContextImpl(namespaceResolver, converter);
 		
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
-				if (mapping.accepts(request.getClass()) && matches(mapping, request)) {
+				if (mapping.accepts(request.getClass()) && matches(mapping, request, requestContext)) {
 					Script script = mapping.getScript();
 					
-					String requestId = getRequestId(script.getRequestIdProvider(), request);
+					SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
+					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
 					requestHistory.logRequest(channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
 					
-					Object response = script.run(request, converter, fileLoader, namespaceResolver);
+					Object response = script.run(context);
 					marshalResponse(response, responseOutput);
 					return;
 				}
@@ -95,16 +99,16 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	}
 
 	// Casts are safe because accepts() checks the request type
-	private boolean matches(RequestMapping<?> mapping, Object request) {
+	private boolean matches(RequestMapping<?> mapping, Object request, RequestContext requestContext) {
 		@SuppressWarnings("rawtypes")
 		RequestMapping cast = (RequestMapping) mapping;
 		@SuppressWarnings("unchecked")
-		boolean matches = cast.matches(request);
+		boolean matches = cast.matches(request, requestContext);
 		return matches;
 	}
  
 	// Casts are safe because ResponseSimulation.matches() is typed
-	private String getRequestId(RequestIdProvider<?> requestIdProvider, Object request) {
+	private String getRequestId(RequestIdProvider<?> requestIdProvider, Object request, RequestContext context) {
 		if (requestIdProvider == null) {
 			return null;
 		}
@@ -112,7 +116,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		@SuppressWarnings("rawtypes")
 		RequestIdProvider cast = requestIdProvider;
 		@SuppressWarnings("unchecked")
-		String uniqueId = cast.getUniqueId(request);
+		String uniqueId = cast.getUniqueId(request, context);
 		return uniqueId;
 	}
 }

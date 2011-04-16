@@ -11,11 +11,9 @@ public interface Script {
 
 	/**
 	 * Run this script, returning a response object
-	 * @param request The request object
-	 * @param converter A converter that converts objects (variables, requests, ...) to desired types
-	 * @param fileLoader A {@link FileLoader} used to load templates
+	 * @param simulationContext
 	 * @return A response object
 	 * @throws Exception
 	 */
-	public Object run(Object request, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) throws Exception;
+	public Object run(SimulationContext simulationContext) throws Exception;
 }

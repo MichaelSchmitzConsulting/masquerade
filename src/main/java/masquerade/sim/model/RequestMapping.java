@@ -13,9 +13,10 @@ public interface RequestMapping<R> {
 	/**
 	 * 
 	 * @param request
+	 * @param requestContext 
 	 * @return <code>true</code> if the maping should be applied for the given request
 	 */
-	boolean matches(R request);
+	boolean matches(R request, RequestContext requestContext);
 	
 	/**
 	 * 

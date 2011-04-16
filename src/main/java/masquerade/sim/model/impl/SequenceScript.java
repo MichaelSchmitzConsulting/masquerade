@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import masquerade.sim.model.Converter;
-import masquerade.sim.model.FileLoader;
-import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationStep;
 
@@ -23,8 +20,7 @@ public class SequenceScript extends AbstractScript {
 	}
 	
 	@Override
-	public Object run(Object request, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) throws Exception {
-		SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
+	public Object run(SimulationContext context) throws Exception {
 		for (SimulationStep step : simulationSteps) {
 			step.execute(context);
 		}

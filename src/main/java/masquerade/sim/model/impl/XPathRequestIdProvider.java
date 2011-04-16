@@ -4,7 +4,9 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+
+import masquerade.sim.model.RequestContext;
+import masquerade.sim.util.XPathUtil;
 
 import org.w3c.dom.Document;
 
@@ -33,10 +35,13 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
     	this.xpath = xpath;
     }
 
+    /**
+     * Returns an unique ID for this request. Determines the ID by evaluating the
+     * specified XPath to a String result.
+     */
 	@Override
-    public String getUniqueId(Document request) {
-		XPathFactory factory = XPathFactory.newInstance();
-		XPath xpath = factory.newXPath();
+    public String getUniqueId(Document request, RequestContext context) {
+		XPath xpath = XPathUtil.createXPath(context.getNamespaceResolver());
 		try {
 			XPathExpression expr = xpath.compile(this.xpath);
 			return (String) expr.evaluate(request, XPathConstants.STRING);

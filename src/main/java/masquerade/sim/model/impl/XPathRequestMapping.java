@@ -4,9 +4,10 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
+import masquerade.sim.model.RequestContext;
 import masquerade.sim.model.Script;
+import masquerade.sim.util.XPathUtil;
 
 import org.w3c.dom.Document;
 
@@ -21,10 +22,12 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 		super(name, null, Document.class);
 	}
 
+	/**
+	 * Matches the request if the xpath for this mapping evaluates to <code>true</code>
+	 */
 	@Override
-	public boolean matches(Document request) {
-		XPathFactory factory = XPathFactory.newInstance();
-		XPath xpath = factory.newXPath();
+	public boolean matches(Document request, RequestContext requestContext) {
+		XPath xpath = XPathUtil.createXPath(requestContext.getNamespaceResolver());
 		try {
 			XPathExpression expr = xpath.compile(this.xpath);
 			return (Boolean) expr.evaluate(request, XPathConstants.BOOLEAN);
