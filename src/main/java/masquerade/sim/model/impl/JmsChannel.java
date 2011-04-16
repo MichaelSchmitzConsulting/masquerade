@@ -13,6 +13,7 @@ public class JmsChannel extends AbstractChannel {
 	private String user = "";
 	private String password = "";
 	private String destinationName = "";
+	private String responseDestinationName = "";
 	private boolean isTopic = false;
 
 	public JmsChannel(String name) {
@@ -55,6 +56,20 @@ public class JmsChannel extends AbstractChannel {
 	 */
 	public void setDestinationName(String destinationName) {
 		this.destinationName = destinationName;
+	}
+
+	/**
+	 * @return the responseDestinationName
+	 */
+	public String getResponseDestinationName() {
+		return responseDestinationName;
+	}
+
+	/**
+	 * @param responseDestinationName the responseDestinationName to set
+	 */
+	public void setResponseDestinationName(String responseDestinationName) {
+		this.responseDestinationName = responseDestinationName;
 	}
 
 	/**

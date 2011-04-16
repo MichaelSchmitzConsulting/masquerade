@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.history.RequestHistoryFactory;
@@ -22,6 +24,8 @@ import org.apache.commons.io.IOUtils;
  */
 public class SimulationRunnerImpl implements SimulationRunner {
 
+	private static final Logger log = Logger.getLogger(SimulationRunnerImpl.class.getName());
+	
 	private RequestHistoryFactory requestHistoryFactory;
 	private Converter converter;
 	private FileLoader fileLoader;
@@ -71,7 +75,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 				if (str != null) {
 					IOUtils.write(str, responseOutput);
 				} else {
-					// TODO log
+					log.log(Level.SEVERE, "Unable to convert response to InputStream, byte[] or String: " + response.getClass().getName());
 				}
 			} else {
 				IOUtils.write(ba, responseOutput);
