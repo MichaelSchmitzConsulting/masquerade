@@ -96,11 +96,11 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			String correlationId = txt.getJMSCorrelationID();
 			String response = new String(responseOutput.toByteArray());
 
-			sendReply(correlationId, response, session);
+			sendReply(correlationId, response, session, txt.getJMSReplyTo());
 		}
 	}
 
-	private void sendReply(String correlationId, String response, Session session) throws JMSException {
+	private void sendReply(String correlationId, String response, Session session, Destination messageReplyDestination) throws JMSException {
 		TextMessage message = session.createTextMessage(response);
 		
 		// Set reply correlation ID
@@ -110,10 +110,14 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		
 		// Create reply topic/queue
 		Destination replyDestination;
-		if (isTopic) {
-			replyDestination = session.createTopic(replyDestinationName);
+		if (messageReplyDestination != null) {
+			replyDestination = messageReplyDestination;
 		} else {
-			replyDestination = session.createQueue(replyDestinationName);
+			if (isTopic) {
+				replyDestination = session.createTopic(replyDestinationName);
+			} else {
+				replyDestination = session.createQueue(replyDestinationName);
+			}
 		}
 		
 		// Create producer
