@@ -1,16 +1,11 @@
 Manifest-Version: 1.0
-Class-Path: activeio-core-3.1.2.jar activemq-core-5.5.0.jar activemq-p
- rotobuf-1.1.jar antlr-2.7.7.jar aopalliance-1.0.jar asm-3.2.jar asm-a
- nalysis-3.2.jar asm-commons-3.2.jar asm-tree-3.2.jar asm-util-3.2.jar
-  avalon-framework-4.1.3.jar codemirror-0.9.3.jar commons-io-2.0.1.jar
-  commons-lang-2.5.jar commons-logging-1.1.jar commons-net-2.0.jar cus
- tomfield-0.9.0.jar db4o-full-java5-8.1-SNAPSHOT.jar geronimo-j2ee-man
- agement_1.1_spec-1.0.1.jar geronimo-jms_1.1_spec-1.1.1.jar groovy-1.7
- .10.jar jasypt-1.7.jar jms-1.1.jar jruby-complete-1.6.1.jar kahadb-5.
- 5.0.jar log4j-1.2.12.jar logkit-1.0.1.jar org.osgi.core-4.1.0.jar slf
- 4j-api-1.5.11.jar slf4j-jdk14-1.5.11.jar spring-aop-3.0.5.RELEASE.jar
-  spring-asm-3.0.3.RELEASE.jar spring-beans-3.0.5.RELEASE.jar spring-c
- ontext-3.0.3.RELEASE.jar spring-core-3.0.5.RELEASE.jar spring-express
- ion-3.0.3.RELEASE.jar spring-jms-3.0.5.RELEASE.jar spring-tx-3.0.5.RE
- LEASE.jar vaadin-6.5.5.jar
+Class-Path: antlr-2.7.7.jar aopalliance-1.0.jar asm-3.2.jar asm-analys
+ is-3.2.jar asm-commons-3.2.jar asm-tree-3.2.jar asm-util-3.2.jar code
+ mirror-0.9.3.jar commons-io-2.0.1.jar commons-lang-2.5.jar commons-lo
+ gging-1.1.1.jar customfield-0.9.0.jar db4o-full-java5-8.1-SNAPSHOT.ja
+ r groovy-1.7.10.jar jms-1.1.jar jruby-complete-1.6.1.jar spring-aop-3
+ .0.5.RELEASE.jar spring-asm-3.0.5.RELEASE.jar spring-beans-3.0.5.RELE
+ ASE.jar spring-context-3.0.5.RELEASE.jar spring-core-3.0.5.RELEASE.ja
+ r spring-expression-3.0.5.RELEASE.jar spring-jms-3.0.5.RELEASE.jar sp
+ ring-tx-3.0.5.RELEASE.jar vaadin-6.5.5.jar
 
