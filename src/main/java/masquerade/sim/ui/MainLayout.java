@@ -7,6 +7,7 @@ import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
 import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
 import static masquerade.sim.ui.Icons.SCRIPT;
+import static masquerade.sim.ui.Icons.TEST;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +104,7 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(namespacePrefixes, "Namespace Prefix", NAMESPACE_PREFIX.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
-        tabSheet.addTab(requestTester, "Test", ARTIFACT.icon());
+        tabSheet.addTab(requestTester, "Test", TEST.icon());
         
         // Refresh master/detail view contents on tab selection
         Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();

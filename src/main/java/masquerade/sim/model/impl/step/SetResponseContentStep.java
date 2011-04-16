@@ -5,11 +5,11 @@ import masquerade.sim.model.SimulationContext;
 /**
  * Sets the response content to a string
  */
-public class SetContentStep extends AbstractSubstitutingStep {
+public class SetResponseContentStep extends AbstractSubstitutingStep {
 
 	private String content = ""; 
 
-	public SetContentStep(String name) {
+	public SetResponseContentStep(String name) {
 		super(name);
 	}
 	

@@ -15,5 +15,11 @@ public interface SimulationContext extends Converter {
 	
 	String substituteVariables(String content);
 	
+	/**
+	 * Loads a file (e.g. a template) of the given name
+	 * @param type
+	 * @param name
+	 * @return {@link InputStream} for the file, or <code>null</code> if not found
+	 */
 	InputStream load(FileType fileType, String fileName);
 }

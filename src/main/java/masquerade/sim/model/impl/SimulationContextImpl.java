@@ -62,7 +62,13 @@ public class SimulationContextImpl implements SimulationContext {
 	public String substituteVariables(String content) {
 		return StringUtil.substituteVariables(contextVariables, content, converter);
 	}
-
+	
+	/**
+	 * Loads a file (e.g. a template) of the given name
+	 * @param type
+	 * @param name
+	 * @return {@link InputStream} for the file, or <code>null</code> if not found
+	 */
 	@Override
 	public InputStream load(FileType fileType, String fileName) {
 		return fileLoader.load(fileType, fileName);

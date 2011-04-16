@@ -1,5 +1,8 @@
 package masquerade.sim.db;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.model.Channel;
 
@@ -12,6 +15,8 @@ import com.db4o.internal.LazyObjectReference;
 
 public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 	
+	private static final Logger log = Logger.getLogger(ChannelChangeTrigger.class.getName());
+	
 	private ChannelListenerRegistry channelListenerRegistry;
 	
 	public ChannelChangeTrigger(ChannelListenerRegistry channelListenerRegistry) {
@@ -19,8 +24,16 @@ public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked") // event registry is not generic, Iterator4 is
 	public void onEvent(Event4<CommitEventArgs> event, CommitEventArgs eventArgs) {
+		try {
+			onEvent(eventArgs);
+		} catch (Exception ex) {
+			log.log(Level.SEVERE, "Exception in commit event listener", ex);
+		}
+	}
+
+	@SuppressWarnings("unchecked") // event registry is not generic, Iterator4 is
+	private void onEvent(CommitEventArgs eventArgs) {
 		for (Iterator4<Object> it = eventArgs.added().iterator(); it.moveNext();) {
 			LazyObjectReference reference = (LazyObjectReference) it.current();
 			Object obj = reference.getObject();

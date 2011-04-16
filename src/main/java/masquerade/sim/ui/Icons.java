@@ -11,6 +11,7 @@ public enum Icons {
 	REQUEST_ID_PROVIDER("note.png"),
 	REQUEST_HISTORY("email-send.png"),
 	ARTIFACT("document-txt.png"),
+	TEST("help.png"),
 	NAMESPACE_PREFIX("ok.png");
 	
 	private static final String BASE_PATH = "../runo/icons/32/";

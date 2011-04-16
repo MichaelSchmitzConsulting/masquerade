@@ -9,11 +9,11 @@ import masquerade.sim.model.ChannelListener;
  */
 public class JmsChannel extends AbstractChannel {
 
-	private String url;
-	private String user;
-	private String password;
-	private String destinationName;
-	private boolean isTopic;
+	private String url = "";
+	private String user = "";
+	private String password = "";
+	private String destinationName = "";
+	private boolean isTopic = false;
 
 	public JmsChannel(String name) {
 		super(name);

@@ -74,12 +74,20 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 			String channelName = changedChannel.getName();
 			if (changedChannel.isActive()) {
 				log.log(Level.INFO, "Starting channel " + channelName);
-				ChannelListener<Channel> listener = createListener(changedChannel.getListenerType());
-				listener.start(changedChannel, simulationRunner);
-				channels.put(channelName, listener);
+				doStart(changedChannel, channelName);
 			} else {
 				log.log(Level.INFO, "Skipping channel start for inactive channel " + channelName);
 			}
+		}
+	}
+
+	private void doStart(Channel changedChannel, String channelName) {
+		try {
+			ChannelListener<Channel> listener = createListener(changedChannel.getListenerType());
+			listener.start(changedChannel, simulationRunner);
+			channels.put(channelName, listener);
+		} catch (Exception ex) {
+			log.log(Level.SEVERE, "Cannot start channel listener", ex);
 		}
 	}	
 	
