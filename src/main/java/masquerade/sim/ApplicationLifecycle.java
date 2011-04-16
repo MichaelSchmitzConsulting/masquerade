@@ -12,6 +12,7 @@ import masquerade.sim.channel.ChannelListenerRegistryImpl;
 import masquerade.sim.converter.CompoundConverter;
 import masquerade.sim.db.ChannelChangeTrigger;
 import masquerade.sim.db.DatabaseLifecycle;
+import masquerade.sim.db.ModelNamespaceResolver;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.db.ModelRepositoryFactory;
 import masquerade.sim.db.ModelRepositorySessionFactory;
@@ -20,6 +21,7 @@ import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.model.impl.SimulationRunnerImpl;
@@ -90,21 +92,24 @@ public class ApplicationLifecycle implements ServletContextListener {
 			File artifactsRoot = getArtifactsDir(servletContext);
 			FileLoader fileLoader = new FileLoaderImpl(artifactsRoot);
 			
+			// Create model repository factory
+			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
+
+			// Create namespace resolver
+			NamespaceResolver namespaceResolver = new ModelNamespaceResolver(modelRepositoryFactory);
+			
 			// Create simulation runner
-			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader);
+			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver);
 			
 			// Create channel listener registry
 			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner);
-
-			// Create model repository factory
-			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
 			
 			// Add channel change trigger
 			registerChannelChangeTrigger(db, listenerRegistry);
 			
 			// Create application context
 			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory,
-				fileLoader, converter, artifactsRoot);
+				fileLoader, converter, artifactsRoot, namespaceResolver);
 			
 			// Save application context reference in servlet context
 			servletContext.setAttribute(CONTEXT, applicationContext);

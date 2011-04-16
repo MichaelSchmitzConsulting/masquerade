@@ -16,7 +16,11 @@ public final class SendTestRequestAction implements ActionListener<Channel, Stri
 
 	@Override public String onAction(Channel channel, Object content) throws Exception {
 		SimulationRunnerImpl runner = 
-			new SimulationRunnerImpl(context.getRequestHistoryFactory(), context.getConverter(), context.getFileLoader());
+			new SimulationRunnerImpl(
+				context.getRequestHistoryFactory(), 
+				context.getConverter(), 
+				context.getFileLoader(),
+				context.getNamespaceResolver());
 		
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		runner.runSimulation(responseOutput, channel.getName(), "Request Test UI", channel.getRequestMappings(), content);

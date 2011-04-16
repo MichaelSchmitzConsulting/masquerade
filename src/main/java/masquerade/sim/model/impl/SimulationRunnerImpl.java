@@ -11,6 +11,7 @@ import masquerade.sim.history.RequestHistory;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
@@ -29,11 +30,19 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	private RequestHistoryFactory requestHistoryFactory;
 	private Converter converter;
 	private FileLoader fileLoader;
+	private NamespaceResolver namespaceResolver;
 
-	public SimulationRunnerImpl(RequestHistoryFactory requestHistoryFactory, Converter converter, FileLoader fileLoader) {
+	/**
+	 * @param requestHistoryFactory
+	 * @param converter
+	 * @param fileLoader
+	 * @param namespaceResolver
+	 */
+	public SimulationRunnerImpl(RequestHistoryFactory requestHistoryFactory, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) {
 		this.requestHistoryFactory = requestHistoryFactory;
 		this.converter = converter;
 		this.fileLoader = fileLoader;
+		this.namespaceResolver = namespaceResolver;
 	}
 
 	@Override
@@ -49,7 +58,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 					String requestId = getRequestId(script.getRequestIdProvider(), request);
 					requestHistory.logRequest(channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
 					
-					Object response = script.run(request, converter, fileLoader);
+					Object response = script.run(request, converter, fileLoader, namespaceResolver);
 					marshalResponse(response, responseOutput);
 					return;
 				}

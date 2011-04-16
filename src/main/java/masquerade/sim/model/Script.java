@@ -17,5 +17,5 @@ public interface Script {
 	 * @return A response object
 	 * @throws Exception
 	 */
-	public Object run(Object request, Converter converter, FileLoader fileLoader) throws Exception;
+	public Object run(Object request, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) throws Exception;
 }

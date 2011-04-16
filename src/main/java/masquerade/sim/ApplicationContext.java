@@ -9,6 +9,7 @@ import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
+import masquerade.sim.model.NamespaceResolver;
 
 /**
  * Dependency injection for application-wide objects created during initialization.
@@ -22,7 +23,8 @@ public class ApplicationContext {
 	private FileLoader fileLoader;
 	private Converter converter;
 	private File artifactRoot;
-	
+	private NamespaceResolver namespaceResolver;
+
 	/**
 	 * @param databaseLifecycle
 	 * @param channelListenerRegistry
@@ -31,10 +33,11 @@ public class ApplicationContext {
 	 * @param fileLoader
 	 * @param converter
 	 * @param artifactRoot
+	 * @param namespaceResolver
 	 */
 	public ApplicationContext(DatabaseLifecycle databaseLifecycle, ChannelListenerRegistry channelListenerRegistry,
 		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
-		File artifactRoot) {
+		File artifactRoot, NamespaceResolver namespaceResolver) {
 		this.databaseLifecycle = databaseLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
 		this.requestHistoryFactory = requestHistoryFactory;
@@ -42,6 +45,7 @@ public class ApplicationContext {
 		this.fileLoader = fileLoader;
 		this.converter = converter;
 		this.artifactRoot = artifactRoot;
+		this.namespaceResolver = namespaceResolver;
 	}
 
 	/**
@@ -92,5 +96,9 @@ public class ApplicationContext {
 	 */
 	public File getArtifactRoot() {
 		return artifactRoot;
+	}
+
+	public NamespaceResolver getNamespaceResolver() {
+		return namespaceResolver;
 	}
 }

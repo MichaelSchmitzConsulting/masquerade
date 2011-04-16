@@ -15,6 +15,8 @@ public interface SimulationContext extends Converter {
 	
 	String substituteVariables(String content);
 	
+	NamespaceResolver getNamespaceResolver();
+	
 	/**
 	 * Loads a file (e.g. a template) of the given name
 	 * @param type

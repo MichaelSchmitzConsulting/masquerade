@@ -8,6 +8,7 @@ import java.util.Map;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.util.StringUtil;
 
@@ -17,13 +18,15 @@ public class SimulationContextImpl implements SimulationContext {
 	private Map<String, Object> contextVariables = new HashMap<String, Object>();
 	private Converter converter;
 	private FileLoader fileLoader;
+	private NamespaceResolver namespaceResolver;
 	private Object request;	
 
-	public SimulationContextImpl(Object request, Converter converter, FileLoader fileLoader) {
+	public SimulationContextImpl(Object request, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) {
 		this.request = request;
 		this.content = "";
 		this.converter = converter;
 		this.fileLoader = fileLoader;
+		this.namespaceResolver = namespaceResolver;
 	}
 
 	@Override
@@ -63,6 +66,11 @@ public class SimulationContextImpl implements SimulationContext {
 		return StringUtil.substituteVariables(contextVariables, content, converter);
 	}
 	
+	@Override
+	public NamespaceResolver getNamespaceResolver() {
+		return namespaceResolver;
+	}
+
 	/**
 	 * Loads a file (e.g. a template) of the given name
 	 * @param type
