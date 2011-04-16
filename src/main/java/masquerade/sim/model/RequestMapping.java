@@ -10,6 +10,8 @@ public interface RequestMapping<R> {
 	
 	Script getScript();
 	
+	Class<R> acceptedRequestType();
+	
 	/**
 	 * 
 	 * @param request
@@ -17,11 +19,4 @@ public interface RequestMapping<R> {
 	 * @return <code>true</code> if the maping should be applied for the given request
 	 */
 	boolean matches(R request, RequestContext requestContext);
-	
-	/**
-	 * 
-	 * @param request
-	 * @return <code>true</code> if this RequestMapping can handle requests of the given type
-	 */
-	boolean accepts(Class<?> request);
 }

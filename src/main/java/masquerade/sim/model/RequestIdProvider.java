@@ -10,5 +10,7 @@ public interface RequestIdProvider<R> {
 	String getName();
 	String getDescription();
 	
+	
+	Class<R> getAcceptedRequestType();
 	String getUniqueId(R request, RequestContext context);
 }

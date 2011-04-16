@@ -27,7 +27,7 @@ public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 	public void onEvent(Event4<CommitEventArgs> event, CommitEventArgs eventArgs) {
 		try {
 			onEvent(eventArgs);
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			log.log(Level.SEVERE, "Exception in commit event listener", ex);
 		}
 	}

@@ -35,7 +35,12 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
     	this.xpath = xpath;
     }
 
-    /**
+    @Override
+	public Class<Document> getAcceptedRequestType() {
+    	return Document.class;
+	}
+
+	/**
      * Returns an unique ID for this request. Determines the ID by evaluating the
      * specified XPath to a String result.
      */

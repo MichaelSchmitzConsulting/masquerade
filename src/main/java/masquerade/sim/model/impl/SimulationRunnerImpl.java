@@ -55,7 +55,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
-				if (mapping.accepts(request.getClass()) && matches(mapping, request, requestContext)) {
+				if (accepts(mapping, request.getClass()) && matches(mapping, request, requestContext)) {
 					Script script = mapping.getScript();
 					
 					SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
@@ -73,6 +73,10 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		} finally {
 			requestHistory.endSession();
 		}
+	}
+
+	private boolean accepts(RequestMapping<?> mapping, Class<? extends Object> requestType) {
+		return converter.canConvert(requestType, mapping.acceptedRequestType());
 	}
 
 	private void marshalResponse(Object response, OutputStream responseOutput) throws IOException {
@@ -98,16 +102,19 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		}
 	}
 
-	// Casts are safe because accepts() checks the request type
+	// Casts are safe because acceptedRequestType() returns the request type
 	private boolean matches(RequestMapping<?> mapping, Object request, RequestContext requestContext) {
 		@SuppressWarnings("rawtypes")
 		RequestMapping cast = (RequestMapping) mapping;
+		
+		Object converted = converter.convert(request, mapping.acceptedRequestType());
+		
 		@SuppressWarnings("unchecked")
-		boolean matches = cast.matches(request, requestContext);
+		boolean matches = cast.matches(converted, requestContext);
 		return matches;
 	}
  
-	// Casts are safe because ResponseSimulation.matches() is typed
+	// Casts are safe because request is converted to RequestIdProvider#getAcceptedRequestType()
 	private String getRequestId(RequestIdProvider<?> requestIdProvider, Object request, RequestContext context) {
 		if (requestIdProvider == null) {
 			return null;
@@ -115,8 +122,11 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		
 		@SuppressWarnings("rawtypes")
 		RequestIdProvider cast = requestIdProvider;
+		
+		Object converted = converter.convert(request, requestIdProvider.getAcceptedRequestType());
+		
 		@SuppressWarnings("unchecked")
-		String uniqueId = cast.getUniqueId(request, context);
+		String uniqueId = cast.getUniqueId(converted, context);
 		return uniqueId;
 	}
 }

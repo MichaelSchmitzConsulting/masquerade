@@ -10,18 +10,18 @@ public abstract class AbstractRequestMapping<R> implements RequestMapping<R> {
 
 	private String name;
 	private Script script;
-	private Class<? extends R> acceptedRequestType;
+	private Class<R> acceptedRequestType;
 	
-	protected AbstractRequestMapping(String name, Script script, Class<? extends R> acceptedRequestType) {
+	protected AbstractRequestMapping(String name, Script script, Class<R> acceptedRequestType) {
 	    this.name = name;
 	    this.script = script;
 	    this.acceptedRequestType = acceptedRequestType;
     }
 
 	@Override
-    public boolean accepts(Class<?> requestType) {
-		return acceptedRequestType.isAssignableFrom(requestType);
-    }
+	public Class<R> acceptedRequestType() {
+		return acceptedRequestType;
+	}
 
 	@Override
 	public final String getName() {

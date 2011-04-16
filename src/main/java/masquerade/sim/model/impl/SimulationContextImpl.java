@@ -86,4 +86,9 @@ public class SimulationContextImpl implements SimulationContext {
 	public <T> T convert(Object value, Class<T> to) {
 		return converter.convert(value, to);
 	}
+
+	@Override
+	public boolean canConvert(Class<?> from, Class<?> to) {
+		return converter.canConvert(from, to);
+	}
 }

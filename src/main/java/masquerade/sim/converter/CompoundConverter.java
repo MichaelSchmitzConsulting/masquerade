@@ -13,6 +13,12 @@ import org.w3c.dom.Element;
 
 public class CompoundConverter implements Converter {
 
+	@Override
+	public boolean canConvert(Class<?> from, Class<?> to) {
+		// TODO: Sensible converter implementation
+		return true;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T convert(Object value, Class<T> to) {
