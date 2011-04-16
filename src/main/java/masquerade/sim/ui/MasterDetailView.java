@@ -24,8 +24,10 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.Reindeer;
 
 public class MasterDetailView extends CustomComponent {
 
@@ -210,15 +212,21 @@ public class MasterDetailView extends CustomComponent {
 	    // DetailLayout
 	    GridLayout detailLayout = new GridLayout();
 	    detailLayout.setSizeFull();
-	    detailLayout.setMargin(false, true, false, true);
+	    detailLayout.setMargin(false, false, false, true);
 	    mainLayout.addComponent(detailLayout);
+
+	    // Wrap form into a panel to get scroll bars if it cannot be displayed fully
+	    Panel panel = new Panel();
+		panel.setSizeFull();
+		panel.addStyleName(Reindeer.PANEL_LIGHT);
+		detailLayout.addComponent(panel);
 	    
 	    mainLayout.setExpandRatio(detailLayout, 1.0f);
 	    
 	    mainLayout.setSizeFull();
 	    mainLayout.setSpacing(false);
 	    
-	    detailContainer = detailLayout;
+	    detailContainer = panel;
 	    mainContainer = mainLayout;
     }
 
@@ -235,6 +243,7 @@ public class MasterDetailView extends CustomComponent {
 	private void setDetailView(Component component) {
 		detailContainer.removeAllComponents();
 		if (component != null) {
+			// Wrap it into a 
 			detailContainer.addComponent(component);
 		}
 		detailView = component;
@@ -247,7 +256,6 @@ public class MasterDetailView extends CustomComponent {
 		form.setCaption(shortTypeName);
 		form.setWriteThrough(isWriteThrough );
         form.setInvalidCommitted(false); // no invalid values in datamodel
-        
 		form.setFormFieldFactory(fieldFactory);
 
 		BeanItem<?> item = new BeanItem<Object>(bean);
@@ -266,9 +274,7 @@ public class MasterDetailView extends CustomComponent {
                     BeanItem<?> item = (BeanItem<?>) form.getItemDataSource();
                     fireFormCommited(item.getBean());
                     
-                    getWindow().showNotification(
-                        "Saved",
-                        shortTypeName + " updated");
+					getWindow().showNotification("Saved", shortTypeName + " updated");
                 } catch (InvalidValueException e) {
                     // Ignored, we'll let the Form handle the errors
                 }
@@ -277,7 +283,7 @@ public class MasterDetailView extends CustomComponent {
 		buttons.addComponent(apply);
 		buttons.setComponentAlignment(apply, Alignment.MIDDLE_LEFT);
 		form.getFooter().addComponent(buttons);
-		form.getFooter().setMargin(true, true, true, false);
+		form.getFooter().setMargin(true, true, false, false);
 		
 		return form;
 	}

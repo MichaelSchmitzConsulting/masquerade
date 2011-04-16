@@ -101,7 +101,7 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
         tabSheet.addTab(scripts, "Response Script", SCRIPT.icon());
         tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon());
-        tabSheet.addTab(namespacePrefixes, "Namespace Prefix", NAMESPACE_PREFIX.icon());
+        tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon());
         tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
         tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
         tabSheet.addTab(requestTester, "Test", TEST.icon());
