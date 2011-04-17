@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import masquerade.sim.channel.jms.ConnectionFactoryProvider;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
@@ -17,6 +18,7 @@ import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
 import masquerade.sim.ui.field.FieldFactory;
 import masquerade.sim.ui.field.FileSelectFieldFactory;
+import masquerade.sim.ui.field.ModelImplementationSelectFieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
 
 import org.vaadin.codemirror.client.ui.CodeStyle;
@@ -57,6 +59,9 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		factories.put(
 				"templateName",
 				new FileSelectFieldFactory("Template", fileLoader, FileType.TEMPLATE, defaultWidth));
+		factories.put(
+				"connectionFactoryProvider",
+				new ModelImplementationSelectFieldFactory(modelRepository, ConnectionFactoryProvider.class, defaultWidth));
 		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(

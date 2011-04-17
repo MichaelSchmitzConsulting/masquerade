@@ -38,7 +38,7 @@ public class HttpChannel extends AbstractChannel {
 	}
 
 	@Override
-	public Class<? extends ChannelListener<?>> getListenerType() {
+	public Class<? extends ChannelListener<?>> listenerType() {
 		return HttpChannelListener.class;
 	}
 

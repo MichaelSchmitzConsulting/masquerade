@@ -83,7 +83,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
 	private void doStart(Channel changedChannel, String channelName) {
 		try {
-			ChannelListener<Channel> listener = createListener(changedChannel.getListenerType());
+			ChannelListener<Channel> listener = createListener(changedChannel.listenerType());
 			listener.start(changedChannel, simulationRunner);
 			channels.put(channelName, listener);
 		} catch (Exception ex) {

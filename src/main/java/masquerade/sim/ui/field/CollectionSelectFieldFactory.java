@@ -36,13 +36,18 @@ public abstract class CollectionSelectFieldFactory implements FieldFactory {
 		select.setCaption(ClassUtil.fromCamelCase(type));
 		
 		Collection<?> all = getAll();
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-        BeanItemContainer<?> container = new BeanItemContainer(type, all);
-		select.setContainerDataSource(container);
+		fillValues(select, all);
 		
 		select.select(existingValue);
 		select.setRequired(isRequired);
-		
+		select.setNullSelectionAllowed(!isRequired);
+
 		return select;
     }
+
+	protected void fillValues(Select select, Collection<?> all) {
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+        BeanItemContainer<?> container = new BeanItemContainer(type, all);
+		select.setContainerDataSource(container);
+	}
 }

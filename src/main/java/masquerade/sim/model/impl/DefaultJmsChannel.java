@@ -30,4 +30,8 @@ public class DefaultJmsChannel extends JmsChannel {
 		return isNotEmpty(url) && isNotEmpty(getDestinationName());
 	}
 
+	@Override
+	public String toString() {
+		return "Default JMS Channel " + getUrl();
+	}
 }

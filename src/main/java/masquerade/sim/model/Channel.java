@@ -25,5 +25,5 @@ public interface Channel {
 
 	void setRequestMappings(Set<RequestMapping<?>> requestMappings);
 	
-	Class<? extends ChannelListener<? extends Channel>> getListenerType();
+	Class<? extends ChannelListener<? extends Channel>> listenerType();
 }

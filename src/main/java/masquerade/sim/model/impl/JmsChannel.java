@@ -91,7 +91,7 @@ public abstract class JmsChannel extends AbstractChannel {
 	}
 
 	@Override
-	public Class<? extends ChannelListener<?>> getListenerType() {
+	public Class<? extends ChannelListener<?>> listenerType() {
 		return JmsChannelListener.class;
 	}
 }

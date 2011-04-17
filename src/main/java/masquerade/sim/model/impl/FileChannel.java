@@ -88,7 +88,7 @@ public class FileChannel extends AbstractChannel {
 	}
 
 	@Override
-	public Class<? extends ChannelListener<? extends Channel>> getListenerType() {
+	public Class<? extends ChannelListener<? extends Channel>> listenerType() {
 		return FileChannelListener.class;
 	}
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
+import masquerade.sim.channel.jms.ActiveMqConnectionFactoryProvider;
+import masquerade.sim.channel.jms.ConnectionFactoryProvider;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.CopyRequestToResponseStep;
 import masquerade.sim.model.NamespacePrefix;
@@ -72,6 +74,9 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		
 		// Namespace prefix
 		declareModelImplementation(NamespacePrefix.class, NamespacePrefix.class);
+		
+		// JMS Connection Factory Provider
+		declareModelImplementation(ConnectionFactoryProvider.class, ActiveMqConnectionFactoryProvider.class);
 	}
 
 	// Common monitor entered by all threads accessing the model to synchronize

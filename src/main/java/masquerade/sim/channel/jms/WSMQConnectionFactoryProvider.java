@@ -5,18 +5,20 @@ import java.util.logging.Logger;
 
 import javax.jms.ConnectionFactory;
 
+import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
 
 /**
  * Provides {@link ConnectionFactory} instances for IBM WebSphere MQ connections over TCP/IP.
- * Is configured using a {@link WebSphereMqJmsChannel}.
+ * Is configured using a {@link WebSphereMqJmsChannel}. Not an implementation of
+ * {@link ConnectionFactoryProvider} because it does not support the default JMS channel
+ * attributes provided by {@link DefaultJmsChannel}.
  */
-public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
+public class WSMQConnectionFactoryProvider {
 
 	private static final Logger log = Logger.getLogger(WSMQConnectionFactoryProvider.class.getName());
 
-	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
 		try {
 			WebSphereMqJmsChannel mqChannel = (WebSphereMqJmsChannel) channel;
