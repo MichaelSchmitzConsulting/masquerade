@@ -3,9 +3,12 @@ package masquerade.sim.channel.jms;
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.lang.reflect.Constructor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.jms.ConnectionFactory;
 
+import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 
 /**
@@ -14,11 +17,15 @@ import masquerade.sim.model.impl.JmsChannel;
  */
 public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvider {
 
+	private static final Logger log = Logger.getLogger(ActiveMqConnectionFactoryProvider.class.getName());
+
 	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
-		String user = channel.getUser();
-		String password = channel.getPassword();
-		String url = channel.getUrl();
+		DefaultJmsChannel jmsChannel = (DefaultJmsChannel) channel;
+		
+		String user = jmsChannel.getUser();
+		String password = jmsChannel.getPassword();
+		String url = jmsChannel.getUrl();
 
 		if (isEmpty(user)) {
 			user = null;
@@ -30,6 +37,7 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 		try {
 			return createFactory(user, password, url);
 		} catch (Exception e) {
+			log.log(Level.SEVERE, "Unable to create WSMQ connection factory", e);
 			return null;
 		}
 	}

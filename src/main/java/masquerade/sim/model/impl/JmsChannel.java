@@ -1,27 +1,24 @@
 package masquerade.sim.model.impl;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import masquerade.sim.channel.jms.ActiveMqConnectionFactoryProvider;
+import masquerade.sim.channel.jms.ConnectionFactoryProvider;
 import masquerade.sim.channel.jms.JmsChannelListener;
 import masquerade.sim.model.ChannelListener;
 
 /**
- * A channel receiving requests from a JMS queue
+ * A channel receiving requests from a JMS queue or topic
  */
-public class JmsChannel extends AbstractChannel {
+public abstract class JmsChannel extends AbstractChannel {
 
-	private String url = "";
 	private String user = "";
 	private String password = "";
 	private String destinationName = "";
 	private String responseDestinationName = "";
 	private boolean isTopic = false;
+	private Class<? extends ConnectionFactoryProvider> connectionFactoryProvider = ActiveMqConnectionFactoryProvider.class;
 
 	public JmsChannel(String name) {
 		super(name);
-	}
-
-	public String getUrl() {
-		return url;
 	}
 
 	public String getUser() {
@@ -30,10 +27,6 @@ public class JmsChannel extends AbstractChannel {
 
 	public String getPassword() {
 		return password;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 	public void setUser(String user) {
@@ -85,18 +78,16 @@ public class JmsChannel extends AbstractChannel {
 	public void setTopic(boolean isTopic) {
 		this.isTopic = isTopic;
 	}
-
-	/**
-	 * @return <code>true</code> If this channel is configured with an URL and a destination
-	 */
-	@Override
-	public boolean isActive() {
-		return isNotEmpty(url) && isNotEmpty(destinationName);
+	
+	public Class<? extends ConnectionFactoryProvider> getConnectionFactoryProvider() {
+		return connectionFactoryProvider ;
 	}
 
-	@Override
-	public String toString() {
-		return "JmsChannel: " + user + "@" + url;
+	/**
+	 * @param connectionFactoryProvider the connectionFactoryProvider to set
+	 */
+	public void setConnectionFactoryProvider(Class<? extends ConnectionFactoryProvider> connectionFactoryProvider) {
+		this.connectionFactoryProvider = connectionFactoryProvider;
 	}
 
 	@Override

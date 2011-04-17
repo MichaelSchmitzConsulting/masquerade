@@ -45,10 +45,15 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		String destinationName = channel.getDestinationName();
 		replyDestinationName = channel.getResponseDestinationName();
 		isTopic = channel.isTopic();
-		log.info("Starting JmsChannelListener at " + channel.getUrl());
+		log.info("Creating connection factor for JMS channel " + channel.getName());
 		
 		ConnectionFactory connectionFactory = createConnectionFactory(channel);
+		if (connectionFactory == null) {
+			// return, createConnectionFactory() logs errors itself
+			return;
+		}
 		
+		log.info("Starting JmsChannelListener " + channel.getName());
 		container = new SimpleMessageListenerContainer();
 		container.setPubSubDomain(isTopic);
 		container.setConnectionFactory(connectionFactory);
@@ -128,7 +133,13 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	}
 
 	private ConnectionFactory createConnectionFactory(JmsChannel channel) {
-		ConnectionFactoryProvider provider = new ActiveMqConnectionFactoryProvider();
-		return provider.getConnectionFactory(channel);
+		ConnectionFactoryProvider provider;
+		try {
+			provider = channel.getConnectionFactoryProvider().newInstance();
+			return provider.getConnectionFactory(channel);
+		} catch (Throwable t) {
+			log.log(Level.SEVERE, "Unable to create a connection factory for JMS channel " + channel.getName(), t);
+			return null;
+		}
 	}
 }

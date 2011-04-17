@@ -16,10 +16,11 @@ import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.FileChannel;
 import masquerade.sim.model.impl.HttpChannel;
-import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.SequenceScript;
+import masquerade.sim.model.impl.WebSphereMqJmsChannel;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
 import masquerade.sim.model.impl.step.AddResponseElementStep;
@@ -44,7 +45,8 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 	static {
 		// Channels
 		declareModelImplementation(Channel.class, HttpChannel.class);
-		declareModelImplementation(Channel.class, JmsChannel.class);
+		declareModelImplementation(Channel.class, DefaultJmsChannel.class);
+		declareModelImplementation(Channel.class, WebSphereMqJmsChannel.class);
 		declareModelImplementation(Channel.class, FileChannel.class);
 		
 		// Scripts
