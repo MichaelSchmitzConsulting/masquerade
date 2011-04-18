@@ -11,6 +11,7 @@ public interface SimulationContext extends Converter {
 	
 	void setVariable(String name, Object value);
 	<T> T getVariable(String name);
+	boolean hasVariable(String name);
 	Map<String, Object> getVariables();
 	
 	String substituteVariables(String content);

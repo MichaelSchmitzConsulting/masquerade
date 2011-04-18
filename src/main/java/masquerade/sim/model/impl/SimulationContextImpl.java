@@ -57,6 +57,11 @@ public class SimulationContextImpl implements SimulationContext {
 	}
 
 	@Override
+	public boolean hasVariable(String name) {
+		return contextVariables.containsKey(name);
+	}
+
+	@Override
 	public Map<String, Object> getVariables() {
 		return Collections.unmodifiableMap(contextVariables);
 	}
