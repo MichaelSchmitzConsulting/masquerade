@@ -14,7 +14,7 @@ import masquerade.sim.model.SimulationRunner;
  * track of request mappings.
  * @param <T>
  */
-public abstract class AbstractChannelListener<T extends Channel> implements ChannelListener<T> {
+public abstract class AbstractChannelListener<T extends Channel> implements ChannelListener<T>, RequestProcessor {
 	private SimulationRunner simulationRunner;
 	private String channelName;
 	private Set<RequestMapping<?>> requestMappings;
@@ -35,7 +35,8 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	protected abstract void onStart(T channel);
 	protected abstract void onStop(); 
 
-	protected void processRequest(String clientInfo,  Object request, OutputStream responseOutput) throws Exception {
+	@Override
+	public void processRequest(String clientInfo,  Object request, OutputStream responseOutput) throws Exception {
 		simulationRunner.runSimulation(responseOutput, channelName, clientInfo, requestMappings, request);
 	}
 }

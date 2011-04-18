@@ -13,6 +13,14 @@ public class StringUtil {
 			return str;
 		}
 	}
+	
+	public static String removeTrailingSlash(String str) {
+		if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == '/') {
+			return str.substring(0, str.length() - 1);
+		} else {
+			return str;
+		}
+	}
 
 	public static String substituteVariables(Map<String, Object> contextVariables, String content, Converter converter) {
 		String ret = content;
@@ -49,5 +57,4 @@ public class StringUtil {
 	public static boolean isUpperCase(String uqn, int i) {
 		return i < uqn.length() && Character.isUpperCase(uqn.charAt(i));
 	}
-
 }
