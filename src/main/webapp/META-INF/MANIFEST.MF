@@ -13,4 +13,4 @@ Class-Path: antlr-2.7.7.jar aopalliance-1.0.jar asm-3.2.jar asm-analys
  ELEASE.jar spring-core-3.0.5.RELEASE.jar spring-expression-3.0.5.RELE
  ASE.jar spring-jms-3.0.5.RELEASE.jar spring-tx-3.0.5.RELEASE.jar vaad
  in-6.5.5.jar
-
+Main-Class: masquerade.sim.run.Main
