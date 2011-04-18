@@ -1,5 +1,3 @@
-package masquerade.sim.run;
-
 import java.net.URL;
 import java.security.CodeSource;
 
@@ -8,6 +6,13 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  * Standalone Masquerade runner using an embedded Jetty to launch the simulator.
+ * 
+ * <p>Supported system properties:</p>
+ * <ul>
+ * <li>masquerade.port: TCP Port to bind HTTP server to (default: 8888)</li>
+ * <li>masquerade.db.file.location: Location of the database file</li>
+ * <li>masquerade.request.log.dir: Directory where request history payload is stored</li>
+ * </ul>
  */
 public class Main {
 

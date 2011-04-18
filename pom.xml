@@ -26,6 +26,33 @@
 				</configuration>
 			</plugin>
 
+			<!-- Maven WAR plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>Main</mainClass>
+						</manifest>
+					</archive>
+					<webResources>
+						<resource>
+							<!-- this is relative to the pom.xml directory -->
+							<directory>target/masquerade-0.1/WEB-INF/classes</directory>
+							<!-- 
+								Include the Main class to run the war standalone using jetty with
+								java -jar masquerade.war
+							 -->
+							<includes>
+								<include>Main.class</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
 			<!-- A simple Jetty test server at http://localhost:8080/masquerade can 
 				be launched with the Maven goal jetty:run and stopped with jetty:stop -->
 			<plugin>
@@ -55,7 +82,7 @@
 				<configuration>
 					<wtpversion>2.0</wtpversion>
 					<wtpapplicationxml>true</wtpapplicationxml>
-					<wtpmanifest>true</wtpmanifest>
+					<wtpmanifest>false</wtpmanifest>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
 					<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>

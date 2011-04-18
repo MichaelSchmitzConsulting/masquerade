@@ -29,7 +29,7 @@ public class StringUtil {
 			String name = entry.getKey();
 			String value = converter.convert(entry.getValue(), String.class);
 			if (value != null) {
-				ret = content.replace("${" + name + "}", value);
+				ret = ret.replace("${" + name + "}", value);
 			}
 		}
 		return ret;

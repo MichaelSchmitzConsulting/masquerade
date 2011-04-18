@@ -13,10 +13,12 @@ import org.apache.commons.io.IOUtils;
  */
 public class SoapFaultStep extends AbstractSubstitutingStep {
 
-	public final static String DEFAULT_FAULTCODE = "SOAP-ENV:Server";
-	public final static String DEFAULT_FAULTSTRING = "Simulated SOAP fault response";
 	public static final String VAR_SOAP_FAULTCODE = "soap.faultcode";
 	public static final String VAR_SOAP_FAULTSTRING = "soap.faultstring";
+	public static final String VAR_SOAP_FAULTDETAIL = "soap.faultdetail";
+	public final static String DEFAULT_FAULTCODE = "SOAP-ENV:Server";
+	public final static String DEFAULT_FAULTSTRING = "Simulated SOAP fault response";
+	public static final String DEFAULT_FAULTDETAIL = "";
 		
 	private final static String faultContent;
 	
@@ -43,6 +45,9 @@ public class SoapFaultStep extends AbstractSubstitutingStep {
 		}
 		if (!context.hasVariable(VAR_SOAP_FAULTSTRING)) {
 			context.setVariable(VAR_SOAP_FAULTSTRING, DEFAULT_FAULTSTRING);
+		}
+		if (!context.hasVariable(VAR_SOAP_FAULTDETAIL)) {
+			context.setVariable(VAR_SOAP_FAULTDETAIL, DEFAULT_FAULTDETAIL);
 		}
 		
 		String content = substituteVariables(faultContent, context);
