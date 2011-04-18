@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<SOAP-ENV:Envelope 
-	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+<soap-env:Envelope 
+	xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/" 
 	xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" 
 	xmlns:xsd="http://www.w3.org/1999/XMLSchema">
 	
-	<SOAP-ENV:Body>
-		<SOAP-ENV:Fault>
+	<soap-env:Body>
+		<soap-env:Fault>
 			<faultcode xsi:type="xsd:string">
 				${soap.faultcode}
 			</faultcode>
@@ -15,7 +15,7 @@
 	        <detail>
 	        	${soap.faultdetail}
 	        </detail>
-		</SOAP-ENV:Fault>
-	</SOAP-ENV:Body>
+		</soap-env:Fault>
+	</soap-env:Body>
 	
-</SOAP-ENV:Envelope>
+</soap-env:Envelope>

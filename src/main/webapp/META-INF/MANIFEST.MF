@@ -3,9 +3,14 @@ Class-Path: antlr-2.7.7.jar aopalliance-1.0.jar asm-3.2.jar asm-analys
  is-3.2.jar asm-commons-3.2.jar asm-tree-3.2.jar asm-util-3.2.jar code
  mirror-0.9.3.jar commons-io-2.0.1.jar commons-lang-2.5.jar commons-lo
  gging-1.1.1.jar commons-net-2.2.jar customfield-0.9.0.jar db4o-full-j
- ava5-8.1-SNAPSHOT.jar groovy-1.7.10.jar jms-1.1.jar jruby-complete-1.
- 6.1.jar spring-aop-3.0.5.RELEASE.jar spring-asm-3.0.5.RELEASE.jar spr
- ing-beans-3.0.5.RELEASE.jar spring-context-3.0.5.RELEASE.jar spring-c
- ore-3.0.5.RELEASE.jar spring-expression-3.0.5.RELEASE.jar spring-jms-
- 3.0.5.RELEASE.jar spring-tx-3.0.5.RELEASE.jar vaadin-6.5.5.jar
+ ava5-8.1-SNAPSHOT.jar groovy-1.7.10.jar jetty-continuation-7.4.0.v201
+ 10414.jar jetty-http-7.4.0.v20110414.jar jetty-io-7.4.0.v20110414.jar
+  jetty-security-7.4.0.v20110414.jar jetty-server-7.4.0.v20110414.jar 
+ jetty-servlet-7.4.0.v20110414.jar jetty-util-7.4.0.v20110414.jar jett
+ y-webapp-7.4.0.v20110414.jar jetty-xml-7.4.0.v20110414.jar jms-1.1.ja
+ r jruby-complete-1.6.1.jar spring-aop-3.0.5.RELEASE.jar spring-asm-3.
+ 0.5.RELEASE.jar spring-beans-3.0.5.RELEASE.jar spring-context-3.0.5.R
+ ELEASE.jar spring-core-3.0.5.RELEASE.jar spring-expression-3.0.5.RELE
+ ASE.jar spring-jms-3.0.5.RELEASE.jar spring-tx-3.0.5.RELEASE.jar vaad
+ in-6.5.5.jar
 
