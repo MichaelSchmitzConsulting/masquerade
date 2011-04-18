@@ -23,6 +23,7 @@ import masquerade.sim.model.impl.FileChannel;
 import masquerade.sim.model.impl.FtpChannel;
 import masquerade.sim.model.impl.HttpChannel;
 import masquerade.sim.model.impl.SequenceScript;
+import masquerade.sim.model.impl.SoapFaultStep;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
@@ -73,6 +74,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		declareModelImplementation(SimulationStep.class, RubyScriptStep.class);
 		declareModelImplementation(SimulationStep.class, ScriptFileStep.class);
 		declareModelImplementation(SimulationStep.class, SetResponseContentStep.class);
+		declareModelImplementation(SimulationStep.class, SoapFaultStep.class);
 		
 		// Namespace prefix
 		declareModelImplementation(NamespacePrefix.class, NamespacePrefix.class);
