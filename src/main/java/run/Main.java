@@ -59,18 +59,31 @@ public class Main {
 			return false;
 		}
 		
-		runServer(unpackDir);
+		ClassLoader serverRunnerLoader = createClassLoader(new File(unpackDir, "WEB-INF/lib"));
+		
+		try {
+			runServer(serverRunnerLoader, unpackDir);
+		} finally {
+			deleteDirectory(unpackDir, serverRunnerLoader);
+		}
 		
 		return true;
+	}
+
+	private void deleteDirectory(File unpackDir, ClassLoader serverRunnerLoader) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
+		Class<?> fileUtils = serverRunnerLoader.loadClass("org.apache.commons.io.FileUtils");
+		Method deleteDir = fileUtils.getMethod("deleteDirectory", File.class);
+		deleteDir.invoke(null, unpackDir);
 	}
 
 	/**
 	 * Runs the {@link ServerRunner}, loading it using reflection to avoid dependency from this class
 	 * ServerRunner as the class loader for this class will be unable to load Jetty.
+	 * @param serverRunnerLoader 
 	 * @param unpackDir Where the WAR has been exploded to
 	 */
-	private void runServer(File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
-		ClassLoader serverRunnerLoader = createClassLoader(new File(unpackDir, "WEB-INF/lib"));
+	private void runServer(ClassLoader serverRunnerLoader, File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
 		Class<?> runner = serverRunnerLoader.loadClass("run.ServerRunner");
 		Method runServer = runner.getMethod("runServer", File.class, int.class);
 		runServer.invoke(null, unpackDir, port);
