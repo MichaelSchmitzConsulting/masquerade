@@ -45,7 +45,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
@@ -107,14 +106,20 @@ public class MainLayout extends VerticalLayout {
         tabSheet.addTab(requestTester, "Test", TEST.icon());
         
         // Refresh master/detail view contents on tab selection
-        Map<Component, ContainerFactory> refreshMap = new HashMap<Component, ContainerFactory>();
-        refreshMap.put(channels, channelFactory);
-        refreshMap.put(requestMapping, mappingFactory);
-        refreshMap.put(scripts, scriptFactory);
-        refreshMap.put(requestIdProviders, ripFactory);
+        Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
+        refreshMap.put(channels, new TabRefresher(channelFactory));
+        refreshMap.put(requestMapping, new TabRefresher(mappingFactory));
+        refreshMap.put(scripts, new TabRefresher(scriptFactory));
+        refreshMap.put(requestIdProviders, new TabRefresher(ripFactory));
+        refreshMap.put(requestTester, createTestRefresher());
         tabSheet.addListener(createTabSelectionListener(refreshMap));
         
 		return tabSheet;
+	}
+
+	private RefreshListener createTestRefresher() {
+		// TODO
+		return null;
 	}
 
 	private Component createRequestTestView(ModelRepository modelRepository, ActionListener<Channel, String, Object> sendTestRequestAction) {
@@ -129,7 +134,7 @@ public class MainLayout extends VerticalLayout {
 		return new FileManagerView(artifactRoot);
 	}
 
-	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, ContainerFactory> refreshMap) {
+	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, RefreshListener> refreshMap) {
 		return new SelectedTabChangeListener() {
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
@@ -139,14 +144,11 @@ public class MainLayout extends VerticalLayout {
 		};
 	}
 	
-	private void refreshTab(final Map<Component, ContainerFactory> refreshMap, TabSheet tabSheet) {
+	private void refreshTab(final Map<Component, RefreshListener> refreshMap, TabSheet tabSheet) {
 		Component tabLayout = tabSheet.getComponentIterator().next();
-		ContainerFactory containerFactory = refreshMap.get(tabLayout);
-		if (containerFactory != null) {
-			ComponentContainer container = (ComponentContainer) tabLayout;
-			MasterDetailView view = (MasterDetailView) container.getComponentIterator().next();
-			Container dataSource = containerFactory.createContainer();
-			view.setDataSource(dataSource, COLUMNS);
+		RefreshListener refreshment = refreshMap.get(tabLayout);
+		if (refreshment != null) {
+			refreshment.refresh(tabLayout);
 		}
 	}
 

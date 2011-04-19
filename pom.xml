@@ -34,19 +34,19 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>Main</mainClass>
+							<mainClass>run.Main</mainClass>
 						</manifest>
 					</archive>
 					<webResources>
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
-							<directory>target/masquerade-0.1/WEB-INF/classes</directory>
+							<directory>target/classes</directory>
 							<!-- 
 								Include the Main class to run the war standalone using jetty with
 								java -jar masquerade.war
 							 -->
 							<includes>
-								<include>Main.class</include>
+								<include>run/*.class</include>
 							</includes>
 						</resource>
 					</webResources>
