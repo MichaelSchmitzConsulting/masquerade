@@ -34,7 +34,6 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		int port = Integer.parseInt(System.getProperty("masquerade.port", "8888"));
-		System.out.println("Starting Masquerade Standalone on port " + port);
 		
 		Main main = new Main(port);
 		main.run();
@@ -58,8 +57,9 @@ public class Main {
 			System.err.println("Unable to unpack WAR file to temporary folder");
 			return false;
 		}
-
+		
 		ClassLoader serverRunnerLoader = createClassLoader(new File(unpackDir, "WEB-INF/lib"));
+		Thread.currentThread().setContextClassLoader(serverRunnerLoader);
 		
 		try {
 			runServer(serverRunnerLoader, unpackDir);
@@ -74,6 +74,7 @@ public class Main {
 			InvocationTargetException {
 		Class<?> fileUtils = serverRunnerLoader.loadClass("org.apache.commons.io.FileUtils");
 		Method deleteDir = fileUtils.getMethod("deleteDirectory", File.class);
+		System.out.println("Removing temporary directory " + unpackDir.getAbsolutePath());
 		deleteDir.invoke(null, unpackDir);
 	}
 
@@ -86,6 +87,7 @@ public class Main {
 	private void runServer(ClassLoader serverRunnerLoader, File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
 		Class<?> runner = serverRunnerLoader.loadClass("run.ServerRunner");
 		Method runServer = runner.getMethod("runServer", File.class, int.class);
+		System.out.println("Starting Masquerade Standalone on port " + port);
 		runServer.invoke(null, unpackDir, port);
 	}
 

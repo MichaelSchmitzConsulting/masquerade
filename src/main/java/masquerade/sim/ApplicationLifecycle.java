@@ -244,7 +244,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 */
 	private static String getAppName(ServletContext servletContext) {
 		String name = servletContext.getContextPath().replace("/", "_");
-		return name.length() > 0 ? name.substring(1) : name; // Remove leading _
+		return name.length() > 0 ? name.substring(1) : "masquerade"; // Remove leading _, set name if deployed at root
 	}
 
 	/**
