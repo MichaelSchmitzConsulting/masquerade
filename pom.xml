@@ -41,10 +41,8 @@
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
 							<directory>target/classes</directory>
-							<!-- 
-								Include the Main class to run the war standalone using jetty with
-								java -jar masquerade.war
-							 -->
+							<!-- Include the Main class to run the war standalone using jetty 
+								with java -jar masquerade.war -->
 							<includes>
 								<include>run/*.class</include>
 							</includes>
@@ -264,6 +262,11 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
+			<version>7.4.0.v20110414</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jsp-2.1</artifactId>
 			<version>7.4.0.v20110414</version>
 		</dependency>
 	</dependencies>
