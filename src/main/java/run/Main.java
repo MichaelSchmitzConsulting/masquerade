@@ -58,7 +58,7 @@ public class Main {
 			System.err.println("Unable to unpack WAR file to temporary folder");
 			return false;
 		}
-		
+
 		ClassLoader serverRunnerLoader = createClassLoader(new File(unpackDir, "WEB-INF/lib"));
 		
 		try {
@@ -105,7 +105,7 @@ public class Main {
 			System.out.println("Including JAR: " + jar);
 			urls[i++] = jar.toURI().toURL();
 		}
-		return new URLClassLoader(urls, getClass().getClassLoader());
+		return new URLClassLoader(urls);
 	}
 
 	/**
@@ -152,9 +152,7 @@ public class Main {
 			System.err.println("Cannot create directory " + tempDir.getAbsolutePath());
 			return null;
 		}
-		
-		tempDir.deleteOnExit();
-		
+	
 		return tempDir;
 	}
 }
