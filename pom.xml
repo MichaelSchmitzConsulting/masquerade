@@ -130,7 +130,6 @@
 					<noServer>true</noServer>
 					<port>8080</port>
 					<soyc>false</soyc>
-					<gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
 				</configuration>
 				<executions>
 					<execution>
