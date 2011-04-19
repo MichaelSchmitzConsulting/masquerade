@@ -60,30 +60,18 @@ public class Main {
 			System.err.println("Unable to unpack WAR file to temporary folder");
 			return false;
 		}
-		//File unpackDir = new File("/Users/Matthias/Development/Workspaces/bpm/masquerade/target/masquerade-0.1");
 		
+		// Create class loader with class path for webapp (lib and classes)
 		File libDir = new File(unpackDir, "WEB-INF/lib");
 		File classesDir = new File(unpackDir, "WEB-INF/classes");
 		ClassLoader serverRunnerLoader = createClassLoader(libDir, classesDir);
-		Thread.currentThread().setContextClassLoader(serverRunnerLoader);
 		
-		try {
-			runServer(serverRunnerLoader, unpackDir);
-		} finally {
-			deleteDirectory(unpackDir, serverRunnerLoader);
-		}
+		// Add shutdown hook
+		Runtime.getRuntime().addShutdownHook(new DeleteTempDirShutdownHook(serverRunnerLoader, unpackDir));
+		
+		runServer(serverRunnerLoader, unpackDir);
 		
 		return true;
-	}
-
-	private void deleteDirectory(File unpackDir, ClassLoader serverRunnerLoader) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
-		/*
-		Class<?> fileUtils = serverRunnerLoader.loadClass("org.apache.commons.io.FileUtils");
-		Method deleteDir = fileUtils.getMethod("deleteDirectory", File.class);
-		System.out.println("Removing temporary directory " + unpackDir.getAbsolutePath());
-		deleteDir.invoke(null, unpackDir);
-		*/
 	}
 
 	/**
@@ -93,10 +81,6 @@ public class Main {
 	 * @param unpackDir Where the WAR has been exploded to
 	 */
 	private void runServer(ClassLoader serverRunnerLoader, File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
-		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.util.component.LifeCycle"));
-		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.util.component.Destroyable"));
-		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.server.Handler"));
-		
 		Class<?> runner = serverRunnerLoader.loadClass("masquerade.sim.run.ServerRunner");
 		Method runServer = runner.getMethod("runServer", File.class, int.class);
 		System.out.println("Starting Masquerade Standalone on port " + port);
@@ -117,7 +101,6 @@ public class Main {
 		int i = 1;
 		urls[0] = classesDir.toURI().toURL();
 		for (File jar : jarFiles) {
-			System.out.println("Including JAR: " + jar);
 			urls[i++] = jar.toURI().toURL();
 		}
 		return new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
