@@ -11,7 +11,6 @@ import java.net.URLClassLoader;
 import java.security.CodeSource;
 
 import masquerade.sim.run.ServerRunner;
-import masquerade.sim.run.Zippy;
 
 /**
  * Standalone Masquerade runner using an embedded Jetty to launch the simulator.
