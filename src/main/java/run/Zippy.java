@@ -30,7 +30,6 @@ public class Zippy {
 			// create the parent directory structure if needed
 			destinationParent.mkdirs();
 			if (!entry.isDirectory()) {
-				System.out.println("Unpacking " + entry.getName() + " to " + destFile.getAbsolutePath() + "...");
 				extractFile(zip, entry, destFile);
 			}
 		}
