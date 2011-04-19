@@ -1,9 +1,11 @@
-package run;
+package masquerade.sim.run;
 
 import java.io.File;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import run.Main;
 
 /**
  * Contains the logic to run Masquerade as a webapp on an embedded jetty server.

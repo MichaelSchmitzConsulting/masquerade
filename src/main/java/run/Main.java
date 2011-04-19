@@ -1,4 +1,5 @@
 package run;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -8,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
+
+import masquerade.sim.run.ServerRunner;
+import masquerade.sim.run.Zippy;
 
 /**
  * Standalone Masquerade runner using an embedded Jetty to launch the simulator.
@@ -57,8 +61,11 @@ public class Main {
 			System.err.println("Unable to unpack WAR file to temporary folder");
 			return false;
 		}
+		//File unpackDir = new File("/Users/Matthias/Development/Workspaces/bpm/masquerade/target/masquerade-0.1");
 		
-		ClassLoader serverRunnerLoader = createClassLoader(new File(unpackDir, "WEB-INF/lib"));
+		File libDir = new File(unpackDir, "WEB-INF/lib");
+		File classesDir = new File(unpackDir, "WEB-INF/classes");
+		ClassLoader serverRunnerLoader = createClassLoader(libDir, classesDir);
 		Thread.currentThread().setContextClassLoader(serverRunnerLoader);
 		
 		try {
@@ -72,10 +79,12 @@ public class Main {
 
 	private void deleteDirectory(File unpackDir, ClassLoader serverRunnerLoader) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
 			InvocationTargetException {
+		/*
 		Class<?> fileUtils = serverRunnerLoader.loadClass("org.apache.commons.io.FileUtils");
 		Method deleteDir = fileUtils.getMethod("deleteDirectory", File.class);
 		System.out.println("Removing temporary directory " + unpackDir.getAbsolutePath());
 		deleteDir.invoke(null, unpackDir);
+		*/
 	}
 
 	/**
@@ -85,7 +94,11 @@ public class Main {
 	 * @param unpackDir Where the WAR has been exploded to
 	 */
 	private void runServer(ClassLoader serverRunnerLoader, File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
-		Class<?> runner = serverRunnerLoader.loadClass("run.ServerRunner");
+		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.util.component.LifeCycle"));
+		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.util.component.Destroyable"));
+		System.out.println(serverRunnerLoader.loadClass("org.eclipse.jetty.server.Handler"));
+		
+		Class<?> runner = serverRunnerLoader.loadClass("masquerade.sim.run.ServerRunner");
 		Method runServer = runner.getMethod("runServer", File.class, int.class);
 		System.out.println("Starting Masquerade Standalone on port " + port);
 		runServer.invoke(null, unpackDir, port);
@@ -95,19 +108,20 @@ public class Main {
 	 * Creates a {@link ClassLoader} for loading Jetty, includes all JARs in 
 	 * the webapp's lib dir
 	 */
-	private ClassLoader createClassLoader(File libdir) throws MalformedURLException {
+	private ClassLoader createClassLoader(File libdir, File classesDir) throws MalformedURLException {
 		File[] jarFiles = libdir.listFiles(new FilenameFilter() {
 			@Override public boolean accept(File dir, String name) {
 				return name.endsWith(".jar");
 			}
 		});
-		URL[] urls = new URL[jarFiles.length];
-		int i = 0;
+		URL[] urls = new URL[jarFiles.length + 1];
+		int i = 1;
+		urls[0] = classesDir.toURI().toURL();
 		for (File jar : jarFiles) {
 			System.out.println("Including JAR: " + jar);
 			urls[i++] = jar.toURI().toURL();
 		}
-		return new URLClassLoader(urls);
+		return new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
 	}
 
 	/**
@@ -117,10 +131,15 @@ public class Main {
 		CodeSource source = getClass().getProtectionDomain().getCodeSource();
 		if (source != null) {
 			URL location = source.getLocation();
-			return location.getPath();
+			String path = location.getPath();
+			return isWar(path) ? path : null;
 		} else {
 			return null;
 		}
+	}
+
+	private static boolean isWar(String path) {
+		return path != null && new File(path).isFile();
 	}
 
 	/**
