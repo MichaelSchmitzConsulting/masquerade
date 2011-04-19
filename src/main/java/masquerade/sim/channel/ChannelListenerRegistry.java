@@ -1,6 +1,7 @@
 package masquerade.sim.channel;
 
 import java.util.Collection;
+import java.util.List;
 
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
@@ -12,4 +13,7 @@ public interface ChannelListenerRegistry {
 	
 	void notifyChannelChanged(Channel channel);
 	void notifyChannelDeleted(String name);
+	
+	void startAll(List<Channel> list);
+	void stopAll();
 }

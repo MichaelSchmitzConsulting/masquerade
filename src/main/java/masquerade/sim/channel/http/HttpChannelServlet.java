@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.ApplicationLifecycle;
-import masquerade.sim.util.StringUtil;
 
 public class HttpChannelServlet extends HttpServlet {
 
@@ -44,14 +43,10 @@ public class HttpChannelServlet extends HttpServlet {
 	private void doRequest(HttpServletRequest req, HttpServletResponse resp, InputStream content) throws ServletException {
 		HttpChannelListener listener  = findChannelListener(req.getPathInfo());
 		if (listener != null) {
-			processWithChannel(clientInfo(req), resp, content, listener);
+			processWithChannel(HttpUtil.clientInfo(req), resp, content, listener);
 		} else {
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
-	}
-
-	private static String clientInfo(HttpServletRequest req) {
-		return req.getRemoteAddr() + ":" + req.getRemotePort();
 	}
 
 	private static void processWithChannel(String clientInfo, HttpServletResponse resp, InputStream content, HttpChannelListener channelListener) throws ServletException {
@@ -66,7 +61,11 @@ public class HttpChannelServlet extends HttpServlet {
 	}
 
 	private HttpChannelListener findChannelListener(String pathInfo) {
-		String requestUrl = requestUrlName(pathInfo);
+		String requestUrl = HttpUtil.requestUrlName(pathInfo);
+		if (requestUrl == null) {
+			return null;
+		}
+		
 		ApplicationContext context = ApplicationLifecycle.getApplicationContext(getServletContext());
 		Collection<HttpChannelListener> allListeners = context.getChannelListenerRegistry().getAllListeners(HttpChannelListener.class);
 		for (HttpChannelListener listener : allListeners) {
@@ -75,13 +74,5 @@ public class HttpChannelServlet extends HttpServlet {
 			}
 		}
 		return null;
-	}
-	
-	private static String requestUrlName(String pathInfo) {
-		if (pathInfo == null || pathInfo.length() == 0) {
-			return null;
-		}
-		
-		return StringUtil.removeLeadingSlash(pathInfo);
 	}
 }

@@ -2,6 +2,8 @@ package masquerade.sim;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -18,7 +20,6 @@ import masquerade.sim.db.ModelRepositoryFactory;
 import masquerade.sim.db.ModelRepositorySessionFactory;
 import masquerade.sim.db.RequestHistorySessionFactory;
 import masquerade.sim.history.RequestHistoryFactory;
-import masquerade.sim.model.Channel;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.NamespaceResolver;
@@ -34,8 +35,14 @@ import com.db4o.events.EventRegistryFactory;
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
+/**
+ * Class handling application startup/shutdown. Trigger by the servlet
+ * container via {@link ServletContextListener}.
+ */
 public class ApplicationLifecycle implements ServletContextListener {
 
+	private static final Logger log = Logger.getLogger(ApplicationLifecycle.class.getName());
+	
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";
 
@@ -117,9 +124,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Start channels
 			ModelRepository repo = applicationContext.getModelRepositoryFactory().startModelRepositorySession();
 			try {
-				for (Channel channel : repo.getChannels()) {
-					listenerRegistry.notifyChannelChanged(channel);
-				}
+				listenerRegistry.startAll(repo.getChannels());
 			} finally {
 				repo.endSession();
 			}
@@ -131,6 +136,31 @@ public class ApplicationLifecycle implements ServletContextListener {
 		} catch (RuntimeException t) {
 			close(db);
 			throw t;
+		}
+	}
+
+	/**
+	 * Application is being shut down, stop
+	 * all listeners and remove the application
+	 * context from the servlet context.
+	 */
+	@Override
+	public void contextDestroyed(ServletContextEvent event) {
+		ServletContext servletContext = event.getServletContext();
+		servletContext.log("Shutting down masquerade simulator");
+		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
+		if (context != null) {
+			stopChannels(context.getChannelListenerRegistry());
+			context.getDb().stop();
+			servletContext.removeAttribute(CONTEXT);
+		}
+	}
+
+	private void stopChannels(ChannelListenerRegistry channelListenerRegistry) {
+		try {
+			channelListenerRegistry.stopAll();
+		} catch (Throwable t) {
+			log.log(Level.SEVERE, "Exception while stopping all channel listeners", t);
 		}
 	}
 
@@ -148,22 +178,6 @@ public class ApplicationLifecycle implements ServletContextListener {
 		if (db != null) db.close();
 	}
 
-	/**
-	 * Application is being shut down, stop
-	 * all listeners and remove the application
-	 * context from the servlet context.
-	 */
-	@Override
-	public void contextDestroyed(ServletContextEvent event) {
-		ServletContext servletContext = event.getServletContext();
-		servletContext.log("Shutting down masquerade simulator");
-		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
-		if (context != null) {
-			context.getDb().stop();
-			servletContext.removeAttribute(CONTEXT);
-		}
-	}
-	
 	/**
 	 * Reads the masquerade reuest log settings from the system property
 	 * <code>masquerade.request.log.dir</code>, or places it in the webapp's

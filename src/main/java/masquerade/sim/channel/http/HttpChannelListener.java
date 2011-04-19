@@ -27,9 +27,7 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 	}
 	
 	@Override
-	protected synchronized void onStop() {
-		contentType = null;
-	}
+	protected synchronized void onStop() { }
 
 	public String getContentType() {
 		return contentType;

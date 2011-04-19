@@ -22,6 +22,7 @@ import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.FileChannel;
 import masquerade.sim.model.impl.FtpChannel;
 import masquerade.sim.model.impl.HttpChannel;
+import masquerade.sim.model.impl.HttpStandaloneChannel;
 import masquerade.sim.model.impl.SequenceScript;
 import masquerade.sim.model.impl.SoapFaultStep;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
@@ -49,6 +50,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 	static {
 		// Channels
 		declareModelImplementation(Channel.class, HttpChannel.class);
+		declareModelImplementation(Channel.class, HttpStandaloneChannel.class);
 		declareModelImplementation(Channel.class, DefaultJmsChannel.class);
 		declareModelImplementation(Channel.class, WebSphereMqJmsChannel.class);
 		declareModelImplementation(Channel.class, FileChannel.class);

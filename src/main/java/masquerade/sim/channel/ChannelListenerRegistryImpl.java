@@ -3,6 +3,7 @@ package masquerade.sim.channel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,12 +35,35 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	@Override
 	public <T extends ChannelListener<?>> Collection<T> getAllListeners(Class<T> channelListenerTye) {
 		Collection<T> ret = new ArrayList<T>();
-		for (ChannelListener<?> listener : channels.values()) {
-			if (channelListenerTye.isAssignableFrom(listener.getClass())) {
-				ret.add(channelListenerTye.cast(listener));
+		synchronized (channels) {
+			for (ChannelListener<?> listener : channels.values()) {
+				if (channelListenerTye.isAssignableFrom(listener.getClass())) {
+					ret.add(channelListenerTye.cast(listener));
+				}
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public void startAll(List<Channel> list) {
+		synchronized (channels) {
+			for (Channel channel : list) {
+				notifyChannelChanged(channel);
+			}
+		}
+	}
+
+	@Override
+	public void stopAll() {
+		synchronized (channels) {
+			Collection<ChannelListener<?>> listeners = channels.values();
+			channels.clear();
+			
+			for (ChannelListener<?> listener : listeners) {
+				listener.stop();
+			}
+		}
 	}
 
 	@Override
@@ -70,14 +94,12 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}	
 	
 	private void startChannel(Channel changedChannel) {
-		synchronized (channels) {
-			String channelName = changedChannel.getName();
-			if (changedChannel.isActive()) {
-				log.log(Level.INFO, "Starting channel " + channelName);
-				doStart(changedChannel, channelName);
-			} else {
-				log.log(Level.INFO, "Skipping channel start for inactive channel " + channelName);
-			}
+		String channelName = changedChannel.getName();
+		if (changedChannel.isActive()) {
+			log.log(Level.INFO, "Starting channel " + channelName);
+			doStart(changedChannel, channelName);
+		} else {
+			log.log(Level.INFO, "Skipping channel start for inactive channel " + channelName);
 		}
 	}
 

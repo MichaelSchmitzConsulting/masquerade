@@ -3,7 +3,6 @@ package masquerade.sim.model.impl;
 import masquerade.sim.channel.http.HttpChannelListener;
 import masquerade.sim.model.ChannelListener;
 
-
 /**
  * A channel that receives HTTP requests
  */
