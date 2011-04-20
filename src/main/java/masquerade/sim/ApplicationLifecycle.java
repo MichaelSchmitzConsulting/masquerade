@@ -41,6 +41,8 @@ import com.vaadin.terminal.gwt.server.WebApplicationContext;
  */
 public class ApplicationLifecycle implements ServletContextListener {
 
+	private static final String MSQ_WORKSUBDIR = ".masquerade";
+
 	private static final Logger log = Logger.getLogger(ApplicationLifecycle.class.getName());
 	
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
@@ -156,7 +158,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		}
 	}
 
-	private void stopChannels(ChannelListenerRegistry channelListenerRegistry) {
+	private static void stopChannels(ChannelListenerRegistry channelListenerRegistry) {
 		try {
 			channelListenerRegistry.stopAll();
 		} catch (Throwable t) {
@@ -164,7 +166,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		}
 	}
 
-	private void registerChannelChangeTrigger(ObjectContainer db, ChannelListenerRegistry channelListenerRegistry) {
+	private static void registerChannelChangeTrigger(ObjectContainer db, ChannelListenerRegistry channelListenerRegistry) {
 		EventRegistry events = EventRegistryFactory.forObjectContainer(db);
 		events.committed().addListener(new ChannelChangeTrigger(channelListenerRegistry));
 	}
@@ -209,7 +211,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		String requestLogDir = System.getProperty("masquerade.request.log.dir");
 		File dir;
 		if (requestLogDir == null) {
-			dir = servletWorkDir(servletContext, "-requestLog");
+			dir = getWorkSubDir(servletContext, "-requestLog");
 		} else {
 			File requestLog = new File(requestLogDir);
 			FileUtils.forceMkdir(requestLog.getParentFile());
@@ -231,7 +233,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		String artifactDir = System.getProperty("masquerade.artifact.dir");
 		File dir;
 		if (artifactDir == null) {
-			dir = servletWorkDir(servletContext, "-artifact");
+			dir = getWorkSubDir(servletContext, "-artifact");
 		} else {
 			dir = new File(artifactDir);
 		}
@@ -244,7 +246,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @param subdir
 	 * @return A {@link File} for the specified subdir in the webapp's working directory
 	 */
-	private static File servletWorkDir(ServletContext servletContext, String subdir) {
+	private static File getWorkSubDir(ServletContext servletContext, String subdir) {
 		File dir;
 		String name = getAppName(servletContext);
 		File workDir = getWorkDir(servletContext);
@@ -269,7 +271,16 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @return Location of the working directory
 	 */
 	private static File getWorkDir(ServletContext servletContext) {
-		File workDir = (File) servletContext.getAttribute(SERVLET_WORK_DIR);
+		File userDir = FileUtils.getUserDirectory();
+		File workDir = new File(userDir, MSQ_WORKSUBDIR);
+		if (!userDir.exists() || (!workDir.exists() && !workDir.mkdirs())) {
+			File servletDir = (File) servletContext.getAttribute(SERVLET_WORK_DIR);
+			workDir = new File(servletDir, MSQ_WORKSUBDIR);
+			if (!workDir.exists() && !workDir.mkdirs()) {
+				throw new IllegalStateException("Cannot create work directory in user.home or javax.servlet.context.tempdir");
+			}
+		}
+		
 		return workDir;
 	}
 }
