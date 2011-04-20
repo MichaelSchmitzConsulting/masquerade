@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
+import masquerade.sim.model.ChannelListenerContext;
 import masquerade.sim.model.SimulationRunner;
+import masquerade.sim.model.impl.ChannelListenerContextImpl;
 
 /**
  * A registry for {@link ChannelListener} instances. Manages
@@ -22,6 +24,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	
 	private Map<String, ChannelListener<?>> channels = new LinkedHashMap<String, ChannelListener<?>>();
 	private SimulationRunner simulationRunner;
+	private ChannelListenerContext context = new ChannelListenerContextImpl();
 	
 	public ChannelListenerRegistryImpl(SimulationRunner simulationRunner) {
 		this.simulationRunner = simulationRunner;
@@ -77,7 +80,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 			channels.clear();
 			
 			for (ChannelListener<?> listener : listeners) {
-				listener.stop();
+				listener.stop(context);
 			}
 		}
 	}
@@ -110,7 +113,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 				log.log(Level.INFO, "Stopping channel " + name);
 
 				channels.remove(name);
-				listener.stop();
+				listener.stop(context);
 			}
 		}
 	}	
@@ -128,7 +131,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	private void doStart(Channel changedChannel, String channelName) {
 		try {
 			ChannelListener<Channel> listener = createListener(changedChannel.listenerType());
-			listener.start(changedChannel, simulationRunner);
+			listener.start(changedChannel, simulationRunner, context);
 			channels.put(channelName, listener);
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, "Cannot start channel listener", ex);
@@ -149,7 +152,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
 	private void restartChannel(ChannelListener<Channel> listener, Channel changedChannel) {
 		log.log(Level.INFO, "Restarting channel " + changedChannel);
-		listener.stop();
-		listener.start(changedChannel, simulationRunner);
+		listener.stop(context);
+		listener.start(changedChannel, simulationRunner, context);
 	}
 }
