@@ -12,6 +12,10 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.SimulationRunner;
 
+/**
+ * A registry for {@link ChannelListener} instances. Manages
+ * lifecycle for these listeners.
+ */
 public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
 	private static final Logger log = Logger.getLogger(ChannelListenerRegistryImpl.class.getName());
@@ -23,6 +27,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		this.simulationRunner = simulationRunner;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends ChannelListener<?>> T getChannelListener(String name, Class<T> channelListenerType) {
 		synchronized (channels) {
@@ -32,6 +39,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends ChannelListener<?>> Collection<T> getAllListeners(Class<T> channelListenerTye) {
 		Collection<T> ret = new ArrayList<T>();
@@ -45,6 +55,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		return ret;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void startAll(List<Channel> list) {
 		synchronized (channels) {
@@ -54,6 +67,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void stopAll() {
 		synchronized (channels) {
@@ -66,6 +82,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void notifyChannelChanged(Channel changedChannel) {
 		synchronized (channels) {
@@ -80,6 +99,9 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void notifyChannelDeleted(String name) {
 		synchronized (channels) {
