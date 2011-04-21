@@ -81,7 +81,7 @@ public class WebSphereMqJmsChannel extends JmsChannel {
 
 	@Override
 	public String toString() {
-		return "WebSphereMqJmsChannel (" + host + ")";
+		return "WSMQ JMS (" + host + ")";
 	}
 
 }

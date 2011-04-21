@@ -77,11 +77,12 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	public void stopAll() {
 		synchronized (channels) {
 			Collection<ChannelListener<?>> listeners = channels.values();
-			channels.clear();
 			
 			for (ChannelListener<?> listener : listeners) {
 				listener.stop(context);
 			}
+			
+			channels.clear();
 		}
 	}
 
