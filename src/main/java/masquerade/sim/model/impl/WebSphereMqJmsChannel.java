@@ -1,6 +1,8 @@
 package masquerade.sim.model.impl;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import masquerade.sim.channel.jms.ConnectionFactoryProvider;
+import masquerade.sim.channel.jms.WSMQConnectionFactoryProvider;
 import masquerade.sim.model.Channel;
 
 /**
@@ -19,7 +21,7 @@ public class WebSphereMqJmsChannel extends JmsChannel {
 
 	@Override
 	public boolean isActive() {
-		return isNotEmpty(host);
+		return super.isActive() && isNotEmpty(host);
 	}
 
 	/**
@@ -70,6 +72,16 @@ public class WebSphereMqJmsChannel extends JmsChannel {
 	 */
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	@Override
+	public Class<? extends ConnectionFactoryProvider> connectionFactoryProvider() {
+		return WSMQConnectionFactoryProvider.class;
+	}
+
+	@Override
+	public String toString() {
+		return "WebSphereMqJmsChannel (" + host + ")";
 	}
 
 }

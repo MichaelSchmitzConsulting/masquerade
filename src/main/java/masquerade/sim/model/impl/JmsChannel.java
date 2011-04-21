@@ -1,6 +1,6 @@
 package masquerade.sim.model.impl;
 
-import masquerade.sim.channel.jms.ActiveMqConnectionFactoryProvider;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import masquerade.sim.channel.jms.ConnectionFactoryProvider;
 import masquerade.sim.channel.jms.JmsChannelListener;
 import masquerade.sim.model.ChannelListener;
@@ -15,12 +15,13 @@ public abstract class JmsChannel extends AbstractChannel {
 	private String destinationName = "";
 	private String responseDestinationName = "";
 	private boolean isTopic = false;
-	private Class<? extends ConnectionFactoryProvider> connectionFactoryProvider = ActiveMqConnectionFactoryProvider.class;
 
 	public JmsChannel(String name) {
 		super(name);
 	}
 
+	public abstract Class<? extends ConnectionFactoryProvider> connectionFactoryProvider();
+	
 	public String getUser() {
 		return user;
 	}
@@ -78,16 +79,10 @@ public abstract class JmsChannel extends AbstractChannel {
 	public void setTopic(boolean isTopic) {
 		this.isTopic = isTopic;
 	}
-	
-	public Class<? extends ConnectionFactoryProvider> getConnectionFactoryProvider() {
-		return connectionFactoryProvider ;
-	}
 
-	/**
-	 * @param connectionFactoryProvider the connectionFactoryProvider to set
-	 */
-	public void setConnectionFactoryProvider(Class<? extends ConnectionFactoryProvider> connectionFactoryProvider) {
-		this.connectionFactoryProvider = connectionFactoryProvider;
+	@Override
+	public boolean isActive() {
+		return isNotEmpty(destinationName);
 	}
 
 	@Override

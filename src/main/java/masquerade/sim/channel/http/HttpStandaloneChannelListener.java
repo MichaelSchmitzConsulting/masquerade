@@ -24,6 +24,8 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 	private int port;
 	private String location;
 
+	private String name;
+
 	/**
 	 * Starts a Jetty server on the port specified in the channel,
 	 * processing requests for the location for this channel.
@@ -35,6 +37,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 		String contentType = channel.getContentType();
 		location = StringUtil.removeLeadingSlash(channel.getLocation());
 		port = channel.getPort();
+		name = channel.getName();
 		
 		String serverAttributeKey = serverAttributeKey(port);
 		Server startedServer = getContext().getAttribute(serverAttributeKey);
@@ -71,9 +74,11 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 	protected synchronized void onStop() {
 		if (server != null) {
 			synchronized (server) {
+				log.log(Level.FINE, "Stopping HTTP standalone channel " + name);
 				RequestHandler handler = (RequestHandler) server.getHandler();
 				if (handler.removeRequestProcessor(location)) {
 					try {
+						log.log(Level.FINE, "Stopping HTTP standalone server on port " + port);
 						getContext().removeAttribute(serverAttributeKey(port));
 						server.stop();
 						server.join();
@@ -84,6 +89,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 				server = null;
 				location = null;
 				port = 0;
+				name = null;
 			}
 		}
 	}

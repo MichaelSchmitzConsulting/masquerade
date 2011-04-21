@@ -15,10 +15,11 @@ import masquerade.sim.model.impl.WebSphereMqJmsChannel;
  * {@link ConnectionFactoryProvider} because it does not support the default JMS channel
  * attributes provided by {@link DefaultJmsChannel}.
  */
-public class WSMQConnectionFactoryProvider {
+public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
 
 	private static final Logger log = Logger.getLogger(WSMQConnectionFactoryProvider.class.getName());
 
+	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
 		try {
 			WebSphereMqJmsChannel mqChannel = (WebSphereMqJmsChannel) channel;

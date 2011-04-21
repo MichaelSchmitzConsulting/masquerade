@@ -135,7 +135,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	private ConnectionFactory createConnectionFactory(JmsChannel channel) {
 		ConnectionFactoryProvider provider;
 		try {
-			provider = channel.getConnectionFactoryProvider().newInstance();
+			provider = channel.connectionFactoryProvider().newInstance();
 			return provider.getConnectionFactory(channel);
 		} catch (Throwable t) {
 			log.log(Level.SEVERE, "Unable to create a connection factory for JMS channel " + channel.getName(), t);
