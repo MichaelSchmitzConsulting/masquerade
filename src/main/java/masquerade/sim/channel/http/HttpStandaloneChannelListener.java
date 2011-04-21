@@ -50,7 +50,6 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 				// Start Jetty, add to context for reuse by other listeners on the same port 
 				startedServer.start();
 				getContext().setAttribute(serverAttributeKey, startedServer);
-				this.server = startedServer;
 			} catch (Exception e) {
 				log.log(Level.SEVERE, "Unable to start standalone HTTP server on port " + port, e);
 				startedServer = null;
@@ -59,6 +58,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 			// Server already started on this port, reuse
 			handler = (RequestHandler) startedServer.getHandler();
 		}
+		this.server = startedServer;
 		
 		// Add this channel listener as a request processor for the specified location
 		handler.addRequestProcessor(location, (RequestProcessor) this);
@@ -83,6 +83,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 				}
 				server = null;
 				location = null;
+				port = 0;
 			}
 		}
 	}
