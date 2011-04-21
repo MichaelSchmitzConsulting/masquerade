@@ -7,4 +7,5 @@ package masquerade.sim.model;
 public interface ChannelListenerContext {
 	void setAttribute(String name, Object value);
 	<T> T getAttribute(String name);
+	void removeAttribute(String name);
 }

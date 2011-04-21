@@ -55,7 +55,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
-				if (accepts(mapping, request.getClass()) && matches(mapping, request, requestContext)) {
+				if (matches(request, requestContext, mapping)) {
 					Script script = mapping.getScript();
 					
 					SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
@@ -72,6 +72,15 @@ public class SimulationRunnerImpl implements SimulationRunner {
 			requestHistory.logRequest(channelName, null, clientInfo, null, converter.convert(request, String.class));
 		} finally {
 			requestHistory.endSession();
+		}
+	}
+
+	private boolean matches(Object request, RequestContext requestContext, RequestMapping<?> mapping) {
+		try {
+			return accepts(mapping, request.getClass()) && matches(mapping, request, requestContext);
+		} catch (Exception e) {
+			// Input might not be of the expected type for this mapping
+			return false;
 		}
 	}
 

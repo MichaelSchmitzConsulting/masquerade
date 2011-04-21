@@ -28,4 +28,11 @@ public class ChannelListenerContextImpl implements ChannelListenerContext {
 			return value;
 		}
 	}
+
+	@Override
+	public void removeAttribute(String name) {
+		synchronized (attributes) {
+			attributes.remove(name);
+		}
+	}
 }
