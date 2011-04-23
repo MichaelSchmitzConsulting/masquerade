@@ -215,14 +215,16 @@ public class MasterDetailView extends CustomComponent {
 		// Up/down buttons
 		if (isUpDownButtons) {
 			final Button upButton = new Button("^");
-			upButton.addListener(new UpDownListener(masterTable, false));
+			upButton.setEnabled(false);
 			buttonLayout.addComponent(upButton);
 			buttonLayout.setComponentAlignment(upButton, Alignment.MIDDLE_RIGHT);
 			
 			final Button downButton = new Button("v");
-			downButton.addListener(new UpDownListener(masterTable, true));
+			downButton.setEnabled(false);
 			buttonLayout.addComponent(downButton);
 			buttonLayout.setComponentAlignment(downButton, Alignment.MIDDLE_RIGHT);
+			
+			UpDownListener.install(masterTable, upButton, downButton);
 		}
         
         leftLayout.addComponent(buttonLayout);
