@@ -25,7 +25,7 @@ public class MasterDetailEditWindow extends Window {
 	private Property property;
 	private MasterDetailView masterDetailView;
 
-	public MasterDetailEditWindow(String caption, Property property, FormFieldFactory fieldFactory, Class<?> containedType, Collection<Class<?>> instanceTypes) {
+	public MasterDetailEditWindow(String caption, Property property, FormFieldFactory fieldFactory, Class<?> containedType, Collection<Class<?>> instanceTypes, boolean isAllowItemReordering) {
 		super(caption);
 		setModal(true);
 		setWidth("800px");
@@ -43,7 +43,7 @@ public class MasterDetailEditWindow extends Window {
 		layout.setSpacing(true);
 		layout.setSizeFull();
 		
-		masterDetailView = new MasterDetailView(fieldFactory);
+		masterDetailView = new MasterDetailView(fieldFactory, isAllowItemReordering);
 		String[] visibleColumns = new String[] { "name" };
 		masterDetailView.setDataSource(container, visibleColumns);
         masterDetailView.addFormCommitListener(createUpdateListener(masterDetailView, container, visibleColumns));
@@ -51,7 +51,7 @@ public class MasterDetailEditWindow extends Window {
         masterDetailView.addAddListener(createAddListener(containedType, masterDetailView, container, visibleColumns, instanceTypes));
         masterDetailView.setWriteThrough(true); // Write directly to underlying bean item container, no save button (ok closes the dialog and will save the property value)
         masterDetailView.setSizeFull();
-        masterDetailView.setMasterTableWidth("200px");
+        masterDetailView.setMasterTableWidth("230px");
 		layout.addComponent(masterDetailView);
 		layout.setExpandRatio(masterDetailView, 1.0f);
 		

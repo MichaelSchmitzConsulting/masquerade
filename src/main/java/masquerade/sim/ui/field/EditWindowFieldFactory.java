@@ -15,6 +15,7 @@ public class EditWindowFieldFactory implements FieldFactory {
 	private Collection<Class<?>> instanceTypes;
 	private WindowFactory windowFactory;
 	private int positionX = -1;
+	private boolean isAllowItemReordering = false;
 
 	public EditWindowFieldFactory(String caption, FormFieldFactory fieldFactory, Class<?> containedType, Collection<Class<?>> instanceTypes) {
 		this(caption, fieldFactory, containedType, instanceTypes, null);
@@ -35,9 +36,17 @@ public class EditWindowFieldFactory implements FieldFactory {
 		this.positionX = positionY;
 	}
 
+	/**
+	 * @param isAllowItemReordering the isAllowItemReordering to set
+	 */
+	public void setAllowItemReordering(boolean isAllowItemReordering) {
+		this.isAllowItemReordering = isAllowItemReordering;
+	}
+
 	@Override
 	public Field createField(Object existingValue) {
 		EditWindowField field = new EditWindowField(Collection.class, containedType, instanceTypes, fieldFactory, windowFactory);
+		field.setAllowItemReordering(isAllowItemReordering);
 		if (positionX  != -1) {
 			field.setPositionX(positionX);
 		}

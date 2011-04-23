@@ -31,6 +31,7 @@ public class EditWindowField extends CustomField {
 	private Label editedLabel;
 	private HorizontalLayout mainLayout;
 	private int positionX = -1;
+	private boolean isAllowItemReordering = false;
 
 	public EditWindowField(Class<?> valueType, Class<?> containedType, Collection<Class<?>> instanceTypes, FormFieldFactory fieldFactory) {
 		this(valueType, containedType, instanceTypes, fieldFactory, null);
@@ -75,6 +76,13 @@ public class EditWindowField extends CustomField {
 		this.positionX = positionX;
 	}
 
+	/**
+	 * @param isAllowItemReordering the isAllowItemReordering to set
+	 */
+	public void setAllowItemReordering(boolean isAllowItemReordering) {
+		this.isAllowItemReordering = isAllowItemReordering;
+	}
+
 	@Override
 	public Class<?> getType() {
 		return type;
@@ -102,7 +110,7 @@ public class EditWindowField extends CustomField {
 		Property property = this;
 		Window window;
 		if (windowFactory == null) {
-			window = new MasterDetailEditWindow("Edit", property, fieldFactory, containedType, instanceTypes);
+			window = new MasterDetailEditWindow("Edit", property, fieldFactory, containedType, instanceTypes, isAllowItemReordering);
 			if (positionX  != -1) {
 				window.setPositionX(positionX);
 			}

@@ -44,9 +44,11 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		factories.put(
 				"script",
 				new ModelSelectFieldFactory(modelRepository, Script.class, defaultWidth));
+		EditWindowFieldFactory stepEditorFactory = new EditWindowFieldFactory("Steps", this, SimulationStep.class, modelRepository.getModelImplementations(SimulationStep.class));
+		stepEditorFactory.setAllowItemReordering(true);
 		factories.put(
 				"simulationSteps",
-				new EditWindowFieldFactory("Steps", this, SimulationStep.class, modelRepository.getModelImplementations(SimulationStep.class)));
+				stepEditorFactory);
 		factories.put(
 				"javaScript", 
 				new CodeMirrorFieldFactory("Script", CodeStyle.JAVASCRIPT));

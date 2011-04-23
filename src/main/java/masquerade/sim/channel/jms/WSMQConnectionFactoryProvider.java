@@ -32,7 +32,13 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 
 	private ConnectionFactory getMqConnFactory(String host, int port, String channel, String queueManager) throws Exception {
 		// Create factory
-		Class<?> factoryType = Class.forName("com.ibm.mq.jms.MQConnectionFactory");
+		Class<?> factoryType;
+		try {
+			factoryType = Class.forName("com.ibm.mq.jms.MQConnectionFactory");
+		} catch (ClassNotFoundException e) {
+			log.log(Level.SEVERE, "Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
+			return null;
+		}
 		ConnectionFactory factory = (ConnectionFactory) factoryType.newInstance();
 
 		// Get constant value for transport type

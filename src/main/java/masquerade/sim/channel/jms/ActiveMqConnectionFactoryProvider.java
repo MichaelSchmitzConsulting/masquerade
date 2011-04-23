@@ -43,7 +43,13 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 	}
 
 	private ConnectionFactory createFactory(String user, String password, String url) throws Exception {
-		Class<?> factoryType = Class.forName("org.apache.activemq.ActiveMQConnectionFactory");
+		Class<?> factoryType;
+		try {
+			factoryType = Class.forName("org.apache.activemq.ActiveMQConnectionFactory");
+		} catch (ClassNotFoundException e) {
+			log.log(Level.SEVERE, "Unable to load ActiveMQConnectionFactory - please place the ActiveMQ JARs in your classpath");
+			return null;
+		}
 		Constructor<?> constructor = factoryType.getConstructor(String.class, String.class, String.class);
 		return (ConnectionFactory) constructor.newInstance(user, password, url);
 	}
