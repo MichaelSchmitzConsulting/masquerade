@@ -10,6 +10,7 @@ public enum Icons {
 	REQUEST_MAPPING("arrow-right.png"),
 	REQUEST_ID_PROVIDER("note.png"),
 	REQUEST_HISTORY("email-send.png"),
+	STATUS("email-send.png"),
 	ARTIFACT("document-txt.png"),
 	TEST("help.png"),
 	NAMESPACE_PREFIX("ok.png");

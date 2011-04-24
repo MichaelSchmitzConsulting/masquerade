@@ -7,6 +7,7 @@ import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
 import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
 import static masquerade.sim.ui.Icons.SCRIPT;
+import static masquerade.sim.ui.Icons.STATUS;
 import static masquerade.sim.ui.Icons.TEST;
 
 import java.io.File;
@@ -106,8 +107,7 @@ public class MainLayout extends VerticalLayout {
 	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction) {
 		// Container factories retrieving model objects from the model
-		// repository and packing
-		// them into a Container suitable for binding to a view.
+		// repository and packing them into a Container suitable for binding to a view.
 		ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
 		ContainerFactory mappingFactory = new ModelContainerFactory(modelRepository, RequestMapping.class);
 		ContainerFactory scriptFactory = new ModelContainerFactory(modelRepository, Script.class);
@@ -122,10 +122,12 @@ public class MainLayout extends VerticalLayout {
 		ComponentContainer scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
 		ComponentContainer namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
 		ComponentContainer requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
-		Component requestHistoryUi = createRequestHistoryView(requestHistory);
 		Component fileManager = createFileManager(artifactRoot);
 		Component requestTester = createRequestTestView(modelRepository, sendTestRequestAction);
+		Component requestHistoryUi = createRequestHistoryView(requestHistory);
+		Component status = createStatusView();
 
+		// Tabsheet
 		TabSheet tabSheet = new TabSheet();
 		tabSheet.setHeight("100%");
 		tabSheet.setWidth("100%");
@@ -139,6 +141,7 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
 		tabSheet.addTab(requestTester, "Test", TEST.icon());
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon());
+		tabSheet.addTab(status, "Status", STATUS.icon());
 
 		// Refresh view contents on tab selection
 		Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
@@ -151,6 +154,12 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.addListener(createTabSelectionListener(refreshMap));
 
 		return tabSheet;
+	}
+
+	private Component createStatusView() {
+		StatusView statusView = new StatusView();
+		statusView.setSizeFull();
+		return statusView;
 	}
 
 	private RefreshListener createHistoryRefresher(RequestHistory requestHistory) {
