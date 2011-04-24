@@ -22,6 +22,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 public class MasterDetailEditWindow extends Window {
+	private static final String[] COLUMNS = new String[] { "name" };
+	
 	private Property property;
 	private MasterDetailView masterDetailView;
 
@@ -44,11 +46,11 @@ public class MasterDetailEditWindow extends Window {
 		layout.setSizeFull();
 		
 		masterDetailView = new MasterDetailView(fieldFactory, isAllowItemReordering);
-		String[] visibleColumns = new String[] { "name" };
-		masterDetailView.setDataSource(container, visibleColumns);
-        masterDetailView.addFormCommitListener(createUpdateListener(masterDetailView, container, visibleColumns));
-        masterDetailView.addDeleteListener(createDeleteListener(masterDetailView, container, visibleColumns));
-        masterDetailView.addAddListener(createAddListener(containedType, masterDetailView, container, visibleColumns, instanceTypes));
+		masterDetailView.setDataSource(container);
+		masterDetailView.setVisibleColumns(COLUMNS);
+        masterDetailView.addFormCommitListener(createUpdateListener(masterDetailView, container));
+        masterDetailView.addDeleteListener(createDeleteListener(masterDetailView, container));
+        masterDetailView.addAddListener(createAddListener(containedType, masterDetailView, container, instanceTypes));
         masterDetailView.setWriteThrough(true); // Write directly to underlying bean item container, no save button (ok closes the dialog and will save the property value)
         masterDetailView.setSizeFull();
         masterDetailView.setMasterTableWidth("230px");
@@ -70,7 +72,7 @@ public class MasterDetailEditWindow extends Window {
 		this.property = property;
 	}
 	
-	private AddListener createAddListener(final Class<?> containedType, final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns, final Collection<Class<?>> instanceTypes) {
+	private AddListener createAddListener(final Class<?> containedType, final MasterDetailView view, final BeanItemContainer<?> container, final Collection<Class<?>> instanceTypes) {
 		return new AddListener() {
 			@Override
 			public void onAdd() {
@@ -79,37 +81,37 @@ public class MasterDetailEditWindow extends Window {
 				if (name.length() > 1) {
 					name = name.substring(0, 1).toLowerCase() + name.substring(1);
 				}
-				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container, visibleColumns), instanceTypes);
+				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container), instanceTypes);
 			}
 		};
 	}
 
-	private CreateListener objectCreatedListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns) {
+	private CreateListener objectCreatedListener(final MasterDetailView view, final BeanItemContainer<?> container) {
 		return new CreateListener() {
 			@Override
 			public void notifyCreate(Object value) {
 				container.addItem(value);
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container);
 				view.setSelection(value);
 			}
 		};
 	}
 
-	private DeleteListener createDeleteListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns) {
+	private DeleteListener createDeleteListener(final MasterDetailView view, final BeanItemContainer<?> container) {
 		return new DeleteListener() {
 			@Override
 			public void notifyDelete(Object obj) {
 				container.removeItem(obj);
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container);
 			}
 		};
 	}
 	
-	private UpdateListener createUpdateListener(final MasterDetailView view, final BeanItemContainer<?> container, final String[] visibleColumns) {
+	private UpdateListener createUpdateListener(final MasterDetailView view, final BeanItemContainer<?> container) {
 		return new UpdateListener() {
 			@Override
 			public void notifyUpdated(Object obj) {
-				view.setDataSource(container, visibleColumns);
+				view.setDataSource(container);
 			}
 		};
 	}

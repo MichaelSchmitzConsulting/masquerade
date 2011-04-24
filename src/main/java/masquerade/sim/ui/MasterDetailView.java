@@ -24,6 +24,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -59,6 +60,7 @@ public class MasterDetailView extends CustomComponent {
 	private boolean isWriteThrough = false;
 	private VerticalLayout leftLayout;
 	private boolean isUpDownButtons;
+	private String[] visibleColumns;
 
 	public MasterDetailView() {
 		this(DefaultFieldFactory.get());
@@ -86,12 +88,16 @@ public class MasterDetailView extends CustomComponent {
 		isWriteThrough = flag;
 	}
 	
-	// TODO: Move visibleCols to c'tor or own setter
-	public void setDataSource(Container dataSource, String[] visibleColumns) {
+	public void setDataSource(Container dataSource) {
 		masterTable.setContainerDataSource(dataSource);
 		if (visibleColumns != null) {
 			masterTable.setVisibleColumns(visibleColumns);
 		}
+	}
+	
+	public void setVisibleColumns(String[] visibleColumns) {
+		this.visibleColumns = visibleColumns.clone();
+		masterTable.setVisibleColumns(visibleColumns);
 	}
 	
 	public Container getDataSource() {
@@ -211,6 +217,10 @@ public class MasterDetailView extends CustomComponent {
 			}
 		});
 		buttonLayout.addComponent(removeButton);
+		
+		Component spacer = new Label();
+		buttonLayout.addComponent(spacer);
+		buttonLayout.setExpandRatio(spacer, 1.0f);
 		
 		// Up/down buttons
 		if (isUpDownButtons) {

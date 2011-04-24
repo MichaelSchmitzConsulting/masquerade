@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.db.ModelRepository;
@@ -30,7 +29,6 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.ui.MasterDetailView.AddListener;
-import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
 import org.apache.commons.io.IOUtils;
@@ -45,6 +43,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
@@ -63,6 +62,7 @@ public class MainLayout extends VerticalLayout {
 
 	private static final String[] COLUMNS = new String[] { "name", "description" };
 	private RequestTestView requestTestView;
+	private RequestHistoryView requestHistoryView;
 
 	public MainLayout(Resource logo, ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction) {
@@ -109,11 +109,11 @@ public class MainLayout extends VerticalLayout {
 
 		// Create tabs
 		FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository, fileLoader);
-		Component channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
-		Component requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
-		Component scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
-		Component namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
-		Component requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
+		ComponentContainer channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
+		ComponentContainer requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
+		ComponentContainer scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
+		ComponentContainer namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
+		ComponentContainer requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
 		Component requestHistoryUi = createRequestHistoryView(requestHistory);
 		Component fileManager = createFileManager(artifactRoot);
 		Component requestTester = createRequestTestView(modelRepository, sendTestRequestAction);
@@ -132,21 +132,31 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.addTab(requestTester, "Test", TEST.icon());
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon());
 
-		// Refresh master/detail view contents on tab selection
+		// Refresh view contents on tab selection
 		Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
-		refreshMap.put(channels, new TabRefresher(channelFactory));
-		refreshMap.put(requestMapping, new TabRefresher(mappingFactory));
-		refreshMap.put(scripts, new TabRefresher(scriptFactory));
-		refreshMap.put(requestIdProviders, new TabRefresher(ripFactory));
+		refreshMap.put(channels, new TabRefresher(channelFactory, channels));
+		refreshMap.put(requestMapping, new TabRefresher(mappingFactory,requestMapping));
+		refreshMap.put(scripts, new TabRefresher(scriptFactory, scripts));
+		refreshMap.put(requestIdProviders, new TabRefresher(ripFactory, requestIdProviders));
 		refreshMap.put(requestTester, createTestRefresher(modelRepository));
+		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
 		tabSheet.addListener(createTabSelectionListener(refreshMap));
 
 		return tabSheet;
 	}
 
+	private RefreshListener createHistoryRefresher(RequestHistory requestHistory) {
+		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
+		return new RefreshListener() {
+			@Override public void refresh() {
+				requestHistoryView.refresh(history.createContainer());
+			}
+		};
+	}
+
 	private RefreshListener createTestRefresher(final ModelRepository modelRepository) {
 		return new RefreshListener() {
-			@Override public void refresh(Component component) {
+			@Override public void refresh() {
 				updateTestView(modelRepository);
 			}
 		};
@@ -182,11 +192,11 @@ public class MainLayout extends VerticalLayout {
 		Component tabLayout = tabSheet.getSelectedTab();
 		RefreshListener refreshment = refreshMap.get(tabLayout);
 		if (refreshment != null) {
-			refreshment.refresh(tabLayout);
+			refreshment.refresh();
 		}
 	}
 
-	private Component createEditorTab(ContainerFactory containerFactory, ModelRepository repo, FormFieldFactory fieldFactory) {
+	private ComponentContainer createEditorTab(ContainerFactory containerFactory, ModelRepository repo, FormFieldFactory fieldFactory) {
 		Class<?> modelType = containerFactory.getType();
 		Collection<Class<?>> instanceTypes = repo.getModelImplementations(modelType);
 
@@ -196,7 +206,8 @@ public class MainLayout extends VerticalLayout {
 		layout.setMargin(true);
 		layout.setSizeFull();
 		MasterDetailView view = new MasterDetailView(fieldFactory);
-		view.setDataSource(container, COLUMNS);
+		view.setDataSource(container);
+		view.setVisibleColumns(COLUMNS);
 		view.addFormCommitListener(repo);
 		view.addFormCommitListener(createUpdateListener(view, container));
 		view.addDeleteListener(repo);
@@ -208,21 +219,20 @@ public class MainLayout extends VerticalLayout {
 	}
 
 	private Component createRequestHistoryView(final RequestHistory requestHistory) {
-		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
-
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSizeFull();
 
-		// History view
-		final RequestHistoryView view = new RequestHistoryView();
-		view.refresh(history.createContainer());
-		view.setMargin(true);
-		view.setSizeFull();
-		layout.addComponent(view);
-		layout.setExpandRatio(view, 1.0f);
+		requestHistoryView = new RequestHistoryView();
+		requestHistoryView.setMargin(true);
+		requestHistoryView.setSizeFull();
+		layout.addComponent(requestHistoryView);
+		layout.setExpandRatio(requestHistoryView, 1.0f);
+
+		final RefreshListener refresher = createHistoryRefresher(requestHistory);
+		refresher.refresh();
 
 		// Show request details on double click
-		view.addItemClickListener(new ItemClickListener() {
+		requestHistoryView.addItemClickListener(new ItemClickListener() {
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				if (event.isDoubleClick()) {
@@ -238,7 +248,7 @@ public class MainLayout extends VerticalLayout {
 		refreshButton.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				view.refresh(history.createContainer());
+				refresher.refresh();
 			}
 		});
 		bottomLayout.addComponent(refreshButton);
@@ -249,7 +259,7 @@ public class MainLayout extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				requestHistory.clear();
-				view.refresh(history.createContainer());
+				refresher.refresh();
 			}
 		});
 		bottomLayout.addComponent(clearButton);
@@ -281,36 +291,7 @@ public class MainLayout extends VerticalLayout {
 
 	private AddListener createAddListener(final Class<?> baseType, final MasterDetailView view, final Container container,
 			final Collection<Class<?>> instanceTypes, final ModelRepository repo) {
-		return new AddListener() {
-			@Override
-			public void onAdd() {
-				String caption = "Add " + ClassUtil.fromCamelCase(baseType);
-				String name = ClassUtil.unqualifiedName(baseType);
-				if (name.length() > 1) {
-					name = name.substring(0, 1).toLowerCase() + name.substring(1);
-				}
-				
-				int i = 2;
-				String usedName = name;
-				while (!repo.getByName(baseType, usedName).isEmpty()) {
-					usedName = name + (i++); 
-				}
-				
-				CreateObjectDialog.showModal(getWindow(), caption, usedName, objectCreatedListener(view, container, repo), instanceTypes);
-			}
-		};
-	}
-
-	private CreateListener objectCreatedListener(final MasterDetailView view, final Container container, final ModelRepository repo) {
-		return new CreateListener() {
-			@Override
-			public void notifyCreate(Object value) {
-				repo.notifyCreate(value);
-				container.addItem(value);
-				view.setDataSource(container, COLUMNS);
-				view.setSelection(value);
-			}
-		};
+		return new ModelAddListener(instanceTypes, baseType, repo, view, container, getWindow());
 	}
 
 	private DeleteListener createDeleteListener(final MasterDetailView view, final Container container) {
@@ -318,7 +299,7 @@ public class MainLayout extends VerticalLayout {
 			@Override
 			public void notifyDelete(Object obj) {
 				container.removeItem(obj);
-				view.setDataSource(container, COLUMNS);
+				view.setDataSource(container);
 			}
 		};
 	}
@@ -327,7 +308,7 @@ public class MainLayout extends VerticalLayout {
 		return new UpdateListener() {
 			@Override
 			public void notifyUpdated(Object obj) {
-				view.setDataSource(container, COLUMNS);
+				view.setDataSource(container);
 			}
 		};
 	}

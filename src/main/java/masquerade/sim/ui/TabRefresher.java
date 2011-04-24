@@ -1,7 +1,6 @@
 package masquerade.sim.ui;
 
 import com.vaadin.data.Container;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 
 /**
@@ -11,21 +10,22 @@ import com.vaadin.ui.ComponentContainer;
 public class TabRefresher implements RefreshListener {
 
 	private ContainerFactory containerFactory;
-
+	private ComponentContainer tabLayout;
+	
 	/**
 	 * @param containerFactory
 	 */
-	public TabRefresher(ContainerFactory containerFactory) {
+	public TabRefresher(ContainerFactory containerFactory, ComponentContainer tabLayout) {
 		this.containerFactory = containerFactory;
+		this.tabLayout = tabLayout;
 	}
 
 	@Override
-	public void refresh(Component component) {
+	public void refresh() {
 		if (containerFactory != null) {
-			ComponentContainer container = (ComponentContainer) component;
-			MasterDetailView view = (MasterDetailView) container.getComponentIterator().next();
+			MasterDetailView view = (MasterDetailView) tabLayout.getComponentIterator().next();
 			Container dataSource = containerFactory.createContainer();
-			view.setDataSource(dataSource, new String[] { "name", "description" }); // TODO: Remove column parameter
+			view.setDataSource(dataSource);
 		}
 	}
 }

@@ -113,7 +113,8 @@ public class FileManagerView extends VerticalLayout {
 		File root = new File(artifactRoot, subdir);
 		if (root.exists() && root.canRead() && root.isDirectory()) {
 			Container container = new FilesystemContainer(root);
-			view.setDataSource(container, VISIBLE_FILE_COLS);
+			view.setDataSource(container);
+			view.setVisibleColumns(VISIBLE_FILE_COLS);
 		} else {
 			log.warning("Artifact directory " + root.getAbsolutePath() + "does not exist or is not readable");
 		}
