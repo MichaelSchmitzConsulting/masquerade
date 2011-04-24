@@ -289,7 +289,14 @@ public class MainLayout extends VerticalLayout {
 				if (name.length() > 1) {
 					name = name.substring(0, 1).toLowerCase() + name.substring(1);
 				}
-				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container, repo), instanceTypes);
+				
+				int i = 2;
+				String usedName = name;
+				while (!repo.getByName(baseType, usedName).isEmpty()) {
+					usedName = name + (i++); 
+				}
+				
+				CreateObjectDialog.showModal(getWindow(), caption, usedName, objectCreatedListener(view, container, repo), instanceTypes);
 			}
 		};
 	}

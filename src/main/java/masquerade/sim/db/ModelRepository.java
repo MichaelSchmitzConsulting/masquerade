@@ -201,5 +201,13 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 			return db.query(pred);
 		}
 	}
+
+	public <T> Collection<? extends T> getByName(Class<? extends T> baseType, String usedName) {
+		Query query = db.query();
+		query.constrain(baseType);
+		query.descend("name").constrain(usedName);
+		ObjectSet<T> result = query.execute();
+		return result;
+	}
 }
 

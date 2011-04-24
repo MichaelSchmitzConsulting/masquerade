@@ -145,4 +145,9 @@ public class FtpChannel extends AbstractChannel {
 		return FtpChannelListener.class;
 	}
 
+	@Override
+	public String toString() {
+		return "FtpChannel (" + host + ")";
+	}
+
 }
