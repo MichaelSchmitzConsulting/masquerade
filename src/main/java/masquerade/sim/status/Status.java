@@ -12,10 +12,11 @@ public class Status {
 	private String stacktrace;
 	private Severity severity;
 	private String timestamp;
+	private long time;
 	
 	private static final ThreadLocal<DateFormat> DATE_FORMAT = new ThreadLocal<DateFormat>() {
 		@Override protected DateFormat initialValue() {
-			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 		}		
 	};
 	
@@ -29,6 +30,7 @@ public class Status {
 		this.message = message;
 		this.stacktrace = stacktrace;
 		this.severity = severity;
+		this.time = timestamp;
 		this.timestamp = DATE_FORMAT.get().format(timestamp);
 	}
 	
@@ -58,5 +60,12 @@ public class Status {
 	 */
 	public String getTimestamp() {
 		return timestamp;
+	}
+
+	/**
+	 * @return the time
+	 */
+	public long getTime() {
+		return time;
 	}
 }

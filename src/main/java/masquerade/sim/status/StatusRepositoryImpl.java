@@ -24,6 +24,13 @@ public class StatusRepositoryImpl implements StatusRepository {
 		}
 	}
 	
+	@Override
+	public void clear() {
+		synchronized (statusList) {			
+			statusList.clear();
+		}
+	}
+
 	public void addStatus(String name, String msg, Severity severity) {
 		Status status = new Status(format(name, msg), null, severity, System.currentTimeMillis());
 		addStatus(status);

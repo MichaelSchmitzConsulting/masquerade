@@ -173,6 +173,21 @@ public class MainLayout extends VerticalLayout {
 		statusView.setSizeFull();
 		statusView.setMargin(true);
 		statusView.setSizeFull();
+		
+		statusView.addRefreshListener(new ClickListener() {
+			private RefreshListener refresher = createStatusViewRefresher();
+			@Override public void buttonClick(ClickEvent event) {
+				refresher.refresh();
+			}
+		});
+		
+		statusView.addClearListener(new ClickListener() {
+			@Override public void buttonClick(ClickEvent event) {
+				StatusLogger.REPOSITORY.clear();
+				statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
+			}
+		});
+		
 		return statusView;
 	}
 

@@ -7,6 +7,14 @@ import java.util.List;
  */
 public interface StatusRepository {
 
+	/**
+	 * @return Latest log messages kept in the status repository
+	 */
 	List<Status> latestStatusLogs();
+
+	/**
+	 * Delete all log messages
+	 */
+	void clear();
 
 }
