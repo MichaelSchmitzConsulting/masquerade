@@ -16,7 +16,7 @@ import masquerade.sim.status.StatusLogger;
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
 
-	private static final StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class.getName());
+	private static final StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class);
 
 	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {

@@ -30,6 +30,7 @@ public class StatusView extends VerticalLayout {
 		table.setColumnExpandRatio("message", 1.0f);
 		table.setSortDisabled(false);
 		table.setSortContainerPropertyId("timestamp");
+		table.setSortAscending(false);
 	}
 	
 	private void buildLayout() {

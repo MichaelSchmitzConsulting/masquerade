@@ -11,7 +11,7 @@ import masquerade.sim.status.StatusLogger;
  */
 public class FtpChannelListener extends AbstractChannelListener<FtpChannel> {
 
-	private static final StatusLog log = StatusLogger.get(FtpChannelListener.class.getName());
+	private static final StatusLog log = StatusLogger.get(FtpChannelListener.class);
 	private static final long MAX_WAIT = 20000;
 	
 	private FtpReceiverThread receiverThread;

@@ -28,7 +28,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class SimulationRunnerImpl implements SimulationRunner {
 
-	private static final StatusLog log = StatusLogger.get(SimulationRunnerImpl.class.getName());
+	private static final StatusLog log = StatusLogger.get(SimulationRunnerImpl.class);
 	
 	private RequestHistoryFactory requestHistoryFactory;
 	private Converter converter;

@@ -15,7 +15,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 public class FtpReceiverThread extends Thread {
 
-	private static final StatusLog log = StatusLogger.get(FtpReceiverThread.class.getName());
+	private static final StatusLog log = StatusLogger.get(FtpReceiverThread.class);
 	
 	private String host;
 	private int port;

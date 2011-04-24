@@ -17,7 +17,7 @@ import masquerade.sim.status.StatusLogger;
  */
 public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvider {
 
-	private static final StatusLog log = StatusLogger.get(ActiveMqConnectionFactoryProvider.class.getName());
+	private static final StatusLog log = StatusLogger.get(ActiveMqConnectionFactoryProvider.class);
 
 	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {

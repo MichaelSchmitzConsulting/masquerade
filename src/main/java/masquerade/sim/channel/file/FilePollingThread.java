@@ -15,7 +15,7 @@ import org.apache.commons.io.filefilter.RegexFileFilter;
  */
 public class FilePollingThread extends Thread {
 	
-	private static final StatusLog log = StatusLogger.get(FilePollingThread.class.getName());
+	private static final StatusLog log = StatusLogger.get(FilePollingThread.class);
 	
 	private static final int SECOND = 1000;
 	

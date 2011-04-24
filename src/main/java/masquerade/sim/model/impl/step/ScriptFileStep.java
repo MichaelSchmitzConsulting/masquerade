@@ -11,7 +11,7 @@ import org.apache.commons.io.IOUtils;
 
 public class ScriptFileStep extends AbstractScriptedStep {
 
-	private static final StatusLog log = StatusLogger.get(ScriptFileStep.class.getName());
+	private static final StatusLog log = StatusLogger.get(ScriptFileStep.class);
 	
 	private String scriptFileName = "";
 

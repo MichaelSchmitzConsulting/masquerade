@@ -16,7 +16,7 @@ import org.eclipse.jetty.server.Server;
  */
 public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpStandaloneChannel> {
 
-	static final StatusLog log = StatusLogger.get(HttpStandaloneChannelListener.class.getName());
+	static final StatusLog log = StatusLogger.get(HttpStandaloneChannelListener.class);
 	
 	private Server server;
 	private int port;

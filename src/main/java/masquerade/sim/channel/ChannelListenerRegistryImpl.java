@@ -20,7 +20,7 @@ import masquerade.sim.status.StatusLogger;
  */
 public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
-	private static final StatusLog log = StatusLogger.get(ChannelListenerRegistryImpl.class.getName());
+	private static final StatusLog log = StatusLogger.get(ChannelListenerRegistryImpl.class);
 	
 	private Map<String, ChannelListener<?>> channels = new LinkedHashMap<String, ChannelListener<?>>();
 	private SimulationRunner simulationRunner;

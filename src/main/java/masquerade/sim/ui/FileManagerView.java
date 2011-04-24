@@ -28,7 +28,7 @@ public class FileManagerView extends VerticalLayout {
 	private static final String[] VISIBLE_FILE_COLS = new String[] {
 		FilesystemContainer.PROPERTY_NAME, FilesystemContainer.PROPERTY_SIZE, FilesystemContainer.PROPERTY_LASTMODIFIED };
 	
-	private static final StatusLog log = StatusLogger.get(FileManagerView.class.getName());
+	private static final StatusLog log = StatusLogger.get(FileManagerView.class);
 	
 	private final File artifactRoot;
 	private Select fileTypeSelect;

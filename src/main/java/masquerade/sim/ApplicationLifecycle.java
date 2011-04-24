@@ -43,7 +43,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 
 	private static final String MSQ_WORKSUBDIR = ".masquerade";
 
-	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class.getName());
+	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class);
 	
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";

@@ -14,7 +14,7 @@ import com.db4o.internal.LazyObjectReference;
 
 public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 	
-	private static final StatusLog log = StatusLogger.get(ChannelChangeTrigger.class.getName());
+	private static final StatusLog log = StatusLogger.get(ChannelChangeTrigger.class);
 	
 	private ChannelListenerRegistry channelListenerRegistry;
 	

@@ -24,7 +24,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
  * specification.
  */
 class RequestHandler extends AbstractHandler {
-	private static final StatusLog log = StatusLogger.get(RequestHandler.class.getName());
+	private static final StatusLog log = StatusLogger.get(RequestHandler.class);
 	
 	private String contentType;
 	private Map<String, RequestProcessor> requestProcessors = new HashMap<String, RequestProcessor>();

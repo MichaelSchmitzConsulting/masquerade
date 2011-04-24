@@ -17,7 +17,7 @@ import org.apache.commons.io.output.NullOutputStream;
 public class FileChannelListener extends AbstractChannelListener<FileChannel> {
 
 	private static final long MAX_WAIT_TIME = 20000;
-	private static final StatusLog log = StatusLogger.get(FileChannelListener.class.getName());
+	private static final StatusLog log = StatusLogger.get(FileChannelListener.class);
 	
 	private String directory;
 	private String moveToDirectory;
