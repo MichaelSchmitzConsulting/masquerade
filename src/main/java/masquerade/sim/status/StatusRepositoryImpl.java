@@ -24,13 +24,11 @@ public class StatusRepositoryImpl implements StatusRepository {
 		}
 	}
 	
-	@Override
 	public void addStatus(String name, String msg, Severity severity) {
 		Status status = new Status(format(name, msg), null, severity);
 		addStatus(status);
 	}
 
-	@Override
 	public void addStatus(String name, String msg, Throwable t, Severity severity) {
 		String stacktrace = strackTrace(t);
 		Status status = new Status(format(name, msg), stacktrace, severity);

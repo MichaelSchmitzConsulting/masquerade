@@ -8,26 +8,28 @@ import masquerade.sim.util.ClassUtil;
 
 /**
  * {@link StatusLog} implementation delegating status logs to a 
- * {@link Logger} and to a {@link StatusRepositoryImpl}.
+ * {@link Logger} and to a {@link StatusRepository}.
  */
 public class StatusLogger implements StatusLog {
 
-	private final static StatusRepository repo = new StatusRepositoryImpl();
+	public static final StatusRepository REPOSITORY = new StatusRepositoryImpl();
 	
 	public static StatusLog get(Class<?> type) {
 		return get(ClassUtil.unqualifiedName(type));
 	}
 
 	public static StatusLog get(String name) {
-		return new StatusLogger(name);
+		return new StatusLogger(name, (StatusRepositoryImpl) REPOSITORY);
 	}
 
 	private String name;
 	private Logger delegate;
+	private StatusRepositoryImpl repo;
 
-	private StatusLogger(String name) {
+	private StatusLogger(String name, StatusRepositoryImpl repo) {
 		this.name = name;
 		this.delegate = Logger.getLogger(name);
+		this.repo = repo;
 	}
 
 	@Override

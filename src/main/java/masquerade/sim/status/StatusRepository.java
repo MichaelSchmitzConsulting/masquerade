@@ -11,8 +11,4 @@ public interface StatusRepository {
 
 	List<Status> latestStatusLogs();
 
-	void addStatus(String name, String msg, Severity severity);
-
-	void addStatus(String name, String msg, Throwable t, Severity severity);
-
 }
