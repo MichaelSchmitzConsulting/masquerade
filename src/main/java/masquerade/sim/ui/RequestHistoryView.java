@@ -21,6 +21,7 @@ public class RequestHistoryView extends HorizontalLayout {
         table.setContainerDataSource(container);
         Set<Object> visCols = new LinkedHashSet<Object>(Arrays.asList(table.getVisibleColumns()));
         visCols.remove("time");
+        visCols.remove("fileName");
         table.setVisibleColumns(visCols.toArray());
 	}
 	

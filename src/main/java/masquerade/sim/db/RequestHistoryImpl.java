@@ -20,6 +20,10 @@ import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;
 
+/**
+ * Implementation of {@link RequestHistory} providing access to the
+ * request history log.
+ */
 public class RequestHistoryImpl implements RequestHistory {
 
 	private volatile boolean isActive = true;
@@ -47,20 +51,34 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 	
 	@Override
-	public void logRequest(String channelName, String simulationName, String clientInfo, String requestId, String requestData) {
+	public HistoryEntry logRequest(String channelName, String simulationName, String clientInfo, String requestId, String requestData) {
 		if (isActive) {
 			String fileName = saveRequestToFile(requestData);
-			HistoryEntry entry = new HistoryEntry(new Date(), channelName, simulationName, clientInfo, requestId, fileName);
+			HistoryEntry entry = new HistoryEntry(new Date(), channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
 			dbSession.store(entry);
 			dbSession.commit();
+			return entry;
+		} else {
+			return null;
 		}
 	}
 	
+	@Override
+	public void addResponse(String responseData, HistoryEntry entry) {
+		File file = new File(requestLogDir, entry.getFileName() + HistoryEntry.RESPONSE_FILE_SUFFIX);
+		try {
+			FileUtils.writeStringToFile(file, responseData);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Cannot write response data to file " + file.getAbsolutePath(), e);
+		}
+	}
+
 	@Override
 	public void clear() {
 		ObjectSet<HistoryEntry> result = dbSession.query(HistoryEntry.class);
 		for (HistoryEntry entry : result) {
 			dbSession.delete(entry);
+			entry.deleteLogFiles();
 		}
 		dbSession.commit();
 	}
@@ -105,13 +123,13 @@ public class RequestHistoryImpl implements RequestHistory {
 	private String saveRequestToFile(String requestData) {
 		String fileName = UUID.randomUUID().toString();
 		
-		File file = new File(requestLogDir, fileName);
+		File file = new File(requestLogDir, fileName + HistoryEntry.REQUEST_FILE_SUFFIX);
 		try {
 			FileUtils.writeStringToFile(file, requestData);
 		} catch (IOException e) {
-			throw new IllegalStateException("Cannot write request data to file", e);
+			throw new IllegalArgumentException("Cannot write request data to file", e);
 		}
 		
-		return file.getAbsolutePath();
+		return fileName;
 	}
 }

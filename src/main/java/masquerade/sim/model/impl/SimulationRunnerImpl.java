@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
@@ -60,18 +61,34 @@ public class SimulationRunnerImpl implements SimulationRunner {
 					
 					SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
 					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
-					requestHistory.logRequest(channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
+					HistoryEntry entry = logRequest(channelName, clientInfo, request, requestHistory, script, requestId);
 					
 					Object response = script.run(context);
 					marshalResponse(response, responseOutput);
+					
+					logResponse(requestHistory, entry, response);
+					
 					return;
 				}
 			}
 			
 			// No match found
-			requestHistory.logRequest(channelName, null, clientInfo, null, converter.convert(request, String.class));
+			requestHistory.logRequest(channelName, "<no match>", clientInfo, null, converter.convert(request, String.class));
 		} finally {
 			requestHistory.endSession();
+		}
+	}
+
+	private HistoryEntry logRequest(String channelName, String clientInfo, Object request, RequestHistory requestHistory, Script script, String requestId) {
+		HistoryEntry entry = 
+			requestHistory.logRequest(channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
+		return entry;
+	}
+
+	private void logResponse(RequestHistory requestHistory, HistoryEntry entry, Object response) {
+		String responseData = converter.convert(response, String.class);
+		if (responseData != null) {
+			requestHistory.addResponse(responseData, entry);
 		}
 	}
 
