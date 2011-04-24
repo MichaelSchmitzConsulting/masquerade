@@ -3,10 +3,11 @@ package masquerade.sim.ui;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import masquerade.sim.DeleteListener;
 import masquerade.sim.model.FileType;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.ui.UploadFileWindow.UploadResultListener;
 import masquerade.sim.util.StringUtil;
@@ -27,7 +28,7 @@ public class FileManagerView extends VerticalLayout {
 	private static final String[] VISIBLE_FILE_COLS = new String[] {
 		FilesystemContainer.PROPERTY_NAME, FilesystemContainer.PROPERTY_SIZE, FilesystemContainer.PROPERTY_LASTMODIFIED };
 	
-	private static final Logger log = Logger.getLogger(FileManagerView.class.getName());
+	private static final StatusLog log = StatusLogger.get(FileManagerView.class.getName());
 	
 	private final File artifactRoot;
 	private Select fileTypeSelect;

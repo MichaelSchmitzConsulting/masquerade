@@ -1,18 +1,17 @@
 package masquerade.sim.channel.ftp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.FtpChannel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 /**
  * A {@link ChannelListener} receiving requests in files over FTP
  */
 public class FtpChannelListener extends AbstractChannelListener<FtpChannel> {
 
-	private static final Logger log = Logger.getLogger(FtpChannelListener.class.getName());
+	private static final StatusLog log = StatusLogger.get(FtpChannelListener.class.getName());
 	private static final long MAX_WAIT = 20000;
 	
 	private FtpReceiverThread receiverThread;
@@ -38,7 +37,7 @@ public class FtpChannelListener extends AbstractChannelListener<FtpChannel> {
 		try {
 			receiverThread.join(MAX_WAIT);
 		} catch (InterruptedException e) {
-			log.log(Level.SEVERE, "Interrupted while stopping FTP receiver thread", e);
+			log.warning("Interrupted while stopping FTP receiver thread", e);
 		}
 		receiverThread = null;
 	}

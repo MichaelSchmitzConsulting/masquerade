@@ -8,7 +8,6 @@ import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.ClassUtil;
 
 import com.vaadin.data.Container;
-import com.vaadin.ui.Window;
 
 public final class ModelAddListener implements AddListener {
 	private final Collection<Class<?>> instanceTypes;
@@ -16,15 +15,13 @@ public final class ModelAddListener implements AddListener {
 	private final ModelRepository repo;
 	private final MasterDetailView view;
 	private final Container container;
-	private Window window;
 
-	public ModelAddListener(Collection<Class<?>> instanceTypes, Class<?> baseType, ModelRepository repo, MasterDetailView view, Container container, Window window) {
+	public ModelAddListener(Collection<Class<?>> instanceTypes, Class<?> baseType, ModelRepository repo, MasterDetailView view, Container container) {
 		this.instanceTypes = instanceTypes;
 		this.baseType = baseType;
 		this.repo = repo;
 		this.view = view;
 		this.container = container;
-		this.window = window;
 	}
 
 	@Override
@@ -41,7 +38,7 @@ public final class ModelAddListener implements AddListener {
 			usedName = name + (i++); 
 		}
 		
-		CreateObjectDialog.showModal(window, caption, usedName, objectCreatedListener(view, container, repo), instanceTypes);
+		CreateObjectDialog.showModal(view.getWindow(), caption, usedName, objectCreatedListener(view, container, repo), instanceTypes);
 	}
 	
 	CreateListener objectCreatedListener(final MasterDetailView view, final Container container, final ModelRepository repo) {

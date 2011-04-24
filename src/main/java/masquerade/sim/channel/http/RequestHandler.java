@@ -5,8 +5,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import masquerade.sim.model.impl.HttpStandaloneChannel;
 import masquerade.sim.model.impl.RequestProcessor;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Request;
@@ -24,7 +24,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
  * specification.
  */
 class RequestHandler extends AbstractHandler {
-	private static final Logger log = Logger.getLogger(RequestHandler.class.getName());
+	private static final StatusLog log = StatusLogger.get(RequestHandler.class.getName());
 	
 	private String contentType;
 	private Map<String, RequestProcessor> requestProcessors = new HashMap<String, RequestProcessor>();
@@ -65,7 +65,7 @@ class RequestHandler extends AbstractHandler {
 			try {
 				internalHandleRequest(request, response, processor);
 			} catch (Throwable t) {
-				log.log(Level.SEVERE, "Exception in request handler", t);
+				log.error("Exception in request handler", t);
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				t.printStackTrace(new PrintWriter(response.getOutputStream()));
 			}
@@ -96,7 +96,7 @@ class RequestHandler extends AbstractHandler {
 		} catch (IOException e) {
 			throw e;
 		} catch (Exception e) {
-			HttpStandaloneChannelListener.log.log(Level.SEVERE, "Exception in standalone HTTP request handler", e);
+			log.error("Exception in standalone HTTP request handler", e);
 			response.reset();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			PrintStream stream = new PrintStream(response.getOutputStream());

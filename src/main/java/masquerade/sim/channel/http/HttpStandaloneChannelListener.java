@@ -1,12 +1,11 @@
-	package masquerade.sim.channel.http;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package masquerade.sim.channel.http;
 
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.HttpStandaloneChannel;
 import masquerade.sim.model.impl.RequestProcessor;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.StringUtil;
 
 import org.eclipse.jetty.server.Server;
@@ -17,7 +16,7 @@ import org.eclipse.jetty.server.Server;
  */
 public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpStandaloneChannel> {
 
-	static final Logger log = Logger.getLogger(HttpStandaloneChannelListener.class.getName());
+	static final StatusLog log = StatusLogger.get(HttpStandaloneChannelListener.class.getName());
 	
 	private Server server;
 	private int port;
@@ -53,7 +52,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 				startedServer.start();
 				getContext().setAttribute(serverAttributeKey, startedServer);
 			} catch (Exception e) {
-				log.log(Level.SEVERE, "Unable to start standalone HTTP server on port " + port, e);
+				log.error("Unable to start standalone HTTP server on port " + port, e);
 				startedServer = null;
 			}
 		} else {
@@ -73,16 +72,16 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 	protected synchronized void onStop() {
 		if (server != null) {
 			synchronized (server) {
-				log.log(Level.FINE, "Stopping HTTP standalone channel " + name);
+				log.info("Stopping HTTP standalone channel " + name);
 				RequestHandler handler = (RequestHandler) server.getHandler();
 				if (handler.removeRequestProcessor(location)) {
 					try {
-						log.log(Level.FINE, "Stopping HTTP standalone server on port " + port);
+						log.info("Stopping HTTP standalone server on port " + port);
 						getContext().removeAttribute(serverAttributeKey(port));
 						server.stop();
 						server.join();
 					} catch (Exception e) {
-						log.log(Level.SEVERE, "Unable to stop standalone HTTP server", e);
+						log.error("Unable to stop standalone HTTP server", e);
 					}
 				}
 				server = null;

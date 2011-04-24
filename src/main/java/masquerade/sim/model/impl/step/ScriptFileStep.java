@@ -1,17 +1,17 @@
 package masquerade.sim.model.impl.step;
 
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import masquerade.sim.model.FileType;
 import masquerade.sim.model.SimulationContext;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.IOUtils;
 
 public class ScriptFileStep extends AbstractScriptedStep {
 
-	private static final Logger log = Logger.getLogger(ScriptFileStep.class.getName());
+	private static final StatusLog log = StatusLogger.get(ScriptFileStep.class.getName());
 	
 	private String scriptFileName = "";
 
@@ -42,7 +42,7 @@ public class ScriptFileStep extends AbstractScriptedStep {
 			scriptContent = IOUtils.toString(is);
 			super.execute(context);
 		} else {		
-			log.log(Level.SEVERE, "Unable to load script " + scriptFileName);
+			log.error("Unable to load script " + scriptFileName);
 		}
 	}
 

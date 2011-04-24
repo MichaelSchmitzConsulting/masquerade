@@ -5,10 +5,11 @@ import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
-import java.util.logging.Logger;
 
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.FileChannel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.NullOutputStream;
@@ -16,7 +17,7 @@ import org.apache.commons.io.output.NullOutputStream;
 public class FileChannelListener extends AbstractChannelListener<FileChannel> {
 
 	private static final long MAX_WAIT_TIME = 20000;
-	private static final Logger log = Logger.getLogger(FileChannelListener.class.getName());
+	private static final StatusLog log = StatusLogger.get(FileChannelListener.class.getName());
 	
 	private String directory;
 	private String moveToDirectory;

@@ -45,8 +45,8 @@ public class StatusRepositoryImpl implements StatusRepository {
 		synchronized (statusList) {
 			if (statusList.size() == MAX_STATUS_COUNT) {
 				statusList.remove(0);
-				statusList.add(status);
 			}
+			statusList.add(status);
 		}
 	}
 

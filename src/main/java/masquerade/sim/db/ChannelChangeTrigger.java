@@ -1,10 +1,9 @@
 package masquerade.sim.db;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.model.Channel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import com.db4o.events.CommitEventArgs;
 import com.db4o.events.Event4;
@@ -15,7 +14,7 @@ import com.db4o.internal.LazyObjectReference;
 
 public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 	
-	private static final Logger log = Logger.getLogger(ChannelChangeTrigger.class.getName());
+	private static final StatusLog log = StatusLogger.get(ChannelChangeTrigger.class.getName());
 	
 	private ChannelListenerRegistry channelListenerRegistry;
 	
@@ -28,7 +27,7 @@ public class ChannelChangeTrigger implements EventListener4<CommitEventArgs> {
 		try {
 			onEvent(eventArgs);
 		} catch (Throwable ex) {
-			log.log(Level.SEVERE, "Exception in commit event listener", ex);
+			log.error("Exception in commit event listener", ex);
 		}
 	}
 

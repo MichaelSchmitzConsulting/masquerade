@@ -1,10 +1,10 @@
 package masquerade.sim.ui;
 
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import masquerade.sim.model.Channel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.DomUtil;
 import masquerade.sim.util.WindowUtil;
 
@@ -27,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class RequestTestView extends VerticalLayout {
 
-	protected static final Logger log = Logger.getLogger(RequestTestView.class.getName());
+	protected static final StatusLog log = StatusLogger.get(RequestTestView.class);
 	
 	private Select channelSelect;
 	private ActionListener<Channel, String, Object> sendActionListener;
@@ -78,7 +78,7 @@ public class RequestTestView extends VerticalLayout {
 						WindowUtil.showErrorNotification(getWindow(), "Error", "No response received");
 					}
 				} catch (Exception e) {
-					log.log(Level.SEVERE, "Unable to handle test request", e);
+					log.error("Unable to handle test request", e);
 					WindowUtil.showErrorNotification(getWindow(), "Error", "Script Exception: " + e.getMessage());
 				}
 			}

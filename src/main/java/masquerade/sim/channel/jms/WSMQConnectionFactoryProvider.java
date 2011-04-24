@@ -1,13 +1,12 @@
 package masquerade.sim.channel.jms;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.jms.ConnectionFactory;
 
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 /**
  * Provides {@link ConnectionFactory} instances for IBM WebSphere MQ connections over TCP/IP.
@@ -17,7 +16,7 @@ import masquerade.sim.model.impl.WebSphereMqJmsChannel;
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
 
-	private static final Logger log = Logger.getLogger(WSMQConnectionFactoryProvider.class.getName());
+	private static final StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class.getName());
 
 	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
@@ -25,7 +24,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			WebSphereMqJmsChannel mqChannel = (WebSphereMqJmsChannel) channel;
 			return getMqConnFactory(mqChannel.getHost(), mqChannel.getPort(), mqChannel.getChannel(), mqChannel.getQueueManager());
 		} catch (Exception e) {
-			log.log(Level.SEVERE, "Unable to create WSMQ connection factory", e);
+			log.error("Unable to create WSMQ connection factory", e);
 			return null;
 		}
 	}
@@ -36,7 +35,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		try {
 			factoryType = Class.forName("com.ibm.mq.jms.MQConnectionFactory");
 		} catch (ClassNotFoundException e) {
-			log.log(Level.SEVERE, "Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
+			log.error("Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
 			return null;
 		}
 		ConnectionFactory factory = (ConnectionFactory) factoryType.newInstance();

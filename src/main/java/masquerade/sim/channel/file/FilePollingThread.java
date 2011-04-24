@@ -3,8 +3,9 @@ package masquerade.sim.channel.file;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
@@ -14,7 +15,7 @@ import org.apache.commons.io.filefilter.RegexFileFilter;
  */
 public class FilePollingThread extends Thread {
 	
-	private static final Logger log = Logger.getLogger(FilePollingThread.class.getName());
+	private static final StatusLog log = StatusLogger.get(FilePollingThread.class.getName());
 	
 	private static final int SECOND = 1000;
 	
@@ -62,7 +63,7 @@ public class FilePollingThread extends Thread {
 			try {
 				fileProcessor.processFile(file);
 			} catch (Exception e) {
-				log.log(Level.WARNING, "File processing exception", e);
+				log.error("File processing exception", e);
 			}
 			try {
 				FileUtils.moveFileToDirectory(file, moveToDirectory, false);

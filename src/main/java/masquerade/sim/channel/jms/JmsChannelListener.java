@@ -3,8 +3,6 @@ package masquerade.sim.channel.jms;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.io.ByteArrayOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -17,6 +15,8 @@ import javax.jms.TextMessage;
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.JmsChannel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.springframework.jms.listener.SessionAwareMessageListener;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
@@ -28,7 +28,7 @@ import org.springframework.jms.listener.SimpleMessageListenerContainer;
  */
 public class JmsChannelListener extends AbstractChannelListener<JmsChannel> implements SessionAwareMessageListener<Message> {
 
-	private final static Logger log = Logger.getLogger(JmsChannelListener.class.getName());
+	private final static StatusLog log = StatusLogger.get(JmsChannelListener.class);
 
 	private volatile String replyDestinationName;
 	private volatile boolean isTopic;
@@ -83,10 +83,10 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			try {
 				onMessageInternal(txt, session);
 			} catch (Throwable e) {
-				log.log(Level.SEVERE, "Exception while handling JMS message", e);
+				log.error("Exception while handling JMS message", e);
 			}
 		} else {
-			log.log(Level.SEVERE, "JmsChannelListener can currently only handle TextMessage, received " + msg.getClass().getName());
+			log.error("JmsChannelListener can currently only handle TextMessage, received " + msg.getClass().getName());
 		}
 	}
 
@@ -138,7 +138,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			provider = channel.connectionFactoryProvider().newInstance();
 			return provider.getConnectionFactory(channel);
 		} catch (Throwable t) {
-			log.log(Level.SEVERE, "Unable to create a connection factory for JMS channel " + channel.getName(), t);
+			log.error("Unable to create a connection factory for JMS channel " + channel.getName(), t);
 			return null;
 		}
 	}

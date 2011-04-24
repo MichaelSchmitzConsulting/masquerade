@@ -3,13 +3,13 @@ package masquerade.sim.channel.jms;
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.lang.reflect.Constructor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.jms.ConnectionFactory;
 
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 /**
  * {@link ConnectionFactoryProvider} able to provide JMS {@link ConnectionFactory} instances
@@ -17,7 +17,7 @@ import masquerade.sim.model.impl.JmsChannel;
  */
 public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvider {
 
-	private static final Logger log = Logger.getLogger(ActiveMqConnectionFactoryProvider.class.getName());
+	private static final StatusLog log = StatusLogger.get(ActiveMqConnectionFactoryProvider.class.getName());
 
 	@Override
 	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
@@ -37,7 +37,7 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 		try {
 			return createFactory(user, password, url);
 		} catch (Exception e) {
-			log.log(Level.SEVERE, "Unable to create WSMQ connection factory", e);
+			log.error("Unable to create WSMQ connection factory", e);
 			return null;
 		}
 	}
@@ -47,7 +47,7 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 		try {
 			factoryType = Class.forName("org.apache.activemq.ActiveMQConnectionFactory");
 		} catch (ClassNotFoundException e) {
-			log.log(Level.SEVERE, "Unable to load ActiveMQConnectionFactory - please place the ActiveMQ JARs in your classpath");
+			log.error("Unable to load ActiveMQConnectionFactory - please place the ActiveMQ JARs in your classpath");
 			return null;
 		}
 		Constructor<?> constructor = factoryType.getConstructor(String.class, String.class, String.class);

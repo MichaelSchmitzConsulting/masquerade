@@ -3,10 +3,10 @@ package masquerade.sim.channel.ftp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import masquerade.sim.model.impl.RequestProcessor;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.StringUtil;
 
 import org.apache.commons.io.output.NullOutputStream;
@@ -15,7 +15,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 public class FtpReceiverThread extends Thread {
 
-	private static final Logger log = Logger.getLogger(FtpReceiverThread.class.getName());
+	private static final StatusLog log = StatusLogger.get(FtpReceiverThread.class.getName());
 	
 	private String host;
 	private int port;
@@ -74,9 +74,9 @@ public class FtpReceiverThread extends Thread {
 				ftp.logout();
 			}
 		} catch (IOException e) {
-			log.log(Level.SEVERE, "I/O exception while transferring files using FTP from " + hostStr(), e);
+			log.error("I/O exception while transferring files using FTP from " + hostStr(), e);
 		} catch (Exception e) {
-			log.log(Level.SEVERE, "Exception while processing request from FTP " + hostStr(), e);
+			log.error("Exception while processing request from FTP " + hostStr(), e);
 		} finally {
 			disconnect(ftp);
 		}
@@ -91,7 +91,7 @@ public class FtpReceiverThread extends Thread {
 		boolean success = true;
 		if (isDeleteFile) {
 			if (!ftp.deleteFile(filePath)) {
-				log.log(Level.SEVERE, "Unable to delete request file on FTP server " + hostStr());
+				log.error("Unable to delete request file on FTP server " + hostStr());
 				success = false;
 			}
 		}
@@ -116,12 +116,12 @@ public class FtpReceiverThread extends Thread {
 		int reply = ftp.getReplyCode();
 
 		if (!FTPReply.isPositiveCompletion(reply)) {
-			log.log(Level.SEVERE, "FTP server " + hostStr() + " refused connection.");
+			log.error("FTP server " + hostStr() + " refused connection.");
 			disconnect(ftp);
 		}
 		
 		if (!ftp.login(username, password)) {
-			log.log(Level.SEVERE, "Cannot login to FTP server " + hostStr() + " with user " + username);
+			log.error("Cannot login to FTP server " + hostStr() + " with user " + username);
 			disconnect(ftp);
 		}
 	}
@@ -135,7 +135,7 @@ public class FtpReceiverThread extends Thread {
 			try {
 				ftp.disconnect();
 			} catch (IOException ex) {
-				log.log(Level.SEVERE, "Error on FTP disconnect from " + hostStr(), ex);
+				log.error("Error on FTP disconnect from " + hostStr(), ex);
 			}
 		}
 	}

@@ -74,6 +74,8 @@ public class MainLayout extends VerticalLayout {
 	private RequestTestView requestTestView;
 	private RequestHistoryView requestHistoryView;
 
+	private StatusView statusView;
+
 	public MainLayout(Resource logo, ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction) {
 		setSizeFull();
@@ -152,15 +154,23 @@ public class MainLayout extends VerticalLayout {
 		refreshMap.put(requestIdProviders, new TabRefresher(ripFactory, requestIdProviders));
 		refreshMap.put(requestTester, createTestRefresher(modelRepository));
 		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
+		refreshMap.put(status, createStatusViewRefresher());
 		tabSheet.addListener(createTabSelectionListener(refreshMap));
 
 		return tabSheet;
 	}
 
+	private RefreshListener createStatusViewRefresher() {
+		return new RefreshListener() {
+			@Override public void refresh() {
+				statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
+			}
+		};
+	}
+
 	private Component createStatusView() {
-		StatusView statusView = new StatusView();
+		statusView = new StatusView();
 		statusView.setSizeFull();
-		statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
 		statusView.setMargin(true);
 		statusView.setSizeFull();
 		return statusView;
@@ -345,7 +355,7 @@ public class MainLayout extends VerticalLayout {
 
 	private AddListener createAddListener(final Class<?> baseType, final MasterDetailView view, final Container container,
 			final Collection<Class<?>> instanceTypes, final ModelRepository repo) {
-		return new ModelAddListener(instanceTypes, baseType, repo, view, container, getWindow());
+		return new ModelAddListener(instanceTypes, baseType, repo, view, container);
 	}
 
 	private DeleteListener createDeleteListener(final MasterDetailView view, final Container container) {

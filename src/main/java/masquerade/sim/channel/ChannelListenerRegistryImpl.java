@@ -5,14 +5,14 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.ChannelListenerContext;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.impl.ChannelListenerContextImpl;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 /**
  * A registry for {@link ChannelListener} instances. Manages
@@ -20,7 +20,7 @@ import masquerade.sim.model.impl.ChannelListenerContextImpl;
  */
 public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 
-	private static final Logger log = Logger.getLogger(ChannelListenerRegistryImpl.class.getName());
+	private static final StatusLog log = StatusLogger.get(ChannelListenerRegistryImpl.class.getName());
 	
 	private Map<String, ChannelListener<?>> channels = new LinkedHashMap<String, ChannelListener<?>>();
 	private SimulationRunner simulationRunner;
@@ -68,7 +68,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 				try {
 					notifyChannelChanged(channel);
 				} catch (Exception ex) {
-					log.log(Level.SEVERE, "Exception while starting channel " + channel.getName(), ex);
+					log.error( "Exception while starting channel " + channel.getName(), ex);
 				}
 			}
 		}
@@ -115,7 +115,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 		synchronized (channels) {
 			ChannelListener<?> listener = getChannelListener(name, ChannelListener.class);
 			if (listener != null) {
-				log.log(Level.INFO, "Stopping channel " + name);
+				log.info("Stopping channel " + name);
 
 				channels.remove(name);
 				listener.stop(context);
@@ -126,10 +126,10 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	private void startChannel(Channel changedChannel) {
 		String channelName = changedChannel.getName();
 		if (changedChannel.isActive()) {
-			log.log(Level.INFO, "Starting channel " + channelName);
+			log.info("Starting channel " + channelName);
 			doStart(changedChannel, channelName);
 		} else {
-			log.log(Level.INFO, "Skipping channel start for inactive channel " + channelName);
+			log.info("Skipping channel start for inactive channel " + channelName);
 		}
 	}
 
@@ -139,7 +139,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 			listener.start(changedChannel, simulationRunner, context);
 			channels.put(channelName, listener);
 		} catch (Exception ex) {
-			log.log(Level.SEVERE, "Cannot start channel listener", ex);
+			log.error( "Cannot start channel listener", ex);
 		}
 	}	
 	
@@ -156,7 +156,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 
 	private void restartChannel(ChannelListener<Channel> listener, Channel changedChannel) {
-		log.log(Level.INFO, "Restarting channel " + changedChannel);
+		log.info("Restarting channel " + changedChannel);
 		listener.stop(context);
 		listener.start(changedChannel, simulationRunner, context);
 	}

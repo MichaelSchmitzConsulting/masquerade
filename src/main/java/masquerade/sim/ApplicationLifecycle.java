@@ -2,8 +2,6 @@ package masquerade.sim;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -26,6 +24,8 @@ import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.model.impl.SimulationRunnerImpl;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.FileUtils;
 
@@ -43,7 +43,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 
 	private static final String MSQ_WORKSUBDIR = ".masquerade";
 
-	private static final Logger log = Logger.getLogger(ApplicationLifecycle.class.getName());
+	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class.getName());
 	
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";
@@ -162,7 +162,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		try {
 			channelListenerRegistry.stopAll();
 		} catch (Throwable t) {
-			log.log(Level.SEVERE, "Exception while stopping all channel listeners", t);
+			log.error("Exception while stopping all channel listeners", t);
 		}
 	}
 
