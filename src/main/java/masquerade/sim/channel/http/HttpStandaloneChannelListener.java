@@ -3,7 +3,6 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.HttpStandaloneChannel;

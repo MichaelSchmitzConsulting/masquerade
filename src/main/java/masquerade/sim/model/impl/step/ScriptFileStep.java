@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.io.IOUtils;
-
 import masquerade.sim.model.FileType;
 import masquerade.sim.model.SimulationContext;
+
+import org.apache.commons.io.IOUtils;
 
 public class ScriptFileStep extends AbstractScriptedStep {
 

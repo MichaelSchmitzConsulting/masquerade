@@ -2,10 +2,10 @@ package masquerade.sim.ui.field;
 
 import java.util.Collection;
 
-import com.vaadin.ui.Field;
-
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
+
+import com.vaadin.ui.Field;
 
 public class FileSelectFieldFactory extends CollectionSelectFieldFactory {
 	private FileLoader fileLoader;

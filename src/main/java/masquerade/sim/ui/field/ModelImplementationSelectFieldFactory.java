@@ -2,10 +2,10 @@ package masquerade.sim.ui.field;
 
 import java.util.Collection;
 
-import org.apache.commons.lang.ClassUtils;
-
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.util.ClassUtil;
+
+import org.apache.commons.lang.ClassUtils;
 
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Field;
