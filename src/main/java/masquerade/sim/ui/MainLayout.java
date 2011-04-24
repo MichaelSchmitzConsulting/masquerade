@@ -62,6 +62,7 @@ import com.vaadin.ui.themes.BaseTheme;
 public class MainLayout extends VerticalLayout {
 
 	private static final String[] COLUMNS = new String[] { "name", "description" };
+	private RequestTestView requestTestView;
 
 	public MainLayout(Resource logo, ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction) {
@@ -124,12 +125,12 @@ public class MainLayout extends VerticalLayout {
 		// Add tabs
 		tabSheet.addTab(channels, "Channel", CHANNELS.icon());
 		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
-		tabSheet.addTab(scripts, "Response Script", SCRIPT.icon());
+		tabSheet.addTab(scripts, "Response", SCRIPT.icon());
 		tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon());
 		tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon());
-		tabSheet.addTab(requestHistoryUi, "Request History", REQUEST_HISTORY.icon());
 		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
 		tabSheet.addTab(requestTester, "Test", TEST.icon());
+		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon());
 
 		// Refresh master/detail view contents on tab selection
 		Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
@@ -137,23 +138,30 @@ public class MainLayout extends VerticalLayout {
 		refreshMap.put(requestMapping, new TabRefresher(mappingFactory));
 		refreshMap.put(scripts, new TabRefresher(scriptFactory));
 		refreshMap.put(requestIdProviders, new TabRefresher(ripFactory));
-		refreshMap.put(requestTester, createTestRefresher());
+		refreshMap.put(requestTester, createTestRefresher(modelRepository));
 		tabSheet.addListener(createTabSelectionListener(refreshMap));
 
 		return tabSheet;
 	}
 
-	private RefreshListener createTestRefresher() {
-		// TODO
-		return null;
+	private RefreshListener createTestRefresher(final ModelRepository modelRepository) {
+		return new RefreshListener() {
+			@Override public void refresh(Component component) {
+				updateTestView(modelRepository);
+			}
+		};
 	}
 
 	private Component createRequestTestView(ModelRepository modelRepository, ActionListener<Channel, String, Object> sendTestRequestAction) {
-		Collection<Channel> channels = modelRepository.getAll(Channel.class);
-		RequestTestView requestTestView = new RequestTestView(sendTestRequestAction);
-		requestTestView.setChannels(channels);
+		requestTestView = new RequestTestView(sendTestRequestAction);
+		updateTestView(modelRepository);
 		requestTestView.setMargin(true);
 		return requestTestView;
+	}
+
+	private void updateTestView(ModelRepository modelRepository) {
+		Collection<Channel> channels = modelRepository.getAll(Channel.class);
+		requestTestView.setChannels(channels);
 	}
 
 	private Component createFileManager(File artifactRoot) {
@@ -171,7 +179,7 @@ public class MainLayout extends VerticalLayout {
 	}
 
 	private void refreshTab(final Map<Component, RefreshListener> refreshMap, TabSheet tabSheet) {
-		Component tabLayout = tabSheet.getComponentIterator().next();
+		Component tabLayout = tabSheet.getSelectedTab();
 		RefreshListener refreshment = refreshMap.get(tabLayout);
 		if (refreshment != null) {
 			refreshment.refresh(tabLayout);

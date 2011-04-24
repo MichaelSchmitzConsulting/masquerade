@@ -65,7 +65,11 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	public void startAll(List<Channel> list) {
 		synchronized (channels) {
 			for (Channel channel : list) {
-				notifyChannelChanged(channel);
+				try {
+					notifyChannelChanged(channel);
+				} catch (Exception ex) {
+					log.log(Level.SEVERE, "Exception while starting channel " + channel.getName(), ex);
+				}
 			}
 		}
 	}
