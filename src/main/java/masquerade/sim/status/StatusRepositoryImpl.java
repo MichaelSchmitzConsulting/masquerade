@@ -25,13 +25,13 @@ public class StatusRepositoryImpl implements StatusRepository {
 	}
 	
 	public void addStatus(String name, String msg, Severity severity) {
-		Status status = new Status(format(name, msg), null, severity);
+		Status status = new Status(format(name, msg), null, severity, System.currentTimeMillis());
 		addStatus(status);
 	}
 
 	public void addStatus(String name, String msg, Throwable t, Severity severity) {
 		String stacktrace = strackTrace(t);
-		Status status = new Status(format(name, msg), stacktrace, severity);
+		Status status = new Status(format(name, msg), stacktrace, severity, System.currentTimeMillis());
 		addStatus(status);
 	}
 

@@ -29,6 +29,7 @@ import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.impl.FileLoaderImpl;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.WindowUtil;
 
@@ -158,6 +159,9 @@ public class MainLayout extends VerticalLayout {
 
 	private Component createStatusView() {
 		StatusView statusView = new StatusView();
+		statusView.setSizeFull();
+		statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
+		statusView.setMargin(true);
 		statusView.setSizeFull();
 		return statusView;
 	}
