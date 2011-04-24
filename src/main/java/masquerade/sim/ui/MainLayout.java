@@ -35,6 +35,8 @@ import org.apache.commons.io.IOUtils;
 import org.vaadin.codemirror.client.ui.CodeStyle;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.Resource;
@@ -60,7 +62,13 @@ import com.vaadin.ui.themes.BaseTheme;
  */
 public class MainLayout extends VerticalLayout {
 
+	private static final boolean RESPONSE = false;
+
+	private static final boolean REQUEST = true;
+
+	/** Columns shown in model master/detail views */
 	private static final String[] COLUMNS = new String[] { "name", "description" };
+
 	private RequestTestView requestTestView;
 	private RequestHistoryView requestHistoryView;
 
@@ -222,6 +230,7 @@ public class MainLayout extends VerticalLayout {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSizeFull();
 
+		// Log table
 		requestHistoryView = new RequestHistoryView();
 		requestHistoryView.setMargin(true);
 		requestHistoryView.setSizeFull();
@@ -233,21 +242,24 @@ public class MainLayout extends VerticalLayout {
 
 		// Show request details on double click
 		requestHistoryView.addItemClickListener(new ItemClickListener() {
-			@Override
-			public void itemClick(ItemClickEvent event) {
+			@Override public void itemClick(ItemClickEvent event) {
 				if (event.isDoubleClick()) {
-					showRequestContent((HistoryEntry) event.getItemId());
+					showHistoryContent(((HistoryEntry) event.getItemId()), REQUEST);
 				}
 			}
 		});
 
-		// Refresh button
+		// Button layout container
 		HorizontalLayout bottomLayout = new HorizontalLayout();
+		bottomLayout.setMargin(false, true, true, true);
 		bottomLayout.setSpacing(true);
+		bottomLayout.setWidth("100%");
+		bottomLayout.setSpacing(true);
+		
+		// Refresh button
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
+			@Override public void buttonClick(ClickEvent event) {
 				refresher.refresh();
 			}
 		});
@@ -256,33 +268,62 @@ public class MainLayout extends VerticalLayout {
 		// Clear button
 		Button clearButton = new Button("Clear");
 		clearButton.addListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
+			@Override public void buttonClick(ClickEvent event) {
 				requestHistory.clear();
 				refresher.refresh();
 			}
 		});
 		bottomLayout.addComponent(clearButton);
 
-		// Help label
-		Label label = new Label("Doubleclick on request to show payload");
-		bottomLayout.addComponent(label);
-		bottomLayout.setComponentAlignment(label, Alignment.MIDDLE_LEFT);
+		// Spacer
+		Label spacer = new Label();
+		bottomLayout.addComponent(spacer);
+		bottomLayout.setExpandRatio(spacer, 1.0f);
 
-		bottomLayout.setMargin(false, true, true, true);
-		bottomLayout.setSpacing(true);
+		// Show request button
+		final Button requestButton = new Button("Show Request");
+		requestButton.setEnabled(false);
+		requestButton.addListener(new ClickListener() {
+			@Override public void buttonClick(ClickEvent event) {
+				HistoryEntry entry = requestHistoryView.getSelection();
+				showHistoryContent(entry, REQUEST);
+			}
+		});
+		bottomLayout.addComponent(requestButton);
+
+		// Show response button
+		final Button responseButton = new Button("Show Response");
+		responseButton.setEnabled(false);
+		responseButton.addListener(new ClickListener() {
+			@Override public void buttonClick(ClickEvent event) {
+				HistoryEntry entry = requestHistoryView.getSelection();
+				showHistoryContent(entry, RESPONSE);
+			}
+		});
+		bottomLayout.addComponent(responseButton);
+		
+		// Enable/disable buttons upon selection
+		requestHistoryView.addValueChangeListener(new ValueChangeListener() {
+			@Override public void valueChange(ValueChangeEvent event) {
+				boolean enabled = event.getProperty().getValue() != null;
+				responseButton.setEnabled(enabled);
+				requestButton.setEnabled(enabled);
+			}
+		});
+		
 		layout.addComponent(bottomLayout);
 
 		return layout;
 	}
 
-	private void showRequestContent(HistoryEntry historyEntry) {
+	private void showHistoryContent(HistoryEntry historyEntry, boolean isRequest) {
 		if (historyEntry != null) {
 			String content;
 			try {
-				InputStream stream = historyEntry.readRequestData();
+				InputStream stream = isRequest ? historyEntry.readRequestData() : historyEntry.readResponseData();
 				content = IOUtils.toString(stream);
-				SourceViewWindow.showModal(getWindow(), "Request Viewer", content, CodeStyle.XML);
+				String title = (isRequest ? "Request" : "Response") + " Viewer";
+				SourceViewWindow.showModal(getWindow(), title, content, CodeStyle.XML);
 			} catch (IOException e) {
 				WindowUtil.showErrorNotification(getWindow(), "Error retrieving content", "Unable to retrieve request: " + e.getMessage());
 			}
@@ -296,8 +337,7 @@ public class MainLayout extends VerticalLayout {
 
 	private DeleteListener createDeleteListener(final MasterDetailView view, final Container container) {
 		return new DeleteListener() {
-			@Override
-			public void notifyDelete(Object obj) {
+			@Override public void notifyDelete(Object obj) {
 				container.removeItem(obj);
 				view.setDataSource(container);
 			}
@@ -306,8 +346,7 @@ public class MainLayout extends VerticalLayout {
 
 	private UpdateListener createUpdateListener(final MasterDetailView view, final Container container) {
 		return new UpdateListener() {
-			@Override
-			public void notifyUpdated(Object obj) {
+			@Override public void notifyUpdated(Object obj) {
 				view.setDataSource(container);
 			}
 		};
