@@ -33,6 +33,8 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	private volatile String replyDestinationName;
 	private volatile boolean isTopic;
 	private SimpleMessageListenerContainer container;
+
+	private String channelName;
 	
 	/**
 	 * Start receiving requests from the topic/queue by creating a connection
@@ -45,7 +47,8 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		String destinationName = channel.getDestinationName();
 		replyDestinationName = channel.getResponseDestinationName();
 		isTopic = channel.isTopic();
-		log.info("Creating connection factor for JMS channel " + channel.getName());
+		channelName = channel.getName();
+		log.info("Creating connection factor for JMS channel " + channelName);
 		
 		ConnectionFactory connectionFactory = createConnectionFactory(channel);
 		if (connectionFactory == null) {
@@ -53,7 +56,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			return;
 		}
 		
-		log.info("Starting JmsChannelListener " + channel.getName());
+		log.info("Starting JmsChannelListener " + channelName);
 		container = new SimpleMessageListenerContainer();
 		container.setPubSubDomain(isTopic);
 		container.setConnectionFactory(connectionFactory);
@@ -78,6 +81,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	
 	@Override
 	public void onMessage(Message msg, Session session) {
+		log.trace("JmsChannelListener (" + channelName + "), received message of type " + msg.getClass().getName());
 		if (msg instanceof TextMessage) {
 			TextMessage txt = (TextMessage) msg;
 			try {

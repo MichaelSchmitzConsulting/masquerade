@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class Status {
 	public enum Severity {
-		INFO, WARNING, ERROR
+		INFO, WARNING, ERROR, TRACE
 	};
 	
 	private String message;

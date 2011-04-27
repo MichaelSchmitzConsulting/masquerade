@@ -39,6 +39,12 @@ public class StatusLogger implements StatusLog {
 	}
 
 	@Override
+	public void trace(String msg) {
+		repo.addStatus(name, msg, Severity.TRACE);
+		delegate.log(Level.FINE, msg);
+	}
+
+	@Override
 	public void warning(String msg) {
 		repo.addStatus(name, msg, Severity.WARNING);
 		delegate.log(Level.WARNING, msg);

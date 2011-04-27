@@ -6,11 +6,13 @@ package masquerade.sim.status;
  * delegates to server logs.
  */
 public interface StatusLog {
+	void trace(String string);	
 	void info(String msg);
 	
 	void warning(String msg);
 	void warning(String msg, Throwable ex);
 	
 	void error(String msg);
-	void error(String msg, Throwable ex);	
+	void error(String msg, Throwable ex);
+
 }
