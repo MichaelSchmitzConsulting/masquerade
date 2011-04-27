@@ -60,8 +60,12 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			if (cause instanceof JMSException) {
 				return (JMSException) cause;
 			} else if (cause != null) {
+				StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class);
+				log.error("Exception in MqConnectionFactoryWrapper", cause);
 				return new JMSException(cause.getClass().getName() + ": " + cause.getMessage());
 			} else {
+				StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class);
+				log.error("Exception with no cause in MqConnectionFactoryWrapper", e);
 				return new JMSException(e.getClass().getName() + ": " + e.getMessage());
 			}
 		}
