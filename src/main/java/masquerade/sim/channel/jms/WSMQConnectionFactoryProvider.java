@@ -83,9 +83,9 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		Integer directTcpIp = (Integer) constantType.getField("MQJMS_TP_DIRECT_TCPIP").get(null);
 
 		// Set transport type, host and port
-		factoryType.getMethod("setTransportType", Integer.class).invoke(factory, directTcpIp);
+		factoryType.getMethod("setTransportType", int.class).invoke(factory, directTcpIp);
 		factoryType.getMethod("setHostName", String.class).invoke(factory, host);
-		factoryType.getMethod("setPort", Integer.class).invoke(factory, port);
+		factoryType.getMethod("setPort", int.class).invoke(factory, port);
 		factoryType.getMethod("setChannel", String.class).invoke(factory, channel);
 		factoryType.getMethod("setQueueManager", String.class).invoke(factory, queueManager);
 
