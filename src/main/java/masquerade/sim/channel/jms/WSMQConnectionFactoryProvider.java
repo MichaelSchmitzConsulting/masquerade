@@ -21,7 +21,7 @@ import masquerade.sim.util.ClassUtil;
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
 
-	private final class MqConnectionFactoryWrapper implements ConnectionFactory {
+	private final static class MqConnectionFactoryWrapper implements ConnectionFactory {
 		private final Method createConnectionMethod;
 		private final Method createConnectionUserPwdMethod;
 		private final Object factory;
@@ -41,7 +41,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			try {
 				return (Connection) createConnectionUserPwdMethod.invoke(factory, user, password);
 			} catch (Exception e) {
-				throw new JMSException(e.getMessage());
+				throw convert(e);
 			}
 		}
 
@@ -49,7 +49,18 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			try {
 				return (Connection) createConnectionMethod.invoke(factory);
 			} catch (Exception e) {
-				throw new JMSException(e.getMessage());
+				throw convert(e);
+			}
+		}
+
+		private static JMSException convert(Exception e) {
+			Throwable cause = e.getCause();
+			if (cause instanceof JMSException) {
+				return (JMSException) cause;
+			} else if (cause != null) {
+				return new JMSException(cause.getClass().getName() + ": " + cause.getMessage());
+			} else {
+				return new JMSException(e.getClass().getName() + ": " + e.getMessage());
 			}
 		}
 	}
