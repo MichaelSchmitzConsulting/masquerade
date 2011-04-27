@@ -7,6 +7,7 @@ import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
+import masquerade.sim.util.ClassUtil;
 
 /**
  * Provides {@link ConnectionFactory} instances for IBM WebSphere MQ connections over TCP/IP.
@@ -33,7 +34,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		// Create factory
 		Class<?> factoryType;
 		try {
-			factoryType = Class.forName("com.ibm.mq.jms.MQConnectionFactory");
+			factoryType = ClassUtil.load("com.ibm.mq.jms.MQConnectionFactory");
 		} catch (ClassNotFoundException e) {
 			log.error("Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
 			return null;
@@ -41,7 +42,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		ConnectionFactory factory = (ConnectionFactory) factoryType.newInstance();
 
 		// Get constant value for transport type
-		Class<?> constantType = Class.forName("com.ibm.mq.jms.JMSC");
+		Class<?> constantType = ClassUtil.load("com.ibm.mq.jms.JMSC");
 		Integer directTcpIp = (Integer) constantType.getField("MQJMS_TP_DIRECT_TCPIP").get(null);
 
 		// Set transport type, host and port

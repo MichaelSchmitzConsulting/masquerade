@@ -10,6 +10,7 @@ import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
+import masquerade.sim.util.ClassUtil;
 
 /**
  * {@link ConnectionFactoryProvider} able to provide JMS {@link ConnectionFactory} instances
@@ -45,7 +46,7 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 	private ConnectionFactory createFactory(String user, String password, String url) throws Exception {
 		Class<?> factoryType;
 		try {
-			factoryType = Class.forName("org.apache.activemq.ActiveMQConnectionFactory");
+			factoryType = ClassUtil.load("org.apache.activemq.ActiveMQConnectionFactory");
 		} catch (ClassNotFoundException e) {
 			log.error("Unable to load ActiveMQConnectionFactory - please place the ActiveMQ JARs in your classpath");
 			return null;

@@ -20,4 +20,8 @@ public class ClassUtil {
 		String uqn = unqualifiedName(type);
 		return StringUtil.fromCamelCase(uqn);
     }
+
+	public static Class<?> load(String name) throws ClassNotFoundException {
+		return Thread.currentThread().getContextClassLoader().loadClass(name);
+	}
 }
