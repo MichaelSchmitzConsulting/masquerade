@@ -20,6 +20,8 @@ import masquerade.sim.util.ClassUtil;
  * attributes provided by {@link DefaultJmsChannel}.
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
+	
+	private static final int MQJMS_TP_DIRECT_TCPIP = 2;
 
 	private final static class MqConnectionFactoryWrapper implements ConnectionFactory {
 		private final Method createConnectionMethod;
@@ -89,12 +91,8 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		}
 		Object factory = factoryType.newInstance();
 
-		// Get constant value for transport type
-		Class<?> constantType = ClassUtil.load("com.ibm.mq.jms.JMSC");
-		Integer directTcpIp = (Integer) constantType.getField("MQJMS_TP_DIRECT_TCPIP").get(null);
-
 		// Set transport type, host and port
-		factoryType.getMethod("setTransportType", int.class).invoke(factory, directTcpIp);
+		factoryType.getMethod("setTransportType", int.class).invoke(factory, MQJMS_TP_DIRECT_TCPIP);
 		factoryType.getMethod("setHostName", String.class).invoke(factory, host);
 		factoryType.getMethod("setPort", int.class).invoke(factory, port);
 		factoryType.getMethod("setChannel", String.class).invoke(factory, channel);
