@@ -15,9 +15,9 @@ import org.w3c.dom.Node;
  */
 public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 
-	private String namespaceURI;
-	private String newQualifiedName;
-	private String selectNodeXpath;
+	private String namespaceURI = "http://example.com/ns";
+	private String newQualifiedName = "ns:newName";
+	private String selectNodeXpath = "/";
 
 	public RenameXmlNodeStep(String name) {
 		super(name);
