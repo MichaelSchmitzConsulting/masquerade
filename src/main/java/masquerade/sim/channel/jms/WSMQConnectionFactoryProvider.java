@@ -1,6 +1,10 @@
 package masquerade.sim.channel.jms;
 
+import java.lang.reflect.Method;
+
+import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
@@ -16,6 +20,39 @@ import masquerade.sim.util.ClassUtil;
  * attributes provided by {@link DefaultJmsChannel}.
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
+
+	private final class MqConnectionFactoryWrapper implements ConnectionFactory {
+		private final Method createConnectionMethod;
+		private final Method createConnectionUserPwdMethod;
+		private final Object factory;
+
+		/**
+		 * @param createConnectionMethod
+		 * @param createConnectionUserPwdMethod
+		 * @param factory
+		 */
+		public MqConnectionFactoryWrapper(Method createConnectionMethod, Method createConnectionUserPwdMethod, Object factory) {
+			this.createConnectionMethod = createConnectionMethod;
+			this.createConnectionUserPwdMethod = createConnectionUserPwdMethod;
+			this.factory = factory;
+		}
+
+		@Override public Connection createConnection(String user, String password) throws JMSException {
+			try {
+				return (Connection) createConnectionUserPwdMethod.invoke(factory, user, password);
+			} catch (Exception e) {
+				throw new JMSException(e.getMessage());
+			}
+		}
+
+		@Override public Connection createConnection() throws JMSException {
+			try {
+				return (Connection) createConnectionMethod.invoke(factory);
+			} catch (Exception e) {
+				throw new JMSException(e.getMessage());
+			}
+		}
+	}
 
 	private static final StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class);
 
@@ -39,7 +76,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			log.error("Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
 			return null;
 		}
-		ConnectionFactory factory = (ConnectionFactory) factoryType.newInstance();
+		final Object factory = (ConnectionFactory) factoryType.newInstance();
 
 		// Get constant value for transport type
 		Class<?> constantType = ClassUtil.load("com.ibm.mq.jms.JMSC");
@@ -52,6 +89,9 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		factoryType.getMethod("setChannel", String.class).invoke(factory, channel);
 		factoryType.getMethod("setQueueManager", String.class).invoke(factory, queueManager);
 
-		return factory;
+		Method createConnectionMethod = factoryType.getMethod("createConnection");
+		Method createConnectionUserPwdMethod = factoryType.getMethod("createConnection", String.class, String.class);
+		
+		return new MqConnectionFactoryWrapper(createConnectionMethod, createConnectionUserPwdMethod, factory);
 	}
 }
