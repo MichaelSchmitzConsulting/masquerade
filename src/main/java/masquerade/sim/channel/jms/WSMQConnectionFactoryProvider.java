@@ -96,9 +96,9 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		Object factory = factoryType.newInstance();
 
 		// Set transport type, host and port
-		factoryType.getMethod("setTransportType", int.class).invoke(factory, MQJMS_TP_DIRECT_TCPIP);
+		factoryType.getMethod("setTransportType", int.class).invoke(factory, 1);
 		factoryType.getMethod("setHostName", String.class).invoke(factory, host);
-		factoryType.getMethod("setPort", int.class).invoke(factory, port);
+		//factoryType.getMethod("setPort", int.class).invoke(factory, port);
 		factoryType.getMethod("setChannel", String.class).invoke(factory, channel);
 		factoryType.getMethod("setQueueManager", String.class).invoke(factory, queueManager);
 
