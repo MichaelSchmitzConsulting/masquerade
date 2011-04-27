@@ -72,7 +72,11 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		XPath xpath = XPathUtil.createXPath(context.getNamespaceResolver());
 		Node node = (Node) xpath.evaluate(selectNodeXpath, xml, XPathConstants.NODE);
 		
+		// Document root selected? Change selection to root element
+		if (node instanceof Document) {
+			node = ((Document)node).getDocumentElement();
+		}
+		
 		xml.renameNode(node, namespaceURI, newQualifiedName);
 	}
-
 }
