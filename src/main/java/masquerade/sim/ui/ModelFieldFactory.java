@@ -2,7 +2,9 @@ package masquerade.sim.ui;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import masquerade.sim.channel.jms.ConnectionFactoryProvider;
 import masquerade.sim.db.ModelRepository;
@@ -33,6 +35,15 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.Window;
 
 public class ModelFieldFactory extends DefaultFieldFactory {
+	private static final Set<String> NOT_REQUIRED = new HashSet<String>();
+	
+	static {
+		// TODO: Clean solution
+		NOT_REQUIRED.add("description");
+		NOT_REQUIRED.add("user");
+		NOT_REQUIRED.add("password");
+	}
+
 	private String defaultWidth = "400px";
 	
 	private Map<String, FieldFactory> factories = new HashMap<String, FieldFactory>();
@@ -84,7 +95,8 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 			field.setWidth(defaultWidth);
 		}
 		
-		if ("description".equals(propertyId.toString())) {
+		String propertyName = propertyId.toString();
+		if (NOT_REQUIRED.contains(propertyName)) {
 			field.setRequired(false);
 		} else {
 			field.setRequired(true);
