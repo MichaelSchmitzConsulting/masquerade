@@ -42,6 +42,7 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		NOT_REQUIRED.add("description");
 		NOT_REQUIRED.add("user");
 		NOT_REQUIRED.add("password");
+		NOT_REQUIRED.add("namespaceURI");
 	}
 
 	private String defaultWidth = "400px";

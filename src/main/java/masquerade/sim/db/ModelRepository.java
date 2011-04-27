@@ -33,6 +33,7 @@ import masquerade.sim.model.impl.step.GroovyScriptStep;
 import masquerade.sim.model.impl.step.JavaScriptStep;
 import masquerade.sim.model.impl.step.LoadTemplateStep;
 import masquerade.sim.model.impl.step.LoadTemplateToVariableStep;
+import masquerade.sim.model.impl.step.RenameXmlNodeStep;
 import masquerade.sim.model.impl.step.RubyScriptStep;
 import masquerade.sim.model.impl.step.ScriptFileStep;
 import masquerade.sim.model.impl.step.SetResponseContentStep;
@@ -77,6 +78,7 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		declareModelImplementation(SimulationStep.class, ScriptFileStep.class);
 		declareModelImplementation(SimulationStep.class, SetResponseContentStep.class);
 		declareModelImplementation(SimulationStep.class, SoapFaultStep.class);
+		declareModelImplementation(SimulationStep.class, RenameXmlNodeStep.class);
 		
 		// Namespace prefix
 		declareModelImplementation(NamespacePrefix.class, NamespacePrefix.class);
