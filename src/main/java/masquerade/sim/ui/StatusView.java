@@ -2,12 +2,11 @@ package masquerade.sim.ui;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
-import java.awt.Dialog.ModalExclusionType;
 import java.util.Collection;
 
-import org.vaadin.codemirror.client.ui.CodeStyle;
-
 import masquerade.sim.status.Status;
+
+import org.vaadin.codemirror.client.ui.CodeStyle;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanItemContainer;
