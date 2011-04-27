@@ -76,7 +76,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 			log.error("Unable to load MQConnectionFactory - please place WebSphere MQ jars in your classpath");
 			return null;
 		}
-		final Object factory = (ConnectionFactory) factoryType.newInstance();
+		Object factory = factoryType.newInstance();
 
 		// Get constant value for transport type
 		Class<?> constantType = ClassUtil.load("com.ibm.mq.jms.JMSC");
