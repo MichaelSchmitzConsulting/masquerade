@@ -81,7 +81,6 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	
 	@Override
 	public void onMessage(Message msg, Session session) {
-		log.trace("JmsChannelListener (" + channelName + "), received message of type " + msg.getClass().getName());
 		if (msg instanceof TextMessage) {
 			TextMessage txt = (TextMessage) msg;
 			try {
