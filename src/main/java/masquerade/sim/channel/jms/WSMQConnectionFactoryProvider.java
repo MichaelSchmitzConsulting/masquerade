@@ -21,7 +21,7 @@ import masquerade.sim.util.ClassUtil;
  */
 public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider {
 	
-	private static final int MQJMS_TP_DIRECT_TCPIP = 2;
+	private static final int MQJMS_TP_CLIENT = 1;
 
 	private final static class MqConnectionFactoryWrapper implements ConnectionFactory {
 		private final Method createConnectionMethod;
@@ -96,7 +96,7 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 		Object factory = factoryType.newInstance();
 
 		// Set transport type, host and port
-		factoryType.getMethod("setTransportType", int.class).invoke(factory, 1);
+		factoryType.getMethod("setTransportType", int.class).invoke(factory, MQJMS_TP_CLIENT);
 		factoryType.getMethod("setHostName", String.class).invoke(factory, host);
 		//factoryType.getMethod("setPort", int.class).invoke(factory, port);
 		factoryType.getMethod("setChannel", String.class).invoke(factory, channel);
