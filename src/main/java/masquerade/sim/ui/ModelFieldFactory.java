@@ -20,6 +20,7 @@ import masquerade.sim.ui.field.EditWindowField.WindowFactory;
 import masquerade.sim.ui.field.EditWindowFieldFactory;
 import masquerade.sim.ui.field.FieldFactory;
 import masquerade.sim.ui.field.FileSelectFieldFactory;
+import masquerade.sim.ui.field.HtmlViewFieldFactory;
 import masquerade.sim.ui.field.ModelImplementationSelectFieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
 
@@ -79,8 +80,11 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(
-			"requestMappings",
-			new EditWindowFieldFactory("Request Mappings", this, RequestMapping.class, null, wf));
+				"requestMappings",
+				new EditWindowFieldFactory("Request Mappings", this, RequestMapping.class, null, wf));
+		factories.put(
+				"documentation",
+				new HtmlViewFieldFactory("Documentation"));
 	}
 	
 	@Override

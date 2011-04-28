@@ -1,6 +1,6 @@
 package masquerade.sim.model.impl.step;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.util.DomUtil;
 

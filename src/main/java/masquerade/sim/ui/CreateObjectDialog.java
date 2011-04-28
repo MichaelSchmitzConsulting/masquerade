@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.Collection;
 
 import masquerade.sim.CreateListener;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
@@ -19,6 +21,7 @@ import com.vaadin.ui.Window;
 public class CreateObjectDialog extends Window {
 	
 	private static final String COMPONENT_WIDTH = "250px";
+	private static final StatusLog log = StatusLogger.get(CreateObjectDialog.class);
 
 	public static void showModal(Window parent, String caption, String defaultName, final CreateListener listener, Collection<Class<?>> instanceTypes) {
 		if (instanceTypes.isEmpty()) {
@@ -93,7 +96,7 @@ public class CreateObjectDialog extends Window {
 			} catch (NoSuchMethodException ex) {
 				notifyError(window,  
 					"No possible constructor found to create a " + typeName + ", expected " + typeName + "(String name) or " + typeName + "()",
-					typeName);
+					typeName, ex);
 				return;
 			}
 			Object value = constructor.newInstance(name);
@@ -101,13 +104,16 @@ public class CreateObjectDialog extends Window {
 		} catch (Exception e) {
 			String exMessage = e.getMessage();
 			String errMsg = e.getClass().getName() + " " + (exMessage == null ? "" : exMessage);
-			notifyError(window, errMsg, typeName);
+			notifyError(window, errMsg, typeName, e);
 		}
 	}
 	
-	private static void notifyError(Window window, String msg, String typeName) {
+	private static void notifyError(Window window, String msg, String typeName, Exception e) {
+		String caption = "Unable to create " + typeName;
+		log .error(caption + ": " + msg, e);
+		
 		WindowUtil.getRoot(window).showNotification(
-             "Unable to create " + typeName,
+             caption,
              "<br/>" + msg,
              Notification.TYPE_ERROR_MESSAGE);
 	}

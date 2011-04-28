@@ -1,7 +1,6 @@
 package masquerade.sim.model.impl;
 
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +62,7 @@ public class SimulationContextImpl implements SimulationContext {
 
 	@Override
 	public Map<String, Object> getVariables() {
-		return Collections.unmodifiableMap(contextVariables);
+		return new HashMap<String, Object>(contextVariables);
 	}
 
 	@Override

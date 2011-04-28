@@ -24,7 +24,6 @@ public class CodeMirrorFieldFactory implements FieldFactory {
 		CodeMirror field = new CodeMirror(caption, style);
 		field.setWidth("350px");
 		field.setHeight("180px");
-		field.setValue(existingValue);
 		return field;
 	}
 }
