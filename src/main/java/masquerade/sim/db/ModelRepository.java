@@ -89,17 +89,10 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		declareModelImplementation(ConnectionFactoryProvider.class, ActiveMqConnectionFactoryProvider.class);
 	}
 
-	// Common monitor entered by all threads accessing the model to synchronize
-	// model state across threads. Entered upon updating the model in on of the
-	// notify methods, and when creating the repository for subsequent reads.
-	private Object modelMonitor = new Object();
-	
 	private ObjectContainer db;
 	
 	public ModelRepository(ObjectContainer db) {
-		synchronized (modelMonitor) { 
-			this.db = db;
-		}
+		this.db = db;
 	}
 
 	/**
@@ -120,38 +113,28 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 
 	@Override
 	public void notifyCreate(Object value) {
-		synchronized (modelMonitor) {
-			checkConstraints(value);
-			notifyUpdated(value);
-		}
+		checkConstraints(value);
+		notifyUpdated(value);
 	}
 
 	@Override
 	public void notifyUpdated(Object modelObject) {
-		synchronized (modelMonitor) {
-			db.store(modelObject);
-			db.commit();
-		}
+		db.store(modelObject);
+		db.commit();
 	}
 
 	@Override
 	public void notifyDelete(Object obj) {
-		synchronized (modelMonitor) {
-			db.delete(obj);
-			db.commit();
-		}
+		db.delete(obj);
+		db.commit();
 	}
 	
 	public boolean contains(Object obj) {
-		synchronized (modelMonitor) {
-			return db.ext().isStored(obj);
-		}
+		return db.ext().isStored(obj);
 	}
 
 	public void endSession() {
-		synchronized (modelMonitor) { 
-			// db.close(); TODO: Separate between domain model (configuration) and processing logic in channels. Currently using shared global session
-		}
+		db.close();
 	}
 	
 	public List<Channel> getChannels() {
@@ -227,21 +210,15 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 	}
 
 	private Query startQuery() {
-		synchronized (modelMonitor) {
-			return db.query();
-		}
+		return db.query();
 	}
 	
 	private <T> ObjectSet<T> startQuery(Class<T> type) {
-		synchronized (modelMonitor) {
-			return db.query(type);
-		}
+		return db.query(type);
 	}
 
 	private <T> ObjectSet<T> startQuery(Predicate<T> pred) {
-		synchronized (modelMonitor) {
-			return db.query(pred);
-		}
+		return db.query(pred);
 	}
 }
 

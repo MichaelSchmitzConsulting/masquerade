@@ -2,6 +2,9 @@ package masquerade.sim.db;
 
 import com.db4o.ObjectContainer;
 
+/**
+ * Factory for {@link ModelRepository} session instances
+ */
 public class ModelRepositorySessionFactory implements ModelRepositoryFactory {
 
 	private ObjectContainer db;
@@ -10,9 +13,13 @@ public class ModelRepositorySessionFactory implements ModelRepositoryFactory {
 		this.db = db;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ModelRepository startModelRepositorySession() {
-		return new ModelRepository(db); // todo: use session
+		ObjectContainer session = db.ext().openSession();
+		return new ModelRepository(session);
 	}
 
 }
