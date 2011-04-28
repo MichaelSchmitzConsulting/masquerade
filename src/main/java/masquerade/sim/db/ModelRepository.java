@@ -42,6 +42,7 @@ import masquerade.sim.model.impl.step.WaitStep;
 
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
@@ -101,6 +102,10 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		}
 	}
 
+	/**
+	 * Checks if the object of the given type can be created without violating any
+	 * constraints.
+	 */
 	@Override
 	public boolean canCreate(Class<?> type, String name, StringBuilder errorMsg) {
 		if (Channel.class.isAssignableFrom(type)) {
@@ -115,7 +120,10 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 
 	@Override
 	public void notifyCreate(Object value) {
-		notifyUpdated(value);
+		synchronized (modelMonitor) {
+			checkConstraints(value);
+			notifyUpdated(value);
+		}
 	}
 
 	@Override
@@ -150,6 +158,14 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		return db.query(Channel.class);
 	}
 	
+	public <T> Collection<? extends T> getByName(Class<? extends T> baseType, String usedName) {
+		Query query = db.query();
+		query.constrain(baseType);
+		query.descend("name").constrain(usedName);
+		ObjectSet<T> result = query.execute();
+		return result;
+	}
+
 	public Channel getChannelByName(final String name) {
 		return singleResult(new Predicate<Channel>() {
 			@Override
@@ -175,11 +191,6 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		return startQuery(Script.class);
 	}
 
-	private <T> T singleResult(Predicate<T> predicate) {
-		ObjectSet<T> result = startQuery(predicate);
-		return result.size() > 0 ? result.get(0) : null;
-    }
-
 	public <T> Collection<T> getAll(Class<T> type) {
 		return startQuery(type);
     }
@@ -190,6 +201,22 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		}
 	}
 	
+	private void checkConstraints(Object value) {
+		// Unique channel name constraint is checked here as DB4O does not support
+		// unique constraints on getters, or on fields in class hierarchies.
+		if (value instanceof Channel) {
+			Channel channel = (Channel) value;
+			if (getChannelByName(channel.getName()) != null) {
+				throw new UniqueFieldValueConstraintViolationException(Channel.class.getName(), "name");
+			}
+		}
+	}
+
+	private <T> T singleResult(Predicate<T> predicate) {
+		ObjectSet<T> result = startQuery(predicate);
+		return result.size() > 0 ? result.get(0) : null;
+	}
+
 	private static <T> void declareModelImplementation(Class<T> base, Class<? extends T> impl) {
 		Collection<Class<?>> impls = modelImpls.get(base);
 		if (impls == null) {
@@ -215,14 +242,6 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		synchronized (modelMonitor) {
 			return db.query(pred);
 		}
-	}
-
-	public <T> Collection<? extends T> getByName(Class<? extends T> baseType, String usedName) {
-		Query query = db.query();
-		query.constrain(baseType);
-		query.descend("name").constrain(usedName);
-		ObjectSet<T> result = query.execute();
-		return result;
 	}
 }
 
