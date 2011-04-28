@@ -3,6 +3,7 @@ package masquerade.sim.ui;
 import java.lang.reflect.Constructor;
 import java.util.Collection;
 
+import masquerade.sim.CreateApprover;
 import masquerade.sim.CreateListener;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
@@ -23,16 +24,16 @@ public class CreateObjectDialog extends Window {
 	private static final String COMPONENT_WIDTH = "250px";
 	private static final StatusLog log = StatusLogger.get(CreateObjectDialog.class);
 
-	public static void showModal(Window parent, String caption, String defaultName, final CreateListener listener, Collection<Class<?>> instanceTypes) {
+	public static void showModal(Window parent, String caption, String defaultName, CreateListener listener, CreateApprover approver, Collection<Class<?>> instanceTypes) {
 		if (instanceTypes.isEmpty()) {
 			throw new IllegalArgumentException("Expected at least one instance type to select from");
 		}
 		
-		CreateObjectDialog dialog = new CreateObjectDialog(caption, defaultName, listener, instanceTypes);
+		CreateObjectDialog dialog = new CreateObjectDialog(caption, defaultName, listener, approver, instanceTypes);
 		WindowUtil.getRoot(parent).addWindow(dialog);
 	}
 	
-	private CreateObjectDialog(String caption, String defaultName, final CreateListener listener, Collection<Class<?>> instanceTypes) {
+	private CreateObjectDialog(String caption, String defaultName, final CreateListener listener, final CreateApprover approver, Collection<Class<?>> instanceTypes) {
 		super(caption);
 		
 		setModal(true);
@@ -70,11 +71,16 @@ public class CreateObjectDialog extends Window {
 			@Override public void buttonClick(ClickEvent event) {
 				String name = (String) nameText.getValue();
 				if (name.length() == 0) {
-					getWindow().showNotification("Please specifiy a name");
+					getWindow().showNotification("Please specify a name");
 				} else {
 					Class<?> type = (Class<?>) select.getValue();
-					doCreate(getWindow(), type, listener, name);
-					WindowUtil.getRoot(getWindow()).removeWindow(CreateObjectDialog.this);
+					StringBuilder vetoMsg = new StringBuilder();
+					if (approver.canCreate(type, name, vetoMsg)) {
+						doCreate(getWindow(), type, listener, name);
+						WindowUtil.getRoot(getWindow()).removeWindow(CreateObjectDialog.this);
+					} else {
+						WindowUtil.showErrorNotification(getWindow(), "Cannot create object", vetoMsg.toString());
+					}
 				}
 			}
 		});
@@ -89,7 +95,7 @@ public class CreateObjectDialog extends Window {
 	private static void doCreate(Window window, Class<?> type, CreateListener listener, String name) {
 		String typeName = ClassUtil.unqualifiedName(type);
 		try {
-			// By convention, a constructor with a single String argument is the construct that accepts an object name. 
+			// By convention, a constructor with a single String argument is the constructor that accepts an object name. 
 			Constructor<?> constructor;
 			try {
 				constructor = type.getConstructor(String.class);

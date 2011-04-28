@@ -8,6 +8,7 @@ import masquerade.sim.UpdateListener;
 import masquerade.sim.ui.CreateObjectDialog;
 import masquerade.sim.ui.MasterDetailView;
 import masquerade.sim.ui.MasterDetailView.AddListener;
+import masquerade.sim.util.AlwaysApprover;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.ContainerUtil;
 import masquerade.sim.util.WindowUtil;
@@ -81,7 +82,7 @@ public class MasterDetailEditWindow extends Window {
 				if (name.length() > 1) {
 					name = name.substring(0, 1).toLowerCase() + name.substring(1);
 				}
-				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container), instanceTypes);
+				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container), new AlwaysApprover(), instanceTypes);
 			}
 		};
 	}

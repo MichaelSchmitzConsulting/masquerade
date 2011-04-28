@@ -38,7 +38,7 @@ public final class ModelAddListener implements AddListener {
 			usedName = name + (i++); 
 		}
 		
-		CreateObjectDialog.showModal(view.getWindow(), caption, usedName, objectCreatedListener(view, container, repo), instanceTypes);
+		CreateObjectDialog.showModal(view.getWindow(), caption, usedName, objectCreatedListener(view, container, repo), repo, instanceTypes);
 	}
 	
 	CreateListener objectCreatedListener(final MasterDetailView view, final Container container, final ModelRepository repo) {

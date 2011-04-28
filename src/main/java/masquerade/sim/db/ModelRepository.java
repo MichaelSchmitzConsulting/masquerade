@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import masquerade.sim.CreateApprover;
 import masquerade.sim.CreateListener;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
@@ -44,7 +45,7 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
-public class ModelRepository implements UpdateListener, DeleteListener, CreateListener {
+public class ModelRepository implements UpdateListener, DeleteListener, CreateListener, CreateApprover {
 
 	private static Map<Class<?>, Collection<Class<?>>> modelImpls = new HashMap<Class<?>, Collection<Class<?>>>();
 	
@@ -98,6 +99,18 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		synchronized (modelMonitor) { 
 			this.db = db;
 		}
+	}
+
+	@Override
+	public boolean canCreate(Class<?> type, String name, StringBuilder errorMsg) {
+		if (Channel.class.isAssignableFrom(type)) {
+			if (getChannelByName(name) != null) {
+				errorMsg.append("Channel with name " + name + " already exists");
+				return false;
+			}
+		}
+			
+		return true;
 	}
 
 	@Override
