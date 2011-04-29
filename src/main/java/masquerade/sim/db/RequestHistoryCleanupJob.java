@@ -30,6 +30,7 @@ public class RequestHistoryCleanupJob {
 	public synchronized void start() {
 		if (thread == null) {
 			thread = new CleanupThread();
+			thread.start();
 		}
 	}
 
