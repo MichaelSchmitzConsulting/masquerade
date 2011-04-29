@@ -16,7 +16,8 @@ import masquerade.sim.model.NamespaceResolver;
  */
 public class ApplicationContext {
 
-	private DatabaseLifecycle databaseLifecycle;
+	private DatabaseLifecycle modelDbLifecycle;
+	private DatabaseLifecycle historyDbLifecycle;
 	private ChannelListenerRegistry channelListenerRegistry;
 	private RequestHistoryFactory requestHistoryFactory;
 	private ModelRepositoryFactory modelRepositoryFactory;
@@ -35,10 +36,11 @@ public class ApplicationContext {
 	 * @param artifactRoot
 	 * @param namespaceResolver
 	 */
-	public ApplicationContext(DatabaseLifecycle databaseLifecycle, ChannelListenerRegistry channelListenerRegistry,
+	public ApplicationContext(DatabaseLifecycle modelDbLifecycle, DatabaseLifecycle historyDbLifecycle, ChannelListenerRegistry channelListenerRegistry,
 		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
 		File artifactRoot, NamespaceResolver namespaceResolver) {
-		this.databaseLifecycle = databaseLifecycle;
+		this.modelDbLifecycle = modelDbLifecycle;
+		this.historyDbLifecycle = historyDbLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
 		this.requestHistoryFactory = requestHistoryFactory;
 		this.modelRepositoryFactory = modelRepositoryFactory;
@@ -52,8 +54,16 @@ public class ApplicationContext {
 	 * @return The {@link DatabaseLifecycle} object providing access to the root DB session, not meant for public usage - factories
 	 *         usually provide wrapper objecst for DB access that use their own session for safe concurrent usage.
 	 */
-	DatabaseLifecycle getDb() {
-		return databaseLifecycle;
+	DatabaseLifecycle getModelDb() {
+		return modelDbLifecycle;
+	}
+
+	/**
+	 * @return The {@link DatabaseLifecycle} object providing access to the root DB session, not meant for public usage - factories
+	 *         usually provide wrapper objecst for DB access that use their own session for safe concurrent usage.
+	 */
+	DatabaseLifecycle getHistoryDb() {
+		return historyDbLifecycle;
 	}
 
 	/**

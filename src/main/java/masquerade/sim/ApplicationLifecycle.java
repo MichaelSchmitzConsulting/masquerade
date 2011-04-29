@@ -75,24 +75,29 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		ObjectContainer db = null;
+		ObjectContainer modelDb = null;
+		ObjectContainer historyDb = null;
 		try {
 			ServletContext servletContext = event.getServletContext();
-			servletContext.log("Starting masquerade simulator");
+			log.info("Starting masquerade simulator");
 			
-			// Determine db file location
-			File dbFile = getDbFileLocation(servletContext);
-			servletContext.log("Database location: " + dbFile.getAbsolutePath());
+			// Determine db file locations
+			File modelDbFile = getDbFileLocation(servletContext, "");
+			File historyDbFile = getDbFileLocation(servletContext, "-history");
+			log.info("Main Database Location: " + modelDbFile.getAbsolutePath());
+			log.info("History Database Location: " + historyDbFile.getAbsolutePath());
 			
-			// Create database
-			DatabaseLifecycle databaseLifecycle = new DatabaseLifecycle();
-			db = databaseLifecycle.start(dbFile);
+			// Create databases
+			DatabaseLifecycle modelDbLifecycle = new DatabaseLifecycle();
+			DatabaseLifecycle historyDbLifecycle = new DatabaseLifecycle();
+			modelDb = modelDbLifecycle.start(modelDbFile);
+			historyDb = historyDbLifecycle.start(historyDbFile);
 			
 			File requestLogDir = getRequestLogDir(servletContext);
-			servletContext.log("Request log dir: " + requestLogDir.getAbsolutePath());
+			log.info("Request log dir: " + requestLogDir.getAbsolutePath());
 			
 			// Create request history factory
-			RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(db, requestLogDir);
+			RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(historyDb, requestLogDir);
 			
 			// Create converter
 			Converter converter = new CompoundConverter();
@@ -102,7 +107,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			FileLoader fileLoader = new FileLoaderImpl(artifactsRoot);
 			
 			// Create model repository factory
-			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(db);
+			ModelRepositoryFactory modelRepositoryFactory = new ModelRepositorySessionFactory(modelDb);
 
 			// Create namespace resolver
 			NamespaceResolver namespaceResolver = new ModelNamespaceResolver(modelRepositoryFactory);
@@ -114,11 +119,11 @@ public class ApplicationLifecycle implements ServletContextListener {
 			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner);
 			
 			// Add channel change trigger
-			registerChannelChangeTrigger(db, listenerRegistry);
+			registerChannelChangeTrigger(modelDb, listenerRegistry);
 			
 			// Create application context
-			ApplicationContext applicationContext = new ApplicationContext(databaseLifecycle, listenerRegistry, requestHistoryFactory, modelRepositoryFactory,
-				fileLoader, converter, artifactsRoot, namespaceResolver);
+			ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
+					modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver);
 			
 			// Save application context reference in servlet context
 			servletContext.setAttribute(CONTEXT, applicationContext);
@@ -133,10 +138,12 @@ public class ApplicationLifecycle implements ServletContextListener {
 			
 			servletContext.log("Simulator started");
 		} catch (IOException ex) {
-			close(db);
+			close(modelDb);
+			close(historyDb);
 			throw new IllegalArgumentException("Cannot create dir", ex);
 		} catch (RuntimeException t) {
-			close(db);
+			close(modelDb);
+			close(historyDb);
 			throw t;
 		}
 	}
@@ -149,11 +156,12 @@ public class ApplicationLifecycle implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
-		servletContext.log("Shutting down masquerade simulator");
+		log.info("Shutting down masquerade simulator");
 		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
 		if (context != null) {
 			stopChannels(context.getChannelListenerRegistry());
-			context.getDb().stop();
+			context.getModelDb().stop();
+			context.getHistoryDb().stop();
 			servletContext.removeAttribute(CONTEXT);
 		}
 	}
@@ -186,13 +194,14 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * work directory if not set.
 	 * 
 	 * @param servletContext {@link ServletContext}
+	 * @param postfix 
 	 * @return Where the masquerade database should be located
 	 */
-	private File getDbFileLocation(ServletContext servletContext) {
+	private static File getDbFileLocation(ServletContext servletContext, String postfix) {
 		String dbFileLocation = System.getProperty("masquerade.db.file.location");
 		if (dbFileLocation == null) {
 			File workDir = getWorkDir(servletContext);
-			File dbFile = new File(workDir, getAppName(servletContext) + "-db.db4o");
+			File dbFile = new File(workDir, getAppName(servletContext) + postfix + "-db.db4o");
 			return dbFile;
 		} else {
 			return new File(dbFileLocation);
