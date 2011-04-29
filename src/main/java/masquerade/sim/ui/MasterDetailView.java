@@ -3,9 +3,13 @@ package masquerade.sim.ui;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import masquerade.sim.DeleteApprover;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
+import masquerade.sim.model.Named;
+import masquerade.sim.util.AlwaysApprover;
 import masquerade.sim.util.ClassUtil;
+import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -57,6 +61,7 @@ public class MasterDetailView extends CustomComponent {
 	private Collection<UpdateListener> formCommitListeners = new LinkedHashSet<UpdateListener>();
 	private Collection<AddListener> addListeners = new LinkedHashSet<AddListener>();
 	private Collection<DeleteListener> deleteListeners = new LinkedHashSet<DeleteListener>();
+	private DeleteApprover deleteApprover = new AlwaysApprover();
 	private boolean isWriteThrough = false;
 	private VerticalLayout leftLayout;
 	private boolean isUpDownButtons;
@@ -134,11 +139,15 @@ public class MasterDetailView extends CustomComponent {
 	}
 
 	public void addDeleteListener(DeleteListener deleteListener) {
-		deleteListeners .add(deleteListener);
+		deleteListeners.add(deleteListener);
 	}
 	
 	public void removeCreateListener(DeleteListener deleteListener) {
 		deleteListeners.remove(deleteListener);
+	}
+	
+	public void setDeleteApprover(DeleteApprover approver) {
+		deleteApprover = approver;
 	}
 	
 	public void setMasterTableWidth(String width) {
@@ -205,9 +214,22 @@ public class MasterDetailView extends CustomComponent {
         removeButton.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				setDetailView(null);
-				removeButton.setEnabled(false);
-				fireDeleteObject(masterTable.getValue());
+				Object obj = masterTable.getValue();
+				StringBuilder msg = new StringBuilder(0);
+				if (deleteApprover.canDelete(obj, msg)) {
+					fireDeleteObject(obj);
+					setDetailView(null);
+					removeButton.setEnabled(false);
+				} else {
+					String name;
+					if (obj instanceof Named) {
+						Named named = (Named) obj;
+						name = named.getName();
+					} else {
+						name = obj.toString();
+					}
+					WindowUtil.showErrorNotification(getWindow(), "Cannot remove "+ name, msg.toString());
+				}
 			}
 		});
         masterTable.addListener(new ValueChangeListener() {

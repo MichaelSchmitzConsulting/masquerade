@@ -4,8 +4,7 @@ package masquerade.sim.model;
 /**
  * Maps an incoming request to a {@link ResponseSimulation}
  */
-public interface RequestMapping<R> {
-	String getName();
+public interface RequestMapping<R> extends Named {
 	String getDescription();
 	
 	Script getScript();

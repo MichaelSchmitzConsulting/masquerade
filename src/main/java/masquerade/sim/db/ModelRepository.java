@@ -8,6 +8,7 @@ import java.util.Map;
 
 import masquerade.sim.CreateApprover;
 import masquerade.sim.CreateListener;
+import masquerade.sim.DeleteApprover;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.channel.jms.ActiveMqConnectionFactoryProvider;
@@ -46,7 +47,7 @@ import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
-public class ModelRepository implements UpdateListener, DeleteListener, CreateListener, CreateApprover {
+public class ModelRepository implements UpdateListener, DeleteListener, CreateListener, CreateApprover, DeleteApprover {
 
 	private static Map<Class<?>, Collection<Class<?>>> modelImpls = new HashMap<Class<?>, Collection<Class<?>>>();
 	
@@ -111,9 +112,40 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		return true;
 	}
 
+	/**
+	 * Checks if the object of the given type can be delete without violating any
+	 * constraints.
+	 */
+	@Override
+	public boolean canDelete(Object obj, StringBuilder errorMsg) {
+		Class<?> type = obj.getClass();
+		// Request mapping still referenced in channel?
+		if (RequestMapping.class.isAssignableFrom(type)) {
+			Collection<Channel> channels = getChannels();
+			for (Channel channel : channels) {
+				if (channel.getRequestMappings().contains(obj)) {
+					errorMsg.append("This request mapping is still active for channel " + channel.getName());
+					return false;
+				}
+			}
+		// Response script still referenced by request mapping?
+		} else if (Script.class.isAssignableFrom(type)) {
+			Collection<RequestMapping<?>> mappings = getRequestMappings();
+			for (RequestMapping<?> mapping : mappings) {
+				if (mapping.getScript() == obj) {
+					errorMsg.append("This script is still active in request mapping " + mapping.getName());
+					return false;
+				}
+			}
+		}
+		
+		// No constraints violated - allow deletion
+		return true;
+	}
+
 	@Override
 	public void notifyCreate(Object value) {
-		checkConstraints(value);
+		checkConstraintsOnCreate(value);
 		notifyUpdated(value);
 	}
 
@@ -184,9 +216,9 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 		}
 	}
 	
-	private void checkConstraints(Object value) {
+	private void checkConstraintsOnCreate(Object value) {
 		// Unique channel name constraint is checked here as DB4O does not support
-		// unique constraints on getters, or on fields in class hierarchies.
+		// unique constraints on getters, or on inherited fields.
 		if (value instanceof Channel) {
 			Channel channel = (Channel) value;
 			if (getChannelByName(channel.getName()) != null) {

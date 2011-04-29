@@ -138,7 +138,7 @@ public class MainLayout extends VerticalLayout {
 		// Add tabs
 		tabSheet.addTab(channels, "Channel", CHANNELS.icon());
 		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
-		tabSheet.addTab(scripts, "Response", SCRIPT.icon());
+		tabSheet.addTab(scripts, "Response Script", SCRIPT.icon());
 		tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon());
 		tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon());
 		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
@@ -259,6 +259,7 @@ public class MainLayout extends VerticalLayout {
 		view.addDeleteListener(repo);
 		view.addDeleteListener(createDeleteListener(view, container));
 		view.addAddListener(createAddListener(modelType, view, container, instanceTypes, repo));
+		view.setDeleteApprover(repo);
 		layout.addComponent(view);
 
 		return layout;
