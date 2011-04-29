@@ -20,4 +20,6 @@ public interface RequestHistory {
 	InputStream getRequest(String requestId) throws IOException;
 
 	void clear();
+
+	void cleanOldRequests(int requestsToKeep);
 }

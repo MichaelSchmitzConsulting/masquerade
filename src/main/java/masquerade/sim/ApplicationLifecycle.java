@@ -16,6 +16,7 @@ import masquerade.sim.db.ModelNamespaceResolver;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.db.ModelRepositoryFactory;
 import masquerade.sim.db.ModelRepositorySessionFactory;
+import masquerade.sim.db.RequestHistoryCleanupJob;
 import masquerade.sim.db.RequestHistorySessionFactory;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
@@ -41,12 +42,18 @@ import com.vaadin.terminal.gwt.server.WebApplicationContext;
  */
 public class ApplicationLifecycle implements ServletContextListener {
 
+	private static final int MINUTE = 60 * 1000;
+	// TODO: Move these 2 values to settings
+	private static final long cleanupSleepPeriodMs = 10 * MINUTE;
+	private static final int requestsToKeepInHistory = 100;
+
 	private static final String MSQ_WORKSUBDIR = ".masquerade";
 
 	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class);
 	
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";
+
 
 	/**
 	 * Retrieves the current {@link ApplicationContext} for a webapp as stored
@@ -121,9 +128,12 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Add channel change trigger
 			registerChannelChangeTrigger(modelDb, listenerRegistry);
 			
+			// Create history cleanup job
+			RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory, cleanupSleepPeriodMs, requestsToKeepInHistory);
+			
 			// Create application context
 			ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
-					modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver);
+					modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob);
 			
 			// Save application context reference in servlet context
 			servletContext.setAttribute(CONTEXT, applicationContext);
@@ -135,6 +145,9 @@ public class ApplicationLifecycle implements ServletContextListener {
 			} finally {
 				repo.endSession();
 			}
+			
+			// Start request history cleanup job
+			cleanupJob.start();
 			
 			servletContext.log("Simulator started");
 		} catch (IOException ex) {
@@ -159,6 +172,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 		log.info("Shutting down masquerade simulator");
 		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
 		if (context != null) {
+			context.getRequestHistoryCleanupJob().stop();
 			stopChannels(context.getChannelListenerRegistry());
 			context.getModelDb().stop();
 			context.getHistoryDb().stop();

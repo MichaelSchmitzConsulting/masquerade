@@ -5,6 +5,7 @@ import java.io.File;
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.db.DatabaseLifecycle;
 import masquerade.sim.db.ModelRepositoryFactory;
+import masquerade.sim.db.RequestHistoryCleanupJob;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
@@ -25,6 +26,7 @@ public class ApplicationContext {
 	private Converter converter;
 	private File artifactRoot;
 	private NamespaceResolver namespaceResolver;
+	private RequestHistoryCleanupJob cleanupJob;
 
 	/**
 	 * @param databaseLifecycle
@@ -35,10 +37,11 @@ public class ApplicationContext {
 	 * @param converter
 	 * @param artifactRoot
 	 * @param namespaceResolver
+	 * @param cleanupJob 
 	 */
 	public ApplicationContext(DatabaseLifecycle modelDbLifecycle, DatabaseLifecycle historyDbLifecycle, ChannelListenerRegistry channelListenerRegistry,
 		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
-		File artifactRoot, NamespaceResolver namespaceResolver) {
+		File artifactRoot, NamespaceResolver namespaceResolver, RequestHistoryCleanupJob cleanupJob) {
 		this.modelDbLifecycle = modelDbLifecycle;
 		this.historyDbLifecycle = historyDbLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
@@ -48,6 +51,7 @@ public class ApplicationContext {
 		this.converter = converter;
 		this.artifactRoot = artifactRoot;
 		this.namespaceResolver = namespaceResolver;
+		this.cleanupJob = cleanupJob;
 	}
 
 	/**
@@ -66,6 +70,10 @@ public class ApplicationContext {
 		return historyDbLifecycle;
 	}
 
+	RequestHistoryCleanupJob getRequestHistoryCleanupJob() {
+		return cleanupJob;
+	}
+	
 	/**
 	 * @return The {@link ChannelListenerRegistry}
 	 */
