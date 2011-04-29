@@ -51,49 +51,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
-			<plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>1.0.1</version>
-				<executions>
-					<execution>
-						<configuration>
-							<!-- if you don't specify any modules, the plugin will find them -->
-							<!-- <modules> <module>${package}.gwt.MyWidgetSet</module> </modules> -->
-						</configuration>
-						<goals>
-							<goal>update-widgetset</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Compiles your custom GWT components with the GWT compiler -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.1.0-1</version>
-				<configuration>
-					<!-- if you don't specify any modules, the plugin will find them -->
-					<!--modules> .. </modules -->
-					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
-					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-					<runTarget>clean</runTarget>
-					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
-					<noServer>true</noServer>
-					<port>8080</port>
-					<soyc>false</soyc>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>resources</goal>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 			<!-- A simple Jetty test server at http://localhost:8080/masquerade can 
 				be launched with the Maven goal jetty:run and stopped with jetty:stop -->
 			<plugin>
@@ -167,6 +124,59 @@
 		</repository>
 	</repositories>
 
+	<!-- If a new widgetset is added, run 'mvn -Pcompile-widgetset clean package' -->
+	<profiles>
+		<profile>
+			<id>compile-widgetset</id>
+			<build>
+				<plugins>
+					<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
+					<plugin>
+						<groupId>com.vaadin</groupId>
+						<artifactId>vaadin-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<executions>
+							<execution>
+								<configuration>
+									<!-- if you don't specify any modules, the plugin will find them -->
+									<!-- <modules> <module>${package}.gwt.MyWidgetSet</module> </modules> -->
+								</configuration>
+								<goals>
+									<goal>update-widgetset</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Compiles your custom GWT components with the GWT compiler -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>gwt-maven-plugin</artifactId>
+						<version>2.1.0-1</version>
+						<configuration>
+							<!-- if you don't specify any modules, the plugin will find them -->
+							<!--modules> .. </modules -->
+							<webappDirectory>src/main/webapp/VAADIN/widgetsets</webappDirectory>
+							<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+							<runTarget>clean</runTarget>
+							<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+							<noServer>true</noServer>
+							<port>8080</port>
+							<soyc>false</soyc>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>resources</goal>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
 	<dependencies>
 		<!-- Vaadin -->
 		<dependency>
@@ -258,7 +268,7 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>7.4.0.v20110414</version>
 		</dependency>
-		<!-- Servlet API for use with Jetty standalone -->
+		<!-- Servlet API for use with Jetty standalone-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
