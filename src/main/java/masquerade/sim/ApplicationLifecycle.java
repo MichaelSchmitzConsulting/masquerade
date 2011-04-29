@@ -89,8 +89,8 @@ public class ApplicationLifecycle implements ServletContextListener {
 			log.info("Starting masquerade simulator");
 			
 			// Determine db file locations
-			File modelDbFile = getDbFileLocation(servletContext, "");
-			File historyDbFile = getDbFileLocation(servletContext, "-history");
+			File modelDbFile = getDbFileLocation(servletContext, false);
+			File historyDbFile = getDbFileLocation(servletContext, true);
 			log.info("Main Database Location: " + modelDbFile.getAbsolutePath());
 			log.info("History Database Location: " + historyDbFile.getAbsolutePath());
 			
@@ -211,10 +211,18 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @param postfix 
 	 * @return Where the masquerade database should be located
 	 */
-	private static File getDbFileLocation(ServletContext servletContext, String postfix) {
-		String dbFileLocation = System.getProperty("masquerade.db.file.location");
+	private static File getDbFileLocation(ServletContext servletContext, boolean isRequestLog) {
+		String dbFileLocation;
+		
+		if (isRequestLog) {
+			dbFileLocation = System.getProperty("masquerade.db.history.file.location");
+		} else {
+			dbFileLocation = System.getProperty("masquerade.db.file.location");
+		}
+		
 		if (dbFileLocation == null) {
 			File workDir = getWorkDir(servletContext);
+			String postfix = isRequestLog ? "-history" : "";
 			File dbFile = new File(workDir, getAppName(servletContext) + postfix + "-db.db4o");
 			return dbFile;
 		} else {
