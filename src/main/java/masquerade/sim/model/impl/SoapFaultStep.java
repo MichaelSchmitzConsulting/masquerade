@@ -24,7 +24,7 @@ public class SoapFaultStep extends AbstractSubstitutingStep {
 	
 	static {
 		try {
-			faultContent = IOUtils.toString(SoapFaultStep.class.getResourceAsStream("SoapFault.xml"));
+			faultContent = IOUtils.toString(SoapFaultStep.class.getResourceAsStream("SoapFault.template"));
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
