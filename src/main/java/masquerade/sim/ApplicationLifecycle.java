@@ -1,7 +1,10 @@
 package masquerade.sim;
 
-import java.io.File;
+import static masquerade.sim.HomeResolver.getArtifactsDir;
+import static masquerade.sim.HomeResolver.getDbFileLocation;
+import static masquerade.sim.HomeResolver.getRequestLogDir;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;
@@ -23,11 +26,13 @@ import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.NamespaceResolver;
+import masquerade.sim.model.Settings;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.model.impl.SimulationRunnerImpl;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
+import masquerade.sim.status.StatusRepositoryImpl;
 
 import com.db4o.ObjectContainer;
 import com.db4o.events.EventRegistry;
@@ -35,22 +40,15 @@ import com.db4o.events.EventRegistryFactory;
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
-import static masquerade.sim.HomeResolver.*;
-
 /**
  * Class handling application startup/shutdown. Trigger by the servlet
  * container via {@link ServletContextListener}.
  */
 public class ApplicationLifecycle implements ServletContextListener {
 
-	private static final int MINUTE = 60 * 1000;
-	// TODO: Move these values to settings
-	private static final long cleanupSleepPeriodMs = 10 * MINUTE;
-	private static final int requestsToKeepInHistory = 100;
-
 	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class);
-	
-	private static final String CONTEXT = "_masqApplicationContext";
+	private static final int MINUTE = 60 * 1000;	
+	private static final String APP_CONTEXT_ATTRIBUTE = "_masqApplicationContext";
 
 	/**
 	 * Retrieves the current {@link ApplicationContext} for a webapp as stored
@@ -60,7 +58,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @return The {@link ApplicationContext}
 	 */
 	public static ApplicationContext getApplicationContext(ServletContext context) {
-		return (ApplicationContext) context.getAttribute(CONTEXT);
+		return (ApplicationContext) context.getAttribute(APP_CONTEXT_ATTRIBUTE);
 	}
 
 	/**
@@ -71,7 +69,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 */
 	public static ApplicationContext getApplicationContext(Application app) {
 		WebApplicationContext web = (WebApplicationContext) app.getContext();
-		return (ApplicationContext) web.getHttpSession().getServletContext().getAttribute(CONTEXT);
+		return (ApplicationContext) web.getHttpSession().getServletContext().getAttribute(APP_CONTEXT_ATTRIBUTE);
 	}
 	
 	/**
@@ -125,27 +123,34 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Add channel change trigger
 			registerChannelChangeTrigger(modelDb, listenerRegistry);
 			
-			// Create history cleanup job
-			RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory, cleanupSleepPeriodMs, requestsToKeepInHistory);
-			
-			// Create application context
-			ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
-					modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob);
-			
-			// Save application context reference in servlet context
-			servletContext.setAttribute(CONTEXT, applicationContext);
-			
-			// Start channels
-			ModelRepository repo = applicationContext.getModelRepositoryFactory().startModelRepositorySession();
+			ModelRepository repo = modelRepositoryFactory.startModelRepositorySession();
 			try {
+				Settings settings = repo.getSettings();
+				
+				// Set max. status log size from settings
+				StatusRepositoryImpl.setMaxStatusCount(settings.getStatusLogEntryCountLimit());
+				
+				// Create history cleanup job
+				long cleanupSleepPeriodMs = settings.getRequestHistoryCleanupSleepPeriodMinutes() * MINUTE;
+				int requestsToKeepInHistory = settings.getRequestLogCountLimit();
+				RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory, cleanupSleepPeriodMs, requestsToKeepInHistory);
+				
+				// Create application context
+				ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
+						modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob);
+				
+				// Save application context reference in servlet context
+				servletContext.setAttribute(APP_CONTEXT_ATTRIBUTE, applicationContext);
+			
+				// Start channels
 				listenerRegistry.startAll(repo.getChannels());
+				
+				// Start request history cleanup job
+				cleanupJob.start();
 			} finally {
 				repo.endSession();
 			}
-			
-			// Start request history cleanup job
-			cleanupJob.start();
-			
+						
 			servletContext.log("Simulator started");
 		} catch (IOException ex) {
 			close(modelDb);
@@ -167,13 +172,13 @@ public class ApplicationLifecycle implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
 		log.info("Shutting down masquerade simulator");
-		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(CONTEXT);
+		ApplicationContext context = (ApplicationContext) servletContext.getAttribute(APP_CONTEXT_ATTRIBUTE);
 		if (context != null) {
 			context.getRequestHistoryCleanupJob().stop();
 			stopChannels(context.getChannelListenerRegistry());
 			context.getModelDb().stop();
 			context.getHistoryDb().stop();
-			servletContext.removeAttribute(CONTEXT);
+			servletContext.removeAttribute(APP_CONTEXT_ATTRIBUTE);
 		}
 	}
 

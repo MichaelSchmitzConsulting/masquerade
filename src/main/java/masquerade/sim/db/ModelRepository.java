@@ -19,6 +19,7 @@ import masquerade.sim.model.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
+import masquerade.sim.model.Settings;
 import masquerade.sim.model.SimulationStep;
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.FileChannel;
@@ -204,6 +205,11 @@ public class ModelRepository implements UpdateListener, DeleteListener, CreateLi
 
 	public Collection<Script> getScripts() {
 		return startQuery(Script.class);
+	}
+	
+	public Settings getSettings() {
+		ObjectSet<Settings> result = db.query(Settings.class);
+		return result.size() > 0 ? result.get(0) : new Settings();
 	}
 
 	public <T> Collection<T> getAll(Class<T> type) {

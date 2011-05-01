@@ -68,8 +68,7 @@ public class FilePollingThread extends Thread {
 			try {
 				FileUtils.moveFileToDirectory(file, moveToDirectory, false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("File processing exception while moving file to " + moveToDirectory.getAbsolutePath(), e);
 			}
 		}
 	}

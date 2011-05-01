@@ -28,6 +28,7 @@ import masquerade.sim.model.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
+import masquerade.sim.model.Settings;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.status.StatusLogger;
 import masquerade.sim.ui.MasterDetailView.AddListener;
@@ -76,7 +77,7 @@ public class MainLayout extends VerticalLayout {
 
 	private StatusView statusView;
 
-	public MainLayout(Resource logo, ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
+	public MainLayout(Resource logo, final ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction) {
 		setSizeFull();
 		setMargin(true);
@@ -94,7 +95,8 @@ public class MainLayout extends VerticalLayout {
         settingsButton.setIcon(Icons.SCRIPT.icon16());
         settingsButton.addListener(new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
-				getWindow().showNotification("Settings");
+				Settings settings = modelRepository.getSettings();
+				SettingsDialog.showModal(getWindow(), settings, modelRepository);
 			}
 		});
 		header.addComponent(settingsButton);

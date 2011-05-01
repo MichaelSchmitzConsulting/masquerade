@@ -13,9 +13,13 @@ import masquerade.sim.status.Status.Severity;
  * in-memory in a bounded list.
  */
 public class StatusRepositoryImpl implements StatusRepository {
-	private final static int MAX_STATUS_COUNT = 100;
+	private static volatile int maxStatusCount = 100;
 	
 	private List<Status> statusList = new LinkedList<Status>();
+
+	public static void setMaxStatusCount(int limit) {
+		maxStatusCount = limit;
+	}
 	
 	@Override
 	public List<Status> latestStatusLogs() {
@@ -44,13 +48,13 @@ public class StatusRepositoryImpl implements StatusRepository {
 
 	/**
 	 * Adds a status log entry to the bounded list, truncating it 
-	 * if its size grows to more than {@link #MAX_STATUS_COUNT}
+	 * if its size grows to more than {@link #maxStatusCount}
 	 * log entries.
 	 * @param status
 	 */
 	private void addStatus(Status status) {
 		synchronized (statusList) {
-			if (statusList.size() == MAX_STATUS_COUNT) {
+			if (statusList.size() >= maxStatusCount) {
 				statusList.remove(0);
 			}
 			statusList.add(status);
