@@ -42,6 +42,10 @@ import com.vaadin.terminal.gwt.server.WebApplicationContext;
  */
 public class ApplicationLifecycle implements ServletContextListener {
 
+	private static final String SYSPROP_MASQUERADE_HOME = "masquerade.home";
+	private static final String SYSPROP_MASQUERADE_REQUESTLOG_DIR = "masquerade.requestlog.dir";
+	private static final String SYSPROP_MASQUERADE_ARTIFACT_DIR = "masquerade.artifact.dir";
+	
 	private static final int MINUTE = 60 * 1000;
 	// TODO: Move these 2 values to settings
 	private static final long cleanupSleepPeriodMs = 10 * MINUTE;
@@ -54,6 +58,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 	private static final String SERVLET_WORK_DIR = "javax.servlet.context.tempdir";
 	private static final String CONTEXT = "_masqApplicationContext";
 
+	private enum DbType { MODEL, HISTORY };
 
 	/**
 	 * Retrieves the current {@link ApplicationContext} for a webapp as stored
@@ -89,8 +94,8 @@ public class ApplicationLifecycle implements ServletContextListener {
 			log.info("Starting masquerade simulator");
 			
 			// Determine db file locations
-			File modelDbFile = getDbFileLocation(servletContext, false);
-			File historyDbFile = getDbFileLocation(servletContext, true);
+			File modelDbFile = getDbFileLocation(servletContext, DbType.MODEL);
+			File historyDbFile = getDbFileLocation(servletContext, DbType.HISTORY);
 			log.info("Main Database Location: " + modelDbFile.getAbsolutePath());
 			log.info("History Database Location: " + historyDbFile.getAbsolutePath());
 			
@@ -211,23 +216,23 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @param postfix 
 	 * @return Where the masquerade database should be located
 	 */
-	private static File getDbFileLocation(ServletContext servletContext, boolean isRequestLog) {
-		String dbFileLocation;
+	private static File getDbFileLocation(ServletContext servletContext, DbType dbType) {
+		String dbFileBase;
 		
-		if (isRequestLog) {
-			dbFileLocation = System.getProperty("masquerade.db.history.file.location");
-		} else {
-			dbFileLocation = System.getProperty("masquerade.db.file.location");
+		switch (dbType) {
+		case MODEL:
+			dbFileBase = "model";
+			break;
+		case HISTORY:
+			dbFileBase = "history";
+			break;
+		default:
+			throw new IllegalArgumentException(dbType.name());
 		}
 		
-		if (dbFileLocation == null) {
-			File workDir = getWorkDir(servletContext);
-			String postfix = isRequestLog ? "-history" : "";
-			File dbFile = new File(workDir, getAppName(servletContext) + postfix + "-db.db4o");
-			return dbFile;
-		} else {
-			return new File(dbFileLocation);
-		}
+		File home = getMasqueradeHome(servletContext);
+		File dbFile = new File(home, dbFileBase + "-db.db4o");
+		return dbFile;
 	}
 	
 	/**
@@ -239,10 +244,10 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @return Where the masquerade request log directory should be located
 	 */
 	private static File getRequestLogDir(ServletContext servletContext) throws IOException {
-		String requestLogDir = System.getProperty("masquerade.request.log.dir");
+		String requestLogDir = System.getProperty(SYSPROP_MASQUERADE_REQUESTLOG_DIR);
 		File dir;
 		if (requestLogDir == null) {
-			dir = getWorkSubDir(servletContext, "-requestLog");
+			dir = getWorkSubDir(servletContext, "requestlog");
 		} else {
 			File requestLog = new File(requestLogDir);
 			FileUtils.forceMkdir(requestLog.getParentFile());
@@ -261,10 +266,10 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @return Where the masquerade request log directory should be located
 	 */
 	private static File getArtifactsDir(ServletContext servletContext) throws IOException {		
-		String artifactDir = System.getProperty("masquerade.artifact.dir");
+		String artifactDir = System.getProperty(SYSPROP_MASQUERADE_ARTIFACT_DIR);
 		File dir;
 		if (artifactDir == null) {
-			dir = getWorkSubDir(servletContext, "-artifact");
+			dir = getWorkSubDir(servletContext, "artifact");
 		} else {
 			dir = new File(artifactDir);
 		}
@@ -277,38 +282,47 @@ public class ApplicationLifecycle implements ServletContextListener {
 	 * @param subdir
 	 * @return A {@link File} for the specified subdir in the webapp's working directory
 	 */
-	private static File getWorkSubDir(ServletContext servletContext, String subdir) {
-		File dir;
-		String name = getAppName(servletContext);
-		File workDir = getWorkDir(servletContext);
-		dir = new File(workDir, name + subdir);
-		return dir;
+	private static File getWorkSubDir(ServletContext servletContext, String name) {
+		File workDir = getMasqueradeHome(servletContext);
+		return new File(workDir, name);
 	}
 	
 	/**
 	 * @param servletContext
-	 * @return The name of the webapp
+	 * @return The context path of the webapp suitable for use as a directory name 
 	 */
-	private static String getAppName(ServletContext servletContext) {
-		String name = servletContext.getContextPath().replace("/", "_");
+	private static String getAppDirName(ServletContext servletContext) {
+		String name = servletContext.getContextPath().replace("/", "_").replace(":", "_").replace("\\", "_"); // TODO: Better implementation
 		return name.length() > 0 ? name.substring(1) : "masquerade"; // Remove leading _, set name if deployed at root
 	}
 
 	/**
-	 * The webapp's working directory as determined by the servlet context
-	 * attribute <code>javax.servlet.context.tempdir</code>.
+	 * The app's home directory as determined by 
+	 * 
+	 * <ol>
+	 * <li>the system propery<code>masquerade.home</code></li>
+	 * <li>${user.home}/.masquerade/&lt;webapp-context-path&gt;</li>
+	 * <li>the servlet context attribute <code>javax.servlet.context.tempdir</code></li>
+	 * </ol>
 	 * 
 	 * @param servletContext
 	 * @return Location of the working directory
 	 */
-	private static File getWorkDir(ServletContext servletContext) {
-		File userDir = FileUtils.getUserDirectory();
-		File workDir = new File(userDir, MSQ_WORKSUBDIR);
-		if (!userDir.exists() || (!workDir.exists() && !workDir.mkdirs())) {
-			File servletDir = (File) servletContext.getAttribute(SERVLET_WORK_DIR);
-			workDir = new File(servletDir, MSQ_WORKSUBDIR);
-			if (!workDir.exists() && !workDir.mkdirs()) {
-				throw new IllegalStateException("Cannot create work directory in user.home or javax.servlet.context.tempdir");
+	private static File getMasqueradeHome(ServletContext servletContext) {
+		String home = System.getProperty(SYSPROP_MASQUERADE_HOME);
+		File workDir;
+		if (home != null) {
+			workDir = new File(home);
+		} else {
+			File userDir = FileUtils.getUserDirectory();
+			File baseDir = new File(userDir, MSQ_WORKSUBDIR);
+			workDir = new File(baseDir, getAppDirName(servletContext));
+			if (!userDir.exists() || (!workDir.exists() && !workDir.mkdirs())) {
+				File servletDir = (File) servletContext.getAttribute(SERVLET_WORK_DIR);
+				workDir = new File(servletDir, MSQ_WORKSUBDIR);
+				if (!workDir.exists() && !workDir.mkdirs()) {
+					throw new IllegalStateException("Cannot create work directory in user.home or javax.servlet.context.tempdir");
+				}
 			}
 		}
 		

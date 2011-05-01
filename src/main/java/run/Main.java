@@ -18,8 +18,9 @@ import masquerade.sim.run.ServerRunner;
  * <p>Supported system properties:</p>
  * <ul>
  * <li>masquerade.port: TCP Port to bind HTTP server to (default: 8888)</li>
- * <li>masquerade.db.file.location: Location of the database file</li>
- * <li>masquerade.request.log.dir: Directory where request history payload is stored</li>
+ * <li>masquerade.home: Directory under which masquerade files are stored</li>
+ * <li>masquerade.requestlog.dir: Directory where request history payload is stored (default: ${masquerade.home}/requestlog)</li>
+ * <li>masquerade.artifact.dir: Directory where uploaded templates, scripts, ... are stored (default: ${masquerade.home}/artifact)</li>
  * </ul>
  */
 public class Main {
