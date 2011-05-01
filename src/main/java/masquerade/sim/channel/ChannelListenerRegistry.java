@@ -1,7 +1,6 @@
 package masquerade.sim.channel;
 
 import java.util.Collection;
-import java.util.List;
 
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
@@ -44,7 +43,7 @@ public interface ChannelListenerRegistry {
 	 * Starts listeners for all provided channels
 	 * @param list List of {@link Channel} specifications to start a listener for
 	 */
-	void startAll(List<Channel> list);
+	void startAll(Collection<Channel> channels);
 	
 	/**
 	 * Stops and removes all channel listeners in this registry

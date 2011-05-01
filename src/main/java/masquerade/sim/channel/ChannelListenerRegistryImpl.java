@@ -3,7 +3,6 @@ package masquerade.sim.channel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import masquerade.sim.model.Channel;
@@ -62,7 +61,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void startAll(List<Channel> list) {
+	public void startAll(Collection<Channel> list) {
 		synchronized (channels) {
 			for (Channel channel : list) {
 				try {

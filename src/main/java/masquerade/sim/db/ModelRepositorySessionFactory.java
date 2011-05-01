@@ -19,7 +19,7 @@ public class ModelRepositorySessionFactory implements ModelRepositoryFactory {
 	@Override
 	public ModelRepository startModelRepositorySession() {
 		ObjectContainer session = db.ext().openSession();
-		return new ModelRepository(session);
+		return new PersistentModelRepository(session);
 	}
 
 }

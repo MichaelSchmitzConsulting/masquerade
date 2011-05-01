@@ -6,6 +6,8 @@ package masquerade.sim;
  */
 public interface CreateApprover {
 	/**
+	 * Checks if the object of the given type can be created without violating any
+	 * constraints.
 	 * @param type Type of the object to be created
 	 * @param name Name of the object to be created
 	 * @param errorMsg Set an error message to be displayed to the user here
