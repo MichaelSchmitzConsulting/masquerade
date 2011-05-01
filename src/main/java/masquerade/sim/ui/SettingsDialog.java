@@ -44,7 +44,7 @@ public class SettingsDialog extends Window {
 		this.updateListener = updateListener;
 
 		setModal(true);
-		setWidth("400px");
+		setWidth("500px");
 		setResizable(false);
 		buildLayout(settings);
 	}
@@ -56,7 +56,7 @@ public class SettingsDialog extends Window {
 
 	private Form createForm(Settings settings) {
 		final Form form = new Form();
-		form.setWidth("400px");
+		form.setWidth("500px");
         form.setInvalidCommitted(false);
 
 		BeanItem<?> item = new BeanItem<Settings>(settings);

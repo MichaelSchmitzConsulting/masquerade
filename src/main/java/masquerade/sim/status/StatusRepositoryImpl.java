@@ -13,12 +13,14 @@ import masquerade.sim.status.Status.Severity;
  * in-memory in a bounded list.
  */
 public class StatusRepositoryImpl implements StatusRepository {
+	private static final int MIN_STATUS_LOG_SIZE = 5;
+
 	private static volatile int maxStatusCount = 100;
 	
 	private List<Status> statusList = new LinkedList<Status>();
 
 	public static void setMaxStatusCount(int limit) {
-		maxStatusCount = limit;
+		maxStatusCount = Math.max(MIN_STATUS_LOG_SIZE, limit);
 	}
 	
 	@Override

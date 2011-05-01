@@ -11,6 +11,9 @@ import masquerade.sim.status.StatusLogger;
  */
 public class RequestHistoryCleanupJob {
 	private static final StatusLog log = StatusLogger.get(RequestHistoryCleanupJob.class);
+
+	private static final int SECOND = 1000;
+	private static final long MIN_SLEEP_PERIOD = 5 * SECOND;
 	
 	private RequestHistoryFactory dbSessionFactory;
 	private long cleanupSleepPeriod;
@@ -23,7 +26,7 @@ public class RequestHistoryCleanupJob {
 	 */
 	public RequestHistoryCleanupJob(RequestHistoryFactory dbSessionFactory, long cleanupSleepPeriod, int requestsToKeep) {
 		this.dbSessionFactory = dbSessionFactory;
-		this.cleanupSleepPeriod = cleanupSleepPeriod;
+		this.cleanupSleepPeriod = Math.max(MIN_SLEEP_PERIOD, cleanupSleepPeriod);
 		this.requestsToKeep = requestsToKeep;
 	}
 
