@@ -2,6 +2,7 @@ package masquerade.sim.app;
 
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.ApplicationLifecycle;
+import masquerade.sim.SettingsChangeListener;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.RequestHistory;
 import masquerade.sim.ui.MainLayout;
@@ -33,7 +34,8 @@ public class MasqueradeApplication extends Application {
 		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");
-		mainWindow.setContent(new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context)));
+		SettingsChangeListener settingsChangeListener = context.getSettingsChangeListener();
+		mainWindow.setContent(new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context), settingsChangeListener));
 		setMainWindow(mainWindow);
 	}
 

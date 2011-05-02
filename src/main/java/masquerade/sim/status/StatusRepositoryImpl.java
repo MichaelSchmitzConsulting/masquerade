@@ -15,12 +15,23 @@ import masquerade.sim.status.Status.Severity;
 public class StatusRepositoryImpl implements StatusRepository {
 	private static final int MIN_STATUS_LOG_SIZE = 5;
 
-	private static volatile int maxStatusCount = 100;
-	
+	private int maxStatusCount = 100;
 	private List<Status> statusList = new LinkedList<Status>();
 
-	public static void setMaxStatusCount(int limit) {
-		maxStatusCount = Math.max(MIN_STATUS_LOG_SIZE, limit);
+	/**
+	 * {@inheritDoc}
+	 * Applies immediately, truncating the status log if necessary.
+	 */
+	@Override
+	public void setHistorySize(int limit) {
+		synchronized (statusList) {
+			maxStatusCount = Math.max(MIN_STATUS_LOG_SIZE, limit);
+			int size = statusList.size();
+			if (size > maxStatusCount) {
+				List<Status> subList = statusList.subList(size - maxStatusCount, size);
+				statusList = new LinkedList<Status>(subList);
+			}
+		}
 	}
 	
 	@Override

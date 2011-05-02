@@ -2,8 +2,6 @@ package masquerade.sim.ui;
 
 import masquerade.sim.UpdateListener;
 import masquerade.sim.model.Settings;
-import masquerade.sim.status.StatusLog;
-import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Validator.InvalidValueException;
@@ -20,7 +18,6 @@ import com.vaadin.ui.Window;
  * settings.
  */
 public class SettingsDialog extends Window {
-	protected static final StatusLog log = StatusLogger.get(SettingsDialog.class);
 
 	/**
 	 * Show settings dialog
@@ -72,7 +69,6 @@ public class SettingsDialog extends Window {
                     
                     BeanItem<?> item = (BeanItem<?>) form.getItemDataSource();
                     updateListener.notifyUpdated(item.getBean());
-                    log.trace("Settings updated to " + item.getBean().toString());
                     SettingsDialog.this.close();
                 } catch (InvalidValueException e) {
                     // Ignored, we'll let the Form handle the errors

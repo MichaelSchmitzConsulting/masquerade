@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import masquerade.sim.DeleteListener;
+import masquerade.sim.SettingsChangeListener;
 import masquerade.sim.UpdateListener;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.HistoryEntry;
@@ -78,7 +79,7 @@ public class MainLayout extends VerticalLayout {
 	private StatusView statusView;
 
 	public MainLayout(Resource logo, final ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
-			ActionListener<Channel, String, Object> sendTestRequestAction) {
+			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener) {
 		setSizeFull();
 		setMargin(true);
 
@@ -96,7 +97,13 @@ public class MainLayout extends VerticalLayout {
         settingsButton.addListener(new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
 				Settings settings = modelRepository.getSettings();
-				SettingsDialog.showModal(getWindow(), settings, modelRepository);
+				final Settings oldSettings = settings.clone();
+				SettingsDialog.showModal(getWindow(), settings, new UpdateListener() {
+					@Override public void notifyUpdated(Object obj) {
+						modelRepository.notifyUpdated(obj);
+						settingsChangeListener.settingsChanged(oldSettings, (Settings) obj);
+					}
+				});
 			}
 		});
 		header.addComponent(settingsButton);

@@ -32,7 +32,6 @@ import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.model.impl.SimulationRunnerImpl;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
-import masquerade.sim.status.StatusRepositoryImpl;
 
 import com.db4o.ObjectContainer;
 import com.db4o.events.EventRegistry;
@@ -47,7 +46,6 @@ import com.vaadin.terminal.gwt.server.WebApplicationContext;
 public class ApplicationLifecycle implements ServletContextListener {
 
 	private static final StatusLog log = StatusLogger.get(ApplicationLifecycle.class);
-	private static final int MINUTE = 60 * 1000;	
 	private static final String APP_CONTEXT_ATTRIBUTE = "_masqApplicationContext";
 
 	/**
@@ -127,17 +125,16 @@ public class ApplicationLifecycle implements ServletContextListener {
 			try {
 				Settings settings = repo.getSettings();
 				
-				// Set max. status log size from settings
-				StatusRepositoryImpl.setMaxStatusCount(settings.getStatusLogEntryCountLimit());
-				
 				// Create history cleanup job
-				long cleanupSleepPeriodMs = settings.getRequestHistoryCleanupSleepPeriodMinutes() * MINUTE;
-				int requestsToKeepInHistory = settings.getRequestLogCountLimit();
-				RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory, cleanupSleepPeriodMs, requestsToKeepInHistory);
+				RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory);
+				
+				// Create settings change listener, apply settings
+				SettingsChangeListener settingsChangeListener = new AppSettingsChangeListener(cleanupJob);
+				settingsChangeListener.settingsChanged(Settings.NO_SETTINGS, settings);
 				
 				// Create application context
 				ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
-						modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob);
+						modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob, settingsChangeListener);
 				
 				// Save application context reference in servlet context
 				servletContext.setAttribute(APP_CONTEXT_ATTRIBUTE, applicationContext);

@@ -6,9 +6,16 @@ package masquerade.sim.model;
  * <p>TODO: Add validation for sensible values in edit dialog, apply settings not only @ startup  
  */
 public class Settings {
-	private int requestLogCountLimit = 100;
 	private int statusLogEntryCountLimit = 100;
+	private int requestLogCountLimit = 100;
 	private int requestHistoryCleanupSleepPeriodMinutes = 5;
+	
+	public static Settings NO_SETTINGS = new Settings();
+	static {
+		NO_SETTINGS.statusLogEntryCountLimit = Integer.MIN_VALUE;
+		NO_SETTINGS.requestLogCountLimit = Integer.MIN_VALUE;
+		NO_SETTINGS.requestHistoryCleanupSleepPeriodMinutes = Integer.MIN_VALUE;
+	}
 	
 	/**
 	 * @return the requestLogCountLimit
@@ -46,6 +53,18 @@ public class Settings {
 	public void setRequestHistoryCleanupSleepPeriodMinutes(int requestHistoryCleanupSleepPeriodMinutes) {
 		this.requestHistoryCleanupSleepPeriodMinutes = requestHistoryCleanupSleepPeriodMinutes;
 	}
+	
+	@Override
+	public Settings clone() {
+		Settings copy = new Settings();
+		
+		copy.requestHistoryCleanupSleepPeriodMinutes = this.requestHistoryCleanupSleepPeriodMinutes;
+		copy.requestLogCountLimit = this.requestLogCountLimit;
+		copy.statusLogEntryCountLimit = this.statusLogEntryCountLimit;
+		
+		return copy;
+	}
+	
 	@Override
 	public String toString() {
 		return "Settings [requestLogCountLimit=" + requestLogCountLimit + ", statusLogEntryCountLimit=" + statusLogEntryCountLimit

@@ -14,20 +14,19 @@ public class RequestHistoryCleanupJob {
 
 	private static final int SECOND = 1000;
 	private static final long MIN_SLEEP_PERIOD = 5 * SECOND;
-	
+	private static final int MIN_REQUESTS_TO_KEEP = 5;
+
 	private RequestHistoryFactory dbSessionFactory;
-	private long cleanupSleepPeriod;
-	private int requestsToKeep;
+	private volatile long cleanupSleepPeriodMs;
+	private volatile int requestsToKeep;
 	
 	private Thread thread;
 	
 	/**
 	 * @param dbSessionFactory Request history DB session factory
 	 */
-	public RequestHistoryCleanupJob(RequestHistoryFactory dbSessionFactory, long cleanupSleepPeriod, int requestsToKeep) {
+	public RequestHistoryCleanupJob(RequestHistoryFactory dbSessionFactory) {
 		this.dbSessionFactory = dbSessionFactory;
-		this.cleanupSleepPeriod = Math.max(MIN_SLEEP_PERIOD, cleanupSleepPeriod);
-		this.requestsToKeep = requestsToKeep;
 	}
 
 	public synchronized void start() {
@@ -71,12 +70,26 @@ public class RequestHistoryCleanupJob {
 					session.endSession();
 				}
 				
-				Thread.sleep(cleanupSleepPeriod);
+				Thread.sleep(cleanupSleepPeriodMs);
 			}
 		}
 
 		private void doCleanup(RequestHistory session) {
 			session.cleanOldRequests(requestsToKeep);
 		}
+	}
+
+	/**
+	 * @param sleepPeriodMs Milliseconds to sleep between request history cleanup runs
+	 */
+	public void setSleepPeriodMs(long sleepPeriodMs) {
+		cleanupSleepPeriodMs = Math.max(MIN_SLEEP_PERIOD, sleepPeriodMs);
+	}
+
+	/**
+	 * @param requestsToKeep the amount of request to keep in the history
+	 */
+	public void setRequestsToKeep(int requestsToKeep) {
+		this.requestsToKeep = Math.max(MIN_REQUESTS_TO_KEEP, requestsToKeep);
 	}
 }

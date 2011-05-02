@@ -27,6 +27,7 @@ public class ApplicationContext {
 	private File artifactRoot;
 	private NamespaceResolver namespaceResolver;
 	private RequestHistoryCleanupJob cleanupJob;
+	private SettingsChangeListener settingsChangeListener;
 
 	/**
 	 * @param databaseLifecycle
@@ -38,10 +39,11 @@ public class ApplicationContext {
 	 * @param artifactRoot
 	 * @param namespaceResolver
 	 * @param cleanupJob 
+	 * @param settingsChangeListener
 	 */
 	public ApplicationContext(DatabaseLifecycle modelDbLifecycle, DatabaseLifecycle historyDbLifecycle, ChannelListenerRegistry channelListenerRegistry,
 		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
-		File artifactRoot, NamespaceResolver namespaceResolver, RequestHistoryCleanupJob cleanupJob) {
+		File artifactRoot, NamespaceResolver namespaceResolver, RequestHistoryCleanupJob cleanupJob, SettingsChangeListener settingsChangeListener) {
 		this.modelDbLifecycle = modelDbLifecycle;
 		this.historyDbLifecycle = historyDbLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
@@ -52,6 +54,7 @@ public class ApplicationContext {
 		this.artifactRoot = artifactRoot;
 		this.namespaceResolver = namespaceResolver;
 		this.cleanupJob = cleanupJob;
+		this.settingsChangeListener = settingsChangeListener;
 	}
 
 	/**
@@ -118,5 +121,12 @@ public class ApplicationContext {
 
 	public NamespaceResolver getNamespaceResolver() {
 		return namespaceResolver;
+	}
+
+	/**
+	 * @return the settingsChangeListener
+	 */
+	public SettingsChangeListener getSettingsChangeListener() {
+		return settingsChangeListener;
 	}
 }
