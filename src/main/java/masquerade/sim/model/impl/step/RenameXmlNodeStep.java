@@ -79,4 +79,9 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		
 		xml.renameNode(node, namespaceURI, newQualifiedName);
 	}
+
+	@Override
+	public String toString() {
+		return "Rename node to " + newQualifiedName;
+	}
 }
