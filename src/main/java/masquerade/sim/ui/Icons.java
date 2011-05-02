@@ -1,37 +1,32 @@
 package masquerade.sim.ui;
 
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.ThemeResource;
 
 public enum Icons {
-	CHANNELS("globe.png"),
-	RESPONSE("email-send.png"),
-	SCRIPT("document-txt.png"),
-	REQUEST_MAPPING("arrow-right.png"),
-	REQUEST_ID_PROVIDER("note.png"),
-	REQUEST_HISTORY("email-send.png"),
-	STATUS("email-send.png"),
-	ARTIFACT("document-txt.png"),
-	TEST("help.png"),
-	NAMESPACE_PREFIX("ok.png");
+	CHANNELS("channel.png"),
+	SCRIPT("script.png"),
+	REQUEST_MAPPING("requestmapping.png"),
+	REQUEST_ID_PROVIDER("idprovider.png"),
+	REQUEST_HISTORY("history.png"),
+	STATUS("status.png"),
+	ARTIFACT("artifact.png"),
+	TEST("test.png"),
+	NAMESPACE_PREFIX("namespace.png"),
+	SETTINGS("settings.png");
 	
-	private static final String BASE_PATH = "../runo/icons/";
-	private static final String _32 = "32/";
-	private static final String _16 = "16/";
-	
-	private final Resource resource16;
-	private final Resource resource32;
+	private final String path;
+	private volatile Resource resource;
 	
 	private Icons(String path) {
-		this.resource16 = new ThemeResource(BASE_PATH + _16 + path);
-		this.resource32 = new ThemeResource(BASE_PATH + _32 + path);
+		this.path = path;
 	}
 	
-	public Resource icon() {
-		return resource32;
-	}
-
-	public Resource icon16() {
-		return resource16;
+	public Resource icon(String baseUrl) {
+		if (resource == null) {
+			String url = baseUrl + "/icon/" + path;
+	    	resource = new ExternalResource(url);
+		}
+		return resource;
 	}
 }

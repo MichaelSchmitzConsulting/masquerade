@@ -29,13 +29,15 @@ public class MasqueradeApplication extends Application {
 		RequestHistory requestHistory = context.getRequestHistoryFactory().startRequestHistorySession();
 		
 		// Logo url
-    	String imgUrl = ((WebApplicationContext)getContext()).getHttpSession().getServletContext().getContextPath() + "/logo.png";
+    	String baseUrl = ((WebApplicationContext)getContext()).getHttpSession().getServletContext().getContextPath();
+		String imgUrl = baseUrl + "/logo.png";
     	Resource logo = new ExternalResource(imgUrl);
 		
 		// Setup UI
 		Window mainWindow = new Window("Masquerade Simulator");
 		SettingsChangeListener settingsChangeListener = context.getSettingsChangeListener();
-		mainWindow.setContent(new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context), settingsChangeListener));
+		mainWindow.setContent(
+				new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context), settingsChangeListener, baseUrl));
 		setMainWindow(mainWindow);
 	}
 

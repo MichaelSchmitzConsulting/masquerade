@@ -7,6 +7,7 @@ import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
 import static masquerade.sim.ui.Icons.REQUEST_MAPPING;
 import static masquerade.sim.ui.Icons.SCRIPT;
+import static masquerade.sim.ui.Icons.SETTINGS;
 import static masquerade.sim.ui.Icons.STATUS;
 import static masquerade.sim.ui.Icons.TEST;
 
@@ -79,7 +80,7 @@ public class MainLayout extends VerticalLayout {
 	private StatusView statusView;
 
 	public MainLayout(Resource logo, final ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
-			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener) {
+			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl) {
 		setSizeFull();
 		setMargin(true);
 
@@ -93,7 +94,7 @@ public class MainLayout extends VerticalLayout {
 		Button settingsButton = new Button("Settings");
         settingsButton.setStyleName(BaseTheme.BUTTON_LINK);
         settingsButton.setDescription("Edit settings");
-        settingsButton.setIcon(Icons.SCRIPT.icon16());
+        settingsButton.setIcon(SETTINGS.icon(baseUrl));
         settingsButton.addListener(new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
 				Settings settings = modelRepository.getSettings();
@@ -111,13 +112,13 @@ public class MainLayout extends VerticalLayout {
 		addComponent(header);
 
 		// Main tab layout
-		TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot, sendTestRequestAction);
+		TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot, sendTestRequestAction, baseUrl);
 		addComponent(tabSheet);
 		setExpandRatio(tabSheet, 1.0f);
 	}
 
 	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
-			ActionListener<Channel, String, Object> sendTestRequestAction) {
+			ActionListener<Channel, String, Object> sendTestRequestAction, String baseUrl) {
 		// Container factories retrieving model objects from the model
 		// repository and packing them into a Container suitable for binding to a view.
 		ContainerFactory channelFactory = new ModelContainerFactory(modelRepository, Channel.class);
@@ -145,15 +146,15 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.setWidth("100%");
 
 		// Add tabs
-		tabSheet.addTab(channels, "Channel", CHANNELS.icon());
-		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon());
-		tabSheet.addTab(scripts, "Response Script", SCRIPT.icon());
-		tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon());
-		tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon());
-		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon());
-		tabSheet.addTab(requestTester, "Test", TEST.icon());
-		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon());
-		tabSheet.addTab(status, "Status", STATUS.icon());
+		tabSheet.addTab(channels, "Channel", CHANNELS.icon(baseUrl));
+		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon(baseUrl));
+		tabSheet.addTab(scripts, "Response Script", SCRIPT.icon(baseUrl));
+		tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon(baseUrl));
+		tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon(baseUrl));
+		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon(baseUrl));
+		tabSheet.addTab(requestTester, "Test", TEST.icon(baseUrl));
+		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
+		tabSheet.addTab(status, "Status", STATUS.icon(baseUrl));
 
 		// Refresh view contents on tab selection
 		Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
