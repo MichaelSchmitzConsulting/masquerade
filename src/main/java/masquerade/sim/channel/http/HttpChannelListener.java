@@ -22,7 +22,7 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 	
 	@Override
 	protected synchronized void onStart(HttpChannel channel) {
-		this.contentType = channel.getContentType();
+		this.contentType = channel.getResponseContentType();
 		this.location = StringUtil.removeLeadingSlash(channel.getLocation());
 	}
 	

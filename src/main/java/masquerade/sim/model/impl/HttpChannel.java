@@ -9,7 +9,7 @@ import masquerade.sim.model.ChannelListener;
 public class HttpChannel extends AbstractChannel {
 	
 	private String location = "/exam/ple";
-	private String contentType = "text/xml";
+	private String responseContentType = "text/xml";
 
 	public HttpChannel(String name) {
 		super(name);
@@ -23,12 +23,12 @@ public class HttpChannel extends AbstractChannel {
 		this.location = location;
 	}
 
-	public String getContentType() {
-		return contentType;
+	public String getResponseContentType() {
+		return responseContentType;
 	}
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
+	public void setResponseContentType(String contentType) {
+		this.responseContentType = contentType;
 	}
 
 	@Override

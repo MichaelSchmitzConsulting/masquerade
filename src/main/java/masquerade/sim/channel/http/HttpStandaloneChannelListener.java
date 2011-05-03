@@ -32,7 +32,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 	protected synchronized void onStart(HttpStandaloneChannel channel) {
 		onStop();
 		
-		String contentType = channel.getContentType();
+		String contentType = channel.getResponseContentType();
 		location = StringUtil.removeLeadingSlash(channel.getLocation());
 		port = channel.getPort();
 		name = channel.getName();

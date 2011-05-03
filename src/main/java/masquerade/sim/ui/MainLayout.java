@@ -89,6 +89,8 @@ public class MainLayout extends VerticalLayout {
 		header.setWidth("100%");
 		// Logo
 		Embedded image = new Embedded(null, logo);
+		image.setWidth("502px");
+		image.setHeight("52px");
 		header.addComponent(image);
 		// Settings link
 		Button settingsButton = new Button("Settings");
@@ -131,10 +133,10 @@ public class MainLayout extends VerticalLayout {
 		// Create tabs
 		FormFieldFactory fieldFactory = new ModelFieldFactory(modelRepository, fileLoader);
 		ComponentContainer channels = createEditorTab(channelFactory, modelRepository, fieldFactory);
-		ComponentContainer requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
 		ComponentContainer scripts = createEditorTab(scriptFactory, modelRepository, fieldFactory);
-		ComponentContainer namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
+		ComponentContainer requestMapping = createEditorTab(mappingFactory, modelRepository, fieldFactory);
 		ComponentContainer requestIdProviders = createEditorTab(ripFactory, modelRepository, fieldFactory);
+		ComponentContainer namespacePrefixes = createEditorTab(namespacePrefixFactory, modelRepository, fieldFactory);
 		Component fileManager = createFileManager(artifactRoot);
 		Component requestTester = createRequestTestView(modelRepository, sendTestRequestAction);
 		Component requestHistoryUi = createRequestHistoryView(requestHistory);
@@ -147,8 +149,8 @@ public class MainLayout extends VerticalLayout {
 
 		// Add tabs
 		tabSheet.addTab(channels, "Channel", CHANNELS.icon(baseUrl));
-		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon(baseUrl));
 		tabSheet.addTab(scripts, "Response Script", SCRIPT.icon(baseUrl));
+		tabSheet.addTab(requestMapping, "Request Mapping", REQUEST_MAPPING.icon(baseUrl));
 		tabSheet.addTab(requestIdProviders, "Request ID Provider", REQUEST_ID_PROVIDER.icon(baseUrl));
 		tabSheet.addTab(namespacePrefixes, "Namespace", NAMESPACE_PREFIX.icon(baseUrl));
 		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon(baseUrl));
