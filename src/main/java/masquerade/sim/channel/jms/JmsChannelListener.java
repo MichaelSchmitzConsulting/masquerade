@@ -130,11 +130,18 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			}
 		}
 		
-		// Create producer
-		MessageProducer producer = session.createProducer(replyDestination);
-		
-		// Send reply message
-		producer.send(message);
+		MessageProducer producer = null;
+		try {
+			// Create producer
+			producer = session.createProducer(replyDestination);
+			
+			// Send reply message
+			producer.send(message);
+		} finally {
+			if (producer != null) {
+				producer.close();
+			}
+		}
 	}
 
 	private ConnectionFactory createConnectionFactory(JmsChannel channel) {
