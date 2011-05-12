@@ -1,7 +1,6 @@
 package masquerade.sim.history;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,7 +8,7 @@ import java.util.List;
  * access for request/response history. 
  */
 public interface RequestHistory {
-	HistoryEntry logRequest(String channelName, String simulationName, String clientInfo, String requestId, String requestData);
+	HistoryEntry logRequest(Date timestamp, String channelName, String simulationName, String clientInfo, String requestId, String requestData);
 	
 	void addResponse(String responseData, HistoryEntry entry);
 	
@@ -17,7 +16,13 @@ public interface RequestHistory {
 	
 	void endSession();
 
-	InputStream getRequest(String requestId) throws IOException;
+	/**
+	 * Reads a specific request from the request history log.
+	 * 
+	 * @param requestId ID of the request to read
+	 * @return {@link HistoryEntry} for this request, or {@link NullPointerException} if not found
+	 */
+	HistoryEntry getRequest(String requestId);
 
 	void clear();
 

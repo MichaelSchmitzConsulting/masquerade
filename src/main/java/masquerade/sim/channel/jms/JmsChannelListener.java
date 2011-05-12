@@ -35,6 +35,8 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	private SimpleMessageListenerContainer container;
 
 	private String channelName;
+
+	private String destinationName;
 	
 	/**
 	 * Start receiving requests from the topic/queue by creating a connection
@@ -44,7 +46,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	public synchronized void onStart(JmsChannel channel) {
 		onStop();
 		
-		String destinationName = channel.getDestinationName();
+		destinationName = channel.getDestinationName();
 		replyDestinationName = channel.getResponseDestinationName();
 		isTopic = channel.isTopic();
 		channelName = channel.getName();
@@ -97,7 +99,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		// Read request
 		String text = txt.getText();
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
-		processRequest("JMS Listener", text, responseOutput);
+		processRequest("jms:" + destinationName, text, responseOutput);
 		
 		// Send response
 		if (responseOutput.size() > 0) {

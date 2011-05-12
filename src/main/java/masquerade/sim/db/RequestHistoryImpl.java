@@ -2,7 +2,6 @@ package masquerade.sim.db;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,8 +10,6 @@ import java.util.UUID;
 
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
-import masquerade.sim.status.StatusLog;
-import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.FileUtils;
 
@@ -28,8 +25,6 @@ import com.db4o.query.QueryComparator;
  */
 public class RequestHistoryImpl implements RequestHistory {
 
-	private StatusLog log = StatusLogger.get(RequestHistoryImpl.class);
-	
 	private volatile boolean isActive = true;
 	private ObjectContainer dbSession;
 	private File requestLogDir;
@@ -55,10 +50,10 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 	
 	@Override
-	public HistoryEntry logRequest(String channelName, String simulationName, String clientInfo, String requestId, String requestData) {
+	public HistoryEntry logRequest(Date timestamp, String channelName, String simulationName, String clientInfo, String requestId, String requestData) {
 		if (isActive) {
 			String fileName = saveRequestToFile(requestData);
-			HistoryEntry entry = new HistoryEntry(new Date(), channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
+			HistoryEntry entry = new HistoryEntry(timestamp, channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
 			dbSession.store(entry);
 			dbSession.commit();
 			return entry;
@@ -108,7 +103,7 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 
 	@Override
-	public InputStream getRequest(final String requestId) throws IOException {
+	public HistoryEntry getRequest(final String requestId) {
 		if (requestId == null || requestId.length() == 0) {
 			return null;
 		}
@@ -120,7 +115,7 @@ public class RequestHistoryImpl implements RequestHistory {
 		});
 		
 		Iterator<HistoryEntry> it = result.iterator();
-		return it.hasNext() ? it.next().readRequestData() : null;
+		return it.hasNext() ? it.next() : null;
 	}
 
 	@Override
@@ -134,7 +129,6 @@ public class RequestHistoryImpl implements RequestHistory {
 		int size = all.size();
 		int toDelete = size - requestsToKeep;
 		if (toDelete > 0) {
-			log.trace("Cleaning old request history entries (total = " + size + ", deleting = " + toDelete);
 			List<HistoryEntry> removeEntries = all.subList(requestsToKeep, size);
 			int i = 0;
 			for (HistoryEntry entry : removeEntries) {
@@ -145,9 +139,6 @@ public class RequestHistoryImpl implements RequestHistory {
 				}
 			}
 			dbSession.commit();
-			log.trace("Request history size after cleanup: " + query.execute().size()); // TODO: Remove trace
-		} else {
-			log.trace("No need for request history cleanup, size = " + size);
 		}
 	}
 
