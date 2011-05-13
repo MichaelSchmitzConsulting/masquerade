@@ -222,7 +222,7 @@ public class PersistentModelRepository implements ModelRepository {
 			return modelImpls.get(modelBaseType);
 		}
 	}
-	
+
 	private void checkConstraintsOnCreate(Object value) {
 		// Unique channel name constraint is checked here as DB4O does not support
 		// unique constraints on getters, or on inherited fields.

@@ -4,7 +4,9 @@ import java.io.File;
 
 import masquerade.sim.channel.ChannelListenerRegistry;
 import masquerade.sim.db.DatabaseLifecycle;
+import masquerade.sim.db.ModelExport;
 import masquerade.sim.db.ModelRepositoryFactory;
+import masquerade.sim.db.PersistentModelExport;
 import masquerade.sim.db.RequestHistoryCleanupJob;
 import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
@@ -128,5 +130,9 @@ public class ApplicationContext {
 	 */
 	public SettingsChangeListener getSettingsChangeListener() {
 		return settingsChangeListener;
+	}
+
+	public ModelExport getModelExport() {
+		return new PersistentModelExport(getModelDb().getDb());
 	}
 }

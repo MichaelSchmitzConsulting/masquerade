@@ -2,6 +2,7 @@ package masquerade.sim.ui;
 
 import static masquerade.sim.ui.Icons.ARTIFACT;
 import static masquerade.sim.ui.Icons.CHANNELS;
+import static masquerade.sim.ui.Icons.IMPORTEXPORT;
 import static masquerade.sim.ui.Icons.NAMESPACE_PREFIX;
 import static masquerade.sim.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.ui.Icons.REQUEST_ID_PROVIDER;
@@ -21,6 +22,7 @@ import java.util.Map;
 import masquerade.sim.DeleteListener;
 import masquerade.sim.SettingsChangeListener;
 import masquerade.sim.UpdateListener;
+import masquerade.sim.app.UploadHandler;
 import masquerade.sim.db.ModelRepository;
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
@@ -80,43 +82,74 @@ public class MainLayout extends VerticalLayout {
 	private StatusView statusView;
 
 	public MainLayout(Resource logo, final ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
-			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl) {
+			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl,
+			final UploadHandler modelUploadHandler, final DownloadHandler downloadHandler) {
+		
 		setSizeFull();
 		setMargin(true);
 
 		// Header
 		HorizontalLayout header = new HorizontalLayout();
 		header.setWidth("100%");
+		header.setSpacing(true);
+		
 		// Logo
 		Embedded image = new Embedded(null, logo);
 		image.setWidth("502px");
 		image.setHeight("52px");
 		header.addComponent(image);
+		header.setExpandRatio(image, 1.0f);
+		
+		// Import/Export link
+		Button importExportButton = createImageLink("Import/Export", "Import and export simulation configuration", IMPORTEXPORT.icon(baseUrl));
+		importExportButton.addListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showImportExportDialog(modelRepository, modelUploadHandler, downloadHandler);
+			}
+		});
+		header.addComponent(importExportButton);
+		header.setComponentAlignment(importExportButton, Alignment.TOP_RIGHT);
+		
 		// Settings link
-		Button settingsButton = new Button("Settings");
-        settingsButton.setStyleName(BaseTheme.BUTTON_LINK);
-        settingsButton.setDescription("Edit settings");
-        settingsButton.setIcon(SETTINGS.icon(baseUrl));
+		Button settingsButton = createImageLink("Settings", "Edit settings", SETTINGS.icon(baseUrl));
         settingsButton.addListener(new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
-				Settings settings = modelRepository.getSettings();
-				final Settings oldSettings = settings.clone();
-				SettingsDialog.showModal(getWindow(), settings, new UpdateListener() {
-					@Override public void notifyUpdated(Object obj) {
-						modelRepository.notifyUpdated(obj);
-						settingsChangeListener.settingsChanged(oldSettings, (Settings) obj);
-					}
-				});
+				showSettingsDialog(modelRepository, settingsChangeListener);
 			}
 		});
 		header.addComponent(settingsButton);
 		header.setComponentAlignment(settingsButton, Alignment.TOP_RIGHT);
+		
 		addComponent(header);
 
 		// Main tab layout
 		TabSheet tabSheet = createTabSheet(modelRepository, requestHistory, artifactRoot, sendTestRequestAction, baseUrl);
 		addComponent(tabSheet);
 		setExpandRatio(tabSheet, 1.0f);
+	}
+
+	private void showImportExportDialog(ModelRepository modelRepository, UploadHandler uploadHandler, DownloadHandler downloadHandler) {
+		ImportExportDialog.showModal(getWindow(), uploadHandler, downloadHandler);
+	}
+
+	private static Button createImageLink(String caption, String description, Resource icon) {
+		Button imageLinkButton = new Button(caption);
+        imageLinkButton.setStyleName(BaseTheme.BUTTON_LINK);
+        imageLinkButton.setDescription(description);
+        imageLinkButton.setIcon(icon);
+		return imageLinkButton;
+	}
+
+	private void showSettingsDialog(final ModelRepository modelRepository, final SettingsChangeListener settingsChangeListener) {
+		Settings settings = modelRepository.getSettings();
+		final Settings oldSettings = settings.clone();
+		SettingsDialog.showModal(getWindow(), settings, new UpdateListener() {
+			@Override public void notifyUpdated(final Object obj) {
+				modelRepository.notifyUpdated(obj);
+				settingsChangeListener.settingsChanged(oldSettings, (Settings) obj);
+			}
+		});
 	}
 
 	private TabSheet createTabSheet(ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,

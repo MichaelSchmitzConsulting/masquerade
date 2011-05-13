@@ -1,12 +1,11 @@
 package masquerade.sim.status;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import masquerade.sim.status.Status.Severity;
+import masquerade.sim.util.StringUtil;
 
 /**
  * Implementation of {@link StatusRepository}. Keeps {@link Status status log entries}
@@ -54,7 +53,7 @@ public class StatusRepositoryImpl implements StatusRepository {
 	}
 
 	public void addStatus(String name, String msg, Throwable t, Severity severity) {
-		String stacktrace = strackTrace(t);
+		String stacktrace = StringUtil.strackTrace(t);
 		Status status = new Status(format(name, msg), stacktrace, severity, System.currentTimeMillis());
 		addStatus(status);
 	}
@@ -76,18 +75,5 @@ public class StatusRepositoryImpl implements StatusRepository {
 
 	private static String format(String name, String msg) {
 		return name + ": " + msg;
-	}
-
-	/**
-	 * @param t Throwable
-	 * @return Stacktrace as a {@link String}
-	 */
-	private static String strackTrace(Throwable t) {
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
-		t.printStackTrace(printWriter);
-		printWriter.flush();
-		String stacktrace = stringWriter.toString();
-		return stacktrace;
 	}
 }

@@ -1,5 +1,7 @@
 package masquerade.sim.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Map;
 
 import masquerade.sim.model.Converter;
@@ -56,5 +58,22 @@ public class StringUtil {
 
 	public static boolean isUpperCase(String uqn, int i) {
 		return i < uqn.length() && Character.isUpperCase(uqn.charAt(i));
+	}
+
+	/**
+	 * @param t Throwable
+	 * @return Stacktrace as a {@link String}
+	 */
+	public static String strackTrace(Throwable t) {
+		if (t == null) {
+			return null;
+		}
+		
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		t.printStackTrace(printWriter);
+		printWriter.flush();
+		String stacktrace = stringWriter.toString();
+		return stacktrace;
 	}
 }

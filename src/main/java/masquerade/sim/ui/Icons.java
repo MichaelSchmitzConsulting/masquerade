@@ -13,7 +13,8 @@ public enum Icons {
 	ARTIFACT("artifact.png"),
 	TEST("test.png"),
 	NAMESPACE_PREFIX("namespace.png"),
-	SETTINGS("settings.png");
+	SETTINGS("settings.png"),
+	IMPORTEXPORT("importexport.png");
 	
 	private final String path;
 	private volatile Resource resource;
