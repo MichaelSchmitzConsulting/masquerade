@@ -31,7 +31,7 @@ public class RequestHistoryImpl implements RequestHistory {
 	
 	private QueryComparator<HistoryEntry> latestRequestsComparator = new QueryComparator<HistoryEntry>() {
 		@Override public int compare(HistoryEntry first, HistoryEntry second) {
-			long diff = first.getTime() - second.getTime();
+			long diff = second.getTime() - first.getTime();
 			return (int) diff;
 		}
 	};
