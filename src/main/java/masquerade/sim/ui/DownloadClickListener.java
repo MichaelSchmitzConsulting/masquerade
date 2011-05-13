@@ -8,6 +8,10 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window;
 
+/**
+ * Click listener for download buttons, delegating the download to a
+ * {@link DownloadHandler}.
+ */
 public class DownloadClickListener implements ClickListener {
 
 	private Window window;

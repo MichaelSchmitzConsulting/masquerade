@@ -64,13 +64,13 @@ public class ImportExportDialog extends Window implements Upload.FailedListener,
 		layout.setMargin(true);
 		
 		// Label
-		layout.addComponent(new Label("Export current simulation configuration"));
+		layout.addComponent(new Label("<b>Export current simulation configuration</b>", Label.CONTENT_XHTML));
 		
 		// Download button
 		layout.addComponent(new Button("Download", new DownloadClickListener(getWindow(), downloadHandler)));
 		
 		// Label
-		layout.addComponent(new Label("Add simulation configuration"));
+		layout.addComponent(new Label("<b>Add simulation configuration</b>", Label.CONTENT_XHTML));
 		
 		// Upload field
 		Upload upload = new Upload("Upload", uploadHandler);
