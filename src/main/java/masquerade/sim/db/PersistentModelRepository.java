@@ -159,6 +159,7 @@ public class PersistentModelRepository implements ModelRepository {
 
 	@Override
 	public void endSession() {
+		db.commit();
 		db.close();
 	}
 	
@@ -221,6 +222,15 @@ public class PersistentModelRepository implements ModelRepository {
 		synchronized (modelImpls) {
 			return modelImpls.get(modelBaseType);
 		}
+	}
+
+	@Override
+	public void clear() {
+		ObjectSet<Object> resultSet = db.query(Object.class);
+		for (Object obj : resultSet) {
+			db.delete(obj);
+		}
+		db.commit();
 	}
 
 	private void checkConstraintsOnCreate(Object value) {

@@ -6,11 +6,15 @@ import java.util.Collection;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 
-public class PersistentModelImport implements ModelImport {
+/**
+ * {@link ModelImport} implementation importing simulation
+ * configuration into the {@link ModelRepository}.
+ */
+public class ModelRepositoryImport implements ModelImport {
 
 	private ModelRepository modelRepository;
 
-	public PersistentModelImport(ModelRepository modelRepository) {
+	public ModelRepositoryImport(ModelRepository modelRepository) {
 		this.modelRepository = modelRepository;
 	}
 

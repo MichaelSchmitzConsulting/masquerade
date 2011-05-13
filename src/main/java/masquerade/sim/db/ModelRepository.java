@@ -77,4 +77,9 @@ public interface ModelRepository extends UpdateListener, DeleteListener, CreateL
 	 * @return All registered types implementing modelBaseType
 	 */
 	Collection<Class<?>> getModelImplementations(Class<?> modelBaseType);
+
+	/**
+	 * Clear all domain objects from this repository
+	 */
+	void clear();
 }
