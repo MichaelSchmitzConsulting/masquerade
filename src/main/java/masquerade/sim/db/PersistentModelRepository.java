@@ -8,6 +8,7 @@ import java.util.Map;
 
 import masquerade.sim.channel.jms.ActiveMqConnectionFactoryProvider;
 import masquerade.sim.channel.jms.ConnectionFactoryProvider;
+import masquerade.sim.channel.jms.TibcoEmsConnectionFactoryProvider;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.CopyRequestToResponseStep;
 import masquerade.sim.model.NamespacePrefix;
@@ -48,6 +49,8 @@ public class PersistentModelRepository implements ModelRepository {
 	private static Map<Class<?>, Collection<Class<?>>> modelImpls = new HashMap<Class<?>, Collection<Class<?>>>();
 	
 	static {
+		// TODO: Move this somewhere else
+		
 		// Channels
 		declareModelImplementation(Channel.class, HttpChannel.class);
 		declareModelImplementation(Channel.class, HttpStandaloneChannel.class);
@@ -82,8 +85,9 @@ public class PersistentModelRepository implements ModelRepository {
 		// Namespace prefix
 		declareModelImplementation(NamespacePrefix.class, NamespacePrefix.class);
 		
-		// JMS Connection Factory Provider
+		// JMS Connection Factory Providers
 		declareModelImplementation(ConnectionFactoryProvider.class, ActiveMqConnectionFactoryProvider.class);
+		declareModelImplementation(ConnectionFactoryProvider.class, TibcoEmsConnectionFactoryProvider.class);
 	}
 
 	private ObjectContainer db;
