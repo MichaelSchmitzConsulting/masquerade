@@ -14,14 +14,15 @@ import masquerade.sim.util.StringUtil;
 public class SimulationContextImpl implements SimulationContext {
 
 	private Object content;
-	private Map<String, Object> contextVariables = new HashMap<String, Object>();
+	private Map<String, Object> contextVariables;
 	private Converter converter;
 	private FileLoader fileLoader;
 	private NamespaceResolver namespaceResolver;
 	private Object request;	
 
-	public SimulationContextImpl(Object request, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) {
+	public SimulationContextImpl(Object request, Map<String, Object> initialContextVariables, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) {
 		this.request = request;
+		this.contextVariables = new HashMap<String, Object>(initialContextVariables);
 		this.content = "";
 		this.converter = converter;
 		this.fileLoader = fileLoader;

@@ -15,12 +15,15 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 	private static final long MINUTE = 60 * 1000;
 	
 	private RequestHistoryCleanupJob requestHistoryCleanupJob;
+	private ConfigurationVariableHolder configVariableHolder;
 	
 	/**
 	 * @param requestHistoryCleanupJob
+	 * @param configVariableHolder 
 	 */
-	public AppSettingsChangeListener(RequestHistoryCleanupJob requestHistoryCleanupJob) {
+	public AppSettingsChangeListener(RequestHistoryCleanupJob requestHistoryCleanupJob, ConfigurationVariableHolder configVariableHolder) {
 		this.requestHistoryCleanupJob = requestHistoryCleanupJob;
+		this.configVariableHolder = configVariableHolder;
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 
 	private void configurationPropertiesSettings(Settings oldSettings, Settings newSettings) {
 		if (isConfigurationPropertiesChanged(oldSettings, newSettings)) {
-			// TODO: Properties holder String properties = newSettings.getConfigurationProperties();
+			configVariableHolder.consumeConfigurationVariables(newSettings.getConfigurationProperties());
 		}
 	}
 

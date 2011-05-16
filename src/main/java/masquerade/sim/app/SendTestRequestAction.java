@@ -20,7 +20,8 @@ public final class SendTestRequestAction implements ActionListener<Channel, Stri
 				context.getRequestHistoryFactory(), 
 				context.getConverter(), 
 				context.getFileLoader(),
-				context.getNamespaceResolver());
+				context.getNamespaceResolver(),
+				context.getConfigurationVariableHolder());
 		
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		runner.runSimulation(responseOutput, channel.getName(), "Request Test UI", channel.getRequestMappings(), content);

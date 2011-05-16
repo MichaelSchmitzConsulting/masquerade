@@ -1,14 +1,13 @@
 package masquerade.sim.model;
 
 import java.io.InputStream;
-import java.util.Map;
 
 /**
  * Context available to {@link SimulationStep}  in {@link SimulationStep#execute(SimulationContext)}.
  * Contains simulation variables, request and response content, a {@link NamespaceResolver}
  * and the possibility to load files (see {@link FileType}).
  */
-public interface SimulationContext extends Converter {
+public interface SimulationContext extends Converter, VariableHolder {
 	/**
 	 * Returns the request's content. Please note that some steps might simply set the request
 	 * as the response content. If the response content is then altered, the original request
@@ -42,6 +41,7 @@ public interface SimulationContext extends Converter {
 	 * @param value Variable vaule
 	 */
 	void setVariable(String name, Object value);
+	
 	/**
 	 * Reuturns a variable's value if set
 	 * @param <T> Variable type
@@ -49,16 +49,13 @@ public interface SimulationContext extends Converter {
 	 * @return Variable value, or <code>null</code> if not set
 	 */
 	<T> T getVariable(String name);
+	
 	/**
 	 * Check if a variable with the specified name is set
 	 * @param name Variable name
 	 * @return <code>true</code> if this variable is available in the context
 	 */
 	boolean hasVariable(String name);
-	/**
-	 * @return A copy of the {@link Map} containing all variables in this context
-	 */
-	Map<String, Object> getVariables();
 	
 	/**
 	 * Substitutes all variables known in this context. Leaves unknown variables as

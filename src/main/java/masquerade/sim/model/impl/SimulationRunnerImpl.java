@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
@@ -18,6 +19,7 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationRunner;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 
@@ -35,6 +37,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	private Converter converter;
 	private FileLoader fileLoader;
 	private NamespaceResolver namespaceResolver;
+	private VariableHolder configurationVariableHolder;
 
 	/**
 	 * @param requestHistoryFactory
@@ -42,11 +45,13 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	 * @param fileLoader
 	 * @param namespaceResolver
 	 */
-	public SimulationRunnerImpl(RequestHistoryFactory requestHistoryFactory, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver) {
+	public SimulationRunnerImpl(RequestHistoryFactory requestHistoryFactory, Converter converter, FileLoader fileLoader, NamespaceResolver namespaceResolver,
+			VariableHolder configurationVariableHolder) {
 		this.requestHistoryFactory = requestHistoryFactory;
 		this.converter = converter;
 		this.fileLoader = fileLoader;
 		this.namespaceResolver = namespaceResolver;
+		this.configurationVariableHolder = configurationVariableHolder;
 	}
 
 	@Override
@@ -61,7 +66,8 @@ public class SimulationRunnerImpl implements SimulationRunner {
 				if (matches(request, requestContext, mapping)) {
 					Script script = mapping.getScript();
 					
-					SimulationContext context = new SimulationContextImpl(request, converter, fileLoader, namespaceResolver);
+					Map<String, Object> initialContextVariables = configurationVariableHolder.getVariables();
+					SimulationContext context = new SimulationContextImpl(request, initialContextVariables , converter, fileLoader, namespaceResolver);
 					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
 					HistoryEntry entry = logRequest(timestamp, channelName, clientInfo, request, requestHistory, script, requestId);
 					

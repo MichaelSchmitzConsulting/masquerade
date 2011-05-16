@@ -13,6 +13,7 @@ import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;
 import masquerade.sim.model.NamespaceResolver;
+import masquerade.sim.model.VariableHolder;
 
 /**
  * Dependency injection for application-wide objects created during initialization.
@@ -30,6 +31,7 @@ public class ApplicationContext {
 	private NamespaceResolver namespaceResolver;
 	private RequestHistoryCleanupJob cleanupJob;
 	private SettingsChangeListener settingsChangeListener;
+	private VariableHolder configVariableHolder;
 
 	/**
 	 * @param databaseLifecycle
@@ -45,7 +47,8 @@ public class ApplicationContext {
 	 */
 	public ApplicationContext(DatabaseLifecycle modelDbLifecycle, DatabaseLifecycle historyDbLifecycle, ChannelListenerRegistry channelListenerRegistry,
 		RequestHistoryFactory requestHistoryFactory, ModelRepositoryFactory modelRepositoryFactory, FileLoader fileLoader, Converter converter,
-		File artifactRoot, NamespaceResolver namespaceResolver, RequestHistoryCleanupJob cleanupJob, SettingsChangeListener settingsChangeListener) {
+		File artifactRoot, NamespaceResolver namespaceResolver, RequestHistoryCleanupJob cleanupJob, SettingsChangeListener settingsChangeListener,
+		VariableHolder configVariableHolder) {
 		this.modelDbLifecycle = modelDbLifecycle;
 		this.historyDbLifecycle = historyDbLifecycle;
 		this.channelListenerRegistry = channelListenerRegistry;
@@ -57,6 +60,7 @@ public class ApplicationContext {
 		this.namespaceResolver = namespaceResolver;
 		this.cleanupJob = cleanupJob;
 		this.settingsChangeListener = settingsChangeListener;
+		this.configVariableHolder = configVariableHolder;
 	}
 
 	/**
@@ -130,6 +134,10 @@ public class ApplicationContext {
 	 */
 	public SettingsChangeListener getSettingsChangeListener() {
 		return settingsChangeListener;
+	}
+
+	public VariableHolder getConfigurationVariableHolder() {
+		return configVariableHolder;
 	}
 
 	public ModelExport getModelExport() {

@@ -112,8 +112,11 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create namespace resolver
 			NamespaceResolver namespaceResolver = new ModelNamespaceResolver(modelRepositoryFactory);
 			
+			// Create configuration variable holder
+			ConfigurationVariableHolder configVariableHolder = new ConfigurationVariableHolder(); 
+			
 			// Create simulation runner
-			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver);
+			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver, configVariableHolder);
 			
 			// Create channel listener registry
 			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner);
@@ -129,12 +132,12 @@ public class ApplicationLifecycle implements ServletContextListener {
 				RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory);
 				
 				// Create settings change listener, apply settings
-				SettingsChangeListener settingsChangeListener = new AppSettingsChangeListener(cleanupJob);
+				SettingsChangeListener settingsChangeListener = new AppSettingsChangeListener(cleanupJob, configVariableHolder);
 				settingsChangeListener.settingsChanged(Settings.NO_SETTINGS, settings);
 				
 				// Create application context
 				ApplicationContext applicationContext = new ApplicationContext(modelDbLifecycle, historyDbLifecycle, listenerRegistry, requestHistoryFactory, 
-						modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob, settingsChangeListener);
+						modelRepositoryFactory, fileLoader, converter, artifactsRoot, namespaceResolver, cleanupJob, settingsChangeListener, configVariableHolder);
 				
 				// Save application context reference in servlet context
 				servletContext.setAttribute(APP_CONTEXT_ATTRIBUTE, applicationContext);
