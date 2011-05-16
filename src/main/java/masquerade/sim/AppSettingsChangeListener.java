@@ -71,7 +71,7 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 		if (oldValue == null && newValue != null) {
 			return true;
 		} else {
-			return oldValue.equals(newValue);
+			return !oldValue.equals(newValue);
 		}
 	}
 }
