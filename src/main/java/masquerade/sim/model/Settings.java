@@ -9,12 +9,14 @@ public class Settings {
 	private int statusLogEntryCountLimit = 100;
 	private int requestLogCountLimit = 100;
 	private int requestHistoryCleanupSleepPeriodMinutes = 5;
+	private String configurationProperties = "";
 	
 	public static Settings NO_SETTINGS = new Settings();
 	static {
 		NO_SETTINGS.statusLogEntryCountLimit = Integer.MIN_VALUE;
 		NO_SETTINGS.requestLogCountLimit = Integer.MIN_VALUE;
 		NO_SETTINGS.requestHistoryCleanupSleepPeriodMinutes = Integer.MIN_VALUE;
+		NO_SETTINGS.configurationProperties = "";
 	}
 	
 	/**
@@ -54,6 +56,20 @@ public class Settings {
 		this.requestHistoryCleanupSleepPeriodMinutes = requestHistoryCleanupSleepPeriodMinutes;
 	}
 	
+	/**
+	 * @return the configurationProperties
+	 */
+	public String getConfigurationProperties() {
+		return configurationProperties;
+	}
+	
+	/**
+	 * @param configurationProperties the configurationProperties to set
+	 */
+	public void setConfigurationProperties(String configurationProperties) {
+		this.configurationProperties = configurationProperties;
+	}
+	
 	@Override
 	public Settings clone() {
 		Settings copy = new Settings();
@@ -61,6 +77,7 @@ public class Settings {
 		copy.requestHistoryCleanupSleepPeriodMinutes = this.requestHistoryCleanupSleepPeriodMinutes;
 		copy.requestLogCountLimit = this.requestLogCountLimit;
 		copy.statusLogEntryCountLimit = this.statusLogEntryCountLimit;
+		copy.configurationProperties = this.configurationProperties;
 		
 		return copy;
 	}
@@ -68,6 +85,6 @@ public class Settings {
 	@Override
 	public String toString() {
 		return "Settings [requestLogCountLimit=" + requestLogCountLimit + ", statusLogEntryCountLimit=" + statusLogEntryCountLimit
-				+ ", requestHistoryCleanupSleepPeriodMinutes=" + requestHistoryCleanupSleepPeriodMinutes + "]";
+				+ ", requestHistoryCleanupSleepPeriodMinutes=" + requestHistoryCleanupSleepPeriodMinutes + ", configurationProperties=" + configurationProperties + "]";
 	}
 }

@@ -2,15 +2,21 @@ package masquerade.sim.ui;
 
 import masquerade.sim.UpdateListener;
 import masquerade.sim.model.Settings;
+import masquerade.sim.util.StringUtil;
 import masquerade.sim.util.WindowUtil;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Window;
 
 /**
@@ -42,7 +48,6 @@ public class SettingsDialog extends Window {
 
 		setModal(true);
 		setWidth("500px");
-		setResizable(false);
 		buildLayout(settings);
 	}
 
@@ -53,9 +58,10 @@ public class SettingsDialog extends Window {
 
 	private Form createForm(Settings settings) {
 		final Form form = new Form();
+		form.setFormFieldFactory(new SettingsFieldFactory());
 		form.setWidth("500px");
         form.setInvalidCommitted(false);
-
+        
 		BeanItem<?> item = new BeanItem<Settings>(settings);
 		form.setItemDataSource(item);
 		
@@ -81,5 +87,18 @@ public class SettingsDialog extends Window {
 		form.getFooter().setMargin(true, true, false, false);
 		
 		return form;
+	}
+	
+	private static final class SettingsFieldFactory extends DefaultFieldFactory {
+		@Override
+		public Field createField(Item item, Object propertyId, Component uiContext) {
+			if ("configurationProperties".equals(propertyId)) {
+				String caption = StringUtil.fromCamelCase((String) propertyId);
+				Field textArea = new TextArea(caption);
+				return textArea;
+			} else {
+				return super.createField(item, propertyId, uiContext);
+			}
+		}
 	}
 }
