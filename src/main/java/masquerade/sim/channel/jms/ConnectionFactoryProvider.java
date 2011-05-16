@@ -1,7 +1,5 @@
 package masquerade.sim.channel.jms;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.jms.ConnectionFactory;
 
 import masquerade.sim.model.impl.JmsChannel;
