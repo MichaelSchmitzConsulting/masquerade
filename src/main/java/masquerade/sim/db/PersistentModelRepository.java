@@ -27,6 +27,7 @@ import masquerade.sim.model.impl.SoapFaultStep;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
+import masquerade.sim.model.impl.XpathAlternativesRequestIdProvider;
 import masquerade.sim.model.impl.step.AddResponseElementStep;
 import masquerade.sim.model.impl.step.GroovyScriptStep;
 import masquerade.sim.model.impl.step.JavaScriptStep;
@@ -64,6 +65,7 @@ public class PersistentModelRepository implements ModelRepository {
 		
 		// Request ID Providers
 		declareModelImplementation(RequestIdProvider.class, XPathRequestIdProvider.class);
+		declareModelImplementation(RequestIdProvider.class, XpathAlternativesRequestIdProvider.class);
 		
 		// Request Mapping
 		declareModelImplementation(RequestMapping.class, XPathRequestMapping.class);
