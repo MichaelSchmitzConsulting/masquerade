@@ -62,6 +62,11 @@ public class XpathAlternativesRequestIdProvider extends AbstractRequestIdProvide
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Alternative XPaths: " + getAlternatives().size();
+	}
+
 	private synchronized Collection<String> getAlternatives() {
 		if (xpathAlternatives == null) {
 			xpathAlternatives = new ArrayList<String>();

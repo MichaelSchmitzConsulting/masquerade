@@ -23,6 +23,7 @@ import masquerade.sim.ui.field.FileSelectFieldFactory;
 import masquerade.sim.ui.field.HtmlViewFieldFactory;
 import masquerade.sim.ui.field.ModelImplementationSelectFieldFactory;
 import masquerade.sim.ui.field.ModelSelectFieldFactory;
+import masquerade.sim.ui.field.TextAreaFieldFactory;
 
 import org.vaadin.codemirror.client.ui.CodeStyle;
 
@@ -77,6 +78,9 @@ public class ModelFieldFactory extends DefaultFieldFactory {
 		factories.put(
 				"connectionFactoryProvider",
 				new ModelImplementationSelectFieldFactory(modelRepository, ConnectionFactoryProvider.class, defaultWidth));
+		factories.put(
+				"xpaths",
+				new TextAreaFieldFactory("XPaths (per line)"));
 		
 		WindowFactory wf = new RequestMappingSelectWindowFactory("Add/Remove Request Mappings", modelRepository);
 		factories.put(
