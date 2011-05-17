@@ -67,8 +67,10 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 	private boolean isConfigurationPropertiesChanged(Settings oldSettings, Settings newSettings) {
 		String oldValue = oldSettings.getConfigurationProperties();
 		String newValue = newSettings.getConfigurationProperties();
-		// Settings value might initally be null (migration from old version without this field), new value cannot be null
-		if (oldValue == null && newValue != null) {
+		// Settings value might initally be null
+		if (oldValue == null && newValue == null) {
+			return false;
+		} else if (oldValue == null && newValue != null) {
 			return true;
 		} else {
 			return !oldValue.equals(newValue);

@@ -39,12 +39,16 @@ public class ConfigurationVariableHolder implements VariableHolder {
 	 */
 	public void consumeConfigurationVariables(String propertiesStr) {
 		Properties props = new Properties();
-		try {
-			props.load(new StringReader(propertiesStr));
-			vars = new HashMap<String, Object>(cast(props));
-		} catch (IOException e) {
-			log.error("Unable to read properties string", e);
+		
+		if (propertiesStr != null) {
+			try {
+				props.load(new StringReader(propertiesStr));
+			} catch (IOException e) {
+				log.error("Unable to read properties string", e);
+			}
 		}
+		
+		vars = new HashMap<String, Object>(cast(props));
 	}
 
 	@Override
