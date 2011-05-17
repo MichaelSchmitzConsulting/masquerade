@@ -9,6 +9,7 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;
 import masquerade.sim.model.ChannelListenerContext;
 import masquerade.sim.model.SimulationRunner;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.ChannelListenerContextImpl;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
@@ -23,10 +24,15 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	
 	private Map<String, ChannelListener<?>> channels = new LinkedHashMap<String, ChannelListener<?>>();
 	private SimulationRunner simulationRunner;
-	private ChannelListenerContext context = new ChannelListenerContextImpl();
+	private ChannelListenerContext context;
 	
-	public ChannelListenerRegistryImpl(SimulationRunner simulationRunner) {
+	/**
+	 * @param simulationRunner {@link SimulationRunner} passed to channel listeneres for handling requests
+	 * @param variableHolder Configuration {@link VariableHolder} passed to channel listeners for environment-specific configuration
+	 */
+	public ChannelListenerRegistryImpl(SimulationRunner simulationRunner, VariableHolder variableHolder) {
 		this.simulationRunner = simulationRunner;
+		this.context = new ChannelListenerContextImpl(variableHolder);
 	}
 
 	/**

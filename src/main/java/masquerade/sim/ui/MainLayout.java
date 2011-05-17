@@ -360,7 +360,7 @@ public class MainLayout extends VerticalLayout {
 		bottomLayout.addComponent(clearButton);
 
 		// Spacer
-		Label spacer = new Label();
+		Label spacer = new Label("Double-click on history entry to show details");
 		bottomLayout.addComponent(spacer);
 		bottomLayout.setExpandRatio(spacer, 1.0f);
 

@@ -119,7 +119,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver, configVariableHolder);
 			
 			// Create channel listener registry
-			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner);
+			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner, configVariableHolder);
 			
 			// Add channel change trigger
 			registerChannelChangeTrigger(modelDb, listenerRegistry);

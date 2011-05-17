@@ -31,7 +31,7 @@ public abstract class AbstractScriptedStep extends AbstractSimulationStep {
 	public String getDocumentation() {
 		return "<span>Available variables: " +
 			"<a href=\"http://masqueradesim.googlecode.com/svn/trunk/javadoc/masquerade/sim/model/SimulationContext.html\" target=\"_blank\">" +
-			"context</a>, and all variables set on the context by previous steps</span>.";
+			"context</a>, configuration variables from settings and all variables set on the context by previous steps</span>.";
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import masquerade.sim.model.ChannelListenerContext;
+import masquerade.sim.model.VariableHolder;
 
 /**
  * Implementation of {@link ChannelListenerContext}. Stores channel listener
@@ -12,6 +13,11 @@ import masquerade.sim.model.ChannelListenerContext;
 public class ChannelListenerContextImpl implements ChannelListenerContext {
 
 	private Map<String, Object> attributes = new HashMap<String, Object>();
+	private VariableHolder variableHolder;
+	
+	public ChannelListenerContextImpl(VariableHolder variableHolder) {
+		this.variableHolder = variableHolder;
+	}
 	
 	@Override
 	public void setAttribute(String name, Object value) {
@@ -34,5 +40,10 @@ public class ChannelListenerContextImpl implements ChannelListenerContext {
 		synchronized (attributes) {
 			attributes.remove(name);
 		}
+	}
+
+	@Override
+	public VariableHolder getVariableHolder() {
+		return variableHolder;
 	}
 }

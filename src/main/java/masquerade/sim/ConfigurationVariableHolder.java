@@ -20,7 +20,7 @@ public class ConfigurationVariableHolder implements VariableHolder {
 
 	private final static StatusLog log = StatusLogger.get(ConfigurationVariableHolder.class);
 
-	private Map<String, Object> vars = Collections.emptyMap();
+	private volatile Map<String, Object> vars = Collections.emptyMap();
 	
 	/**
 	 * Parses config variables in {@link Properties} format
@@ -38,9 +38,13 @@ public class ConfigurationVariableHolder implements VariableHolder {
 
 	@Override
 	public Map<String, Object> getVariables() {
-		return Collections.unmodifiableMap(vars );
+		return Collections.unmodifiableMap(vars);
 	}
 
+	/**
+	 * Casts properties (which is defined as a Map<Object, Object>) to a Map<String, Object>.
+	 * Configuration properties are String->String mappings, so this cast is safe. 
+	 */
 	private static Map<String, Object> cast(Properties props) {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		Map<String, Object> propsMap = (Map) props;
