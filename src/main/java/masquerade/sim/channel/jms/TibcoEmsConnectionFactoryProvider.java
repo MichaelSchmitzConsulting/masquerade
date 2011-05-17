@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 
 import javax.jms.ConnectionFactory;
 
+import masquerade.sim.model.ChannelListenerContext;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 
@@ -18,13 +20,15 @@ public class TibcoEmsConnectionFactoryProvider implements ConnectionFactoryProvi
 	private static final String FACTORY_CLASS_NAME = "com.tibco.tibjms.TibjmsConnectionFactory";
 
 	@Override
-	public ConnectionFactory getConnectionFactory(JmsChannel channel) throws Exception {
+	public ConnectionFactory getConnectionFactory(JmsChannel channel, ChannelListenerContext context) throws Exception {
 		DefaultJmsChannel jmsChannel = (DefaultJmsChannel) channel;
 		
+		VariableHolder config = context.getVariableHolder();
+		
 		// Read channel properties
-		String serverUrl = jmsChannel.getUrl();
-		String user = jmsChannel.getUser();
-		String pwd = jmsChannel.getPassword();
+		String serverUrl = config.substituteVariables(jmsChannel.getUrl());
+		String user = config.substituteVariables(jmsChannel.getUser());
+		String pwd = config.substituteVariables(jmsChannel.getPassword());
 		
 		// Get factory type and required methods
 		Class<?> type = Class.forName(FACTORY_CLASS_NAME);

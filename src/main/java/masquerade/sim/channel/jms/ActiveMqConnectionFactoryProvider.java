@@ -6,6 +6,8 @@ import java.lang.reflect.Constructor;
 
 import javax.jms.ConnectionFactory;
 
+import masquerade.sim.model.ChannelListenerContext;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.status.StatusLog;
@@ -21,12 +23,14 @@ public class ActiveMqConnectionFactoryProvider implements ConnectionFactoryProvi
 	private static final StatusLog log = StatusLogger.get(ActiveMqConnectionFactoryProvider.class);
 
 	@Override
-	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
+	public ConnectionFactory getConnectionFactory(JmsChannel channel, ChannelListenerContext context) {
 		DefaultJmsChannel jmsChannel = (DefaultJmsChannel) channel;
 		
-		String user = jmsChannel.getUser();
-		String password = jmsChannel.getPassword();
-		String url = jmsChannel.getUrl();
+		VariableHolder config = context.getVariableHolder();
+		
+		String user = config.substituteVariables(jmsChannel.getUser());
+		String password = config.substituteVariables(jmsChannel.getPassword());
+		String url = config.substituteVariables(jmsChannel.getUrl());
 
 		if (isEmpty(user)) {
 			user = null;

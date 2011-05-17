@@ -13,6 +13,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import masquerade.sim.model.ChannelListener;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.status.StatusLog;
@@ -30,13 +31,11 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 
 	private final static StatusLog log = StatusLogger.get(JmsChannelListener.class);
 
-	private volatile String replyDestinationName;
-	private volatile boolean isTopic;
-	private SimpleMessageListenerContainer container;
-
 	private String channelName;
-
 	private String destinationName;
+	private SimpleMessageListenerContainer container;
+	private volatile String replyDestinationName; // Used in message handler threads
+	private volatile boolean isTopic; // Used in message handler threads
 	
 	/**
 	 * Start receiving requests from the topic/queue by creating a connection
@@ -46,8 +45,11 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	public synchronized void onStart(JmsChannel channel) {
 		onStop();
 		
-		destinationName = channel.getDestinationName();
-		replyDestinationName = channel.getResponseDestinationName();
+		VariableHolder config = getContext().getVariableHolder();
+		
+		destinationName = config.substituteVariables(channel.getDestinationName());
+		replyDestinationName = config.substituteVariables(channel.getResponseDestinationName());
+		
 		isTopic = channel.isTopic();
 		channelName = channel.getName();
 		log.info("Creating connection factor for JMS channel " + channelName);
@@ -148,7 +150,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		ConnectionFactoryProvider provider;
 		try {
 			provider = channel.connectionFactoryProvider().newInstance();
-			return provider.getConnectionFactory(channel);
+			return provider.getConnectionFactory(channel, getContext());
 		} catch (Throwable t) {
 			log.error("Unable to create a connection factory for JMS channel " + channel.getName(), t);
 			return null;

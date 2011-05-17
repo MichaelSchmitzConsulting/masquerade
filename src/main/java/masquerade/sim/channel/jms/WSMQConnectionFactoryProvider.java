@@ -6,6 +6,8 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
+import masquerade.sim.model.ChannelListenerContext;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.DefaultJmsChannel;
 import masquerade.sim.model.impl.JmsChannel;
 import masquerade.sim.model.impl.WebSphereMqJmsChannel;
@@ -74,10 +76,18 @@ public class WSMQConnectionFactoryProvider implements ConnectionFactoryProvider 
 	private static final StatusLog log = StatusLogger.get(WSMQConnectionFactoryProvider.class);
 
 	@Override
-	public ConnectionFactory getConnectionFactory(JmsChannel channel) {
+	public ConnectionFactory getConnectionFactory(JmsChannel channel, ChannelListenerContext context) {
 		try {
 			WebSphereMqJmsChannel mqChannel = (WebSphereMqJmsChannel) channel;
-			return getMqConnFactory(mqChannel.getHost(), mqChannel.getPort(), mqChannel.getChannel(), mqChannel.getQueueManager());
+			
+			VariableHolder config = context.getVariableHolder();
+			
+			String host = config.substituteVariables(mqChannel.getHost());
+			int port = mqChannel.getPort();
+			String connectionChannel = config.substituteVariables(mqChannel.getChannel());
+			String queueManager = config.substituteVariables(mqChannel.getQueueManager());
+			
+			return getMqConnFactory(host, port, connectionChannel, queueManager);
 		} catch (Exception e) {
 			log.error("Unable to create WSMQ connection factory", e);
 			return null;

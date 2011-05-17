@@ -2,6 +2,7 @@ package masquerade.sim.channel.jms;
 
 import javax.jms.ConnectionFactory;
 
+import masquerade.sim.model.ChannelListenerContext;
 import masquerade.sim.model.impl.JmsChannel;
 
 /**
@@ -9,5 +10,5 @@ import masquerade.sim.model.impl.JmsChannel;
  * specific JMS implementations.
  */
 public interface ConnectionFactoryProvider {
-	ConnectionFactory getConnectionFactory(JmsChannel channel) throws Exception;
+	ConnectionFactory getConnectionFactory(JmsChannel channel, ChannelListenerContext channelListenerContext) throws Exception;
 }
