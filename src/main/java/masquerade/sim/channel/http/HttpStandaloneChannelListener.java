@@ -1,6 +1,7 @@
 package masquerade.sim.channel.http;
 
 import masquerade.sim.model.ChannelListener;
+import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.HttpStandaloneChannel;
 import masquerade.sim.model.impl.RequestProcessor;
@@ -32,8 +33,12 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 	protected synchronized void onStart(HttpStandaloneChannel channel) {
 		onStop();
 		
-		String contentType = channel.getResponseContentType();
-		location = StringUtil.removeLeadingSlash(channel.getLocation());
+		VariableHolder config = getContext().getVariableHolder();
+		
+		String contentType = config.substituteVariables(channel.getResponseContentType());
+		location = config.substituteVariables(
+				StringUtil.removeLeadingSlash(channel.getLocation()));
+		
 		port = channel.getPort();
 		name = channel.getName();
 		
