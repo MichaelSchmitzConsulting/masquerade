@@ -31,7 +31,7 @@ public class RequestHistoryImpl implements RequestHistory {
 	
 	private QueryComparator<HistoryEntry> latestRequestsComparator = new QueryComparator<HistoryEntry>() {
 		@Override public int compare(HistoryEntry first, HistoryEntry second) {
-			long diff = second.getTime() - first.getTime();
+			long diff = second.getRequestTime() - first.getRequestTime();
 			return (int) diff;
 		}
 	};
@@ -50,10 +50,11 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 	
 	@Override
-	public HistoryEntry logRequest(Date timestamp, String channelName, String simulationName, String clientInfo, String requestId, String requestData) {
+	public HistoryEntry logRequest(Date requestTimestamp, Date receiveTimestamp, String channelName, String simulationName, String clientInfo,
+			String requestId, String requestData) {
 		if (isActive) {
 			String fileName = saveRequestToFile(requestData);
-			HistoryEntry entry = new HistoryEntry(timestamp, channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
+			HistoryEntry entry = new HistoryEntry(requestTimestamp, receiveTimestamp, channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
 			dbSession.store(entry);
 			dbSession.commit();
 			return entry;
@@ -63,13 +64,16 @@ public class RequestHistoryImpl implements RequestHistory {
 	}
 	
 	@Override
-	public void addResponse(String responseData, HistoryEntry entry) {
+	public void addResponse(String responseData, long processingPeriodMs, HistoryEntry entry) {
 		File file = new File(requestLogDir, entry.getFileName() + HistoryEntry.RESPONSE_FILE_SUFFIX);
 		try {
 			FileUtils.writeStringToFile(file, responseData);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Cannot write response data to file " + file.getAbsolutePath(), e);
 		}
+		entry.setProcessingPeriod(processingPeriodMs);
+		dbSession.store(entry);
+		dbSession.commit();
 	}
 
 	@Override

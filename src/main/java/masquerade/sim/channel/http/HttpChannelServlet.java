@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.ApplicationLifecycle;
+import masquerade.sim.util.StringUtil;
 
 public class HttpChannelServlet extends HttpServlet {
 
@@ -28,11 +29,12 @@ public class HttpChannelServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StringBuffer str = new StringBuffer("<GetRequest>");
 		@SuppressWarnings("unchecked")
-		Map<String, Object> map = req.getParameterMap();
-		for (Map.Entry<String, Object> param : map.entrySet()) {
+		Map<String, String[]> map = req.getParameterMap();
+		for (Map.Entry<String, String[]> param : map.entrySet()) {
 			String name = param.getKey();
 			str.append('<').append(name).append('>');
-			str.append(param.getValue().toString());
+			String[] values = param.getValue();
+			str.append(StringUtil.join(values));
 			str.append("</").append(name).append('>');
 		}
 		str.append("</GetRequest>");

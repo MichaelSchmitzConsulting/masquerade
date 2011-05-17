@@ -8,9 +8,9 @@ import java.util.List;
  * access for request/response history. 
  */
 public interface RequestHistory {
-	HistoryEntry logRequest(Date timestamp, String channelName, String simulationName, String clientInfo, String requestId, String requestData);
+	HistoryEntry logRequest(Date requestTimestamp, Date receiveTimestamp, String channelName, String simulationName, String clientInfo, String requestId, String requestData);
 	
-	void addResponse(String responseData, HistoryEntry entry);
+	void addResponse(String responseData, long processingPeriod, HistoryEntry entry);
 	
 	List<HistoryEntry> getLatestRequests(int maxAmount);
 	

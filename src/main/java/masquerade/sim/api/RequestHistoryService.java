@@ -32,6 +32,8 @@ public class RequestHistoryService extends HttpServlet {
 	
 	private static final String HEADER_REQUEST_TIMESTAMP = "X-Masquerade-RequestTimestamp";
 	private static final String HEADER_REQUEST_TIME = "X-Masquerade-RequestTime";
+	private static final String HEADER_RECEIVE_TIME = "X-Masquerade-ReceiveTime";
+	private static final String HEADER_PROCESSING_PERIOD = "X-Masquerade-ProcessingPeriod";
 	private static final String HEADER_CHANNEL_NAME = "X-Masquerade-ChannelName";
 	private static final String HEADER_CLIENT_INFO = "X-Masquerade-ClientInfo";
 	
@@ -71,8 +73,10 @@ public class RequestHistoryService extends HttpServlet {
 	}
 
 	private void setResponseHeaders(HttpServletResponse resp, HistoryEntry entry) {
-		resp.setHeader(HEADER_REQUEST_TIMESTAMP, DATE_FORMAT.get().format(entry.getTimestamp()));
-		resp.setHeader(HEADER_REQUEST_TIME, String.valueOf(entry.getTimestamp().getTime()));
+		resp.setHeader(HEADER_REQUEST_TIMESTAMP, DATE_FORMAT.get().format(entry.getRequestTimestamp()));
+		resp.setHeader(HEADER_REQUEST_TIME, String.valueOf(entry.getRequestTime()));
+		resp.setHeader(HEADER_RECEIVE_TIME, String.valueOf(entry.getReceiveTime()));
+		resp.setHeader(HEADER_PROCESSING_PERIOD, String.valueOf(entry.getProcessingPeriod()));
 		resp.setHeader(HEADER_CHANNEL_NAME, entry.getChannelName());
 		resp.setHeader(HEADER_CLIENT_INFO, entry.getClientInfo());
 	}

@@ -56,6 +56,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 
 	@Override
 	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request, Date requestTimestamp) throws Exception {
+		Date receiveTimestamp = new Date();
 		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		RequestContext requestContext = new RequestContextImpl(namespaceResolver, converter);
 		
@@ -67,34 +68,35 @@ public class SimulationRunnerImpl implements SimulationRunner {
 					Map<String, Object> initialContextVariables = configurationVariableHolder.getVariables();
 					SimulationContext context = new SimulationContextImpl(request, initialContextVariables , converter, fileLoader, namespaceResolver);
 					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
-					HistoryEntry entry = logRequest(requestTimestamp, channelName, clientInfo, request, requestHistory, script, requestId);
+					HistoryEntry entry = logRequest(requestTimestamp, receiveTimestamp, channelName, clientInfo, request, requestHistory, script, requestId);
 					
 					Object response = script.run(context);
 					marshalResponse(response, responseOutput);
 					
-					logResponse(requestHistory, entry, response);
+					logResponse(requestHistory, entry, response, receiveTimestamp);
 					
 					return;
 				}
 			}
 			
 			// No match found
-			requestHistory.logRequest(requestTimestamp, channelName, "<no match>", clientInfo, null, converter.convert(request, String.class));
+			requestHistory.logRequest(requestTimestamp, receiveTimestamp, channelName, "<no match>", clientInfo, null, converter.convert(request, String.class));
 		} finally {
 			requestHistory.endSession();
 		}
 	}
 
-	private HistoryEntry logRequest(Date timestamp, String channelName, String clientInfo, Object request, RequestHistory requestHistory, Script script, String requestId) {
+	private HistoryEntry logRequest(Date requestTimestamp, Date receiveTimestamp, String channelName, String clientInfo, Object request, RequestHistory requestHistory, Script script, String requestId) {
 		HistoryEntry entry = 
-			requestHistory.logRequest(timestamp, channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
+			requestHistory.logRequest(requestTimestamp, receiveTimestamp, channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
 		return entry;
 	}
 
-	private void logResponse(RequestHistory requestHistory, HistoryEntry entry, Object response) {
+	private void logResponse(RequestHistory requestHistory, HistoryEntry entry, Object response, Date receiveTimestamp) {
+		long processingPeriod = System.currentTimeMillis() - receiveTimestamp.getTime();
 		String responseData = converter.convert(response, String.class);
 		if (responseData != null) {
-			requestHistory.addResponse(responseData, entry);
+			requestHistory.addResponse(responseData, processingPeriod, entry);
 		}
 	}
 

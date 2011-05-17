@@ -55,7 +55,8 @@ public class FileChannelListener extends AbstractChannelListener<FileChannel> {
 			@Override public void processFile(File file) throws Exception {
 				String content = IOUtils.toString(new FileInputStream(file));
 				OutputStream devNull = new NullOutputStream(); // TODO: Response handling?
-				processRequest("FileChannel " + directory, content, devNull, new Date());
+				Date requestTimestamp = new Date(file.lastModified());
+				processRequest("FileChannel " + directory, content, devNull, requestTimestamp);
 			}
 		};
 	}

@@ -11,16 +11,21 @@ public class HistoryEntry {
 	public static final String REQUEST_FILE_SUFFIX = ".request";
 	public static final String RESPONSE_FILE_SUFFIX = ".response";
 	
-	private long time;
-	private String channelName;
-	private String simulationName;
-	private String clientInfo;
-	private String requestId;
-	private String fileName;
-	private String requestLogDir;
+	public static final long NOT_SET = -1;
 	
-	public HistoryEntry(Date timestamp, String channelName, String simulationName, String clientInfo, String requestId, String fileName, String requestLogDir) {
-		this.time = timestamp.getTime();
+	private final long requestTimestamp;
+	private final long receiveTimestamp;
+	private final String channelName;
+	private final String simulationName;
+	private final String clientInfo;
+	private final String requestId;
+	private final String fileName;
+	private final String requestLogDir;
+	private long processingPeriod = NOT_SET;
+	
+	public HistoryEntry(Date requestTimestamp, Date receiveTimestamp, String channelName, String simulationName, String clientInfo, String requestId, String fileName, String requestLogDir) {
+		this.requestTimestamp = requestTimestamp.getTime();
+		this.receiveTimestamp = receiveTimestamp.getTime();
 		this.channelName = channelName;
 		this.simulationName = simulationName;
 		this.clientInfo = clientInfo;
@@ -29,12 +34,31 @@ public class HistoryEntry {
 		this.requestLogDir = requestLogDir;
 	}
 	
-	public Date getTimestamp() {
-		return new Date(time);
+	public Date getRequestTimestamp() {
+		return new Date(requestTimestamp);
 	}
-	public long getTime() {
-		return time;
+	public Date getReceiveTimestamp() {
+		return new Date(receiveTimestamp);
 	}
+	public long getRequestTime() {
+		return requestTimestamp;
+	}
+	public long getReceiveTime() {
+		return receiveTimestamp;
+	}
+	/**
+	 * @return How long it took to process the request (in ms), or {@link #NOT_SET} if not applicable
+	 */
+	public long getProcessingPeriod() {
+		return processingPeriod;
+	}
+	/**
+	 * @param processingPeriod How long it took to process the request (in ms)
+	 */
+	public void setProcessingPeriod(long processingPeriod) {
+		this.processingPeriod = processingPeriod;
+	}
+
 	public String getChannelName() {
 		return channelName;
 	}

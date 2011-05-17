@@ -25,6 +25,10 @@ public class StringUtil {
 	}
 
 	public static String substituteVariables(Map<String, Object> contextVariables, String content, Converter converter) {
+		if (content == null) {
+			return content;
+		}
+		
 		String ret = content;
 		// TODO: Better implementation, e.g. with StringTemplate
 		for (Map.Entry<String, Object> entry : contextVariables.entrySet()) {
@@ -75,5 +79,25 @@ public class StringUtil {
 		printWriter.flush();
 		String stacktrace = stringWriter.toString();
 		return stacktrace;
+	}
+
+	public static String join(String[] values) {
+		if (values == null) {
+			return "";
+		} else if (values.length == 1) {
+			return values[0];
+		} else {
+			StringBuilder ret = new StringBuilder();
+			boolean first = true;
+			for (String value : values) {
+				if (first) {
+					first = false;
+				} else {
+					ret.append(',');
+				}
+				ret.append(value);
+			}
+			return ret.toString();
+		}
 	}
 }
