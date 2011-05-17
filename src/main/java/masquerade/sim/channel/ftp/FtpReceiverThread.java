@@ -3,6 +3,7 @@ package masquerade.sim.channel.ftp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Date;
 
 import masquerade.sim.model.impl.RequestProcessor;
 import masquerade.sim.status.StatusLog;
@@ -98,7 +99,7 @@ public class FtpReceiverThread extends Thread {
 		
 		if (success) {
 			// TODO: Support responses
-			requestProcessor.processRequest(hostStr(), request, new NullOutputStream());
+			requestProcessor.processRequest(hostStr(), request, new NullOutputStream(), new Date());
 		}
 	}
 

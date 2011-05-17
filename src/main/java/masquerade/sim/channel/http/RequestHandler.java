@@ -3,6 +3,7 @@ package masquerade.sim.channel.http;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,7 +93,7 @@ class RequestHandler extends AbstractHandler {
 		Object requestContent = IOUtils.toString(request.getInputStream());
 		try {
 			response.setContentType(contentType);
-			processor.processRequest(HttpUtil.clientInfo(request), requestContent, response.getOutputStream());
+			processor.processRequest(HttpUtil.clientInfo(request), requestContent, response.getOutputStream(), new Date());
 		} catch (IOException e) {
 			throw e;
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ package masquerade.sim.channel.jms;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -67,6 +68,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		container.setDestinationName(destinationName);
 		container.setMessageListener(this);
 		container.setAutoStartup(true);
+		container.setConcurrentConsumers(Math.max(1, channel.getConcurrentConsumers()));
 		container.initialize();
 		container.start();
 	}
@@ -101,7 +103,12 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		// Read request
 		String text = txt.getText();
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
-		processRequest("jms:" + destinationName, text, responseOutput);
+		long timestamp = txt.getJMSTimestamp();
+		if (timestamp == 0) {
+			timestamp = System.currentTimeMillis();
+			log.trace("getJMSTimestamp() returns 0, using current system timestamp");
+		}
+		processRequest("jms:" + destinationName, text, responseOutput, new Date(timestamp));
 		
 		// Send response
 		if (responseOutput.size() > 0) {

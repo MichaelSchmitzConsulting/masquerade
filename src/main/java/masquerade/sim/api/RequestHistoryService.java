@@ -31,6 +31,7 @@ import org.apache.commons.io.IOUtils;
 public class RequestHistoryService extends HttpServlet {
 	
 	private static final String HEADER_REQUEST_TIMESTAMP = "X-Masquerade-RequestTimestamp";
+	private static final String HEADER_REQUEST_TIME = "X-Masquerade-RequestTime";
 	private static final String HEADER_CHANNEL_NAME = "X-Masquerade-ChannelName";
 	private static final String HEADER_CLIENT_INFO = "X-Masquerade-ClientInfo";
 	
@@ -71,6 +72,7 @@ public class RequestHistoryService extends HttpServlet {
 
 	private void setResponseHeaders(HttpServletResponse resp, HistoryEntry entry) {
 		resp.setHeader(HEADER_REQUEST_TIMESTAMP, DATE_FORMAT.get().format(entry.getTimestamp()));
+		resp.setHeader(HEADER_REQUEST_TIME, String.valueOf(entry.getTimestamp().getTime()));
 		resp.setHeader(HEADER_CHANNEL_NAME, entry.getChannelName());
 		resp.setHeader(HEADER_CLIENT_INFO, entry.getClientInfo());
 	}

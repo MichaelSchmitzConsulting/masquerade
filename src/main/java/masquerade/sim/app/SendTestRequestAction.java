@@ -1,6 +1,7 @@
 package masquerade.sim.app;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.model.Channel;
@@ -24,7 +25,7 @@ public final class SendTestRequestAction implements ActionListener<Channel, Stri
 				context.getConfigurationVariableHolder());
 		
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
-		runner.runSimulation(responseOutput, channel.getName(), "Request Test UI", channel.getRequestMappings(), content);
+		runner.runSimulation(responseOutput, channel.getName(), "Request Test UI", channel.getRequestMappings(), content, new Date());
 		String response = new String(responseOutput.toByteArray());
 		return response;
 	}

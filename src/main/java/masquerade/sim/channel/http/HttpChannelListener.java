@@ -2,6 +2,7 @@ package masquerade.sim.channel.http;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.AbstractChannelListener;
@@ -18,7 +19,7 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 
 	public void processRequest(String clientInfo, InputStream content, OutputStream servletOutputStream) throws Exception {
 		Document doc = DomUtil.parse(content);
-		processRequest(clientInfo, doc, servletOutputStream);
+		processRequest(clientInfo, doc, servletOutputStream, new Date());
 	}
 	
 	@Override

@@ -55,9 +55,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	}
 
 	@Override
-	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request) throws Exception {
-		Date timestamp = new Date();
-		
+	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request, Date requestTimestamp) throws Exception {
 		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		RequestContext requestContext = new RequestContextImpl(namespaceResolver, converter);
 		
@@ -69,7 +67,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 					Map<String, Object> initialContextVariables = configurationVariableHolder.getVariables();
 					SimulationContext context = new SimulationContextImpl(request, initialContextVariables , converter, fileLoader, namespaceResolver);
 					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
-					HistoryEntry entry = logRequest(timestamp, channelName, clientInfo, request, requestHistory, script, requestId);
+					HistoryEntry entry = logRequest(requestTimestamp, channelName, clientInfo, request, requestHistory, script, requestId);
 					
 					Object response = script.run(context);
 					marshalResponse(response, responseOutput);
@@ -81,7 +79,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 			}
 			
 			// No match found
-			requestHistory.logRequest(timestamp, channelName, "<no match>", clientInfo, null, converter.convert(request, String.class));
+			requestHistory.logRequest(requestTimestamp, channelName, "<no match>", clientInfo, null, converter.convert(request, String.class));
 		} finally {
 			requestHistory.endSession();
 		}

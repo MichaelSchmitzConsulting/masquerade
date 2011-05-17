@@ -5,6 +5,7 @@ import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 import masquerade.sim.model.impl.AbstractChannelListener;
 import masquerade.sim.model.impl.FileChannel;
@@ -54,7 +55,7 @@ public class FileChannelListener extends AbstractChannelListener<FileChannel> {
 			@Override public void processFile(File file) throws Exception {
 				String content = IOUtils.toString(new FileInputStream(file));
 				OutputStream devNull = new NullOutputStream(); // TODO: Response handling?
-				processRequest("FileChannel " + directory, content, devNull);
+				processRequest("FileChannel " + directory, content, devNull, new Date());
 			}
 		};
 	}

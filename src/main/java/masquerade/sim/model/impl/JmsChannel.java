@@ -15,6 +15,7 @@ public abstract class JmsChannel extends AbstractChannel {
 	private String destinationName = "";
 	private String responseDestinationName = "";
 	private boolean isTopic = false;
+	private int concurrentConsumers = 20;
 
 	public JmsChannel(String name) {
 		super(name);
@@ -64,6 +65,20 @@ public abstract class JmsChannel extends AbstractChannel {
 	 */
 	public void setResponseDestinationName(String responseDestinationName) {
 		this.responseDestinationName = responseDestinationName;
+	}
+
+	/**
+	 * @return the concurrentConsumers
+	 */
+	public int getConcurrentConsumers() {
+		return concurrentConsumers;
+	}
+
+	/**
+	 * @param concurrentConsumers the concurrentConsumers to set
+	 */
+	public void setConcurrentConsumers(int concurrentConsumers) {
+		this.concurrentConsumers = concurrentConsumers;
 	}
 
 	/**

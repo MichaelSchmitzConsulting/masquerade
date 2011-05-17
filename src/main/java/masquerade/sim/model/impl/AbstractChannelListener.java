@@ -1,6 +1,7 @@
 package masquerade.sim.model.impl;
 
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	}
 	
 	@Override
-	public void processRequest(String clientInfo,  Object request, OutputStream responseOutput) throws Exception {
-		simulationRunner.runSimulation(responseOutput, channelName, clientInfo, requestMappings, request);
+	public void processRequest(String clientInfo,  Object request, OutputStream responseOutput, Date requestTimestamp) throws Exception {
+		simulationRunner.runSimulation(responseOutput, channelName, clientInfo, requestMappings, request, requestTimestamp);
 	}
 }
