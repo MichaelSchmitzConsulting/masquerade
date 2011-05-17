@@ -113,7 +113,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			NamespaceResolver namespaceResolver = new ModelNamespaceResolver(modelRepositoryFactory);
 			
 			// Create configuration variable holder
-			ConfigurationVariableHolder configVariableHolder = new ConfigurationVariableHolder(); 
+			ConfigurationVariableHolder configVariableHolder = new ConfigurationVariableHolder(converter); 
 			
 			// Create simulation runner
 			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver, configVariableHolder);

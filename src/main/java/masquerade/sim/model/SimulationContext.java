@@ -58,16 +58,6 @@ public interface SimulationContext extends Converter, VariableHolder {
 	boolean hasVariable(String name);
 	
 	/**
-	 * Substitutes all variables known in this context. Leaves unknown variables as
-	 * they are (does not substitute them with the empty string). Variable values
-	 * are converted to String using a {@link Converter} (which falls back to {@link Object#toString()}
-	 * if no converter for the variable type is registered).
-	 * @param content Text to substitute variables in
-	 * @return Text with variables substituted
-	 */
-	String substituteVariables(String content);
-	
-	/**
 	 * @return A {@link NamespaceResolver} able to resolve all namespaces registered in the model.
 	 */
 	NamespaceResolver getNamespaceResolver();

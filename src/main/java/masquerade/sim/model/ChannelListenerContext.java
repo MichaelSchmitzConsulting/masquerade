@@ -1,5 +1,6 @@
 package masquerade.sim.model;
 
+
 /**
  * Context object for channel listeners, allowing to share information
  * between channel listeners.
