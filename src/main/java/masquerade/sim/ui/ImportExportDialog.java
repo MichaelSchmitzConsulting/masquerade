@@ -93,13 +93,15 @@ public class ImportExportDialog extends Window implements Upload.FailedListener,
 		layout.addComponent(new Label("<b>Upload simulation configuration</b>", Label.CONTENT_XHTML));
 		
 		// Upload field
-		Upload upload = new Upload("Upload", uploadHandler);
+		Upload upload = new Upload(null, uploadHandler);
 		upload.addListener((Upload.FailedListener) this);
 		upload.addListener((Upload.SucceededListener) this);
 		upload.addListener((Upload.ProgressListener) uploadHandler);
 		layout.addComponent(upload);
 		
-		replaceCheckbox = new CheckBox("Replace existing configuration");
+		// Replace existing checkbox
+		replaceCheckbox = new CheckBox(
+				"Replace existing configuration");
 		replaceCheckbox.setValue(IS_REPLACE_DEFAULT);
 		configListener.setReplaceExistingConfiguration(IS_REPLACE_DEFAULT);
 		replaceCheckbox.setImmediate(true);
@@ -111,6 +113,9 @@ public class ImportExportDialog extends Window implements Upload.FailedListener,
 			}
 		});
 		layout.addComponent(replaceCheckbox);
+		
+		// Upload comment label
+		layout.addComponent(new Label("Channels with conflicting names will be replaced in any case"));
 		
 		return layout;
 	}
