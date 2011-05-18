@@ -82,6 +82,7 @@ public class Main {
 	 * @param unpackDir Where the WAR has been exploded to
 	 */
 	private void runServer(ClassLoader serverRunnerLoader, File unpackDir) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException {
+		Thread.currentThread().setContextClassLoader(serverRunnerLoader);
 		Class<?> runner = serverRunnerLoader.loadClass("masquerade.sim.run.ServerRunner");
 		Method runServer = runner.getMethod("runServer", File.class, int.class);
 		System.out.println("Starting Masquerade Standalone on port " + port);

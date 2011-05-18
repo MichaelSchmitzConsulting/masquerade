@@ -151,7 +151,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 				repo.endSession();
 			}
 						
-			servletContext.log("Simulator started");
+			log.info("Simulator started");
 		} catch (IOException ex) {
 			close(modelDb);
 			close(historyDb);
