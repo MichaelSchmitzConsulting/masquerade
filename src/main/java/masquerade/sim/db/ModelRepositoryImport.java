@@ -19,19 +19,28 @@ public class ModelRepositoryImport implements ModelImport {
 	}
 
 	@Override
-	public void importModel(File file) {
+	public void importModel(File file, boolean isReplaceExisting) {
 		DatabaseLifecycle lifecycle = new DatabaseLifecycle();
 		
 		try {
+			// Load uploaded configuration
 			ObjectContainer db = lifecycle.start(file);
 			ObjectSet<Object> resultSet = db.query(Object.class);
-			importObjects(resultSet);
+			
+			// Successfully loaded - now import all objects in the new
+			// configuration into the model repository.
+			importObjects(resultSet, isReplaceExisting);
 		} finally {
 			lifecycle.stop();
 		}
 	}
 	
-	private void importObjects(Collection<Object> resultSet) {
+	private void importObjects(Collection<Object> resultSet, boolean isReplaceExisting) {
+		// Should the existing configuration be replaced?
+		if (isReplaceExisting) {
+			modelRepository.clear();
+		}
+		
 		for (Object obj : resultSet) {
 			modelRepository.notifyCreate(obj);
 		}

@@ -26,19 +26,10 @@ public class ModelUploadHandler implements UploadedContentHandler, ImportExportC
 	public void onContentUploaded(File file) {
 		ModelRepository modelRepository = modelRepositoryFactory.startModelRepositorySession();
 		try {
-			// Clear existing configuration if replace is chosen by the user
-			// TODO: Improve import by loading the uploaded database into a separate
-			// repository (with no channel actiations), and if that succeeds, clear
-			// the existing repo and replace its contents with the uploaded objects.
-			if (isReplaceExisting) {
-				log.info("Clearing existing simulation configuration before import with activated replace");
-				modelRepository.clear();
-			}
-			
 			// Import new configuration
 			log.info("Importing uploaded configuration...");
 			ModelImport importer = new ModelRepositoryImport(modelRepository);
-			importer.importModel(file);
+			importer.importModel(file, isReplaceExisting);
 			log.info("Import done");
 		} finally {
 			modelRepository.endSession();
