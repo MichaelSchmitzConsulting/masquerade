@@ -23,7 +23,7 @@ public class RequestHistoryContainerFactory implements ContainerFactory {
 
 	@Override
 	public Container createContainer() {
-		List<HistoryEntry> initialContent = requestHistory.getLatestRequests(100);
+		List<HistoryEntry> initialContent = requestHistory.getLatestRequests(10000);
 		BeanItemContainer<?> container = new BeanItemContainer<HistoryEntry>(HistoryEntry.class, initialContent);
 		return container;
 	}
