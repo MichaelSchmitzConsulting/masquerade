@@ -6,7 +6,10 @@ import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.StringUtil;
 import masquerade.sim.util.WindowUtil;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Upload;
@@ -21,20 +24,37 @@ import com.vaadin.ui.Window;
 public class ImportExportDialog extends Window implements Upload.FailedListener, Upload.SucceededListener {
 
 	private static final StatusLog log = StatusLogger.get(ImportExportDialog.class);
+	private static final boolean IS_REPLACE_DEFAULT = false;
+
+	/**
+	 * Listener for dialog clients to received configuration options
+	 * set by the user in the dialog.
+	 */
+	public interface ImportExportConfigListener {
+		/**
+		 * Flag signallying whether the existing simulation configuration should be 
+		 * replaced by the uploaded configuration, or if the two should be merged.
+		 * @param isReplaceExisting 
+		 */
+		void setReplaceExistingConfiguration(boolean isReplaceExisting);
+	}
 	
-	public static void showModal(Window parent, UploadHandler uploadHandler, DownloadHandler downloadHandler) {
-		ImportExportDialog dialog = new ImportExportDialog("Import/Export Simulation Configuration", uploadHandler, downloadHandler);
+	public static void showModal(Window parent, UploadHandler uploadHandler, DownloadHandler downloadHandler, ImportExportConfigListener configListener) {
+		ImportExportDialog dialog = new ImportExportDialog("Import/Export Simulation Configuration", uploadHandler, downloadHandler, configListener);
 		WindowUtil.getRoot(parent).addWindow(dialog);
 	}
 	
 	private UploadHandler uploadHandler;
 	private DownloadHandler downloadHandler;
+	private CheckBox replaceCheckbox;
+	private ImportExportConfigListener configListener;
 	
-	public ImportExportDialog(String caption, UploadHandler uploadHandler, DownloadHandler downloadHandler) {
+	public ImportExportDialog(String caption, UploadHandler uploadHandler, DownloadHandler downloadHandler, ImportExportConfigListener configListener) {
 		super(caption);
 		
 		this.uploadHandler = uploadHandler;
 		this.downloadHandler = downloadHandler;
+		this.configListener = configListener;
 		
 		setModal(true);
 		setWidth("500px");
@@ -70,7 +90,7 @@ public class ImportExportDialog extends Window implements Upload.FailedListener,
 		layout.addComponent(new Button("Download", new DownloadClickListener(getWindow(), downloadHandler)));
 		
 		// Label
-		layout.addComponent(new Label("<b>Replace simulation configuration</b>", Label.CONTENT_XHTML));
+		layout.addComponent(new Label("<b>Upload simulation configuration</b>", Label.CONTENT_XHTML));
 		
 		// Upload field
 		Upload upload = new Upload("Upload", uploadHandler);
@@ -78,6 +98,19 @@ public class ImportExportDialog extends Window implements Upload.FailedListener,
 		upload.addListener((Upload.SucceededListener) this);
 		upload.addListener((Upload.ProgressListener) uploadHandler);
 		layout.addComponent(upload);
+		
+		replaceCheckbox = new CheckBox("Replace existing configuration");
+		replaceCheckbox.setValue(IS_REPLACE_DEFAULT);
+		configListener.setReplaceExistingConfiguration(IS_REPLACE_DEFAULT);
+		replaceCheckbox.setImmediate(true);
+		replaceCheckbox.addListener(new ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				boolean value = (Boolean) event.getProperty().getValue();
+				configListener.setReplaceExistingConfiguration(value);
+			}
+		});
+		layout.addComponent(replaceCheckbox);
 		
 		return layout;
 	}

@@ -3,7 +3,6 @@ package masquerade.sim.app;
 import masquerade.sim.ApplicationContext;
 import masquerade.sim.ApplicationLifecycle;
 import masquerade.sim.SettingsChangeListener;
-import masquerade.sim.app.UploadHandler.UploadedContentHandler;
 import masquerade.sim.db.ModelDownloadHandler;
 import masquerade.sim.db.ModelExport;
 import masquerade.sim.db.ModelRepository;
@@ -42,7 +41,7 @@ public class MasqueradeApplication extends Application {
     	Resource logo = new ExternalResource(imgUrl);
 		
     	// Simulation configuration upload handler
-    	UploadedContentHandler modelUploadHandler = new ModelUploadHandler(context.getModelRepositoryFactory());
+    	ModelUploadHandler modelUploadHandler = new ModelUploadHandler(context.getModelRepositoryFactory());
     	UploadHandler uploadHandler = new UploadHandlerImpl(modelUploadHandler, MAX_UPLOAD_SIZE);
     	
     	// Simulation configuration download handler
@@ -53,7 +52,7 @@ public class MasqueradeApplication extends Application {
 		Window mainWindow = new Window("Masquerade Simulator");
 		SettingsChangeListener settingsChangeListener = context.getSettingsChangeListener();
 		mainWindow.setContent(new MainLayout(logo, modelRepository, requestHistory, context.getArtifactRoot(), new SendTestRequestAction(context),
-				settingsChangeListener, baseUrl, uploadHandler, downloadHandler));
+				settingsChangeListener, baseUrl, uploadHandler, downloadHandler, modelUploadHandler));
 		setMainWindow(mainWindow);
 	}
 

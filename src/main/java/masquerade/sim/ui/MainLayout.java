@@ -35,6 +35,7 @@ import masquerade.sim.model.Script;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.status.StatusLogger;
+import masquerade.sim.ui.ImportExportDialog.ImportExportConfigListener;
 import masquerade.sim.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.WindowUtil;
 
@@ -83,7 +84,7 @@ public class MainLayout extends VerticalLayout {
 
 	public MainLayout(Resource logo, final ModelRepository modelRepository, RequestHistory requestHistory, File artifactRoot,
 			ActionListener<Channel, String, Object> sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl,
-			final UploadHandler modelUploadHandler, final DownloadHandler downloadHandler) {
+			final UploadHandler modelUploadHandler, final DownloadHandler downloadHandler, final ImportExportConfigListener importExportConfigListener) {
 		
 		setSizeFull();
 		setMargin(true);
@@ -105,7 +106,7 @@ public class MainLayout extends VerticalLayout {
 		importExportButton.addListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				showImportExportDialog(modelRepository, modelUploadHandler, downloadHandler);
+				showImportExportDialog(modelRepository, modelUploadHandler, downloadHandler, importExportConfigListener);
 			}
 		});
 		header.addComponent(importExportButton);
@@ -129,8 +130,8 @@ public class MainLayout extends VerticalLayout {
 		setExpandRatio(tabSheet, 1.0f);
 	}
 
-	private void showImportExportDialog(ModelRepository modelRepository, UploadHandler uploadHandler, DownloadHandler downloadHandler) {
-		ImportExportDialog.showModal(getWindow(), uploadHandler, downloadHandler);
+	private void showImportExportDialog(ModelRepository modelRepository, UploadHandler uploadHandler, DownloadHandler downloadHandler, ImportExportConfigListener importExportConfigListener) {
+		ImportExportDialog.showModal(getWindow(), uploadHandler, downloadHandler, importExportConfigListener);
 	}
 
 	private static Button createImageLink(String caption, String description, Resource icon) {
