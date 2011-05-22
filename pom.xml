@@ -176,7 +176,7 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 	<dependencies>
 		<!-- Vaadin -->
 		<dependency>
@@ -268,7 +268,14 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>7.4.0.v20110414</version>
 		</dependency>
-		<!-- Servlet API for use with Jetty standalone-->
+		<!-- Apache Felix OSGi -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<!-- Servlet API for use with Jetty standalone -->
+		<!-- TODO: Cleanup, this shouldn't be included in the non-standanlone WARs classpath -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
