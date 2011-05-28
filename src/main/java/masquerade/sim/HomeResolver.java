@@ -32,7 +32,7 @@ public class HomeResolver {
 			dir = new File(artifactDir);
 		}
 		FileUtils.forceMkdir(dir);
-		return dir;
+		return dir.getAbsoluteFile();
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class HomeResolver {
 		
 		File home = getMasqueradeHome(servletContext);
 		File dbFile = new File(home, dbFileBase + "-db.db4o");
-		return dbFile;
+		return dbFile.getAbsoluteFile();
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class HomeResolver {
 			}
 		}
 		
-		return workDir;
+		return workDir.getAbsoluteFile();
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class HomeResolver {
 			dir = requestLog;
 		}
 		FileUtils.forceMkdir(dir);
-		return dir;
+		return dir.getAbsoluteFile();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class HomeResolver {
 	 */
 	private static File getWorkSubDir(ServletContext servletContext, String name) {
 		File workDir = getMasqueradeHome(servletContext);
-		return new File(workDir, name);
+		return new File(workDir, name).getAbsoluteFile();
 	}
 
 	/**
