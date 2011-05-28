@@ -1,7 +1,9 @@
 package masquerade.sim.db;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,7 +13,7 @@ import java.util.UUID;
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -37,14 +39,6 @@ public class RequestHistoryImpl implements RequestHistory {
 	};
 	
 	public RequestHistoryImpl(ObjectContainer db, File requestLogDir) {
-		if (!requestLogDir.exists()) {
-			try {
-				FileUtils.forceMkdir(requestLogDir);
-			} catch (IOException e) {
-				throw new IllegalArgumentException("Cannot create log directory at " + requestLogDir.getName(), e);
-			}
-		}
-		
 		this.dbSession = db;
 		this.requestLogDir = requestLogDir;
 	}
@@ -67,7 +61,7 @@ public class RequestHistoryImpl implements RequestHistory {
 	public void addResponse(String responseData, long processingPeriodMs, HistoryEntry entry) {
 		File file = new File(requestLogDir, entry.getFileName() + HistoryEntry.RESPONSE_FILE_SUFFIX);
 		try {
-			FileUtils.writeStringToFile(file, responseData);
+			writeToFile(file, responseData);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Cannot write response data to file " + file.getAbsolutePath(), e);
 		}
@@ -156,11 +150,20 @@ public class RequestHistoryImpl implements RequestHistory {
 		
 		File file = new File(requestLogDir, fileName + HistoryEntry.REQUEST_FILE_SUFFIX);
 		try {
-			FileUtils.writeStringToFile(file, requestData);
+			writeToFile(file, requestData);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Cannot write request data to file", e);
 		}
 		
 		return fileName;
+	}
+
+	private void writeToFile(File file, String requestData) throws IOException {
+		OutputStream out = new FileOutputStream(file);
+		try {
+			IOUtils.write(requestData, out);
+		} finally {
+			IOUtils.closeQuietly(out);
+		}
 	}
 }
