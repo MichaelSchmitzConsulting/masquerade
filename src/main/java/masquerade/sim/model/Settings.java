@@ -10,15 +10,24 @@ public class Settings {
 	private int requestLogCountLimit = 100;
 	private int requestHistoryCleanupSleepPeriodMinutes = 5;
 	private String configurationProperties = "";
+	private boolean persistRequestHistoryAcrossRestarts = false;
 	
-	public static Settings NO_SETTINGS = new Settings();
+	public final static Settings NO_SETTINGS = new Settings();
 	static {
 		NO_SETTINGS.statusLogEntryCountLimit = Integer.MIN_VALUE;
 		NO_SETTINGS.requestLogCountLimit = Integer.MIN_VALUE;
 		NO_SETTINGS.requestHistoryCleanupSleepPeriodMinutes = Integer.MIN_VALUE;
 		NO_SETTINGS.configurationProperties = "";
+		NO_SETTINGS.persistRequestHistoryAcrossRestarts = false;
 	}
 	
+	public boolean isPersistRequestHistoryAcrossRestarts() {
+		return persistRequestHistoryAcrossRestarts;
+	}
+	public void setPersistRequestHistoryAcrossRestarts(
+			boolean persistRequestHistoryAcrossRestarts) {
+		this.persistRequestHistoryAcrossRestarts = persistRequestHistoryAcrossRestarts;
+	}
 	/**
 	 * @return the requestLogCountLimit
 	 */
@@ -78,13 +87,18 @@ public class Settings {
 		copy.requestLogCountLimit = this.requestLogCountLimit;
 		copy.statusLogEntryCountLimit = this.statusLogEntryCountLimit;
 		copy.configurationProperties = this.configurationProperties;
+		copy.persistRequestHistoryAcrossRestarts = this.persistRequestHistoryAcrossRestarts;
 		
 		return copy;
 	}
-	
 	@Override
 	public String toString() {
-		return "Settings [requestLogCountLimit=" + requestLogCountLimit + ", statusLogEntryCountLimit=" + statusLogEntryCountLimit
-				+ ", requestHistoryCleanupSleepPeriodMinutes=" + requestHistoryCleanupSleepPeriodMinutes + ", configurationProperties=" + configurationProperties + "]";
-	}
+		return "Settings [statusLogEntryCountLimit=" + statusLogEntryCountLimit
+				+ ", requestLogCountLimit=" + requestLogCountLimit
+				+ ", requestHistoryCleanupSleepPeriodMinutes="
+				+ requestHistoryCleanupSleepPeriodMinutes
+				+ ", configurationProperties=" + configurationProperties
+				+ ", persistRequestHistoryAcrossRestarts="
+				+ persistRequestHistoryAcrossRestarts + "]";
+	}	
 }

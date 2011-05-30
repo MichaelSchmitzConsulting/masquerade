@@ -9,12 +9,18 @@ import com.db4o.ObjectContainer;
 
 public class RequestHistorySessionFactory implements RequestHistoryFactory {
 
-	private ObjectContainer db;
-	private File requestLogDir;
+	private volatile boolean usePersistantStorage;
+	private final ObjectContainer db;
+	private final File requestLogDir;
 
-	public RequestHistorySessionFactory(ObjectContainer db, File requestLogDir) {
+	public RequestHistorySessionFactory(boolean usePersistantStorage, ObjectContainer db, File requestLogDir) {
+		this.usePersistantStorage = usePersistantStorage;
 		this.db = db;
 		this.requestLogDir = requestLogDir;
+	}
+
+	public void setUsePersistantStorage(boolean usePersistantStorage) {
+		this.usePersistantStorage = usePersistantStorage;
 	}
 
 	/**
@@ -22,7 +28,14 @@ public class RequestHistorySessionFactory implements RequestHistoryFactory {
 	 */
 	@Override
 	public RequestHistory startRequestHistorySession() {
-		ObjectContainer session = db.ext().openSession();
-		return new RequestHistoryImpl(session, requestLogDir);
+		RequestHistoryStorage storage;
+		if (usePersistantStorage) {
+			ObjectContainer session = db.ext().openSession();
+			storage = new PersistentRequestHistoryStorage(session);
+		} else {
+			storage = new InMemoryRequestHistoryStorage();
+		}
+		
+		return new RequestHistoryImpl(storage, requestLogDir);
 	}
 }

@@ -1,6 +1,7 @@
 package masquerade.sim;
 
 import masquerade.sim.db.RequestHistoryCleanupJob;
+import masquerade.sim.db.RequestHistorySessionFactory;
 import masquerade.sim.model.Settings;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
@@ -14,16 +15,18 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 	private static final StatusLog log = StatusLogger.get(AppSettingsChangeListener.class);
 	private static final long MINUTE = 60 * 1000;
 	
-	private RequestHistoryCleanupJob requestHistoryCleanupJob;
-	private ConfigurationVariableHolder configVariableHolder;
+	private final RequestHistoryCleanupJob requestHistoryCleanupJob;
+	private final ConfigurationVariableHolder configVariableHolder;
+	private final RequestHistorySessionFactory requestHistoryFactory;
 	
 	/**
 	 * @param requestHistoryCleanupJob
 	 * @param configVariableHolder 
 	 */
-	public AppSettingsChangeListener(RequestHistoryCleanupJob requestHistoryCleanupJob, ConfigurationVariableHolder configVariableHolder) {
+	public AppSettingsChangeListener(RequestHistoryCleanupJob requestHistoryCleanupJob, ConfigurationVariableHolder configVariableHolder, RequestHistorySessionFactory requestHistoryFactory) {
 		this.requestHistoryCleanupJob = requestHistoryCleanupJob;
 		this.configVariableHolder = configVariableHolder;
+		this.requestHistoryFactory = requestHistoryFactory;
 	}
 
 	@Override
@@ -31,6 +34,13 @@ public class AppSettingsChangeListener implements SettingsChangeListener {
 		requestHistoryCleanupSettings(oldSettings, newSettings);
 		statusLogSettings(oldSettings, newSettings);
 		configurationPropertiesSettings(oldSettings, newSettings);
+		requestHistorySettings(oldSettings, newSettings);
+	}
+
+	private void requestHistorySettings(Settings oldSettings, Settings newSettings) {
+		boolean now = newSettings.isPersistRequestHistoryAcrossRestarts();
+		requestHistoryFactory.setUsePersistantStorage(now);
+		log.trace("Request history persistence set to " + now);
 	}
 
 	private void statusLogSettings(Settings oldSettings, Settings newSettings) {

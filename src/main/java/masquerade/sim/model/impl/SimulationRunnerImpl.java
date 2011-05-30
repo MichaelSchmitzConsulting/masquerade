@@ -57,8 +57,8 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	@Override
 	public void runSimulation(OutputStream responseOutput, String channelName, String clientInfo, Collection<RequestMapping<?>> requestMappings, Object request, Date requestTimestamp) throws Exception {
 		Date receiveTimestamp = new Date();
-		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		RequestContext requestContext = new RequestContextImpl(namespaceResolver, converter);
+		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {

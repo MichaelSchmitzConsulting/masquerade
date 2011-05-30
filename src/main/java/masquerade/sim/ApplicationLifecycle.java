@@ -22,7 +22,6 @@ import masquerade.sim.db.ModelRepositoryFactory;
 import masquerade.sim.db.ModelRepositorySessionFactory;
 import masquerade.sim.db.RequestHistoryCleanupJob;
 import masquerade.sim.db.RequestHistorySessionFactory;
-import masquerade.sim.history.RequestHistoryFactory;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.NamespaceResolver;
@@ -95,10 +94,7 @@ public class ApplicationLifecycle implements ServletContextListener {
 			
 			File requestLogDir = getRequestLogDir(servletContext);
 			log.info("Request log dir: " + requestLogDir.getAbsolutePath());
-			
-			// Create request history factory
-			RequestHistoryFactory requestHistoryFactory = new RequestHistorySessionFactory(historyDb, requestLogDir);
-			
+						
 			// Create converter
 			Converter converter = new CompoundConverter();
 			
@@ -115,24 +111,27 @@ public class ApplicationLifecycle implements ServletContextListener {
 			// Create configuration variable holder
 			ConfigurationVariableHolder configVariableHolder = new ConfigurationVariableHolder(converter); 
 			
-			// Create simulation runner
-			SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver, configVariableHolder);
-			
-			// Create channel listener registry
-			ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner, configVariableHolder);
-			
-			// Add channel change trigger
-			registerChannelChangeTrigger(modelDb, listenerRegistry);
-			
 			ModelRepository repo = modelRepositoryFactory.startModelRepositorySession();
 			try {
 				Settings settings = repo.getSettings();
+
+				// Create request history factory
+				RequestHistorySessionFactory requestHistoryFactory = new RequestHistorySessionFactory(settings.isPersistRequestHistoryAcrossRestarts(), historyDb, requestLogDir);
+
+				// Create simulation runner
+				SimulationRunner simulationRunner = new SimulationRunnerImpl(requestHistoryFactory, converter, fileLoader, namespaceResolver, configVariableHolder);
 				
+				// Create channel listener registry
+				ChannelListenerRegistry listenerRegistry = new ChannelListenerRegistryImpl(simulationRunner, configVariableHolder);
+				
+				// Add channel change trigger
+				registerChannelChangeTrigger(modelDb, listenerRegistry);
+
 				// Create history cleanup job
 				RequestHistoryCleanupJob cleanupJob = new RequestHistoryCleanupJob(requestHistoryFactory);
 				
 				// Create settings change listener, apply settings
-				SettingsChangeListener settingsChangeListener = new AppSettingsChangeListener(cleanupJob, configVariableHolder);
+				SettingsChangeListener settingsChangeListener = new AppSettingsChangeListener(cleanupJob, configVariableHolder, requestHistoryFactory);
 				settingsChangeListener.settingsChanged(Settings.NO_SETTINGS, settings);
 				
 				// Create application context

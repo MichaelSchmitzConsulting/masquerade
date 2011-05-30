@@ -4,22 +4,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import masquerade.sim.history.HistoryEntry;
 import masquerade.sim.history.RequestHistory;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.IOUtils;
-
-import com.db4o.ObjectContainer;
-import com.db4o.ObjectSet;
-import com.db4o.query.Predicate;
-import com.db4o.query.Query;
-import com.db4o.query.QueryComparator;
 
 /**
  * Implementation of {@link RequestHistory} providing access to the
@@ -27,19 +21,14 @@ import com.db4o.query.QueryComparator;
  */
 public class RequestHistoryImpl implements RequestHistory {
 
+	private static StatusLog log = StatusLogger.get(RequestHistoryImpl.class);
+
 	private volatile boolean isActive = true;
-	private ObjectContainer dbSession;
+	private RequestHistoryStorage storage;
 	private File requestLogDir;
-	
-	private QueryComparator<HistoryEntry> latestRequestsComparator = new QueryComparator<HistoryEntry>() {
-		@Override public int compare(HistoryEntry first, HistoryEntry second) {
-			long diff = second.getRequestTime() - first.getRequestTime();
-			return (int) diff;
-		}
-	};
-	
-	public RequestHistoryImpl(ObjectContainer db, File requestLogDir) {
-		this.dbSession = db;
+		
+	public RequestHistoryImpl(RequestHistoryStorage storage, File requestLogDir) {
+		this.storage = storage;
 		this.requestLogDir = requestLogDir;
 	}
 	
@@ -49,8 +38,7 @@ public class RequestHistoryImpl implements RequestHistory {
 		if (isActive) {
 			String fileName = saveRequestToFile(requestData);
 			HistoryEntry entry = new HistoryEntry(requestTimestamp, receiveTimestamp, channelName, simulationName, clientInfo, requestId, fileName, requestLogDir.getAbsolutePath());
-			dbSession.store(entry);
-			dbSession.commit();
+			storage.newEntry(entry);
 			return entry;
 		} else {
 			return null;
@@ -59,45 +47,28 @@ public class RequestHistoryImpl implements RequestHistory {
 	
 	@Override
 	public void addResponse(String responseData, long processingPeriodMs, HistoryEntry entry) {
-		File file = new File(requestLogDir, entry.getFileName() + HistoryEntry.RESPONSE_FILE_SUFFIX);
-		try {
-			writeToFile(file, responseData);
-		} catch (IOException e) {
-			throw new IllegalArgumentException("Cannot write response data to file " + file.getAbsolutePath(), e);
+		if (isActive) {
+			File file = new File(requestLogDir, entry.getFileName() + HistoryEntry.RESPONSE_FILE_SUFFIX);
+			try {
+				writeToFile(file, responseData);
+			} catch (IOException e) {
+				throw new IllegalArgumentException("Cannot write response data to file " + file.getAbsolutePath(), e);
+			}
+			entry.setProcessingPeriod(processingPeriodMs);
+			storage.updateEntry(entry);
+		} else {
+			log.error("addResponse called on closed request history object");
 		}
-		entry.setProcessingPeriod(processingPeriodMs);
-		dbSession.store(entry);
-		dbSession.commit();
 	}
 
 	@Override
 	public void clear() {
-		ObjectSet<HistoryEntry> result = dbSession.query(HistoryEntry.class);
-		for (HistoryEntry entry : result) {
-			dbSession.delete(entry);
-			entry.deleteLogFiles();
-		}
-		dbSession.commit();
+		storage.clear();
 	}
 
 	@Override
-	public List<HistoryEntry> getLatestRequests(final int maxAmount) {
-		Query query = dbSession.query();
-		query.constrain(HistoryEntry.class);
-		query.sortBy(latestRequestsComparator);
-		
-		ObjectSet<HistoryEntry> all = query.execute();
-		List<HistoryEntry> ret = new ArrayList<HistoryEntry>(maxAmount);
-		
-		int curAmount = 0;
-		for (HistoryEntry historyEntry : all) {
-			if (curAmount++ > maxAmount) {
-				break;
-			}
-			ret.add(historyEntry);
-		}
-		
-		return ret;
+	public List<HistoryEntry> getLatestRequests(int maxAmount) {
+		return storage.getLatestRequests(maxAmount);
 	}
 
 	@Override
@@ -106,42 +77,17 @@ public class RequestHistoryImpl implements RequestHistory {
 			return null;
 		}
 		
-		ObjectSet<HistoryEntry> result = dbSession.query(new Predicate<HistoryEntry>() {
-			@Override public boolean match(HistoryEntry entry) {
-				return requestId.equals(entry.getRequestId());
-			}
-		});
-		
-		Iterator<HistoryEntry> it = result.iterator();
-		return it.hasNext() ? it.next() : null;
+		return storage.getRequestById(requestId);
 	}
 
 	@Override
 	public void cleanOldRequests(int requestsToKeep) {
-		Query query = dbSession.query();
-		query.constrain(HistoryEntry.class);
-		query.sortBy(latestRequestsComparator);
-		
-		ObjectSet<HistoryEntry> objSet = query.execute();
-		ArrayList<HistoryEntry> all = new ArrayList<HistoryEntry>(objSet);
-		int size = all.size();
-		int toDelete = size - requestsToKeep;
-		if (toDelete > 0) {
-			List<HistoryEntry> removeEntries = all.subList(requestsToKeep, size);
-			int i = 0;
-			for (HistoryEntry entry : removeEntries) {
-				dbSession.delete(entry);
-				i++;
-				if (i % 100 == 0) {
-					dbSession.commit();
-				}
-			}
-			dbSession.commit();
-		}
+		storage.cleanOldRequests(requestsToKeep);
 	}
 
 	@Override
 	public void endSession() {
+		storage.endSession();
 		isActive = false;
 	}
 
