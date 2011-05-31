@@ -6,6 +6,10 @@ import java.util.List;
 
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
+
+import org.springframework.util.StopWatch;
 
 /**
  * A response simulation script executing one step after each other 
@@ -13,6 +17,7 @@ import masquerade.sim.model.SimulationStep;
 public class SequenceScript extends AbstractScript {
 
 	private List<SimulationStep> simulationSteps;
+	private final static StatusLog log = StatusLogger.get(SequenceScript.class);
 
 	public SequenceScript(String name) {
 		super(name);
@@ -21,9 +26,13 @@ public class SequenceScript extends AbstractScript {
 	
 	@Override
 	public Object run(SimulationContext context) throws Exception {
+		StopWatch watch = new StopWatch("Steps");
 		for (SimulationStep step : simulationSteps) {
+			watch.start("Step: " + step.getName() + " of type " + step.getClass().getName());
 			step.execute(context);
+			watch.stop();
 		}
+		log.trace(watch.prettyPrint());
 		
 		return context.getContent(Object.class);
 	}
