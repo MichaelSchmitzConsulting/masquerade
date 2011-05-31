@@ -22,6 +22,7 @@ import masquerade.sim.status.StatusLogger;
 
 import org.springframework.jms.listener.SessionAwareMessageListener;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
+import org.springframework.util.StopWatch;
 
 /**
  * A {@link ChannelListener} receiving requests on JMS queues or topics.
@@ -101,6 +102,9 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 
 	private void onMessageInternal(TextMessage txt, Session session) throws JMSException, Exception {
 		// Read request
+		StopWatch watch = new StopWatch();
+		
+		watch.start("Read Request");
 		String text = txt.getText();
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		long timestamp = txt.getJMSTimestamp();
@@ -108,15 +112,22 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			timestamp = System.currentTimeMillis();
 			log.trace("getJMSTimestamp() returns 0, using current system timestamp");
 		}
+		watch.stop();
+		
+		watch.start("Process Request");
 		processRequest("jms:" + destinationName, text, responseOutput, new Date(timestamp));
+		watch.stop();
 		
 		// Send response
+		watch.start("Send Response");
 		if (responseOutput.size() > 0) {
 			String correlationId = txt.getJMSCorrelationID();
 			String response = new String(responseOutput.toByteArray());
 
 			sendReply(correlationId, response, session, txt.getJMSReplyTo());
 		}
+		watch.stop();
+		log.trace(watch.prettyPrint());
 	}
 
 	private void sendReply(String correlationId, String response, Session session, Destination messageReplyDestination) throws JMSException {
