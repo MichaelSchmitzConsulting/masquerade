@@ -24,6 +24,7 @@ import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.util.StopWatch;
 
 /**
  * Default implementation of {@link SimulationRunner}. Applies a {@link RequestMapping} to an incoming request,
@@ -60,20 +61,40 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		RequestContext requestContext = new RequestContextImpl(namespaceResolver, converter);
 		RequestHistory requestHistory = requestHistoryFactory.startRequestHistorySession();
 		
+		StopWatch watch = new StopWatch("SimulationRunner");
+		watch.start("Match request");
 		try {
 			for (RequestMapping<?> mapping : requestMappings) {
 				if (matches(request, requestContext, mapping)) {
 					Script script = mapping.getScript();
+					watch.stop();
 					
+					watch.start("Create context");
 					Map<String, Object> initialContextVariables = configurationVariableHolder.getVariables();
 					SimulationContext context = new SimulationContextImpl(request, initialContextVariables , converter, fileLoader, namespaceResolver);
+					watch.stop();
+					
+					watch.start("Get request ID");
 					String requestId = getRequestId(script.getRequestIdProvider(), request, requestContext);
+					watch.stop();
+					
+					watch.start("Log request");
 					HistoryEntry entry = logRequest(requestTimestamp, receiveTimestamp, channelName, clientInfo, request, requestHistory, script, requestId);
+					watch.stop();
 					
+					watch.start("Run script");
 					Object response = script.run(context);
-					marshalResponse(response, responseOutput);
+					watch.stop();
 					
+					watch.start("Marshal response");
+					marshalResponse(response, responseOutput);
+					watch.stop();
+					
+					watch.start("Log response");
 					logResponse(requestHistory, entry, response, receiveTimestamp);
+					watch.stop();
+					
+					log.trace(watch.prettyPrint());
 					
 					return;
 				}
