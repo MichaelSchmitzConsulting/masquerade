@@ -2,9 +2,13 @@ package masquerade.sim.model.impl.step;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.util.ThreadLocalCache;
 import masquerade.sim.util.XPathUtil;
 
 import org.w3c.dom.Document;
@@ -18,6 +22,8 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 	private String namespaceURI = "http://example.com/ns";
 	private String newQualifiedName = "ns:newName";
 	private String selectNodeXpath = "/";
+	
+	private transient volatile ThreadLocalCache<XPathExpression> xpathCache;
 
 	public RenameXmlNodeStep(String name) {
 		super(name);
@@ -73,8 +79,8 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		String uri = context.substituteVariables(namespaceURI);
 		String qname = context.substituteVariables(newQualifiedName);
 		
-		XPath xpath = XPathUtil.createXPath(context.getNamespaceResolver());
-		Node node = (Node) xpath.evaluate(xpathExpr, xml, XPathConstants.NODE);
+		XPathExpression xpath = getXpath(xpathExpr, context.getNamespaceResolver());
+		Node node = (Node) xpath.evaluate(xml, XPathConstants.NODE);
 		
 		// Document root selected? Change selection to root element
 		if (node instanceof Document) {
@@ -84,8 +90,27 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		xml.renameNode(node, uri, qname);
 	}
 
+	private XPathExpression getXpath(String xpathExpr, NamespaceResolver namespaceResolver) throws XPathExpressionException {
+		XPathExpression expr = xpathCache.get();
+		if (expr == null) {
+			XPath xpath = XPathUtil.createXPath(namespaceResolver);
+			expr = xpath.compile(xpathExpr);
+			xpathCache().put(expr);
+		}
+		return expr;
+	}
+
 	@Override
 	public String toString() {
 		return "Rename node to " + newQualifiedName;
+	}
+	
+	private ThreadLocalCache<XPathExpression> xpathCache() {
+		ThreadLocalCache<XPathExpression> cache = xpathCache;
+		if (cache == null) {
+			cache = new ThreadLocalCache<XPathExpression>();
+			xpathCache = cache;
+		}
+		return cache;
 	}
 }
