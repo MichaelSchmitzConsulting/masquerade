@@ -67,4 +67,19 @@ public class StatusLogger implements StatusLog {
 		repo.addStatus(name, msg, ex, Severity.ERROR);
 		delegate.log(Level.SEVERE, msg, ex);
 	}
+
+	@Override
+	public boolean isTraceEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean isInfoEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean isWarningEnabled() {
+		return true;
+	}
 }
