@@ -5,8 +5,10 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.RequestContext;
 import masquerade.sim.model.Script;
+import masquerade.sim.util.ThreadLocalCache;
 import masquerade.sim.util.XPathUtil;
 
 import org.w3c.dom.Document;
@@ -16,7 +18,8 @@ import org.w3c.dom.Document;
  */
 public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 
-	private String xpath = "";
+	private volatile String xpath = "";
+	private transient volatile ThreadLocalCache<XPathExpression> xpathCache;
 
 	public XPathRequestMapping(String name) {
 		super(name, null, Document.class);
@@ -27,10 +30,13 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 	 */
 	@Override
 	public boolean matches(Document request, RequestContext requestContext) {
-		XPath xpath = XPathUtil.createXPath(requestContext.getNamespaceResolver());
+		XPathExpression xpath = xpathCache().get();
 		try {
-			XPathExpression expr = xpath.compile(this.xpath);
-			return (Boolean) expr.evaluate(request, XPathConstants.BOOLEAN);
+			if (xpath == null) {
+				xpath = createXPath(requestContext.getNamespaceResolver()); // TODO: Get from somewhere else but the request scope
+				xpathCache().put(xpath);
+			}
+			return (Boolean) xpath.evaluate(request, XPathConstants.BOOLEAN);
 		} catch (XPathExpressionException e) {
 			throw new IllegalArgumentException("Failed to evaluate XPath on request", e);
 		}
@@ -42,6 +48,7 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 
 	public void setMatchXpath(String xpath) {
 		this.xpath = xpath;
+		xpathCache().clear();
 	}
 
 	@Override
@@ -49,5 +56,17 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 		Script script = getScript();
 		String name = script == null ? "<n/a>" : script.getName();
 		return "XPathRequestMapping > " + name;
+	}
+	
+	private XPathExpression createXPath(NamespaceResolver namespaceResolver) throws XPathExpressionException {
+		XPath xpath = XPathUtil.createXPath(namespaceResolver);
+		return xpath.compile(this.xpath);
+	}
+	
+	private ThreadLocalCache<XPathExpression> xpathCache() {
+		if (xpathCache == null) {
+			xpathCache = new ThreadLocalCache<XPathExpression>();
+		}
+		return xpathCache;
 	}
 }

@@ -5,7 +5,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.RequestContext;
+import masquerade.sim.util.ThreadLocalCache;
 import masquerade.sim.util.XPathUtil;
 
 import org.w3c.dom.Document;
@@ -15,7 +17,9 @@ import org.w3c.dom.Document;
  */
 public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> {
 
-	private String xpath = "";
+	private volatile String xpath = "";
+	
+	private transient volatile ThreadLocalCache<XPathExpression> xpathCache;
 	
 	public XPathRequestIdProvider(String name) {
 		super(name);
@@ -33,6 +37,7 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
      */
     public void setXpath(String xpath) {
     	this.xpath = xpath;
+    	xpathCache().clear();
     }
 
     @Override
@@ -46,10 +51,13 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
      */
 	@Override
     public String getUniqueId(Document request, RequestContext context) {
-		XPath xpath = XPathUtil.createXPath(context.getNamespaceResolver());
+		XPathExpression xpath = xpathCache().get();
 		try {
-			XPathExpression expr = xpath.compile(this.xpath);
-			return (String) expr.evaluate(request, XPathConstants.STRING);
+			if (xpath == null) {
+				xpath = createXPath(context.getNamespaceResolver());
+				xpathCache().put(xpath);
+			}
+			return (String) xpath.evaluate(request, XPathConstants.STRING);
 		} catch (XPathExpressionException e) {
 			throw new IllegalArgumentException("Failed to evaluate XPath on request", e);
 		}
@@ -59,4 +67,17 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
     public String toString() {
 	    return "XPathRequestIdProvider " + xpath;
     }	
+	
+	private XPathExpression createXPath(NamespaceResolver namespaceResolver) throws XPathExpressionException {
+		XPath xpath = XPathUtil.createXPath(namespaceResolver);
+		XPathExpression expr = xpath.compile(this.xpath);
+		return expr;
+	}
+	
+	private ThreadLocalCache<XPathExpression> xpathCache() {
+		if (xpathCache == null) {
+			xpathCache = new ThreadLocalCache<XPathExpression>();
+		}
+		return xpathCache;
+	}
 }

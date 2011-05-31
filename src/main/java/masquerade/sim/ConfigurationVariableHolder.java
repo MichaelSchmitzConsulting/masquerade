@@ -24,7 +24,7 @@ public class ConfigurationVariableHolder implements VariableHolder {
 
 	private volatile Map<String, Object> vars = Collections.emptyMap();
 
-	private Converter converter;
+	private final Converter converter;
 	
 	/**
 	 * @param converter
