@@ -91,7 +91,7 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 	}
 
 	private XPathExpression getXpath(String xpathExpr, NamespaceResolver namespaceResolver) throws XPathExpressionException {
-		XPathExpression expr = xpathCache.get();
+		XPathExpression expr = xpathCache().get();
 		if (expr == null) {
 			XPath xpath = XPathUtil.createXPath(namespaceResolver);
 			expr = xpath.compile(xpathExpr);
@@ -105,6 +105,12 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		return "Rename node to " + newQualifiedName;
 	}
 	
+	/**
+	 * Use this accessor to access the xpath cache, the transient field will be null
+	 * if this object is instantiated from persistant state.
+	 * 
+	 * @return Per-thread cache for {@link XPathExpression}. 
+	 */
 	private ThreadLocalCache<XPathExpression> xpathCache() {
 		ThreadLocalCache<XPathExpression> cache = xpathCache;
 		if (cache == null) {
