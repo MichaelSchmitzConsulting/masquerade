@@ -40,9 +40,4 @@ public class HttpChannel extends AbstractChannel {
 	public Class<? extends ChannelListener<?>> listenerType() {
 		return HttpChannelListener.class;
 	}
-
-	@Override
-	public String toString() {
-		return "HTTP: " + location;
-	}
 }

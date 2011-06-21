@@ -91,9 +91,4 @@ public class FileChannel extends AbstractChannel {
 	public Class<? extends ChannelListener<? extends Channel>> listenerType() {
 		return FileChannelListener.class;
 	}
-
-	@Override
-	public String toString() {
-		return "FileChannel (" + filenameRegex + ")";
-	}
 }

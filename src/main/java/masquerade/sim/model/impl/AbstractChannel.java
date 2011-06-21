@@ -41,4 +41,9 @@ public abstract class AbstractChannel implements Channel {
 			this.requestMappings = new LinkedHashSet<RequestMapping<?>>(requestMappings);
 		}
 	}
+
+	@Override
+	final public String toString() {
+		return getName();
+	}	
 }

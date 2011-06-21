@@ -78,10 +78,4 @@ public class WebSphereMqJmsChannel extends JmsChannel {
 	public Class<? extends ConnectionFactoryProvider> connectionFactoryProvider() {
 		return WSMQConnectionFactoryProvider.class;
 	}
-
-	@Override
-	public String toString() {
-		return "WSMQ JMS (" + host + ")";
-	}
-
 }

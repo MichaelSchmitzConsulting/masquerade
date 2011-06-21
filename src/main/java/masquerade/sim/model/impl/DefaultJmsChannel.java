@@ -48,9 +48,4 @@ public class DefaultJmsChannel extends JmsChannel {
 	public boolean isActive() {
 		return super.isActive() && isNotEmpty(url) && isNotEmpty(getDestinationName()) && connectionFactoryProvider != null;
 	}
-
-	@Override
-	public String toString() {
-		return "Default JMS Channel " + getUrl();
-	}
 }
