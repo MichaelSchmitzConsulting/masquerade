@@ -10,8 +10,8 @@
     <module>../masquerade.sim.model</module>
     <module>../masquerade.sim.core</module>
     <module>../masquerade.sim.channel</module>
-   <module>../masquerade.sim.channel.jms</module>
+    <module>../masquerade.sim.channel.jms</module>
     <module>../masquerade.sim.application</module>
-    <module>../masquerade</module>
+    <module>../masquerade.sim.webapp</module>
   </modules>
 </project>
