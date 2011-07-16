@@ -1,17 +1,318 @@
 <project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>masquerade.sim</groupId>
-  <artifactId>masquerade.sim.pom</artifactId>
-  <version>1.0.0</version>
-  <name>Masquerade Service Simulator</name>
-  <packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>masquerade.sim</groupId>
+	<artifactId>masquerade.sim.pom</artifactId>
+	<version>1.0.0</version>
+	<name>Masquerade Service Simulator</name>
+	<packaging>pom</packaging>
 
-  <modules>
-    <module>../masquerade.sim.model</module>
-    <module>../masquerade.sim.core</module>
-    <module>../masquerade.sim.channel</module>
-    <module>../masquerade.sim.channel.jms</module>
-    <module>../masquerade.sim.application</module>
-    <module>../masquerade.sim.webapp</module>
-  </modules>
+	<!-- Submodules -->
+	<modules>
+		<module>../masquerade.sim.model</module>
+		<module>../masquerade.sim.core</module>
+		<module>../masquerade.sim.channel</module>
+		<module>../masquerade.sim.channel.jms</module>
+		<module>../masquerade.sim.application</module>
+		<module>../masquerade.sim.webapp</module>
+	</modules>
+
+	<!-- Versions for common dependencies -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- Felix OSGi -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.framework</artifactId>
+				<version>3.2.1</version>
+				<scope>provided</scope><!-- Referencing container -->
+			</dependency>
+			<!-- Felix OSGi HTTP Bridge bundle -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.http.bridge</artifactId>
+				<version>2.2.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Felix OSGi Proxy Servlet -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.http.proxy</artifactId>
+				<version>2.2.0</version>
+			</dependency>
+			<!-- Felix OSGi declarative service annotations -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.scr.annotations</artifactId>
+				<version>1.5.0</version>
+				<scope>provided</scope><!-- Not required at runtime -->
+			</dependency>
+			<!-- Felix OSGi service component runtime (for ComponentContext import) -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.scr</artifactId>
+				<version>1.6.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Felix Web console bundle -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.webconsole</artifactId>
+				<version>3.1.8</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Felix OSGi config admin (required by service component runtime) -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.configadmin</artifactId>
+				<version>1.2.8</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Felix OSGi LogService -->
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.log</artifactId>
+				<version>1.0.1</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- commons-lang -->
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.5</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- commons-io -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.0.1</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- commons-net -->
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>2.2</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- commons-logging, required by Spring bundles -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<!-- aopalliance, required by Spring bundles -->
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<!-- Embedded Jetty -->
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+				<version>7.4.0.v20110414</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-webapp</artifactId>
+				<version>7.4.0.v20110414</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Vaadin -->
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin</artifactId>
+				<version>6.6.2</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.addons</groupId>
+				<artifactId>customfield</artifactId>
+				<version>0.9.3</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<dependency>
+				<groupId>org.vaadin.addons</groupId>
+				<artifactId>codemirror</artifactId>
+				<version>0.9.3</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade Model bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.model</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade App bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.application</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade Core bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.core</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade Channel bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.channel</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade JMS Channel bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.channel.jms</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Servlet API -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+				<scope>provided</scope><!-- Referencing exported system package -->
+			</dependency>
+			<!-- JMS (exported by Masquerade JMS channel bundle) -->
+			<dependency>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jms_1.1_spec</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<!-- Spring JMS -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>3.0.5.RELEASE</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- db4o -->
+			<dependency>
+				<groupId>com.db4o</groupId>
+				<artifactId>db4o-core-java5</artifactId>
+				<version>8.1-SNAPSHOT</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<dependency>
+				<groupId>com.db4o</groupId>
+				<artifactId>db4o-osgi</artifactId>
+				<version>8.1-SNAPSHOT</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- JUnit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8.2</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- OSGi Bundle Plugin -->
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>2.3.4</version>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						</instructions>
+					</configuration>
+				</plugin>
+				<!-- Java Compiler -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<inherited>true</inherited>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<!-- Maven Declarative Services Plugin -->
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-scr-plugin</artifactId>
+					<version>1.7.0</version>
+					<executions>
+						<execution>
+							<id>generate-scr-scrdescriptor</id>
+							<goals>
+								<goal>scr</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- Vaadin Maven Plugin -->
+				<plugin>
+					<groupId>com.vaadin</groupId>
+					<artifactId>vaadin-maven-plugin</artifactId>
+					<version>1.0.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>update-widgetset</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>gwt-maven-plugin</artifactId>
+					<version>2.3.0-1</version>
+				</plugin>
+				<!-- Maven Eclipse Plugin -->
+				<plugin>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.8</version>
+					<configuration>
+						<downloadSources>true</downloadSources>
+						<downloadJavadocs>true</downloadJavadocs>
+						<projectNameTemplate>[artifactId]</projectNameTemplate>
+						<manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF
+						</manifest>
+					</configuration>
+				</plugin>
+				<!-- Maven WAR Plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1.1</version>
+				</plugin>
+				<!-- Maven Dependency Plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<repositories>
+		<!-- db4o -->
+		<repository>
+			<id>source.db4o</id>
+			<url>http://source.db4o.com/maven</url>
+		</repository>
+		<!-- Vaadin -->
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
 </project>
