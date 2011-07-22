@@ -30,9 +30,11 @@ public class AddResponseElementStep extends AbstractSubstitutingStep {
     public void execute(SimulationContext context) throws Exception {
 		Element response = parseResponseElement(context);
 		
-	    Document request = context.getContent(Document.class);
-	    request.adoptNode(response);
-		request.getDocumentElement().appendChild(response);
+	    Document content = context.getContent(Document.class);
+	    content.adoptNode(response);
+		content.getDocumentElement().appendChild(response);
+		
+		context.setContent(content);
     }
 
 	private Element parseResponseElement(SimulationContext context) throws ParserConfigurationException, SAXException, IOException {

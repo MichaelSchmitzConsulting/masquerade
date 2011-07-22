@@ -73,21 +73,23 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 
 	@Override
 	public void execute(SimulationContext context) throws Exception {
-		Document xml = context.getContent(Document.class);
+		Document content = context.getContent(Document.class);
 		
 		String xpathExpr = context.substituteVariables(selectNodeXpath);
 		String uri = context.substituteVariables(namespaceURI);
 		String qname = context.substituteVariables(newQualifiedName);
 		
 		XPathExpression xpath = getXpath(xpathExpr, context.getNamespaceResolver());
-		Node node = (Node) xpath.evaluate(xml, XPathConstants.NODE);
+		Node node = (Node) xpath.evaluate(content, XPathConstants.NODE);
 		
 		// Document root selected? Change selection to root element
 		if (node instanceof Document) {
 			node = ((Document)node).getDocumentElement();
 		}
 		
-		xml.renameNode(node, uri, qname);
+		content.renameNode(node, uri, qname);
+		
+		context.setContent(content);
 	}
 
 	private XPathExpression getXpath(String xpathExpr, NamespaceResolver namespaceResolver) throws XPathExpressionException {
