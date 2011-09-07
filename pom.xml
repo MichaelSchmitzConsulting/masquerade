@@ -207,11 +207,25 @@
 				<version>8.1-SNAPSHOT</version>
 				<scope>provided</scope><!-- Referencing bundle -->
 			</dependency>
+            <!-- Groovy -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>1.8.2</version>
+                <scope>provided</scope><!-- Referencing bundle -->
+            </dependency>
+            <!-- JRuby -->
+            <dependency>
+                <groupId>org.jruby</groupId>
+                <artifactId>jruby-complete</artifactId>
+                <version>1.6.4</version>
+                <scope>provided</scope><!-- Referencing bundle -->
+            </dependency>
 			<!-- JUnit -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.8.2</version>
+				<version>4.9</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
