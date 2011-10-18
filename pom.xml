@@ -107,6 +107,12 @@
 				<artifactId>aopalliance</artifactId>
 				<version>1.0</version>
 			</dependency>
+                        <!-- xstream -->
+                        <dependency>
+                                <groupId>com.thoughtworks.xstream</groupId>
+                                <artifactId>xstream</artifactId>
+                                <version>1.4.1</version>
+                        </dependency>
 			<!-- Embedded Jetty -->
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
