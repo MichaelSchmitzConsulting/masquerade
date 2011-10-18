@@ -107,12 +107,18 @@
 				<artifactId>aopalliance</artifactId>
 				<version>1.0</version>
 			</dependency>
-                        <!-- xstream -->
-                        <dependency>
-                                <groupId>com.thoughtworks.xstream</groupId>
-                                <artifactId>xstream</artifactId>
-                                <version>1.4.1</version>
-                        </dependency>
+            <!-- xstream bundle -->
+			<dependency>
+				<groupId>org.apache.servicemix.bundles</groupId>
+				<artifactId>org.apache.servicemix.bundles.xstream</artifactId>
+				<version>1.4.1_1</version>
+			</dependency>
+			<!-- xmlpull bundle (required by xstream bundle) -->
+			<dependency>
+				<groupId>org.apache.servicemix.bundles</groupId>
+				<artifactId>org.apache.servicemix.bundles.xpp3</artifactId>
+				<version>1.1.4c_5</version>
+			</dependency>
 			<!-- Embedded Jetty -->
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
