@@ -6,7 +6,7 @@ When building from source, you'll need jms.jar (JMS 1.1) in your Maven repo. See
 Supports HTTP, JMS listeners by default (extensible) and contains simulation actions for XML request/response scenarios. Response simulations are based on simulation scripts that contain actions such
 
 * Template-based response
-*Adding content to the response
+* Adding content to the response
 * Groovy script step
 * Ruby script step
 * Java Script step
