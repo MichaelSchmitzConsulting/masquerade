@@ -14,6 +14,7 @@
 		<module>../masquerade.sim.channel.jms</module>
 		<module>../masquerade.sim.application</module>
 		<module>../masquerade.sim.webapp</module>
+		<module>../masquerade.sim.client</module>
 	</modules>
 
 	<!-- Versions for common dependencies -->
@@ -183,6 +184,13 @@
 			<dependency>
 				<groupId>masquerade.sim</groupId>
 				<artifactId>masquerade.sim.channel.jms</artifactId>
+				<version>1.2.0</version>
+				<scope>provided</scope><!-- Referencing bundle -->
+			</dependency>
+			<!-- Masquerade Client bundle -->
+			<dependency>
+				<groupId>masquerade.sim</groupId>
+				<artifactId>masquerade.sim.client</artifactId>
 				<version>1.2.0</version>
 				<scope>provided</scope><!-- Referencing bundle -->
 			</dependency>
