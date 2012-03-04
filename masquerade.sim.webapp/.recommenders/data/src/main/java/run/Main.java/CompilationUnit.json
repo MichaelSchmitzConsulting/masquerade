@@ -1,0 +1,2230 @@
+{
+  "_id": "f2186c75b35c770035fbe59f416292494365217b",
+  "creationTimestamp": "2011-12-15T12:36:59.973+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/net/URL"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/lang/String"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/lang/Object"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/lang/Class"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/io/File"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lrun/Main$2"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lrun/Main$1"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lrun/DeleteTempDirShutdownHook"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/List",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Iterator",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/ArrayList",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/security/ProtectionDomain",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/security/CodeSource",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URLClassLoader",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URL",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URI",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/File",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:36:59.974+01:00",
+  "name": "Lrun/Main",
+  "primaryType": {
+    "name": "Lrun/Main",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [
+      "I"
+    ],
+    "methods": [
+      {
+        "name": "Lrun/Main.createTempDir()Ljava/io/File;",
+        "line": 181,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "temp"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.createTempFile(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.deleteOnExit()V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 182
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getName()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "tempDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.mkdir()Z",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 185
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 186
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.\u003cinit\u003e(I)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 36,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.\u003cinit\u003e(I)V",
+                "line": 36
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.unpack(Ljava/lang/String;)Ljava/io/File;",
+        "line": 165,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.createTempFile(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.deleteOnExit()V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 182
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getName()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.mkdir()Z",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 185
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 186
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+        "line": 147,
+        "nestedTypes": [
+          {
+            "name": "Lrun/Main$1",
+            "superclass": "Ljava/lang/Object",
+            "interfaces": [
+              "Ljava/io/FilenameFilter"
+            ],
+            "fields": [
+              "Lrun/Main"
+            ],
+            "methods": [
+              {
+                "name": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "superDeclaration": "Ljava/io/FilenameFilter.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "firstDeclaration": "Ljava/io/FilenameFilter.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "line": 110,
+                "nestedTypes": [],
+                "modifiers": 1,
+                "objects": [
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "name"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "name",
+                        "targetMethod": "Ljava/lang/String.startsWith(Ljava/lang/String;)Z",
+                        "sourceMethod": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                        "line": 110
+                      },
+                      {
+                        "receiver": "name",
+                        "targetMethod": "Ljava/lang/String.matches(Ljava/lang/String;)Z",
+                        "sourceMethod": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                        "line": 110
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Ljava/io/File",
+                    "names": [
+                      "dir"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "unnamed"
+                    ],
+                    "kind": "LOCAL",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "unnamed"
+                    ],
+                    "kind": "LOCAL",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lrun/Main$1.this$0;Lrun/Main",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  }
+                ]
+              },
+              {
+                "name": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "line": 108,
+                "nestedTypes": [],
+                "modifiers": 0,
+                "objects": [
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lrun/Main$1.this$0;Lrun/Main",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "this",
+                        "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                        "sourceMethod": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                        "line": 108
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "line": 0,
+            "memberTypes": [],
+            "modifiers": 32
+          }
+        ],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Lrun/Main$2",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "libdir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.runServer(Ljava/lang/ClassLoader;Ljava/io/File;)V",
+        "line": 93,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "[Ljava/lang/Object",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unpackDir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/lang/Class",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.getWarPath()Ljava/lang/String;",
+        "line": 133,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.isFile()Z",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "location"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "location",
+                "targetMethod": "Ljava/net/URL.getFile()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/security/ProtectionDomain",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/lang/Class.getProtectionDomain()Ljava/security/ProtectionDomain;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/security/CodeSource",
+            "names": [
+              "source"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "source",
+                "targetMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.getClass()Ljava/lang/Class;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+        "line": 105,
+        "nestedTypes": [
+          {
+            "name": "Lrun/Main$1",
+            "superclass": "Ljava/lang/Object",
+            "interfaces": [
+              "Ljava/io/FilenameFilter"
+            ],
+            "fields": [
+              "Lrun/Main"
+            ],
+            "methods": [
+              {
+                "name": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "line": 108,
+                "nestedTypes": [],
+                "modifiers": 0,
+                "objects": [
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lrun/Main$1.this$0;Lrun/Main",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "this",
+                        "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                        "sourceMethod": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                        "line": 108
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "superDeclaration": "Ljava/io/FilenameFilter.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "firstDeclaration": "Ljava/io/FilenameFilter.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                "line": 110,
+                "nestedTypes": [],
+                "modifiers": 1,
+                "objects": [
+                  {
+                    "type": "Lrun/Main",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lrun/Main$1.this$0;Lrun/Main",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lrun/Main$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "unnamed"
+                    ],
+                    "kind": "LOCAL",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/io/File",
+                    "names": [
+                      "dir"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "unnamed"
+                    ],
+                    "kind": "LOCAL",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "name"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "name",
+                        "targetMethod": "Ljava/lang/String.startsWith(Ljava/lang/String;)Z",
+                        "sourceMethod": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                        "line": 110
+                      },
+                      {
+                        "receiver": "name",
+                        "targetMethod": "Ljava/lang/String.matches(Ljava/lang/String;)Z",
+                        "sourceMethod": "Lrun/Main$1.accept(Ljava/io/File;Ljava/lang/String;)Z",
+                        "line": 110
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "line": 0,
+            "memberTypes": [],
+            "modifiers": 32
+          }
+        ],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "[Ljava/net/URL",
+            "names": [
+              "urls"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [
+              "runLibJarFiles"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Lrun/Main$1",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "libdir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [
+              "jettyJarFiles"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [
+              "libJarFiles"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLClassLoader",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URLClassLoader.\u003cinit\u003e([Ljava/net/URL;Ljava/lang/ClassLoader;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 125
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "classesDir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "classesDir",
+                "targetMethod": "Ljava/io/File.toURI()Ljava/net/URI;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "runLibDir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URI.toURL()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "allJars"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 114
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 115
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.size()I",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 119
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 116
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 117
+              }
+            ]
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [
+              "i$"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/AbstractList.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "bundledir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundledir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URI",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.toURI()Ljava/net/URI;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URI.toURL()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+        "line": 155,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.isFile()Z",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.run()Z",
+        "line": 59,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "bundleDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundledir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              },
+              {
+                "receiver": "bundleDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 74
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/lang/Class",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/lang/Object",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unpackDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 186
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.mkdir()Z",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 185
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URI.toURL()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lrun/Main$1",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/AbstractList.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              }
+            ]
+          },
+          {
+            "type": "Lrun/DeleteTempDirShutdownHook",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/DeleteTempDirShutdownHook.\u003cinit\u003e(Ljava/lang/ClassLoader;Ljava/io/File;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 79
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "runLibDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "runLibDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 73
+              },
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "location",
+                "targetMethod": "Ljava/net/URL.getFile()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.createTempFile(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getName()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.deleteOnExit()V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 182
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.getClass()Ljava/lang/Class;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "classesDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "classesDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 75
+              },
+              {
+                "receiver": "classesDir",
+                "targetMethod": "Ljava/io/File.toURI()Ljava/net/URI;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLClassLoader",
+            "names": [
+              "serverRunnerLoader"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "serverRunnerLoader",
+                "targetMethod": "Ljava/lang/ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;",
+                "sourceMethod": "Lrun/Main.runServer(Ljava/lang/ClassLoader;Ljava/io/File;)V",
+                "line": 94
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URLClassLoader.\u003cinit\u003e([Ljava/net/URL;Ljava/lang/ClassLoader;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 125
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/security/CodeSource",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "source",
+                "targetMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URI",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.toURI()Ljava/net/URI;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URI.toURL()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 116
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 114
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.size()I",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 119
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 117
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 115
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "libDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "libDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 72
+              },
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/security/ProtectionDomain",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/lang/Class.getProtectionDomain()Ljava/security/ProtectionDomain;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.isFile()Z",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Main.main([Ljava/lang/String;)V",
+        "line": 46,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "main"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.\u003cinit\u003e(I)V",
+                "line": 36
+              },
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.getClass()Ljava/lang/Class;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URLClassLoader",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URLClassLoader.\u003cinit\u003e([Ljava/net/URL;Ljava/lang/ClassLoader;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 125
+              },
+              {
+                "receiver": "serverRunnerLoader",
+                "targetMethod": "Ljava/lang/ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;",
+                "sourceMethod": "Lrun/Main.runServer(Ljava/lang/ClassLoader;Ljava/io/File;)V",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundledir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              },
+              {
+                "receiver": "bundleDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 74
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "classesDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 75
+              },
+              {
+                "receiver": "classesDir",
+                "targetMethod": "Ljava/io/File.toURI()Ljava/net/URI;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/AbstractList.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              }
+            ]
+          },
+          {
+            "type": "Ljava/security/ProtectionDomain",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/lang/Class.getProtectionDomain()Ljava/security/ProtectionDomain;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 114
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 122
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 115
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.size()I",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 119
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 116
+              },
+              {
+                "receiver": "allJars",
+                "targetMethod": "Ljava/util/Collection.addAll(Ljava/util/Collection;)Z",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 117
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.isFile()Z",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.isWar(Ljava/lang/String;)Z",
+                "line": 155
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "location",
+                "targetMethod": "Ljava/net/URL.getFile()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "libDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 72
+              },
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/lang/Object",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/lang/String",
+            "names": [
+              "args"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 186
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "tempDir",
+                "targetMethod": "Ljava/io/File.mkdir()Z",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 185
+              }
+            ]
+          },
+          {
+            "type": "Lrun/DeleteTempDirShutdownHook",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/DeleteTempDirShutdownHook.\u003cinit\u003e(Ljava/lang/ClassLoader;Ljava/io/File;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 79
+              }
+            ]
+          },
+          {
+            "type": "Ljava/security/CodeSource",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/security/ProtectionDomain.getCodeSource()Ljava/security/CodeSource;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "source",
+                "targetMethod": "Ljava/security/CodeSource.getLocation()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.getWarPath()Ljava/lang/String;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "runLibDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Main.run()Z",
+                "line": 73
+              },
+              {
+                "receiver": "libdir",
+                "targetMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/lang/Class",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.createTempFile(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.deleteOnExit()V",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 182
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getName()Ljava/lang/String;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              },
+              {
+                "receiver": "temp",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lrun/Main.createTempDir()Ljava/io/File;",
+                "line": 183
+              }
+            ]
+          },
+          {
+            "type": "Lrun/Main$2",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$2.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Main.findJars(Ljava/io/File;)[Ljava/io/File;",
+                "line": 147
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URI",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.toURI()Ljava/net/URI;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URI.toURL()Ljava/net/URL;",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.listFiles(Ljava/io/FilenameFilter;)[Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URI.toURL()Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lrun/Main$1",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lrun/Main$1.\u003cinit\u003e(Lrun/Main;)V",
+                "sourceMethod": "Lrun/Main.createClassLoader(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Ljava/lang/ClassLoader;",
+                "line": 108
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Arrays.asList([Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

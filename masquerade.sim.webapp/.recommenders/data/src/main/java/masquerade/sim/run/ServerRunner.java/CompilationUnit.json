@@ -1,0 +1,164 @@
+{
+  "_id": "2826a4c5f006d82cbeb1652f0ed58a973beb3156",
+  "creationTimestamp": "2011-12-15T12:37:05.043+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/eclipse/jetty/webapp/WebAppContext",
+      "fingerprint": "dedebb27b64019937bae7d0998a2b9b72af084b4"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/eclipse/jetty/server/Server",
+      "fingerprint": "6a9c550aa41dc98aec1089a3244039cc26a85a7d"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/File",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:05.043+01:00",
+  "name": "Lmasquerade/sim/run/ServerRunner",
+  "primaryType": {
+    "name": "Lmasquerade/sim/run/ServerRunner",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+        "line": 18,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "Lorg/eclipse/jetty/server/Server",
+            "names": [
+              "server"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "server",
+                "targetMethod": "Lorg/eclipse/jetty/server/handler/HandlerWrapper.setHandler(Lorg/eclipse/jetty/server/Handler;)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 27
+              },
+              {
+                "receiver": "server",
+                "targetMethod": "Lorg/eclipse/jetty/util/component/AbstractLifeCycle.start()V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 29
+              },
+              {
+                "receiver": "server",
+                "targetMethod": "Lorg/eclipse/jetty/server/Server.\u003cinit\u003e(I)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 18
+              },
+              {
+                "receiver": "server",
+                "targetMethod": "Lorg/eclipse/jetty/server/Server.join()V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 30
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "webappRoot"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "webappRoot",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 20
+              }
+            ]
+          },
+          {
+            "type": "Lorg/eclipse/jetty/webapp/WebAppContext",
+            "names": [
+              "webapp"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "webapp",
+                "targetMethod": "Lorg/eclipse/jetty/webapp/WebAppContext.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 22
+              },
+              {
+                "receiver": "webapp",
+                "targetMethod": "Lorg/eclipse/jetty/webapp/WebAppContext.setParentLoaderPriority(Z)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 26
+              },
+              {
+                "receiver": "webapp",
+                "targetMethod": "Lorg/eclipse/jetty/webapp/WebAppContext.setDescriptor(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 23
+              },
+              {
+                "receiver": "webapp",
+                "targetMethod": "Lorg/eclipse/jetty/server/handler/ContextHandler.setContextPath(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 25
+              },
+              {
+                "receiver": "webapp",
+                "targetMethod": "Lorg/eclipse/jetty/server/handler/ContextHandler.setResourceBase(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.runServer(Ljava/io/File;I)V",
+                "line": 24
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/run/ServerRunner.\u003cinit\u003e()V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 16,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/run/ServerRunner.\u003cinit\u003e()V",
+                "line": 16
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

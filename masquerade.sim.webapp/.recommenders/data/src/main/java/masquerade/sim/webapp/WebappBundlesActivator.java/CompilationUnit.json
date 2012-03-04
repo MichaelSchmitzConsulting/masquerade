@@ -1,0 +1,536 @@
+{
+  "_id": "a9f3ece4222d65de6e4665517e5d2c557e64d34f",
+  "creationTimestamp": "2011-12-15T12:37:02.377+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/osgi/framework/BundleContext",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/osgi/framework/BundleActivator",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/osgi/framework/Bundle",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/servlet/ServletContext",
+      "fingerprint": "5959582d97d8b61f4d154ca9e495aafd16726e34"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Set",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Iterator",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/ArrayList",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URL",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:02.377+01:00",
+  "name": "Lmasquerade/sim/webapp/WebappBundlesActivator",
+  "primaryType": {
+    "name": "Lmasquerade/sim/webapp/WebappBundlesActivator",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [
+      "Lorg/osgi/framework/BundleActivator"
+    ],
+    "fields": [
+      "Ljavax/servlet/ServletContext"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+        "line": 65,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "bundles"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 67
+              },
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/Collection.add(Ljava/lang/Object;)Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 70
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Set",
+            "names": [
+              "resources"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResourcePaths(Ljava/lang/String;)Ljava/util/Set;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "resources",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResource(Ljava/lang/String;)Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappBundlesActivator.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResource(Ljava/lang/String;)Ljava/net/URL;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 70
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResourcePaths(Ljava/lang/String;)Ljava/util/Set;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 65
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [
+              "i$"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappBundlesActivator.stop(Lorg/osgi/framework/BundleContext;)V",
+        "superDeclaration": "Lorg/osgi/framework/BundleActivator.stop(Lorg/osgi/framework/BundleContext;)V",
+        "firstDeclaration": "Lorg/osgi/framework/BundleActivator.stop(Lorg/osgi/framework/BundleContext;)V",
+        "line": 57,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappBundlesActivator.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/osgi/framework/BundleContext",
+            "names": [
+              "context"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappBundlesActivator.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 23,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "line": 23
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappBundlesActivator.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+        "superDeclaration": "Lorg/osgi/framework/BundleActivator.start(Lorg/osgi/framework/BundleContext;)V",
+        "firstDeclaration": "Lorg/osgi/framework/BundleActivator.start(Lorg/osgi/framework/BundleContext;)V",
+        "line": 34,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappBundlesActivator.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.setAttribute(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 47
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResource(Ljava/lang/String;)Ljava/net/URL;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 70
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResourcePaths(Ljava/lang/String;)Ljava/util/Set;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 65
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [
+              "i$"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/AbstractList.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 42
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 42
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Set",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResourcePaths(Ljava/lang/String;)Ljava/util/Set;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "resources",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 68
+              }
+            ]
+          },
+          {
+            "type": "Lorg/osgi/framework/Bundle",
+            "names": [
+              "bundle"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lorg/osgi/framework/BundleContext.installBundle(Ljava/lang/String;)Lorg/osgi/framework/Bundle;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [
+              "i$"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/AbstractList.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 36
+              },
+              {
+                "receiver": "i$",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 36
+              }
+            ]
+          },
+          {
+            "type": "Lorg/osgi/framework/BundleContext",
+            "names": [
+              "context"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "context",
+                "targetMethod": "Lorg/osgi/framework/BundleContext.installBundle(Ljava/lang/String;)Lorg/osgi/framework/Bundle;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 37
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "bundles"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 42
+              },
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/Collection.add(Ljava/lang/Object;)Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 38
+              },
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 34
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/Collection.add(Ljava/lang/Object;)Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 70
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Collection.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.start(Lorg/osgi/framework/BundleContext;)V",
+                "line": 36
+              },
+              {
+                "receiver": "bundles",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.getPackagedBundles()Ljava/util/Collection;",
+                "line": 67
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResource(Ljava/lang/String;)Ljava/net/URL;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 49
+  }
+}

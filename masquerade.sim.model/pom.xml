@@ -1,0 +1,131 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>masquerade.sim</groupId>
+	<artifactId>masquerade.sim.model</artifactId>
+	<packaging>bundle</packaging>
+	<version>2.0.0</version>
+	<name>Masquerade Model Bundle</name>
+
+	<parent>
+		<groupId>masquerade.sim</groupId>
+		<artifactId>masquerade.sim.pom</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<!-- Felix OSGi -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<scope>provided</scope><!-- Referencing container -->
+		</dependency>
+		<!-- Felix OSGi declarative service annotations -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.annotations</artifactId>
+			<scope>provided</scope><!-- Not required at runtime -->
+		</dependency>
+		<!-- Felix OSGi service component runtime (for ComponentContext import) -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+        <!-- xstream bundle -->
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.xstream</artifactId>
+		</dependency>
+		<!-- Embedded Jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- Vaadin -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>customfield</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>codemirror2</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--  EasyMock -->
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Java Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<!-- OSGi Bundle Plugin -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<Export-Package>masquerade.sim.channellistener,masquerade.sim.model.*,masquerade.sim.plugin,masquerade.sim.status,masquerade.sim.util</Export-Package>
+						<Import-Package>
+							org.codehaus.groovy.jsr223,
+							org.jruby.embed.jsr223,
+							*
+						</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<!-- Felix Declarative Services Descriptor Generator Plugin -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:git@github.com:matf/masquerade-model.git
+		</connection>
+		<url>scm:git:git@github.com:matf/masquerade-model.git</url>
+		<developerConnection>scm:git:git@github.com:matf/masquerade-model.git
+		</developerConnection>
+	</scm>
+</project>

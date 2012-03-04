@@ -1,0 +1,2073 @@
+{
+  "_id": "fc396582f3d65ad5495d7b87dd5282bfddc261e8",
+  "creationTimestamp": "2011-12-15T12:37:03.368+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/webapp/DbType"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/String",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/IOException",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/File",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:03.368+01:00",
+  "name": "Lmasquerade/sim/webapp/HomeResolver",
+  "primaryType": {
+    "name": "Lmasquerade/sim/webapp/HomeResolver",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [
+      "Ljava/lang/String"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+        "line": 151,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "workDir"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getPluginLocation()Ljava/io/File;",
+        "line": 50,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 112
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 111
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+        "line": 156,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/io/IOException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "directory"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+        "line": 130,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "userDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "workDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "workDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "baseDir"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getRequestLogDir()Ljava/io/File;",
+        "line": 88,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 111
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 112
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;",
+        "line": 29,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dir"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;",
+                "line": 37
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dir",
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;",
+                "line": 34
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;",
+                "line": 37
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+        "line": 64,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "home"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/DbType",
+            "names": [
+              "dbType"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dbType",
+                "targetMethod": "Ljava/lang/Enum.name()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "line": 72
+              },
+              {
+                "receiver": "dbType",
+                "targetMethod": "Ljava/lang/Enum.ordinal()I",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "line": 64
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dbFile"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dbFile",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "line": 76
+              },
+              {
+                "receiver": "dbFile",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "line": 77
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.\u003cinit\u003e(Ljava/lang/String;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 17,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.\u003cinit\u003e(Ljava/lang/String;)V",
+                "line": 17
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getPludingBundleCacheDir()Ljava/io/File;",
+        "line": 96,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 112
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 111
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+        "line": 106,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getHomeSubDir(Ljava/lang/String;)Ljava/io/File;",
+                "line": 152
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 133
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dir",
+              "requestLog"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 111
+              },
+              {
+                "receiver": "requestLog",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 112
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "baseDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 136
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/IOException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/IOException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 135
+              },
+              {
+                "receiver": "userDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 143
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 138
+              },
+              {
+                "receiver": "workDir",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getMasqueradeHome()Ljava/io/File;",
+                "line": 137
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "dir"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dir",
+                "targetMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.getDirFromPropertyOrHomeSubdir(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;",
+                "line": 116
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 160
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.isDirectory()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 157
+              },
+              {
+                "receiver": "directory",
+                "targetMethod": "Ljava/io/File.exists()Z",
+                "sourceMethod": "Lmasquerade/sim/webapp/HomeResolver.createDirectory(Ljava/io/File;)V",
+                "line": 156
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getAbsoluteFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

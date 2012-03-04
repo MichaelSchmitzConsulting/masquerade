@@ -1,0 +1,1745 @@
+{
+  "_id": "2f05f0e42429f6dcb0c13d2c00ca0ae987571f2e",
+  "creationTimestamp": "2011-12-15T12:37:06.270+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$1"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/MasqueradeClientException"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/HttpService"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URLConnection",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/URL",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/net/HttpURLConnection",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/String",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/OutputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:06.270+01:00",
+  "name": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [
+      "Lmasquerade/sim/client/HttpService"
+    ],
+    "fields": [
+      "Ljava/net/URL"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.parseUrl(Ljava/lang/String;)Ljava/net/URL;",
+        "line": 25,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.parseUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 31
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.post(Ljava/lang/String;Ljava/lang/String;)V",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/lang/String;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/lang/String;)V",
+        "line": 83,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter",
+            "names": [
+              "writer"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              },
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.post(Ljava/lang/String;Ljava/lang/String;)V",
+                "line": 83
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+        "line": 149,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.post(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;)V",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;)V",
+        "line": 99,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter",
+            "names": [
+              "writer"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+        "line": 128,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "url"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+        "line": 116,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "url"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter",
+            "names": [
+              "writer"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.post(Ljava/lang/String;Ljava/io/InputStream;)V",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/io/InputStream;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/io/InputStream;)V",
+        "line": 89,
+        "nestedTypes": [
+          {
+            "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$1",
+            "superclass": "Ljava/lang/Object",
+            "interfaces": [
+              "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter"
+            ],
+            "fields": [
+              "Ljava/io/InputStream",
+              "Lmasquerade/sim/client/internal/HttpServiceImpl"
+            ],
+            "methods": [
+              {
+                "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "superDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "firstDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "line": 89,
+                "nestedTypes": [],
+                "modifiers": 1,
+                "objects": [
+                  {
+                    "type": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.this$0;Lmasquerade/sim/client/internal/HttpServiceImpl",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/net/HttpURLConnection",
+                    "names": [
+                      "connection"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/io/InputStream",
+                    "names": [
+                      "val$content"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.val$content;Ljava/io/InputStream",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/io/OutputStream",
+                    "names": [
+                      "out"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/net/URL",
+                    "names": [
+                      "baseURL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  }
+                ]
+              },
+              {
+                "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.\u003cinit\u003e(Lmasquerade/sim/client/internal/HttpServiceImpl;Ljava/io/InputStream;)V",
+                "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "line": 1,
+                "nestedTypes": [],
+                "modifiers": 0,
+                "objects": [
+                  {
+                    "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "this",
+                        "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                        "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.\u003cinit\u003e(Lmasquerade/sim/client/internal/HttpServiceImpl;Ljava/io/InputStream;)V",
+                        "line": 87
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Ljava/io/InputStream",
+                    "names": [
+                      "val$content"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.this$0;Lmasquerade/sim/client/internal/HttpServiceImpl",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/io/InputStream",
+                    "names": [
+                      "val$content"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.val$content;Ljava/io/InputStream",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/net/URL",
+                    "names": [
+                      "baseURL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  }
+                ]
+              }
+            ],
+            "line": 0,
+            "memberTypes": [],
+            "modifiers": 32
+          }
+        ],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$1",
+            "names": [
+              "writer"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              },
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$1.\u003cinit\u003e(Lmasquerade/sim/client/internal/HttpServiceImpl;Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.post(Ljava/lang/String;Ljava/io/InputStream;)V",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "content"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.\u003cinit\u003e(Ljava/lang/String;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 20,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.\u003cinit\u003e(Ljava/lang/String;)V",
+                "line": 20
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.parseUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 31
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.readFailureResponse(Ljava/net/HttpURLConnection;)Ljava/lang/String;",
+        "line": 67,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "errorStream"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/HttpURLConnection.getErrorStream()Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/HttpURLConnection",
+            "names": [
+              "connection"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "connection",
+                "targetMethod": "Ljava/net/HttpURLConnection.getErrorStream()Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.readFailureResponse(Ljava/net/HttpURLConnection;)Ljava/lang/String;",
+                "line": 70
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "line": 157,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 157
+              },
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 161
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+        "line": 55,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "url"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 62
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 58
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 62
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.addTrailingSlash(Ljava/lang/String;)Ljava/lang/String;",
+        "line": 38,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": []
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.get(Ljava/lang/String;)Ljava/lang/String;",
+        "superDeclaration": "Lmasquerade/sim/client/HttpService.get(Ljava/lang/String;)Ljava/lang/String;",
+        "firstDeclaration": "Lmasquerade/sim/client/HttpService.get(Ljava/lang/String;)Ljava/lang/String;",
+        "line": 43,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.get(Ljava/lang/String;)Ljava/lang/String;",
+                "line": 47
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 58
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 62
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 62
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+        "line": 107,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "url"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/net/URL.\u003cinit\u003e(Ljava/net/URL;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 149
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.postToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+                "line": 111
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.connectTo(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 128
+              },
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "baseURL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/internal/HttpServiceImpl.baseURL;Ljava/net/URL",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URLConnection",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/URL.openConnection()Ljava/net/URLConnection;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.buildUrl(Ljava/lang/String;)Ljava/net/URL;",
+                "line": 151
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter",
+            "names": [
+              "writer"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.writeToUrl(Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+        "line": 135,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/net/HttpURLConnection",
+            "names": [
+              "connection"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "connection",
+                "targetMethod": "Ljava/net/HttpURLConnection.getErrorStream()Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 137
+              },
+              {
+                "receiver": "connection",
+                "targetMethod": "Ljava/net/HttpURLConnection.getResponseCode()I",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "errorStream"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/net/HttpURLConnection.getErrorStream()Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/net/URL",
+            "names": [
+              "url"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "url",
+                "targetMethod": "Ljava/net/URL.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.handleFailures(Ljava/net/URL;Ljava/net/HttpURLConnection;)V",
+                "line": 142
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter",
+        "superclass": "Ljava/lang/Object",
+        "interfaces": [
+          "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter"
+        ],
+        "fields": [
+          "Ljava/lang/String"
+        ],
+        "methods": [
+          {
+            "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;)V",
+            "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+            "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+            "line": 166,
+            "nestedTypes": [],
+            "modifiers": 2,
+            "objects": [
+              {
+                "type": "Ljava/lang/Object",
+                "names": [
+                  "this"
+                ],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": [
+                  {
+                    "receiver": "this",
+                    "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                    "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;)V",
+                    "line": 166
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter;)V",
+            "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+            "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+            "line": 166,
+            "nestedTypes": [],
+            "modifiers": 0,
+            "objects": [
+              {
+                "type": "Ljava/lang/Object",
+                "names": [
+                  "unnamed"
+                ],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": [
+                  {
+                    "receiver": "this",
+                    "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                    "sourceMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.\u003cinit\u003e(Ljava/lang/String;)V",
+                    "line": 166
+                  }
+                ]
+              },
+              {
+                "type": "Ljava/lang/Object",
+                "names": [],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": []
+              }
+            ]
+          },
+          {
+            "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlStringWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+            "superDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+            "firstDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+            "line": 171,
+            "nestedTypes": [],
+            "modifiers": 1,
+            "objects": [
+              {
+                "type": "Ljava/io/OutputStream",
+                "names": [
+                  "out"
+                ],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": []
+              },
+              {
+                "type": "Ljava/net/HttpURLConnection",
+                "names": [
+                  "connection"
+                ],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": []
+              },
+              {
+                "type": "Ljava/lang/Object",
+                "names": [
+                  "this"
+                ],
+                "kind": "PARAMETER",
+                "parameterCallSites": [],
+                "receiverCallSites": []
+              }
+            ]
+          }
+        ],
+        "line": 0,
+        "memberTypes": [],
+        "modifiers": 32
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter",
+        "superclass": "Ljava/lang/Object",
+        "interfaces": [],
+        "fields": [],
+        "methods": [],
+        "line": 0,
+        "memberTypes": [],
+        "modifiers": 1537
+      }
+    ],
+    "modifiers": 33
+  }
+}

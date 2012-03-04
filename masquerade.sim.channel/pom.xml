@@ -1,0 +1,106 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>masquerade.sim</groupId>
+	<artifactId>masquerade.sim.channel</artifactId>
+	<packaging>bundle</packaging>
+	<version>2.0.0</version>
+	<name>Masquerade Default Channels Bundle</name>
+    
+    <parent>
+        <groupId>masquerade.sim</groupId>
+        <artifactId>masquerade.sim.pom</artifactId>
+        <version>2.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    
+	<dependencies>
+		<!-- Felix OSGi -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<scope>provided</scope><!-- Referencing OSGi framework -->
+		</dependency>
+		<!-- Felix OSGi declarative service annotations -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.annotations</artifactId>
+			<scope>provided</scope><!-- Not required at runtime -->
+		</dependency>
+		<!-- Felix OSGi HTTP bridge bundle -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.http.bridge</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Felix OSGi service component runtime (for ComponentContext import) -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- Embedded Jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- Masquerade Model -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.model</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Java Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<!-- OSGi Bundle Plugin -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<!-- Felix Declarative Services Descriptor Generator Plugin -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:git@github.com:matf/masquerade.sim.channel.git
+		</connection>
+		<url>scm:git:git@github.com:matf/masquerade.sim.channel.git</url>
+		<developerConnection>scm:git:git@github.com:matf/masquerade.sim.channel.git
+		</developerConnection>
+	</scm>
+</project>

@@ -1,0 +1,24 @@
+{
+  "_id": "4443706128b70217aad55cfbd12ecc7fb2ad4bfb",
+  "creationTimestamp": "2011-11-14T20:40:17.538+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-11-14T20:40:17.538+01:00",
+  "name": "Lmasquerade/sim/client/HttpService",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/HttpService",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 1537
+  }
+}

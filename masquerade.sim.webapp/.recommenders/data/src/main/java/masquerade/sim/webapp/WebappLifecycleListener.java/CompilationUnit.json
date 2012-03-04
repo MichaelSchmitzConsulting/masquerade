@@ -1,0 +1,609 @@
+{
+  "_id": "b1dd578bf31d94a8c8f544d3a7a5537d0def3018",
+  "creationTimestamp": "2011-12-15T12:37:01.909+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/webapp/HomeResolver"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/servlet/ServletContextListener",
+      "fingerprint": "5959582d97d8b61f4d154ca9e495aafd16726e34"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/servlet/ServletContextEvent",
+      "fingerprint": "5959582d97d8b61f4d154ca9e495aafd16726e34"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/servlet/ServletContext",
+      "fingerprint": "5959582d97d8b61f4d154ca9e495aafd16726e34"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Properties",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/File",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:01.909+01:00",
+  "name": "Lmasquerade/sim/webapp/WebappLifecycleListener",
+  "primaryType": {
+    "name": "Lmasquerade/sim/webapp/WebappLifecycleListener",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [
+      "Ljavax/servlet/ServletContextListener"
+    ],
+    "fields": [
+      "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextDestroyed(Ljavax/servlet/ServletContextEvent;)V",
+        "superDeclaration": "Ljavax/servlet/ServletContextListener.contextDestroyed(Ljavax/servlet/ServletContextEvent;)V",
+        "firstDeclaration": "Ljavax/servlet/ServletContextListener.contextDestroyed(Ljavax/servlet/ServletContextEvent;)V",
+        "line": 92,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+            "names": [
+              "service"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappLifecycleListener.service;Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.stop()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextDestroyed(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 92
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContextEvent",
+            "names": [
+              "event"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappLifecycleListener.getAppDirName(Ljavax/servlet/ServletContext;)Ljava/lang/String;",
+        "line": 100,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getContextPath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.getAppDirName(Ljavax/servlet/ServletContext;)Ljava/lang/String;",
+                "line": 100
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+        "superDeclaration": "Ljavax/servlet/ServletContextListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+        "firstDeclaration": "Ljavax/servlet/ServletContextListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+        "line": 35,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "props"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.getProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 71
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 64
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 61
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.getProperty(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 72
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getPluginLocation()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 54
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "is"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/lang/Class.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 50
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+            "names": [
+              "service"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappLifecycleListener.service;Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 51
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContextEvent",
+            "names": [
+              "event"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "event",
+                "targetMethod": "Ljavax/servlet/ServletContextEvent.getServletContext()Ljavax/servlet/ServletContext;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 35
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "bundleCacheDir"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getPludingBundleCacheDir()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "bundleCacheDir",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 45
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/HomeResolver",
+            "names": [
+              "resolver"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 51
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 38
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 52
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getPluginLocation()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 54
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getPludingBundleCacheDir()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.getBundleCacheDir(Lmasquerade/sim/webapp/HomeResolver;)Ljava/io/File;",
+                "line": 80
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getArtifactRootLocation()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 50
+              },
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getRequestLogDir()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 53
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.getClass()Ljava/lang/Class;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 60
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getDbFileLocation(Lmasquerade/sim/webapp/DbType;)Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 52
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContextEvent.getServletContext()Ljavax/servlet/ServletContext;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getContextPath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.getAppDirName(Ljavax/servlet/ServletContext;)Ljava/lang/String;",
+                "line": 100
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 69
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 66
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+            "names": [
+              "service"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 50
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 52
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 54
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 46
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 44
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 45
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 51
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 53
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 72
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 71
+              },
+              {
+                "receiver": "service",
+                "targetMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.start()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 74
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getRequestLogDir()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/File.getAbsolutePath()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.contextInitialized(Ljavax/servlet/ServletContextEvent;)V",
+                "line": 53
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappLifecycleListener.\u003cinit\u003e()V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 17,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+            "names": [
+              "service"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/WebappLifecycleListener.service;Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.\u003cinit\u003e()V",
+                "line": 17
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/WebappLifecycleListener.getBundleCacheDir(Lmasquerade/sim/webapp/HomeResolver;)Ljava/io/File;",
+        "line": 80,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/webapp/HomeResolver",
+            "names": [
+              "resolver"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "resolver",
+                "targetMethod": "Lmasquerade/sim/webapp/HomeResolver.getPludingBundleCacheDir()Ljava/io/File;",
+                "sourceMethod": "Lmasquerade/sim/webapp/WebappLifecycleListener.getBundleCacheDir(Lmasquerade/sim/webapp/HomeResolver;)Ljava/io/File;",
+                "line": 80
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "bundleCacheDir"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/webapp/HomeResolver.getPludingBundleCacheDir()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 49
+  }
+}

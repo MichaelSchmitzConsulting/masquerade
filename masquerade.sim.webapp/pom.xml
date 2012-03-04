@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>masquerade.sim</groupId>
+	<artifactId>masquerade</artifactId>
+	<packaging>war</packaging>
+	<version>2.0.0</version>
+	<name>Masquerade Service Simulator Webapp Package</name>
+
+	<parent>
+		<groupId>masquerade.sim</groupId>
+		<artifactId>masquerade.sim.pom</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<masquerade.build.timestamp>${maven.build.timestamp}</masquerade.build.timestamp>
+		<integration.test.server.port>14242</integration.test.server.port>
+	</properties>
+
+	<dependencies>
+		<!-- Felix OSGi Framework -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Felix OSGi Proxy -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.http.proxy</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- commons-logging, required by Spring bundles -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- aopalliance, required by Spring bundles -->
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Masquerade Client (used in integration tests) -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.client</artifactId>
+			<scope>test</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Servlet API for use with Jetty standalone -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- - - - OSGi Bundles (copied to WEB-INF/bundles) - - - -->
+
+		<!-- Felix OSGi service component runtime -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Felix OSGi config admin (required by service component runtime) -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configadmin</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Felix OSGi LogService -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.log</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Felix OSGi HTTP bridge bundle -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.http.bridge</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Felix Web console bundle -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.webconsole</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+        <!-- xstream bundle -->
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.xstream</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- xmlpull bundle (required by xstream bundle) -->
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.xpp3</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Embedded Jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Vaadin -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- JMS -->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- J2EE Connector API (used e.g. by WSMQ) -->
+		<dependency>
+		    <groupId>org.apache.geronimo.specs</groupId>
+		    <artifactId>geronimo-j2ee-connector_1.6_spec</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!--  J2EE Transaction API -->
+		<dependency>
+		    <groupId>org.apache.geronimo.specs</groupId>
+		    <artifactId>geronimo-jta_1.1_spec</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- Spring JMS -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<scope>provided</scope><!-- Referencing bundle -->
+		</dependency>
+		<!-- Masquerade App bundle -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.application</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Masquerade Core bundle -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.core</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Masquerade Model bundle -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.model</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Masquerade Channel bundle -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.channel</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Masquerade JMS Channel bundle -->
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.channel.jms</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- Groovy -->
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- JRuby -->
+		<dependency>
+			<groupId>org.jruby</groupId>
+			<artifactId>jruby-complete</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+		<!-- javax.mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<scope>provided</scope><!-- Included as bundle -->
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<!-- Java Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<!-- Maven WAR plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>run.Main</mainClass>
+						</manifest>
+					</archive>
+					<webResources>
+						<resource>
+							<!-- this is relative to the pom.xml directory -->
+							<directory>target/classes</directory>
+							<!-- Include the Main class to run the war standalone using jetty 
+								with java -jar masquerade.war -->
+							<includes>
+								<include>run/*.class</include>
+							</includes>
+						</resource>
+						<!-- Include all dependency bundles in the WAR under WEB-INF/bundles -->
+						<resource>
+							<directory>
+								${project.build.directory}/bundles
+                            </directory>
+							<targetPath>WEB-INF/bundles</targetPath>
+						</resource>
+						<!-- Include libs used for standalone classpath only in the WAR under WEB-INF/librun -->
+						<resource>
+							<directory>
+								${project.build.directory}/librun
+                            </directory>
+							<targetPath>WEB-INF/librun</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<!-- Maven Dependency Plugin: Include some dependency JARs as bundles 
+						in the WAR under /bundles -->
+					<execution>
+						<id>copy-bundles</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>provided</includeScope>
+							<excludeGroupIds>net.sf.kxml</excludeGroupIds>
+							<stripVersion>false</stripVersion>
+							<outputDirectory>
+								${project.build.directory}/bundles
+                            </outputDirectory>
+						</configuration>
+					</execution>
+					<!-- Maven Dependency Plugin: Include servlet-api in WAR as it is required by Jetty 
+						in standalone mode (java -jar). Do not include in WEB-INF/lib directory as the
+						JEE spec forbids this. -->
+					<execution>
+						<id>copy-servlet-api-for-jetty</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>servlet-api</includeArtifactIds>
+							<stripVersion>true</stripVersion>
+							<outputDirectory>
+								${project.build.directory}/librun
+                            </outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Eclipse Webapp -->
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpmanifest>false</wtpmanifest>
+				</configuration>
+			</plugin>
+
+			<!-- Use the failsafe plugin to run integration tests, matched by **/*IT.class -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>failsafe-maven-plugin</artifactId>
+				<version>2.4.3-alpha-1</version>
+				<configuration>
+					<systemPropertyVariables>
+						<integration.test.server.port>${integration.test.server.port}</integration.test.server.port>
+					</systemPropertyVariables>
+					<systemProperties>
+						<property>
+							<name>integration.test.server.port</name>
+							<value>${integration.test.server.port}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Start/stop webapp hosted by Jetty for integration tests -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.0.4.v20111024</version>
+				<configuration>
+					<scanIntervalSeconds>0</scanIntervalSeconds>
+					<stopPort>12476</stopPort>
+					<stopKey>STOP</stopKey>
+					<contextPath>/masquerade</contextPath>
+					<systemProperties>
+						<systemProperty>
+							<name>masquerade.home</name>
+							<value>${project.build.directory}/home</value>
+						</systemProperty>
+					</systemProperties>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>${integration.test.server.port}</port>
+							<maxIdleTime>120000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run-war</goal>
+						</goals>
+						<configuration>
+							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:git@github.com:matf/masquerade.sim.webapp.git</connection>
+		<url>scm:git:git@github.com:matf/masquerade.sim.webapp.git</url>
+		<developerConnection>scm:git:git@github.com:matf/masquerade.sim.webapp.git</developerConnection>
+	</scm>
+</project>

@@ -1,0 +1,444 @@
+{
+  "_id": "9cbc7b3252db77ac42e23ea063ea2d7a21667756",
+  "creationTimestamp": "2011-12-15T12:36:59.673+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[B"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/zip/ZipFile",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/zip/ZipEntry",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Enumeration",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/FileOutputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/File",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/BufferedOutputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/BufferedInputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:36:59.673+01:00",
+  "name": "Lrun/Zippy",
+  "primaryType": {
+    "name": "Lrun/Zippy",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+        "line": 40,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Ljava/util/zip/ZipEntry",
+            "names": [
+              "entry"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/BufferedOutputStream",
+            "names": [
+              "dest"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/FilterOutputStream.close()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 54
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.write([BII)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 51
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.flush()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 53
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.\u003cinit\u003e(Ljava/io/OutputStream;I)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 47
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/FileOutputStream",
+            "names": [
+              "fos"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "fos",
+                "targetMethod": "Ljava/io/FileOutputStream.\u003cinit\u003e(Ljava/io/File;)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 46
+              }
+            ]
+          },
+          {
+            "type": "[B",
+            "names": [
+              "data"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/zip/ZipFile",
+            "names": [
+              "zip"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "zip",
+                "targetMethod": "Ljava/util/zip/ZipFile.getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 40
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/zip/ZipFile.getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/BufferedInputStream",
+            "names": [
+              "is"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.read([BII)I",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 50
+              },
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.\u003cinit\u003e(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 40
+              },
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.close()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 55
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "destFile"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+        "line": 18,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "Ljava/io/FileOutputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "fos",
+                "targetMethod": "Ljava/io/FileOutputStream.\u003cinit\u003e(Ljava/io/File;)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 46
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Enumeration",
+            "names": [
+              "zipFileEntries"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/zip/ZipFile.entries()Ljava/util/Enumeration;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "zipFileEntries",
+                "targetMethod": "Ljava/util/Enumeration.nextElement()Ljava/lang/Object;",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 25
+              },
+              {
+                "receiver": "zipFileEntries",
+                "targetMethod": "Ljava/util/Enumeration.hasMoreElements()Z",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 23
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/BufferedInputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.\u003cinit\u003e(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 40
+              },
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.close()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 55
+              },
+              {
+                "receiver": "is",
+                "targetMethod": "Ljava/io/BufferedInputStream.read([BII)I",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 50
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "destDir"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "destinationParent"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/io/File.getParentFile()Ljava/io/File;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "destinationParent",
+                "targetMethod": "Ljava/io/File.mkdirs()Z",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 31
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/zip/ZipFile.getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[B",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/zip/ZipFile",
+            "names": [
+              "zip"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "zip",
+                "targetMethod": "Ljava/util/zip/ZipFile.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 18
+              },
+              {
+                "receiver": "zip",
+                "targetMethod": "Ljava/util/zip/ZipFile.entries()Ljava/util/Enumeration;",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 20
+              },
+              {
+                "receiver": "zip",
+                "targetMethod": "Ljava/util/zip/ZipFile.getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 40
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/File",
+            "names": [
+              "destFile"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "destFile",
+                "targetMethod": "Ljava/io/File.getParentFile()Ljava/io/File;",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 28
+              },
+              {
+                "receiver": "destFile",
+                "targetMethod": "Ljava/io/File.\u003cinit\u003e(Ljava/io/File;Ljava/lang/String;)V",
+                "sourceMethod": "Lrun/Zippy.unzip(Ljava/lang/String;Ljava/io/File;)V",
+                "line": 27
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/BufferedOutputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.write([BII)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 51
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.flush()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 53
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/FilterOutputStream.close()V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 54
+              },
+              {
+                "receiver": "dest",
+                "targetMethod": "Ljava/io/BufferedOutputStream.\u003cinit\u003e(Ljava/io/OutputStream;I)V",
+                "sourceMethod": "Lrun/Zippy.extractFile(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V",
+                "line": 47
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lrun/Zippy.\u003cinit\u003e()V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 14,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lrun/Zippy.\u003cinit\u003e()V",
+                "line": 14
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

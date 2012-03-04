@@ -1,0 +1,1032 @@
+{
+  "_id": "e4df949299185038914045aa3d41ea2f7b243ff3",
+  "creationTimestamp": "2011-12-15T12:37:02.662+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/osgi/framework/FrameworkEvent",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/osgi/framework/BundleActivator",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lorg/apache/felix/framework/Felix",
+      "fingerprint": "035eb7eee7573ee61a79897c63e9b3853819c7c0"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/webapp/WebappBundlesActivator"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/servlet/ServletContext",
+      "fingerprint": "5959582d97d8b61f4d154ca9e495aafd16726e34"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Properties",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Map",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/List",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/HashMap",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:02.662+01:00",
+  "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+  "primaryType": {
+    "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [
+      "Lorg/apache/felix/framework/Felix",
+      "Ljavax/servlet/ServletContext",
+      "Ljava/util/Map"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.start()V",
+        "line": 46,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 93
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 97
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.putAll(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 100
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Collections.singletonList(Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.\u003cinit\u003e(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 67
+              },
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.start()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 68
+              }
+            ]
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+                "line": 106
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.error(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "line": 110
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/WebappBundlesActivator",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "activator",
+                "targetMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 64
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.stop()V",
+        "line": 57,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.stop()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStop()V",
+                "line": 77
+              },
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.waitForStop(J)Lorg/osgi/framework/FrameworkEvent;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStop()V",
+                "line": 78
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+                "line": 106
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.error(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Lorg/osgi/framework/FrameworkEvent",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lorg/apache/felix/framework/Felix.waitForStop(J)Lorg/osgi/framework/FrameworkEvent;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStop()V",
+        "line": 76,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lorg/osgi/framework/FrameworkEvent",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lorg/apache/felix/framework/Felix.waitForStop(J)Lorg/osgi/framework/FrameworkEvent;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.waitForStop(J)Lorg/osgi/framework/FrameworkEvent;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStop()V",
+                "line": 78
+              },
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.stop()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStop()V",
+                "line": 77
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+                "line": 106
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+        "line": 64,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "configuration"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.putAll(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 100
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 97
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 93
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/webapp/WebappBundlesActivator",
+            "names": [
+              "activator"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "activator",
+                "targetMethod": "Lmasquerade/sim/webapp/WebappBundlesActivator.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 64
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+                "line": 106
+              },
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.start()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 68
+              },
+              {
+                "receiver": "felix",
+                "targetMethod": "Lorg/apache/felix/framework/Felix.\u003cinit\u003e(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.doStart()V",
+                "line": 67
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Collections.singletonList(Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+        "line": 38,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "extraProperties",
+                "targetMethod": "Ljava/util/Map.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.setProperty(Ljava/lang/String;Ljava/lang/Object;)V",
+                "line": 38
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+        "line": 93,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Collections.singletonList(Ljava/lang/Object;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/osgi/framework/BundleActivator",
+            "names": [
+              "activator"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/servlet/ServletContext.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "map"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 97
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 93
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Hashtable.putAll(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 100
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.getConfiguration(Lorg/osgi/framework/BundleActivator;)Ljava/util/Map;",
+                "line": 94
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 26,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "line": 26
+              }
+            ]
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "context"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/HashMap",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "extraProperties",
+                "targetMethod": "Ljava/util/HashMap.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.\u003cinit\u003e(Ljavax/servlet/ServletContext;)V",
+                "line": 24
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.error(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "line": 110,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.error(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+        "line": 106,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljavax/servlet/ServletContext",
+            "names": [
+              "servletContext"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.servletContext;Ljavax/servlet/ServletContext",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "servletContext",
+                "targetMethod": "Ljavax/servlet/ServletContext.log(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.info(Ljava/lang/String;)V",
+                "line": 106
+              }
+            ]
+          },
+          {
+            "type": "Lorg/apache/felix/framework/Felix",
+            "names": [
+              "felix"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.felix;Lorg/apache/felix/framework/Felix",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "extraProperties"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/OsgiFrameworkLifecycle.extraProperties;Ljava/util/Map",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 49
+  }
+}

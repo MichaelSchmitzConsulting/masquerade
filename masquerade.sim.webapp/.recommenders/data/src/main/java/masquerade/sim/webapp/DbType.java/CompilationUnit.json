@@ -1,0 +1,229 @@
+{
+  "_id": "dc115b452ba1502ffa9416852691e6bafc092525",
+  "creationTimestamp": "2011-12-15T12:37:04.788+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Lmasquerade/sim/webapp/DbType"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Enum",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-12-15T12:37:04.788+01:00",
+  "name": "Lmasquerade/sim/webapp/DbType",
+  "primaryType": {
+    "name": "Lmasquerade/sim/webapp/DbType",
+    "superclass": "Ljava/lang/Enum",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/webapp/DbType.valueOf(Ljava/lang/String;)Lmasquerade/sim/webapp/DbType;",
+        "line": 3,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Lmasquerade/sim/webapp/DbType",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/DbType.values()[Lmasquerade/sim/webapp/DbType;",
+        "line": 3,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "[Lmasquerade/sim/webapp/DbType",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Lmasquerade/sim/webapp/DbType",
+            "names": [
+              "$VALUES"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "$VALUES",
+                "targetMethod": "Ljava/lang/Object.clone()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/webapp/DbType.values()[Lmasquerade/sim/webapp/DbType;",
+                "line": 3
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/DbType.\u003cinit\u003e(Ljava/lang/String;I)V",
+        "superDeclaration": "Ljava/lang/Enum.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Enum.\u003cinit\u003e()V",
+        "line": 3,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [
+              "MODEL"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/DbType.MODEL;Lmasquerade/sim/webapp/DbType",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Enum.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/DbType.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "line": 3
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [
+              "HISTORY"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/webapp/DbType.HISTORY;Lmasquerade/sim/webapp/DbType",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Lmasquerade/sim/webapp/DbType",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/webapp/DbType.\u003cclinit\u003e()V",
+        "line": 3,
+        "nestedTypes": [],
+        "modifiers": 8,
+        "objects": [
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [
+              "HISTORY"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Enum.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/DbType.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "line": 3
+              }
+            ]
+          },
+          {
+            "type": "[Lmasquerade/sim/webapp/DbType",
+            "names": [
+              "$VALUES"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Enum",
+            "names": [
+              "MODEL"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Enum.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "sourceMethod": "Lmasquerade/sim/webapp/DbType.\u003cinit\u003e(Ljava/lang/String;I)V",
+                "line": 3
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 16432
+  }
+}

@@ -1,0 +1,500 @@
+{
+  "_id": "d9e28a44578311ae56ee7d99ab7bcd259317b673",
+  "creationTimestamp": "2011-11-14T20:39:32.363+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[Ljava/lang/String"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "[B"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/internal/RequestImpl"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/MasqueradeClientException"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/mail/util/ByteArrayDataSource",
+      "fingerprint": "b907ef0a02ff6e809392b1e7149198497fcc8e49"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/mail/internet/MimeMultipart",
+      "fingerprint": "b907ef0a02ff6e809392b1e7149198497fcc8e49"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljavax/mail/BodyPart",
+      "fingerprint": "b907ef0a02ff6e809392b1e7149198497fcc8e49"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/List",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/ArrayList",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-11-14T20:39:32.364+01:00",
+  "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.\u003cinit\u003e()V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 22,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.\u003cinit\u003e()V",
+                "line": 22
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+        "line": 56,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "[B",
+            "names": [
+              "arr"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/mail/internet/MimeMultipart",
+            "names": [
+              "multipart"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.\u003cinit\u003e(Ljavax/activation/DataSource;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 57
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/util/ByteArrayDataSource",
+            "names": [
+              "dataSource"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dataSource",
+                "targetMethod": "Ljavax/mail/util/ByteArrayDataSource.\u003cinit\u003e([BLjava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 56
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+        "line": 36,
+        "nestedTypes": [],
+        "modifiers": 10,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/internal/RequestImpl",
+            "names": [
+              "request"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "request",
+                "targetMethod": "Lmasquerade/sim/client/internal/RequestImpl.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 49
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/BodyPart",
+            "names": [
+              "part"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/mail/internet/MimeMultipart.getBodyPart(I)Ljavax/mail/BodyPart;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "part",
+                "targetMethod": "Ljavax/mail/Part.getHeader(Ljava/lang/String;)[Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 48
+              },
+              {
+                "receiver": "part",
+                "targetMethod": "Ljavax/mail/Part.getContent()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 47
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "responseContent"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[Ljava/lang/String",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/mail/Part.getHeader(Ljava/lang/String;)[Ljava/lang/String;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "[B",
+            "names": [
+              "arr"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lorg/apache/commons/io/IOUtils.toByteArray(Ljava/io/InputStream;)[B"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Collections.emptyList()Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "requests"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "requests",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e(I)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 44
+              },
+              {
+                "receiver": "requests",
+                "targetMethod": "Ljava/util/List.add(Ljava/lang/Object;)Z",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 50
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/util/ByteArrayDataSource",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dataSource",
+                "targetMethod": "Ljavax/mail/util/ByteArrayDataSource.\u003cinit\u003e([BLjava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 56
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/internet/MimeMultipart",
+            "names": [
+              "multipart"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.getBodyPart(I)Ljavax/mail/BodyPart;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 46
+              },
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.\u003cinit\u003e(Ljavax/activation/DataSource;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 57
+              },
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.getCount()I",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 43
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.parse(Ljava/io/InputStream;)Ljava/util/List;",
+        "line": 27,
+        "nestedTypes": [],
+        "modifiers": 9,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.parse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 29
+              }
+            ]
+          },
+          {
+            "type": "[Ljava/lang/String",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/mail/Part.getHeader(Ljava/lang/String;)[Ljava/lang/String;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljavax/mail/util/ByteArrayDataSource",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "dataSource",
+                "targetMethod": "Ljavax/mail/util/ByteArrayDataSource.\u003cinit\u003e([BLjava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 56
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/internet/MimeMultipart",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.\u003cinit\u003e(Ljavax/activation/DataSource;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.createMultipart([B)Ljavax/mail/internet/MimeMultipart;",
+                "line": 57
+              },
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.getBodyPart(I)Ljavax/mail/BodyPart;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 46
+              },
+              {
+                "receiver": "multipart",
+                "targetMethod": "Ljavax/mail/internet/MimeMultipart.getCount()I",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 43
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/RequestImpl",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "request",
+                "targetMethod": "Lmasquerade/sim/client/internal/RequestImpl.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 49
+              }
+            ]
+          },
+          {
+            "type": "[B",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lorg/apache/commons/io/IOUtils.toByteArray(Ljava/io/InputStream;)[B"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Collections.emptyList()Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/ArrayList",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "requests",
+                "targetMethod": "Ljava/util/ArrayList.\u003cinit\u003e(I)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 44
+              },
+              {
+                "receiver": "requests",
+                "targetMethod": "Ljava/util/List.add(Ljava/lang/Object;)Z",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 50
+              }
+            ]
+          },
+          {
+            "type": "Ljavax/mail/BodyPart",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljavax/mail/internet/MimeMultipart.getBodyPart(I)Ljavax/mail/BodyPart;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "part",
+                "targetMethod": "Ljavax/mail/Part.getContent()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 47
+              },
+              {
+                "receiver": "part",
+                "targetMethod": "Ljavax/mail/Part.getHeader(Ljava/lang/String;)[Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.doParse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 48
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "responseContent"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.parse(Ljava/io/InputStream;)Ljava/util/List;",
+                "line": 31
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

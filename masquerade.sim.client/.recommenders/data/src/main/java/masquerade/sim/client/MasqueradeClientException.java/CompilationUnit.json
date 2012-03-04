@@ -1,0 +1,77 @@
+{
+  "_id": "f65c535fcd86319bed679b645fc42c8c4cd95699",
+  "creationTimestamp": "2011-11-14T20:39:33.853+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/RuntimeException",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-11-14T20:39:33.853+01:00",
+  "name": "Lmasquerade/sim/client/MasqueradeClientException",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/MasqueradeClientException",
+    "superclass": "Ljava/lang/RuntimeException",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+        "superDeclaration": "Ljava/lang/RuntimeException.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/RuntimeException.\u003cinit\u003e()V",
+        "line": 7,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/RuntimeException",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/RuntimeException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;)V",
+                "line": 7
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "superDeclaration": "Ljava/lang/RuntimeException.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/RuntimeException.\u003cinit\u003e()V",
+        "line": 11,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/RuntimeException",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/RuntimeException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "line": 11
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

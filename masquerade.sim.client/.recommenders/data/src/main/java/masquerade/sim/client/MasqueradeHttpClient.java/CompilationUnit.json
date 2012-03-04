@@ -1,0 +1,1714 @@
+{
+  "_id": "4874f2d034be933a9733126994f9af52e54bdf1f",
+  "creationTimestamp": "2011-11-14T20:40:29.857+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/util/XmlScriptMarshaller"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/model/importexport/XmlModelExport"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/model/importexport/CollectionXmlModelExport"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/internal/HttpServiceImpl"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/MasqueradeHttpClient$1"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/MasqueradeClientException"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/MasqueradeClient"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/HttpService"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Set",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Properties",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Map",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/List",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Iterator",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/HashMap",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/util/Collection",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/StringReader",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/OutputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/InputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/io/ByteArrayOutputStream",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-11-14T20:40:29.857+01:00",
+  "name": "Lmasquerade/sim/client/MasqueradeHttpClient",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/MasqueradeHttpClient",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [
+      "Lmasquerade/sim/client/MasqueradeClient"
+    ],
+    "fields": [
+      "Lmasquerade/sim/client/HttpService"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+        "line": 71,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "steps"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+                "line": 73
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/util/XmlScriptMarshaller",
+            "names": [
+              "marshaller"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "marshaller",
+                "targetMethod": "Lmasquerade/sim/util/ScriptMarshaller.marshal(Ljava/util/List;)Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+                "line": 72
+              },
+              {
+                "receiver": "marshaller",
+                "targetMethod": "Lmasquerade/sim/util/XmlScriptMarshaller.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.dynamicResponseScript(Ljava/lang/String;Ljava/util/List;)V",
+                "line": 71
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.removeLeadingSlash(Ljava/lang/String;)Ljava/lang/String;",
+        "line": 164,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+        "line": 88,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 95
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/ByteArrayOutputStream",
+            "names": [
+              "content"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "content",
+                "targetMethod": "Ljava/io/ByteArrayOutputStream.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 90
+              },
+              {
+                "receiver": "content",
+                "targetMethod": "Ljava/io/ByteArrayOutputStream.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 93
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "props"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.store(Ljava/io/OutputStream;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 92
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 88
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Hashtable.putAll(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 89
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "properties"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.getConfigurationProperties()Ljava/util/Map;",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.getConfigurationProperties()Ljava/util/Map;",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.getConfigurationProperties()Ljava/util/Map;",
+        "line": 103,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/util/HashMap",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Map.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 111
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/HashMap.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 109
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Set",
+            "names": [],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Hashtable.entrySet()Ljava/util/Set;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/StringReader",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/StringReader.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "props"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/Reader;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 119
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Hashtable.entrySet()Ljava/util/Set;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 117
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.get(Ljava/lang/String;)Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.getConfigurationProperties()Ljava/util/Map;",
+                "line": 103
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.importSimulationModel(Ljava/util/Collection;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.importSimulationModel(Ljava/util/Collection;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.importSimulationModel(Ljava/util/Collection;)V",
+        "line": 133,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.importSimulationModel(Ljava/util/Collection;)V",
+                "line": 135
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/model/importexport/CollectionXmlModelExport",
+            "names": [
+              "exporter"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "exporter",
+                "targetMethod": "Lmasquerade/sim/model/importexport/CollectionXmlModelExport.\u003cinit\u003e(Ljava/util/Collection;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.importSimulationModel(Ljava/util/Collection;)V",
+                "line": 133
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeHttpClient$1",
+            "names": [
+              "writer"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeHttpClient$1.\u003cinit\u003e(Lmasquerade/sim/client/MasqueradeHttpClient;Lmasquerade/sim/model/importexport/XmlModelExport;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.createExportingWriter(Lmasquerade/sim/model/importexport/XmlModelExport;)Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;",
+                "line": 139
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Collection",
+            "names": [
+              "channels"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.importSimulationModel(Ljava/io/InputStream;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.importSimulationModel(Ljava/io/InputStream;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.importSimulationModel(Ljava/io/InputStream;)V",
+        "line": 128,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "content"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/io/InputStream;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.importSimulationModel(Ljava/io/InputStream;)V",
+                "line": 128
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.listRequests(Ljava/lang/String;)Ljava/util/List;",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.listRequests(Ljava/lang/String;)Ljava/util/List;",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.listRequests(Ljava/lang/String;)Ljava/util/List;",
+        "line": 61,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/util/List",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/client/internal/ListRequestsResponseParser.parse(Ljava/io/InputStream;)Ljava/util/List;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.listRequests(Ljava/lang/String;)Ljava/util/List;",
+                "line": 61
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "stream"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.createExportingWriter(Lmasquerade/sim/model/importexport/XmlModelExport;)Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;",
+        "line": 139,
+        "nestedTypes": [
+          {
+            "name": "Lmasquerade/sim/client/MasqueradeHttpClient$1",
+            "superclass": "Ljava/lang/Object",
+            "interfaces": [
+              "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter"
+            ],
+            "fields": [
+              "Lmasquerade/sim/model/importexport/XmlModelExport",
+              "Lmasquerade/sim/client/MasqueradeHttpClient"
+            ],
+            "methods": [
+              {
+                "name": "Lmasquerade/sim/client/MasqueradeHttpClient$1.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "superDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "firstDeclaration": "Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                "line": 141,
+                "nestedTypes": [],
+                "modifiers": 1,
+                "objects": [
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/model/importexport/XmlModelExport",
+                    "names": [
+                      "val$exporter"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient$1.val$exporter;Lmasquerade/sim/model/importexport/XmlModelExport",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "val$exporter",
+                        "targetMethod": "Lmasquerade/sim/model/repository/ModelExport.exportModel(Ljava/io/OutputStream;)V",
+                        "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient$1.writeTo(Ljava/net/HttpURLConnection;Ljava/io/OutputStream;)V",
+                        "line": 141
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_SIMULATION_MODEL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_SIMULATION_MODEL;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/MasqueradeHttpClient$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/net/HttpURLConnection",
+                    "names": [
+                      "connection"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/HttpService",
+                    "names": [
+                      "httpService"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "HTTP_CHANNEL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.HTTP_CHANNEL;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/io/OutputStream",
+                    "names": [
+                      "out"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/MasqueradeHttpClient",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient$1.this$0;Lmasquerade/sim/client/MasqueradeHttpClient",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_DEFINE_RESPONSE_SCRIPT"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_DEFINE_RESPONSE_SCRIPT;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_CONFIGURATION_PROPERTIES"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_CONFIGURATION_PROPERTIES;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_REMOVE_RESPONSE_SCRIPTS"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_REMOVE_RESPONSE_SCRIPTS;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_LIST_REQUESTS"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_LIST_REQUESTS;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  }
+                ]
+              },
+              {
+                "name": "Lmasquerade/sim/client/MasqueradeHttpClient$1.\u003cinit\u003e(Lmasquerade/sim/client/MasqueradeHttpClient;Lmasquerade/sim/model/importexport/XmlModelExport;)V",
+                "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "line": 1,
+                "nestedTypes": [],
+                "modifiers": 0,
+                "objects": [
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/MasqueradeHttpClient$1",
+                    "names": [
+                      "this"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": [
+                      {
+                        "receiver": "this",
+                        "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                        "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient$1.\u003cinit\u003e(Lmasquerade/sim/client/MasqueradeHttpClient;Lmasquerade/sim/model/importexport/XmlModelExport;)V",
+                        "line": 139
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Lmasquerade/sim/model/importexport/XmlModelExport",
+                    "names": [
+                      "val$exporter"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient$1.val$exporter;Lmasquerade/sim/model/importexport/XmlModelExport",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_SIMULATION_MODEL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_SIMULATION_MODEL;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "HTTP_CHANNEL"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.HTTP_CHANNEL;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/MasqueradeHttpClient",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/HttpService",
+                    "names": [
+                      "httpService"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_REMOVE_RESPONSE_SCRIPTS"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_REMOVE_RESPONSE_SCRIPTS;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_CONFIGURATION_PROPERTIES"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_CONFIGURATION_PROPERTIES;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/model/importexport/XmlModelExport",
+                    "names": [
+                      "val$exporter"
+                    ],
+                    "kind": "PARAMETER",
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Lmasquerade/sim/client/MasqueradeHttpClient",
+                    "names": [
+                      "this$0"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient$1.this$0;Lmasquerade/sim/client/MasqueradeHttpClient",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_LIST_REQUESTS"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_LIST_REQUESTS;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  },
+                  {
+                    "type": "Ljava/lang/String",
+                    "names": [
+                      "API_DEFINE_RESPONSE_SCRIPT"
+                    ],
+                    "kind": "FIELD",
+                    "definitionSite": {
+                      "kind": "FIELD",
+                      "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.API_DEFINE_RESPONSE_SCRIPT;Ljava/lang/String",
+                      "lineNumber": 0
+                    },
+                    "parameterCallSites": [],
+                    "receiverCallSites": []
+                  }
+                ]
+              }
+            ],
+            "line": 0,
+            "memberTypes": [],
+            "modifiers": 32
+          }
+        ],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/model/importexport/XmlModelExport",
+            "names": [
+              "exporter"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeHttpClient$1",
+            "names": [
+              "writer"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "writer",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeHttpClient$1.\u003cinit\u003e(Lmasquerade/sim/client/MasqueradeHttpClient;Lmasquerade/sim/model/importexport/XmlModelExport;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.createExportingWriter(Lmasquerade/sim/model/importexport/XmlModelExport;)Lmasquerade/sim/client/internal/HttpServiceImpl$UrlWriter;",
+                "line": 139
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+        "line": 109,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Iterator",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Iterator.next()Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              },
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Iterator.hasNext()Z",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/util/Set",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Ljava/util/Hashtable.entrySet()Ljava/util/Set;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/util/Set.iterator()Ljava/util/Iterator;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/HashMap",
+            "names": [
+              "map"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/Map.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 111
+              },
+              {
+                "receiver": "map",
+                "targetMethod": "Ljava/util/HashMap.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 109
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "props"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Hashtable.entrySet()Ljava/util/Set;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToStringMap(Ljava/util/Properties;)Ljava/util/Map;",
+                "line": 110
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.exportSimulationModel(Ljava/io/OutputStream;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.exportSimulationModel(Ljava/io/OutputStream;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.exportSimulationModel(Ljava/io/OutputStream;)V",
+        "line": 149,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.exportSimulationModel(Ljava/io/OutputStream;)V",
+                "line": 149
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "stream"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/client/HttpService.getStream(Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/OutputStream",
+            "names": [
+              "destination"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.exportSimulationModel(Ljava/io/OutputStream;)V",
+                "line": 154
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.removeResponseScripts(Ljava/lang/String;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.removeResponseScripts(Ljava/lang/String;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.removeResponseScripts(Ljava/lang/String;)V",
+        "line": 78,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.get(Ljava/lang/String;)Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.removeResponseScripts(Ljava/lang/String;)V",
+                "line": 78
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.\u003cinit\u003e(Lmasquerade/sim/client/HttpService;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 55,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.\u003cinit\u003e(Lmasquerade/sim/client/HttpService;)V",
+                "line": 55
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.httpChannelRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.httpChannelRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.httpChannelRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+        "line": 160,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.httpChannelRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;",
+                "line": 160
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/InputStream",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "definitionSite": {
+              "kind": "METHOD_RETURN",
+              "lineNumber": 0,
+              "definedByMethod": "Lmasquerade/sim/client/HttpService.postAndReceive(Ljava/lang/String;Ljava/lang/String;)Ljava/io/InputStream;"
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.setConfigurationProperties(Ljava/util/Map;)V",
+        "superDeclaration": "Lmasquerade/sim/client/MasqueradeClient.setConfigurationProperties(Ljava/util/Map;)V",
+        "firstDeclaration": "Lmasquerade/sim/client/MasqueradeClient.setConfigurationProperties(Ljava/util/Map;)V",
+        "line": 83,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/io/ByteArrayOutputStream",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "content",
+                "targetMethod": "Ljava/io/ByteArrayOutputStream.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 90
+              },
+              {
+                "receiver": "content",
+                "targetMethod": "Ljava/io/ByteArrayOutputStream.toString()Ljava/lang/String;",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 93
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/HttpService.post(Ljava/lang/String;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.setConfigurationProperties(Ljava/util/Map;)V",
+                "line": 84
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Hashtable.putAll(Ljava/util/Map;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 89
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 88
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.store(Ljava/io/OutputStream;Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 92
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Map",
+            "names": [
+              "properties"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertPropertiesToString(Ljava/util/Map;)Ljava/lang/String;",
+                "line": 95
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.\u003cinit\u003e(Ljava/lang/String;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 51,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.\u003cinit\u003e(Ljava/lang/String;)V",
+                "line": 51
+              }
+            ]
+          },
+          {
+            "type": "Lmasquerade/sim/client/internal/HttpServiceImpl",
+            "names": [
+              "httpService"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "httpService",
+                "targetMethod": "Lmasquerade/sim/client/internal/HttpServiceImpl.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.\u003cinit\u003e(Ljava/lang/String;)V",
+                "line": 52
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+        "line": 117,
+        "nestedTypes": [],
+        "modifiers": 2,
+        "objects": [
+          {
+            "type": "Lmasquerade/sim/client/HttpService",
+            "names": [
+              "httpService"
+            ],
+            "kind": "FIELD",
+            "definitionSite": {
+              "kind": "FIELD",
+              "definedByField": "Lmasquerade/sim/client/MasqueradeHttpClient.httpService;Lmasquerade/sim/client/HttpService",
+              "lineNumber": 0
+            },
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          },
+          {
+            "type": "Lmasquerade/sim/client/MasqueradeClientException",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Lmasquerade/sim/client/MasqueradeClientException.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/Throwable;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 121
+              }
+            ]
+          },
+          {
+            "type": "Ljava/io/StringReader",
+            "names": [
+              "unnamed"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "unnamed",
+                "targetMethod": "Ljava/io/StringReader.\u003cinit\u003e(Ljava/lang/String;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 119
+              }
+            ]
+          },
+          {
+            "type": "Ljava/util/Properties",
+            "names": [
+              "props"
+            ],
+            "kind": "LOCAL",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 117
+              },
+              {
+                "receiver": "props",
+                "targetMethod": "Ljava/util/Properties.load(Ljava/io/Reader;)V",
+                "sourceMethod": "Lmasquerade/sim/client/MasqueradeHttpClient.convertStringToProperties(Ljava/lang/String;)Ljava/util/Properties;",
+                "line": 119
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}

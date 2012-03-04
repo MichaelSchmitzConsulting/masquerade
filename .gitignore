@@ -2,5 +2,6 @@
 .project
 .settings
 .classpath
-/target
-/felix-cache
+target/
+felix-cache/
+bundles/

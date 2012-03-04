@@ -1,0 +1,2 @@
+# Module masquerade.sim.app.ui.widgetset.WidgetSet
+# RPC service class, partial path of RPC policy file

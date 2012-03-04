@@ -1,0 +1,102 @@
+{
+  "_id": "aa7e8d90ccb6a0462e34b1772180cbe06dccb148",
+  "creationTimestamp": "2011-11-14T20:39:32.321+01:00",
+  "imports": [
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Lmasquerade/sim/client/Request"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/String",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    },
+    {
+      "kind": "TYPE_REFERENCE",
+      "name": "Ljava/lang/Object",
+      "fingerprint": "a55882057fecc2cc0bb686faef54604b46919af9"
+    }
+  ],
+  "kind": "SNAPSHOT",
+  "analysedOn": "2011-11-14T20:39:32.321+01:00",
+  "name": "Lmasquerade/sim/client/internal/RequestImpl",
+  "primaryType": {
+    "name": "Lmasquerade/sim/client/internal/RequestImpl",
+    "superclass": "Ljava/lang/Object",
+    "interfaces": [
+      "Lmasquerade/sim/client/Request"
+    ],
+    "fields": [
+      "Ljava/lang/String"
+    ],
+    "methods": [
+      {
+        "name": "Lmasquerade/sim/client/internal/RequestImpl.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/String;)V",
+        "superDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "firstDeclaration": "Ljava/lang/Object.\u003cinit\u003e()V",
+        "line": 10,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": [
+              {
+                "receiver": "this",
+                "targetMethod": "Ljava/lang/Object.\u003cinit\u003e()V",
+                "sourceMethod": "Lmasquerade/sim/client/internal/RequestImpl.\u003cinit\u003e(Ljava/lang/String;Ljava/lang/String;)V",
+                "line": 10
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/RequestImpl.getContent()Ljava/lang/String;",
+        "superDeclaration": "Lmasquerade/sim/client/Request.getContent()Ljava/lang/String;",
+        "firstDeclaration": "Lmasquerade/sim/client/Request.getContent()Ljava/lang/String;",
+        "line": 22,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      },
+      {
+        "name": "Lmasquerade/sim/client/internal/RequestImpl.getRequestId()Ljava/lang/String;",
+        "superDeclaration": "Lmasquerade/sim/client/Request.getRequestId()Ljava/lang/String;",
+        "firstDeclaration": "Lmasquerade/sim/client/Request.getRequestId()Ljava/lang/String;",
+        "line": 17,
+        "nestedTypes": [],
+        "modifiers": 1,
+        "objects": [
+          {
+            "type": "Ljava/lang/Object",
+            "names": [
+              "this"
+            ],
+            "kind": "PARAMETER",
+            "parameterCallSites": [],
+            "receiverCallSites": []
+          }
+        ]
+      }
+    ],
+    "line": 0,
+    "memberTypes": [],
+    "modifiers": 33
+  }
+}
