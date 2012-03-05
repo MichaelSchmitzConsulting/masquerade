@@ -93,7 +93,7 @@
 			<dependency>
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
-				<version>3.0.1</version>
+				<version>3.1</version>
 				<scope>provided</scope><!-- Referencing bundle -->
 			</dependency>
 			<!-- commons-logging, required by Spring bundles -->
