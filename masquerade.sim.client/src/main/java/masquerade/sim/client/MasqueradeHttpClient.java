@@ -3,19 +3,26 @@ package masquerade.sim.client;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import masquerade.sim.client.internal.HttpServiceImpl;
+import masquerade.sim.client.internal.HttpServiceImpl.UrlWriter;
 import masquerade.sim.client.internal.ListRequestsResponseParser;
+import masquerade.sim.model.Channel;
+import masquerade.sim.model.Simulation;
 import masquerade.sim.model.SimulationStep;
 import masquerade.sim.util.ScriptMarshaller;
+import masquerade.sim.util.XStreamMarshallerFactory;
 import masquerade.sim.util.XmlScriptMarshaller;
 
 import org.apache.commons.io.IOUtils;
@@ -24,23 +31,19 @@ import org.apache.commons.io.IOUtils;
  * Interface for Masquerade's HTTP API
  */
 public class MasqueradeHttpClient implements MasqueradeClient {
-	
+
 	private static final String UTF_8 = "UTF-8";
-
 	private static final String API = "api";
-
 	private static final String API_LIST_REQUESTS = API + "/listRequests";
-
 	private static final String API_DEFINE_RESPONSE_SCRIPT = API + "/dynamicResponseScript";
-
 	private static final String API_REMOVE_RESPONSE_SCRIPTS = API + "/removeResponseScripts";
-
 	private static final String API_CONFIGURATION_PROPERTIES = API + "/settings/configurationProperties";
-	
+	private static final String API_SIMULATION = API + "/simulation";
 	private static final String API_CHANNEL = API + "/channel";
-
+	private static final String ALL = "/all";
+	private static final String ID = "/id/";
 	private static final String HTTP_CHANNEL = "request/";
-
+	
 	private final HttpService httpService;
 	
 	/**
@@ -122,24 +125,17 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 	}
 
 	@Override
-	public void activateMappingOnChannel(String mappingName, String channelName) {
-		String url = API_CHANNEL + "/" + urlEncode(channelName) + "/" + urlEncode(mappingName);
+	public void assignSimulationToChannel(String simulationId, String channelId) {
+		String url = API_SIMULATION + "/assign/" + urlEncode(simulationId) + "/tochannel/" + urlEncode(channelId);
 		httpService.post(url);
 	}
 
-	private String urlEncode(String mappingName) {
+	private static String urlEncode(String mappingName) {
 		try {
 			return URLEncoder.encode(mappingName, UTF_8);
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException("Unsupported encoding", e);
 		}
-	}
-
-	@Override
-	public List<String> listMappingsOnChannel(String channelName) {
-		String url = API_CHANNEL + "/" + urlEncode(channelName);
-		String content = httpService.get(url);
-		return Arrays.asList(content.split("(\r)?\n"));
 	}
 
 	@Override
@@ -149,5 +145,46 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 
 	private String removeLeadingSlash(String path) {
 		return path.startsWith("/") ? path.substring(1, path.length()) : path;
+	}
+
+	@Override
+	public void uploadSimulation(Simulation simulation, Set<String> assignToChannels) {
+		String url = API_SIMULATION + ID + "?assign=" + collectionToString(assignToChannels);
+		upload(simulation, url);
+	}
+
+	private static String collectionToString(Collection<String> parts) {
+		StringBuilder str = new StringBuilder();
+		for (String part : parts) {
+			if (str.length() > 0) str.append("&assign=");
+			str.append(urlEncode(part));
+		}
+		return str.toString();
+	}
+
+	@Override
+	public void deleteAllSimulations() {
+		httpService.delete(API_SIMULATION + ALL);
+	}
+
+	@Override
+	public void uploadChannel(final Channel channel) {
+		String url = API_CHANNEL + ID;
+		upload(channel, url);
+	}
+
+	private void upload(final Object object, String url) {
+		final XStreamMarshallerFactory factory = new XStreamMarshallerFactory();
+		httpService.post(url, new UrlWriter() {
+			@Override
+			public void writeTo(HttpURLConnection connection, OutputStream out) throws IOException {
+				factory.createXStream().toXML(object, out);
+			}
+		});
+	}
+
+	@Override
+	public void deleteAllChannels() {
+		httpService.delete(API_CHANNEL + ALL);
 	}
 }

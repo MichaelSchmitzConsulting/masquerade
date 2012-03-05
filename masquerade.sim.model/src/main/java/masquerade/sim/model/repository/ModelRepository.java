@@ -48,11 +48,6 @@ public interface ModelRepository {
 	void updateSettings(Settings settings);
 
 	/**
-	 * Clear all domain objects from this repository
-	 */
-	void clear();
-
-	/**
 	 * @param channelId
 	 * @return Simulations assigned to this channel
 	 */
@@ -66,6 +61,16 @@ public interface ModelRepository {
 	void insertChannel(Channel channel);
 
 	/**
+	 * Delete a single channel
+	 */
+	boolean deleteChannel(String id);
+	
+	/**
+	 * Delete all channels
+	 */
+	void deleteChannels();
+
+	/**
 	 * Add/replace a simulation, depending on wheter a simulation
 	 * with the same ID already exists.
 	 * @param simulation
@@ -73,7 +78,19 @@ public interface ModelRepository {
 	void insertSimulation(Simulation simulation);
 
 	/**
+	 * Delete a simulation
+	 * @return <code>true</code> if a simulation with this id was deleted
+	 */
+	boolean deleteSimulation(String id);
+	
+	/**
+	 * Delete all simulations
+	 */
+	void deleteSimulations();
+	
+	/**
 	 * @return All available simulations
 	 */
 	Collection<Simulation> getSimulations();
+	
 }

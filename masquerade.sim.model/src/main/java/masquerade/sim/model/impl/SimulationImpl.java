@@ -13,18 +13,22 @@ import masquerade.sim.model.Simulation;
  */
 public class SimulationImpl implements Simulation {
 
-	private String id;
+	private final String id;
+	private final NamespaceResolverImpl namespaceResolver = new NamespaceResolverImpl();
 	private RequestMapping<?> selector;
 	private RequestIdProvider<?> requestIdProvider;
 	private Script script;
-	private final NamespaceResolverImpl namespaceResolver;
 
 	public SimulationImpl(String id, RequestMapping<?> selector, RequestIdProvider<?> requestIdProvider, Script script) {
 		this.id = id;
 		this.selector = selector;
 		this.requestIdProvider = requestIdProvider;
 		this.script = script;
-		this.namespaceResolver = new NamespaceResolverImpl(); // TODO: Mutation accessors
+	}
+
+	/** Constructor for serialization */
+	protected SimulationImpl(String id) {
+		this.id = id;
 	}
 
 	public Map<String, String> getNamespacePrefixes() {

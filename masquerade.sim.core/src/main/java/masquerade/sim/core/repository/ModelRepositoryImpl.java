@@ -81,15 +81,6 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	@Override
-	public void clear() {
-		synchronized (lock) {
-			channels.clear();
-			simulations.clear();
-			channelToSimulations.clear();
-		}
-	}
-
-	@Override
 	public Collection<Simulation> getSimulationsForChannel(String channelId) {
 		Collection<Simulation> ret = null;
 		synchronized (lock) {
@@ -128,21 +119,46 @@ public class ModelRepositoryImpl implements ModelRepository {
 		}
 	}
 
+	@Override
+	public boolean deleteChannel(String id) {
+		synchronized (lock) {
+			channelToSimulations.remove(id);
+			return channels.remove(id) != null;
+		}
+	}
+
+	@Override
+	public void deleteChannels() {
+		synchronized (lock) {
+			channels.clear();
+			channelToSimulations.clear();
+		}
+	}
+
 	/**
 	 * Remove a simulation from the repository. Removes any assignments
 	 * to channels for this simulation as well.
 	 * @param id ID of the simulation to remove
 	 */
-	public void removeSimulation(String id) {
+	@Override
+	public boolean deleteSimulation(String id) {
 		synchronized (lock) {
-			simulations.remove(id);
 			removeSimulationToChannelAssignment(id);
+			return simulations.remove(id) != null;
 		}
 	}
 
 	private void removeSimulationToChannelAssignment(String simulationId) {
 		for (Entry<String, Set<String>> entry : channelToSimulations.entrySet()) {
 			entry.getValue().remove(simulationId);
+		}
+	}
+
+	@Override
+	public void deleteSimulations() {
+		synchronized (lock) {
+			simulations.clear();
+			channelToSimulations.clear();
 		}
 	}
 }

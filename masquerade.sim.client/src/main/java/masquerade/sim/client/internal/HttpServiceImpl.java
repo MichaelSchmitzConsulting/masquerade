@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 import masquerade.sim.client.HttpService;
@@ -86,7 +85,7 @@ public class HttpServiceImpl implements HttpService {
 	@Override
 	public void post(String path, final String content) {
 		UrlWriter writer = new UrlStringWriter(content);
-		postToUrl(writer, path);
+		postToUrl(writer, path).disconnect();
 	}
 
 	@Override
@@ -101,7 +100,7 @@ public class HttpServiceImpl implements HttpService {
 
 	@Override
 	public void post(String path, UrlWriter writer) {
-		postToUrl(writer, path);		
+		postToUrl(writer, path).disconnect();		
 	}
 
 	public interface UrlWriter {
@@ -117,22 +116,28 @@ public class HttpServiceImpl implements HttpService {
 		}
 	}
 
-	private HttpURLConnection writeToUrl(UrlWriter writer, URL url) throws IOException, ProtocolException {
-		HttpURLConnection connection = connectTo(url);
-		OutputStream stream = connection.getOutputStream();
+	private static HttpURLConnection writeToUrl(UrlWriter writer, URL url) throws IOException {
+		HttpURLConnection connection = connectTo(url, "POST");
 		try {
-			writer.writeTo(connection, stream);
-		} finally {
-			stream.close();
+			OutputStream stream = connection.getOutputStream();
+			try {
+				writer.writeTo(connection, stream);
+			} finally {
+				stream.close();
+			}
+			handleFailures(url, connection);
+			return connection;
+		} catch (IOException ex) {
+			connection.disconnect();
+			throw ex;
 		}
-		handleFailures(url, connection);
-		return connection;
 	}
 
-	private HttpURLConnection connectTo(URL url) throws IOException, ProtocolException {
+	private static HttpURLConnection connectTo(URL url, String method) throws IOException {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("POST");
+		connection.setRequestMethod(method);
 		connection.setDoOutput(true);
+		connection.connect();
 		return connection;
 	}
 
@@ -144,6 +149,7 @@ public class HttpServiceImpl implements HttpService {
 			if (errorStream != null) {
 				errorMsg = IOUtils.toString(errorStream);
 			}
+			connection.disconnect();
 			throw new MasqueradeClientException("Failed to post to URL " + url.toString() + ", response code = " + responseCode + ", error message = '"
 					+ errorMsg + "'");
 		}
@@ -163,6 +169,7 @@ public class HttpServiceImpl implements HttpService {
 		try {
 			return connection.getInputStream();
 		} catch (IOException e) {
+			connection.disconnect();
 			throw new MasqueradeClientException("Unable to read response", e);
 		}
 	}
@@ -176,6 +183,16 @@ public class HttpServiceImpl implements HttpService {
 
 		@Override public void writeTo(HttpURLConnection connection, OutputStream out) throws IOException {
 			IOUtils.write(content, out);
+		}
+	}
+
+	@Override
+	public void delete(String path) {
+		URL url = buildUrl(path);
+		try {
+			connectTo(url, "DELETE").disconnect();
+		} catch (IOException e) {
+			throw new MasqueradeClientException("Unable to DELETE to url " + url, e);
 		}
 	}
 }

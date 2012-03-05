@@ -62,6 +62,13 @@
 			<artifactId>masquerade.sim.model</artifactId>
 			<scope>provided</scope><!-- Referencing bundle -->
 		</dependency>
+		<dependency>
+			<groupId>masquerade.sim</groupId>
+			<artifactId>masquerade.sim.model</artifactId>
+			<version>2.0.0</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
 		<!-- Servlet API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -93,13 +100,6 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<!-- db4o loads model classes through this bundle's classloader, so 
-							it needs to be able to see model classes from plugins. Thus using DynamicImport-Package. -->
-						<DynamicImport-Package>*</DynamicImport-Package>
-					</instructions>
-				</configuration>
 			</plugin>
 			<!-- Felix Declarative Services Descriptor Generator Plugin -->
 			<plugin>

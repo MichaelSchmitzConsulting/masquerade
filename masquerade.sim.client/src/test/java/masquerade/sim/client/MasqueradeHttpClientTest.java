@@ -74,11 +74,11 @@ public class MasqueradeHttpClientTest {
 	 */
 	@Test
 	public void testProvideResponseScript() {
-		String content = "<steps id=\"1\">\n" + 
-				"  <masquerade.sim.model.CopyRequestToResponseStep id=\"2\">\n" + 
+		String content = "<steps>\n" + 
+				"  <masquerade.sim.model.CopyRequestToResponseStep>\n" + 
 				"    <name>copy</name>\n" + 
 				"  </masquerade.sim.model.CopyRequestToResponseStep>\n" + 
-				"  <masquerade.sim.model.impl.step.RenameXmlNodeStep id=\"3\">\n" + 
+				"  <masquerade.sim.model.impl.step.RenameXmlNodeStep>\n" + 
 				"    <name>rename</name>\n" + 
 				"    <substituteVariables>true</substituteVariables>\n" + 
 				"    <namespaceURI>http://example.com/ns</namespaceURI>\n" + 

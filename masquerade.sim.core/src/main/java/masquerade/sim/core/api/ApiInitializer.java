@@ -27,6 +27,8 @@ public class ApiInitializer {
 	private static final String API_SETTINGS_PROPERTIES_PATH = "/api/settings/configurationProperties";
 	private static final String API_DYNAMIC_RESPONSE_SCRIPT_PATH = "/api/dynamicResponseScript";
 	private static final String API_REMOVE_RESPONSE_SCRIPTS_PATH = "/api/removeResponseScripts";
+	private static final String API_CHANNEL_PATH = "/api/channel";
+	private static final String API_SIMULATION_PATH = "/api/simulation";
 	
 	private static final StatusLog log = StatusLogger.get(ApiInitializer.class);
 	
@@ -39,6 +41,8 @@ public class ApiInitializer {
 	@Reference(target="(component.name=configurationPropertiesServlet)") protected Servlet configurationPropertiesServlet;
 	@Reference(target="(component.name=dynamicResponseScriptServlet)") protected Servlet dynamicResponseScriptServlet;
 	@Reference(target="(component.name=removeResponseScriptsServlet)") protected Servlet removeResponseScriptsServlet;
+	@Reference(target="(component.name=channelServlet)") protected Servlet channelServlet;
+	@Reference(target="(component.name=simulationServlet)") protected Servlet simulationServlet;
 	
 	@Activate
 	protected void activate(ComponentContext componentContext) throws ServletException, NamespaceException {		
@@ -61,6 +65,10 @@ public class ApiInitializer {
 		// Register dynamic response servlets
 		register(API_DYNAMIC_RESPONSE_SCRIPT_PATH, dynamicResponseScriptServlet);
 		register(API_REMOVE_RESPONSE_SCRIPTS_PATH, removeResponseScriptsServlet);
+
+		// Register channel & simulation service servlets
+		register(API_SIMULATION_PATH, simulationServlet);
+		register(API_CHANNEL_PATH, channelServlet);
 		
 		log.info("HTTP API URLs registered");
 	}

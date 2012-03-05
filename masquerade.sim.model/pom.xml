@@ -104,7 +104,8 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
-						<Export-Package>masquerade.sim.channellistener,masquerade.sim.model.*,masquerade.sim.plugin,masquerade.sim.status,masquerade.sim.util</Export-Package>
+						<Export-Package>masquerade.sim.channellistener,masquerade.sim.model.*,masquerade.sim.plugin,masquerade.sim.status,masquerade.sim.util
+						</Export-Package>
 						<Import-Package>
 							org.codehaus.groovy.jsr223,
 							org.jruby.embed.jsr223,
@@ -117,6 +118,18 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+			<!-- Create test jar for sharing test code -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

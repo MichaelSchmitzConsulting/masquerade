@@ -9,14 +9,14 @@ import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider
 import com.thoughtworks.xstream.converters.reflection.ReflectionProvider;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+/**
+ * Factory creating pre-configured {@link XStream} marshallers for
+ * marshalling simulation model objects.
+ */
 public class XStreamMarshallerFactory {
-	private static final String ROOT_ELEMENT_NAME = "masquerade-simulation";
-
 	public XStream createXStream() {
 		XStream xstream = new XStream(createReflectionProvider(), new DomDriver());
-		xstream.setMode(XStream.ID_REFERENCES);
-		xstream.alias(ROOT_ELEMENT_NAME, SimulationModelContainer.class);
-
+		xstream.setMode(XStream.NO_REFERENCES);
 		return xstream;
 	}
 	

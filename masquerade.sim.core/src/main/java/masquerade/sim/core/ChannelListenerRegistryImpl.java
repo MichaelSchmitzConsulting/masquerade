@@ -104,7 +104,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 
 	@Override
-	public void notifyChannelUpdated(String name) {
+	public void startOrRestart(String name) {
 		Channel updatedChannel = getChannel(name);
 		updateChannel(updatedChannel);
 	}
@@ -113,7 +113,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void notifyChannelDeleted(String name) {
+	public void stop(String name) {
 		synchronized (channels) {
 			ChannelListener<?> listener = getChannelListener(name, ChannelListener.class);
 			if (listener != null) {

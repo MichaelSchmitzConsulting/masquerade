@@ -1,4 +1,4 @@
-package masquerade.sim.core.repository;
+package masquerade.sim.model;
 
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelListener;

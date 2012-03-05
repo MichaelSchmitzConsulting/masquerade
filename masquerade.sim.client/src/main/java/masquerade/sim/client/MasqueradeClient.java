@@ -3,7 +3,10 @@ package masquerade.sim.client;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import masquerade.sim.model.Channel;
+import masquerade.sim.model.Simulation;
 import masquerade.sim.model.SimulationStep;
 
 public interface MasqueradeClient {
@@ -39,20 +42,35 @@ public interface MasqueradeClient {
     Map<String, String> getConfigurationProperties();
 
     /**
-     * Activate a  request mapping on a channel
-     * @param mappingName
-     * @param channelName
+     * Activate a simulation on a channel
+	 * @exception MasqueradeClientException
      */
-    void activateMappingOnChannel(String mappingName, String channelName);
+    void assignSimulationToChannel(String simulationId, String channelId);
 
-    /**
-     * List active mappings by name on a channel
-     */
-    List<String> listMappingsOnChannel(String channelName);
-    
     /**
      * Post a request to the built-in HTTP channel available under &lt;baseURL&gt;/request/&lt;path&gt;
      * @return {@link InputStream} containing the response content. Clients must close the returned stream.
+	 * @exception MasqueradeClientException
      */
     InputStream httpChannelRequest(String path, String content);
+    
+    /**
+     * Create/replace (by id) a simulation, and assign it to channels (if set is non-empty)
+     */
+    void uploadSimulation(Simulation simulation, Set<String> assignToChannels);
+    
+    /**
+     * Remove all simulation definitions
+     */
+    void deleteAllSimulations();
+    
+    /**
+     * Create/replace (by id) a channel
+     */
+	void uploadChannel(Channel channel);
+    
+    /**
+     * Remove all channels
+     */
+    void deleteAllChannels();
 }

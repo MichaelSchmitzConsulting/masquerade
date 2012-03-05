@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import masquerade.sim.model.Channel;
+import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
 
@@ -71,7 +73,7 @@ public class ModelRepositoryImplTest {
 		ids.add(simulation2);
 		assertEquals(ids, repo.getSimulationsForChannel("cid1"));
 		
-		repo.removeSimulation(simulation1.getId());
+		repo.deleteSimulation(simulation1.getId());
 
 		simulations = repo.getSimulations();
 		assertEquals(1, simulations.size());
@@ -94,7 +96,7 @@ public class ModelRepositoryImplTest {
 	}
 
 	@Test
-	public void testClear() {
+	public void testDelete() {
 		Channel channel = new ChannelStub("foo");
 		repo.insertChannel(channel);
 		
@@ -103,10 +105,16 @@ public class ModelRepositoryImplTest {
 		replay(simulation);
 		repo.insertSimulation(simulation);
 		
-		repo.clear();
-		
+		repo.deleteChannels();
 		assertTrue(repo.getChannels().isEmpty());
+		assertFalse(repo.getSimulations().isEmpty());
+		
+		repo.deleteSimulations();
 		assertTrue(repo.getSimulations().isEmpty());
+		
+		repo.insertChannel(channel);
+		repo.deleteSimulations();
+		assertFalse(repo.getChannels().isEmpty());
 	}
 
 }

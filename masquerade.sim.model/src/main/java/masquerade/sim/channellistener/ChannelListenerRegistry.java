@@ -30,13 +30,13 @@ public interface ChannelListenerRegistry {
 	 * Notify registry to stop and remove a channel listener
 	 * @param name Channel name to be stopped
 	 */	
-	void notifyChannelDeleted(String name);
+	void stop(String name);
 
 	/**
 	 * Restarts or starts an updated channel
 	 * @param name
 	 */
-	void notifyChannelUpdated(String name);
+	void startOrRestart(String name);
 	
 	/**
 	 * Starts listeners for all channels

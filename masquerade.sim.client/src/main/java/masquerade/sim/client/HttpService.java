@@ -41,4 +41,9 @@ public interface HttpService {
 	 * Clients must close the returned {@link InputStream}.
 	 */
 	InputStream postAndReceive(String path, String content);
+
+	/**
+	 * DELETE request to a path
+	 */
+	void delete(String path);
 }
