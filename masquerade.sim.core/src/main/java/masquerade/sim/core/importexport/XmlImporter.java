@@ -12,6 +12,7 @@ import masquerade.sim.util.XStreamUnmarshallerFactory;
 
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.binary.BinaryStreamReader;
@@ -20,6 +21,7 @@ import com.thoughtworks.xstream.io.binary.BinaryStreamReader;
  * Imports simulation model objects serialized using XStream
  */
 @Component
+@Service
 public class XmlImporter implements Importer {
 
 	@Reference ModelRepository modelRepository;
