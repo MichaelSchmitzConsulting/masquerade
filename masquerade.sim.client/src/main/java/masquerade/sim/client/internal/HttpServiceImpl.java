@@ -137,7 +137,6 @@ public class HttpServiceImpl implements HttpService {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod(method);
 		connection.setDoOutput(true);
-		connection.connect();
 		return connection;
 	}
 
@@ -190,7 +189,9 @@ public class HttpServiceImpl implements HttpService {
 	public void delete(String path) {
 		URL url = buildUrl(path);
 		try {
-			connectTo(url, "DELETE").disconnect();
+			HttpURLConnection connection = connectTo(url, "DELETE");
+			connection.connect();
+			connection.disconnect();
 		} catch (IOException e) {
 			throw new MasqueradeClientException("Unable to DELETE to url " + url, e);
 		}

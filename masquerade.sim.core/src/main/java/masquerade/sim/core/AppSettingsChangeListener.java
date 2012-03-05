@@ -1,6 +1,6 @@
 package masquerade.sim.core;
 
-import masquerade.sim.core.db.RequestHistoryCleanupJob;
+import masquerade.sim.core.history.RequestHistoryCleanupJob;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.status.StatusLog;

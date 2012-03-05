@@ -1,15 +1,17 @@
-package masquerade.sim.core.importexport;
+package masquerade.sim.model.importexport.impl;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
-import masquerade.sim.core.repository.ModelRepositoryImpl;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Simulation;
-import masquerade.sim.model.SimulationStub;
+import masquerade.sim.model.impl.SimulationImpl;
+import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 import masquerade.sim.plugin.impl.PluginRegistryImpl;
 import masquerade.sim.util.XStreamMarshallerFactory;
 
@@ -17,13 +19,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.io.binary.BinaryStreamWriter;
 
 public class XmlImporterTest {
 
 	private XmlImporter importer;
-	private HierarchicalStreamWriter writer;
+	private Writer writer;
 	private XStream xstream;
 	private ByteArrayOutputStream outputStream;
 
@@ -34,13 +34,13 @@ public class XmlImporterTest {
 		importer.pluginRegistry = new PluginRegistryImpl();
 		xstream = new XStreamMarshallerFactory().createXStream();
 		outputStream = new ByteArrayOutputStream();
-		writer = new BinaryStreamWriter(outputStream);
+		writer = new OutputStreamWriter(outputStream);
 	}
 	
 	@Test
 	public void testInsertChannel() {		
 		Channel channel = new ChannelStub("test");
-		xstream.marshal(channel, writer);
+		xstream.toXML(channel, writer);
 		
 		importer.insertChannel(new ByteArrayInputStream(outputStream.toByteArray()));
 		
@@ -49,8 +49,8 @@ public class XmlImporterTest {
 
 	@Test
 	public void testInsertSimulation() {
-		Simulation simulation = new SimulationStub("test");
-		xstream.marshal(simulation, writer);
+		Simulation simulation = new SimulationImpl("test", null, null, null);
+		xstream.toXML(simulation, writer);
 		
 		importer.insertSimulation(new ByteArrayInputStream(outputStream.toByteArray()));
 		

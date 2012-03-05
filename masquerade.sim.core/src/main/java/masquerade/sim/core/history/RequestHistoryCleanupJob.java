@@ -1,4 +1,4 @@
-package masquerade.sim.core.db;
+package masquerade.sim.core.history;
 
 import masquerade.sim.model.history.RequestHistory;
 import masquerade.sim.status.StatusLog;

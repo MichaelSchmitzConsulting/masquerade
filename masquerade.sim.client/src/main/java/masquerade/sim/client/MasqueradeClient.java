@@ -42,12 +42,6 @@ public interface MasqueradeClient {
     Map<String, String> getConfigurationProperties();
 
     /**
-     * Activate a simulation on a channel
-	 * @exception MasqueradeClientException
-     */
-    void assignSimulationToChannel(String simulationId, String channelId);
-
-    /**
      * Post a request to the built-in HTTP channel available under &lt;baseURL&gt;/request/&lt;path&gt;
      * @return {@link InputStream} containing the response content. Clients must close the returned stream.
 	 * @exception MasqueradeClientException

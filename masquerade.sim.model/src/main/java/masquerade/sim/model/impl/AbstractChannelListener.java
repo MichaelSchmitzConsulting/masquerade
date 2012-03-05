@@ -37,6 +37,6 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	
 	@Override
 	public void processRequest(String clientInfo,  Object request, ResponseDestination responseDestination, Date requestTimestamp) throws Exception {
-		simulationRunner.runSimulation(responseDestination, channelId, clientInfo, requestTimestamp, requestTimestamp);
+		simulationRunner.runSimulation(responseDestination, channelId, clientInfo, request, requestTimestamp);
 	}
 }

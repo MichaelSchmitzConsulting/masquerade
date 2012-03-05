@@ -1,4 +1,4 @@
-package masquerade.sim.core.repository;
+package masquerade.sim.model.repository.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;

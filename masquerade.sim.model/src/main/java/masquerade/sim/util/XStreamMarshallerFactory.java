@@ -30,6 +30,7 @@ public class XStreamMarshallerFactory {
 					Constructor<?> noArgConstructor = getConstructorIfExists(type);
 					Constructor<?> singleStringArgConstructor = getConstructorIfExists(type, String.class);
 					if (noArgConstructor == null && singleStringArgConstructor != null) {
+						singleStringArgConstructor.setAccessible(true);
 						return singleStringArgConstructor.newInstance("generated-name-" + UUID.randomUUID());
 					}
 				} catch (Exception ex) {
@@ -42,7 +43,7 @@ public class XStreamMarshallerFactory {
 
 	private static Constructor<?> getConstructorIfExists(Class<?> type, Class<?>... parameterTypes) {
 		try {
-			return type.getConstructor(parameterTypes);
+			return type.getDeclaredConstructor(parameterTypes);
 		} catch (NoSuchMethodException e) {
 			return null;
 		}

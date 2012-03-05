@@ -1,4 +1,4 @@
-package masquerade.sim.core.importexport;
+package masquerade.sim.model.importexport.impl;
 
 import java.io.InputStream;
 
@@ -15,7 +15,6 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.binary.BinaryStreamReader;
 
 /**
  * Imports simulation model objects serialized using XStream
@@ -44,6 +43,6 @@ public class XmlImporter implements Importer {
 
 	private Object unmarshal(InputStream inputStream) {
 		XStream xstream = new XStreamUnmarshallerFactory(pluginRegistry).createXStream();
-		return xstream.unmarshal(new BinaryStreamReader(inputStream));
+		return xstream.fromXML(inputStream);
 	}
 }

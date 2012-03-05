@@ -19,6 +19,7 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
+import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 
 import org.junit.Before;
 import org.junit.Test;

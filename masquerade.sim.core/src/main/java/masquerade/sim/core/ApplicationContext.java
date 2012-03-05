@@ -3,7 +3,7 @@ package masquerade.sim.core;
 import java.io.File;
 
 import masquerade.sim.channellistener.ChannelListenerRegistry;
-import masquerade.sim.core.db.RequestHistoryCleanupJob;
+import masquerade.sim.core.history.RequestHistoryCleanupJob;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.FileType;

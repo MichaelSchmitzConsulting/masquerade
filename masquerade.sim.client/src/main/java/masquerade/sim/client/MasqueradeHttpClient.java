@@ -8,7 +8,6 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,8 @@ import masquerade.sim.client.internal.ListRequestsResponseParser;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.SimulationStep;
+import masquerade.sim.model.importexport.impl.XmlExporter;
 import masquerade.sim.util.ScriptMarshaller;
-import masquerade.sim.util.XStreamMarshallerFactory;
 import masquerade.sim.util.XmlScriptMarshaller;
 
 import org.apache.commons.io.IOUtils;
@@ -124,12 +123,6 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 		return props;
 	}
 
-	@Override
-	public void assignSimulationToChannel(String simulationId, String channelId) {
-		String url = API_SIMULATION + "/assign/" + urlEncode(simulationId) + "/tochannel/" + urlEncode(channelId);
-		httpService.post(url);
-	}
-
 	private static String urlEncode(String mappingName) {
 		try {
 			return URLEncoder.encode(mappingName, UTF_8);
@@ -149,15 +142,15 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 
 	@Override
 	public void uploadSimulation(Simulation simulation, Set<String> assignToChannels) {
-		String url = API_SIMULATION + ID + "?assign=" + collectionToString(assignToChannels);
+		String url = API_SIMULATION + ID + "?channelId=" + channelIds(assignToChannels);
 		upload(simulation, url);
 	}
 
-	private static String collectionToString(Collection<String> parts) {
+	private static String channelIds(Set<String> ids) {
 		StringBuilder str = new StringBuilder();
-		for (String part : parts) {
-			if (str.length() > 0) str.append("&assign=");
-			str.append(urlEncode(part));
+		for (String id : ids) {
+			if (str.length() > 0) str.append("&channelId=");
+			str.append(urlEncode(id));
 		}
 		return str.toString();
 	}
@@ -173,16 +166,18 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 		upload(channel, url);
 	}
 
+
+	
 	private void upload(final Object object, String url) {
-		final XStreamMarshallerFactory factory = new XStreamMarshallerFactory();
+		final XmlExporter exporter = new XmlExporter();
 		httpService.post(url, new UrlWriter() {
 			@Override
 			public void writeTo(HttpURLConnection connection, OutputStream out) throws IOException {
-				factory.createXStream().toXML(object, out);
+				exporter.exportModelObject(object, out);
 			}
 		});
 	}
-
+	
 	@Override
 	public void deleteAllChannels() {
 		httpService.delete(API_CHANNEL + ALL);

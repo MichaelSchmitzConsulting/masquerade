@@ -1,4 +1,4 @@
-package masquerade.sim.core.db;
+package masquerade.sim.core.history;
 
 import java.util.List;
 

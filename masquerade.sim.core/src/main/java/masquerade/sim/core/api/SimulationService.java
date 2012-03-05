@@ -25,6 +25,7 @@ import org.apache.felix.scr.annotations.Service;
 @Service(Servlet.class)
 @SuppressWarnings("serial")
 public class SimulationService extends HttpServlet {
+	private static final String PARAM_CHANNEL_ID = "channelId";
 	private static final String ID = "/id";
 	private static final Pattern SIMULATION_ID_PATTERN = Pattern.compile(ID + "/(.*)");
 	private static final String ALL = "/all";
@@ -35,7 +36,8 @@ public class SimulationService extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (ID.equals(req.getPathInfo())) {
-			importer.insertSimulation(req.getInputStream());
+			SimulationTemplate simulationTemplate = new SimulationTemplate(modelRepository, importer);
+			simulationTemplate.insertSimulation(req.getInputStream(), req.getParameterValues(PARAM_CHANNEL_ID));
 		} else {
 			ResponseTemplate.errorResponse(resp, "Invalid request URL");
 		}

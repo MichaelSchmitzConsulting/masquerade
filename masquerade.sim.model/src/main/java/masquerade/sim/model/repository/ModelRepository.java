@@ -25,7 +25,7 @@ public interface ModelRepository {
 	
 	/**
 	 * @param id Simulation ID
-	 * @return The simualation with this id, or <code>null</code> if not found
+	 * @return The simulation with this id, or <code>null</code> if not found
 	 */
 	Simulation getSimulation(String id);
 	
