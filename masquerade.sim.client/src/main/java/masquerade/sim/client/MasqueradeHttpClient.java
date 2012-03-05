@@ -41,7 +41,7 @@ public class MasqueradeHttpClient implements MasqueradeClient {
 	private static final String API_SIMULATION = API + "/simulation";
 	private static final String API_CHANNEL = API + "/channel";
 	private static final String ALL = "/all";
-	private static final String ID = "/id/";
+	private static final String ID = "/id";
 	private static final String HTTP_CHANNEL = "request/";
 	
 	private final HttpService httpService;
