@@ -61,7 +61,7 @@ public class AddChildElementsStep extends AbstractSimulationStep {
 
 	@Override
 	public void execute(SimulationContext context) throws Exception {
-		Element parent = getParentElement(context);
+		Element parent = getParentElement();
 
 		Document content = context.getContent(Document.class);
 
@@ -98,7 +98,7 @@ public class AddChildElementsStep extends AbstractSimulationStep {
 		}
 	}
 
-	private Element getParentElement(SimulationContext context) {
+	private Element getParentElement() {
 		// Cache parsed XML to avoid unnecessary parsing
 		Element parent = elementCache().get();
 		if (parent == null) {
