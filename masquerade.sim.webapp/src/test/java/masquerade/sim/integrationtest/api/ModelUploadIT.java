@@ -2,7 +2,6 @@ package masquerade.sim.integrationtest.api;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,11 +23,11 @@ import org.w3c.dom.Document;
  * Integration test for uploading model objects to the simulator
  */
 public class ModelUploadIT extends ClientBased {
-	private static final String TEST_CHANNEL_ID_2 = "2";
 	private static final String TEST_CHANNEL_ID = "1";
+	private static final String TEST_CHANNEL_ID_2 = "2";
 	private static final String TEST_CHANNEL_PATH = "test";
 	private static final String TEST_CHANNEL_PATH_2 = "test2";
-	private static final String CONTENT = "<test/>";
+	private static final String CONTENT = "<test id=\"5\"/>";
 
 	@Before
 	public void setUp() {
@@ -52,7 +51,7 @@ public class ModelUploadIT extends ClientBased {
 	}
 
 	@Test
-	public void testSimulationUpload() throws IOException {
+	public void testSimulationUpload() {
 		uploadTestChannel(TEST_CHANNEL_ID, TEST_CHANNEL_PATH);
 		uploadTestChannel(TEST_CHANNEL_ID_2, TEST_CHANNEL_PATH_2);
 		

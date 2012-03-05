@@ -188,12 +188,17 @@ public class HttpServiceImpl implements HttpService {
 	@Override
 	public void delete(String path) {
 		URL url = buildUrl(path);
+		HttpURLConnection connection = null; 
 		try {
-			HttpURLConnection connection = connectTo(url, "DELETE");
-			connection.connect();
-			connection.disconnect();
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("DELETE");
+			handleFailures(url, connection);
 		} catch (IOException e) {
 			throw new MasqueradeClientException("Unable to DELETE to url " + url, e);
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
 		}
 	}
 }
