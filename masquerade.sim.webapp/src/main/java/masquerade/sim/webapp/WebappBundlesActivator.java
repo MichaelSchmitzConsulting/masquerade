@@ -64,6 +64,10 @@ public final class WebappBundlesActivator implements BundleActivator {
 		@SuppressWarnings("unchecked")
 		Collection<String> resources = servletContext.getResourcePaths(BUNDLE_DIRECTORY);
 		
+		if (resources == null) {
+			throw new IllegalArgumentException("Webapp bundle directory " + BUNDLE_DIRECTORY + " does not exist");
+		}
+		
 		Collection<URL> bundles = new ArrayList<URL>();
 		for (String name : resources) {
 			if (name.endsWith(BUNDLE_EXTENSION)) {
