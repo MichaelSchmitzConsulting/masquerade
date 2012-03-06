@@ -10,7 +10,7 @@ import masquerade.sim.channel.http.HttpChannel;
 import masquerade.sim.model.CopyRequestToResponseStep;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.impl.SequenceScript;
-import masquerade.sim.model.impl.SimulationImpl;
+import masquerade.sim.model.impl.DefaultSimulation;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
 import masquerade.sim.util.DomUtil;
@@ -64,7 +64,7 @@ public class ModelUploadIT extends ClientBased {
 		SequenceScript script = new SequenceScript("testScript");
 		script.getSimulationSteps().add(new CopyRequestToResponseStep("step"));
 		
-		Simulation simulation = new SimulationImpl("testSim", selector, requestIdProvider, script);
+		Simulation simulation = new DefaultSimulation("testSim", selector, requestIdProvider, script);
 		
 		Set<String> channelIds = new HashSet<String>();
 		channelIds.add(TEST_CHANNEL_ID);

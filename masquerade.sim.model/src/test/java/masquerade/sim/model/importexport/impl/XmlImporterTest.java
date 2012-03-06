@@ -10,7 +10,7 @@ import java.io.Writer;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Simulation;
-import masquerade.sim.model.impl.SimulationImpl;
+import masquerade.sim.model.impl.DefaultSimulation;
 import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 import masquerade.sim.plugin.impl.PluginRegistryImpl;
 import masquerade.sim.util.XStreamMarshallerFactory;
@@ -49,7 +49,7 @@ public class XmlImporterTest {
 
 	@Test
 	public void testInsertSimulation() {
-		Simulation simulation = new SimulationImpl("test", null, null, null);
+		Simulation simulation = new DefaultSimulation("test", null, null, null);
 		xstream.toXML(simulation, writer);
 		
 		importer.insertSimulation(new ByteArrayInputStream(outputStream.toByteArray()));

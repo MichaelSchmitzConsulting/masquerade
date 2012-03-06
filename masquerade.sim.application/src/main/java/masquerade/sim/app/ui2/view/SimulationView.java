@@ -9,6 +9,7 @@ import masquerade.sim.model.Simulation;
  */
 public interface SimulationView {
 	void setSimulationList(List<String> simulations);
+	void setCurrentSimulation(Simulation simulation);
 	
 	interface Callback {
 		void onSimulationSelected(String id);
@@ -16,4 +17,5 @@ public interface SimulationView {
 		void onAdd();
 		void onRefresh();
 	}
+
 }

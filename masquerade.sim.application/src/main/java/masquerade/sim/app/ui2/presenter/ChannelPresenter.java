@@ -33,7 +33,7 @@ public class ChannelPresenter implements ChannelView.Callback {
 		if (selection == null) {
 			view.setDetailEditorBean(null);
 		} else {
-			Channel channel = modelRepository.getChannelById(selection.getId());
+			Channel channel = modelRepository.getChannel(selection.getId());
 			showChannel(channel);
 		}
 	}

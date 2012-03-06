@@ -11,7 +11,7 @@ import masquerade.sim.model.Simulation;
 /**
  * Default implementation of {@link Simulation}, defines how a response to a request is simulated. 
  */
-public class SimulationImpl implements Simulation {
+public class DefaultSimulation implements Simulation {
 
 	private final String id;
 	private final NamespaceResolverImpl namespaceResolver = new NamespaceResolverImpl();
@@ -19,7 +19,7 @@ public class SimulationImpl implements Simulation {
 	private RequestIdProvider<?> requestIdProvider;
 	private Script script;
 
-	public SimulationImpl(String id, RequestMapping<?> selector, RequestIdProvider<?> requestIdProvider, Script script) {
+	public DefaultSimulation(String id, RequestMapping<?> selector, RequestIdProvider<?> requestIdProvider, Script script) {
 		this.id = id;
 		this.selector = selector;
 		this.requestIdProvider = requestIdProvider;
@@ -27,7 +27,7 @@ public class SimulationImpl implements Simulation {
 	}
 
 	/** Constructor for serialization */
-	protected SimulationImpl(String id) {
+	protected DefaultSimulation(String id) {
 		this.id = id;
 	}
 

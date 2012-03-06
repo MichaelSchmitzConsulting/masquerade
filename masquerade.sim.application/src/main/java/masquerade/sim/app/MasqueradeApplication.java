@@ -10,8 +10,11 @@ import javax.servlet.ServletContext;
 
 import masquerade.sim.app.ui.MainLayout;
 import masquerade.sim.app.ui2.factory.ChannelFactory;
+import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
+import masquerade.sim.app.ui2.factory.impl.SimulationFactoryImpl;
 import masquerade.sim.app.ui2.presenter.ChannelPresenter;
+import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
@@ -124,15 +127,17 @@ public class MasqueradeApplication extends Application {
 		MainLayout mainLayout = new MainLayout(logo, requestHistory, artifactRoot, new SendTestRequestActionImpl(simulationRunner),
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
-		
+
+		SimulationFactory simulationFactory = new SimulationFactoryImpl(mainWindow, pluginRegistry, modelRepository);
 		SimulationViewImpl simulations = new SimulationViewImpl();
+		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory);
+		simulations.bind(simulationPresenter);
 		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl));
 		
 		ChannelFactory channelFactory = new ChannelFactoryImpl(pluginRegistry, modelRepository, mainWindow);
-		
 		ChannelViewImpl channels = new ChannelViewImpl();
 		ChannelPresenter channelPresenter = new ChannelPresenter(channels, modelRepository, channelFactory, channelListenerRegistry);
-		channels.setCallback(channelPresenter);
+		channels.bind(channelPresenter);
 		mainLayout.addTab(channels, LISTENER.icon(baseUrl));
 		
 		mainWindow.setContent(mainLayout);

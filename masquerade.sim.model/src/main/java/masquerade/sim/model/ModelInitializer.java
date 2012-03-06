@@ -3,6 +3,7 @@ package masquerade.sim.model;
 import masquerade.sim.model.impl.DynamicScript;
 import masquerade.sim.model.impl.ProvidedResponse;
 import masquerade.sim.model.impl.SequenceScript;
+import masquerade.sim.model.impl.DefaultSimulation;
 import masquerade.sim.model.impl.SoapFaultStep;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
@@ -59,6 +60,9 @@ public class ModelInitializer {
 	}
 
 	private void registerExtensions() {
+		// Simulation
+		pluginRegistry.registerExtension(Simulation.class, DefaultSimulation.class);
+		
 		// Scripts
 		pluginRegistry.registerExtension(Script.class, SequenceScript.class);
 		pluginRegistry.registerExtension(Script.class, ProvidedResponse.class);

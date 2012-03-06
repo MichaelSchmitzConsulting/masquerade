@@ -48,8 +48,8 @@ public class ModelRepositoryImplTest {
 		assertTrue(channels.contains(channel1));
 		assertTrue(channels.contains(channel2));
 		
-		assertSame(channel1, repo.getChannelById("id1"));
-		assertSame(channel2, repo.getChannelById("id2"));
+		assertSame(channel1, repo.getChannel("id1"));
+		assertSame(channel2, repo.getChannel("id2"));
 	}
 
 	@Test

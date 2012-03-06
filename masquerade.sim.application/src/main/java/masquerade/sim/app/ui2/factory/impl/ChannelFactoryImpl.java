@@ -33,7 +33,7 @@ public class ChannelFactoryImpl implements ChannelFactory {
 		CreateApprover createApprover = new CreateApprover() {
 			@Override
 			public boolean isNameUsed(Class<?> baseType, String usedName) {
-				return modelRepository.getChannelById(usedName) != null;
+				return modelRepository.getChannel(usedName) != null;
 			}
 			@Override
 			public boolean canCreate(Class<?> type, String name, StringBuilder errorMsg) {

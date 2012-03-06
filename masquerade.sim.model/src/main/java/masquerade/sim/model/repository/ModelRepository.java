@@ -21,7 +21,7 @@ public interface ModelRepository {
 	 * @param id Channel ID
 	 * @return Channel with this id, or <code>null</code> if not found
 	 */
-	Channel getChannelById(String id);
+	Channel getChannel(String id);
 	
 	/**
 	 * @param id Simulation ID

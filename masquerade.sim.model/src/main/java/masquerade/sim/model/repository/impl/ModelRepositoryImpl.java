@@ -36,7 +36,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	@Override
-	public Channel getChannelById(String id) {
+	public Channel getChannel(String id) {
 		synchronized (lock) {
 			return channels.get(id);
 		}

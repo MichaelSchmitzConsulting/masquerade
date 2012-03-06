@@ -49,14 +49,16 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 		});
 	}
 	
-	public void setCallback(Callback callback) {
+	public void bind(Callback callback) {
 		this.callback = callback;
+		callback.onRefresh();
 	}
 	
 	@Override
 	public void setChannelList(List<ChannelInfo> channels) {
 		BeanItemContainer<ChannelInfo> container = new BeanItemContainer<ChannelInfo>(ChannelInfo.class, channels);
 		masterDetailView.setDataSource(container);
+		masterDetailView.setDetailEditorBean(null);
 	}
 
 	@Override

@@ -139,7 +139,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 	
 	private Channel getChannel(String id) {
-		return modelRepository.getChannelById(id);
+		return modelRepository.getChannel(id);
 	}
 
 	private void startChannel(Channel changedChannel) {
