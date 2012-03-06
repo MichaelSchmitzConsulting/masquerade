@@ -4,7 +4,8 @@ import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.Resource;
 
 public enum Icons {
-	CHANNELS("channel.png"),
+	LISTENER("channel.png"),
+	SIMULATION("script.png"),
 	REQUEST_HISTORY("history.png"),
 	STATUS("status.png"),
 	ARTIFACT("artifact.png"),

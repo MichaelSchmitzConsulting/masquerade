@@ -57,7 +57,7 @@ public class CreateObjectDialog extends Window {
         Collection<Class<?>> instanceTypes = instanceTypeProvider.getInstanceTypes();
         
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		BeanItemContainer<?> container = new BeanItemContainer(Class.class, instanceTypes );
+		BeanItemContainer<?> container = new BeanItemContainer(Class.class, instanceTypes);
 		select.setContainerDataSource(container);
 		for (Class<?> item : instanceTypes) {
 			select.setItemCaption(item, ClassUtil.fromCamelCase(item));

@@ -70,6 +70,8 @@ public class MainLayout extends VerticalLayout {
 
 	private StatusView statusView;
 
+	private TabSheet tabSheet;
+
 	public MainLayout(Resource logo, RequestHistory requestHistory, File artifactRoot,
 			SendTestRequestAction sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl, 
 			final PluginManager pluginManager, final SettingsProvider settingsProvider, final String versionInformation) {
@@ -117,10 +119,14 @@ public class MainLayout extends VerticalLayout {
 		// Add header to layout
 		addComponent(header);
 
-		// Main tab layout
-		TabSheet tabSheet = createTabSheet(requestHistory, artifactRoot, sendTestRequestAction, baseUrl);
+		tabSheet = createTabSheet(requestHistory, artifactRoot, sendTestRequestAction, baseUrl);
 		addComponent(tabSheet);
 		setExpandRatio(tabSheet, 1.0f);
+	}
+	
+	public void addTab(Component component, Resource icon) {
+		tabSheet.addTab(component, 0);
+		tabSheet.getTab(component).setIcon(icon);
 	}
 
 	private void addLink(HorizontalLayout header, Button.ClickListener listener, String caption, String description, Resource icon) {
@@ -167,7 +173,7 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.setWidth("100%");
 
 		// Add tabs
-		tabSheet.addTab(fileManager, "Artifacts", ARTIFACT.icon(baseUrl));
+		tabSheet.addTab(fileManager, "Files", ARTIFACT.icon(baseUrl));
 		tabSheet.addTab(requestTester, "Test", TEST.icon(baseUrl));
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
 		tabSheet.addTab(status, "Log", STATUS.icon(baseUrl));

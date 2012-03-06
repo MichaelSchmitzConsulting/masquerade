@@ -1,11 +1,20 @@
 package masquerade.sim.app;
 
+import static masquerade.sim.app.ui.Icons.LISTENER;
+import static masquerade.sim.app.ui.Icons.SIMULATION;
+
 import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
 import masquerade.sim.app.ui.MainLayout;
+import masquerade.sim.app.ui2.factory.ChannelFactory;
+import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
+import masquerade.sim.app.ui2.presenter.ChannelPresenter;
+import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
+import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
+import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.config.Configuration;
 import masquerade.sim.model.history.RequestHistory;
@@ -14,6 +23,7 @@ import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.settings.ModelSettingsProvider;
 import masquerade.sim.model.settings.SettingsProvider;
 import masquerade.sim.plugin.PluginManager;
+import masquerade.sim.plugin.PluginRegistry;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 
@@ -105,12 +115,25 @@ public class MasqueradeApplication extends Application {
 		SimulationRunner simulationRunner = serviceLocator.getSimulationRunner();
 		SettingsChangeListener settingsChangeListener = serviceLocator.getSettingsChangeListener();
 		PluginManager pluginManager = serviceLocator.getPluginManager();
+		PluginRegistry pluginRegistry = serviceLocator.getPluginRegistry();
+		ChannelListenerRegistry channelListenerRegistry = serviceLocator.getChannelListenerRegistry();
 		
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
+		// TODO: Refactor MainLayput for not to contain any tab content/logic
 		MainLayout mainLayout = new MainLayout(logo, requestHistory, artifactRoot, new SendTestRequestActionImpl(simulationRunner),
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
+		
+		SimulationViewImpl simulations = new SimulationViewImpl();
+		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl));
+		
+		ChannelFactory channelFactory = new ChannelFactoryImpl(pluginRegistry, modelRepository, mainWindow);
+		
+		ChannelViewImpl channels = new ChannelViewImpl();
+		ChannelPresenter channelPresenter = new ChannelPresenter(channels, modelRepository, channelFactory, channelListenerRegistry);
+		channels.setCallback(channelPresenter);
+		mainLayout.addTab(channels, LISTENER.icon(baseUrl));
 		
 		mainWindow.setContent(mainLayout);
 	}
