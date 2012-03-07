@@ -17,5 +17,4 @@ public interface SimulationView {
 		void onAdd();
 		void onRefresh();
 	}
-
 }

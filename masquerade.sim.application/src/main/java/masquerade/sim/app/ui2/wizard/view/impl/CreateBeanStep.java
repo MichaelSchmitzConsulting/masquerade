@@ -3,7 +3,6 @@ package masquerade.sim.app.ui2.wizard.view.impl;
 import java.util.Collection;
 import java.util.UUID;
 
-import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.ui.ModelObjectFactory;
 
 import org.vaadin.teemu.wizards.WizardStep;
@@ -17,33 +16,34 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
 /**
- * Wizard step for creating a simulation's request selector
+ * Wizard step for creating beans using a generated form
  */
-public class CreateSelectorStep implements WizardStep {
+public class CreateBeanStep<B> implements WizardStep {
 
-	private final Collection<Class<?>> selectorTypes;
+	private final Collection<Class<?>> beanTypes;
 	private final FormFieldFactory fieldFactory;
+	private final String caption;
 	private VerticalLayout layout;
-	private Select selectorTypeDropdown;
+	private Select typeDropdown;
 	private Form form;
 
-	public CreateSelectorStep(Collection<Class<?>> selectorTypes, FormFieldFactory fieldFactory) {
-		if (selectorTypes.isEmpty())
-			throw new IllegalArgumentException("Selector wizard step requires at least one selector type to be available");
-		this.selectorTypes = selectorTypes;
+	public CreateBeanStep(Collection<Class<?>> beanTypes, FormFieldFactory fieldFactory, String caption) {
+		if (beanTypes.isEmpty())
+			throw new IllegalArgumentException("Create Bean wizard step requires at least one type of bean to be available");
+		this.beanTypes = beanTypes;
 		this.fieldFactory = fieldFactory;
+		this.caption = caption;
 	}
 
 	@Override
 	public String getCaption() {
-		return "Selector";
+		return caption;
 	}
 
 	@SuppressWarnings("serial")
@@ -51,28 +51,29 @@ public class CreateSelectorStep implements WizardStep {
 	public Component getContent() {
 		if (layout == null) {
 			layout = new VerticalLayout();
-			layout.addComponent(new Label("Please choose the type of selector activating this simulation when a matching request is received on a channel:"));
+			layout.setSpacing(true);
 
-			Class<?> initialSelectorType = selectorTypes.iterator().next();
-			selectorTypeDropdown = WizardUiUtils.createTypeSelectDropdown(selectorTypes);
-			layout.addComponent(selectorTypeDropdown);
+			Class<?> initialType = beanTypes.iterator().next();
+			typeDropdown = WizardUiUtils.createTypeSelectDropdown(beanTypes);
+			layout.addComponent(typeDropdown);
 
 			// DetailLayout
 			GridLayout detailLayout = new GridLayout();
 			detailLayout.setSizeFull();
-			detailLayout.setMargin(false, false, false, true);
 			layout.addComponent(detailLayout);
 
 			// Wrap form into a panel to get scroll bars if it cannot be
 			// displayed fully
-			final Panel panel = new Panel();
+			VerticalLayout panelLayout = new VerticalLayout();
+			panelLayout.setMargin(false);
+			final Panel panel = new Panel(panelLayout);
 			panel.setSizeFull();
 			panel.addStyleName(Reindeer.PANEL_LIGHT);
-			panel.addComponent(createInitialForm(initialSelectorType));
+			panel.addComponent(createInitialForm(initialType));
 			detailLayout.addComponent(panel);
 
 			// Reset form on type selection
-			selectorTypeDropdown.addListener(new ValueChangeListener() {
+			typeDropdown.addListener(new ValueChangeListener() {
 				@Override
 				public void valueChange(ValueChangeEvent event) {
 					panel.removeAllComponents();
@@ -88,11 +89,11 @@ public class CreateSelectorStep implements WizardStep {
 		return layout;
 	}
 
-	private Component createInitialForm(Class<?> initialSelectorType) {
+	private Component createInitialForm(Class<?> initialType) {
 		// TODO: Refactor error handling/notification out of ModelObjectFactory
 		// TODO: Remove names on non-toplevel simulation objects, keep only IDs
 		// on Simulation and Channel
-		Object bean = ModelObjectFactory.createModelObject(layout.getWindow(), initialSelectorType, UUID.randomUUID().toString());
+		Object bean = ModelObjectFactory.createModelObject(layout.getWindow(), initialType, UUID.randomUUID().toString());
 		return createForm(bean);
 	}
 
@@ -131,8 +132,9 @@ public class CreateSelectorStep implements WizardStep {
 	}
 
 	
-	public RequestMapping<?> getSelector() {
+	@SuppressWarnings("unchecked")
+	public B getBean() {
 		BeanItem<?> item = (BeanItem<?>) form.getItemDataSource();
-		return (RequestMapping<?>) item.getBean();
+		return (B) item.getBean();
 	}
 }

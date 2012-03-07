@@ -28,7 +28,7 @@ public class SimulationWizardPresenter implements SimulationWizardViewCallback {
 		this.delegate = delegate;
 	}
 
-	public void showWizard(SimulationWizardCallback callback) {
+	public void showWizard() {
 		view.showWizard();
 	}
 

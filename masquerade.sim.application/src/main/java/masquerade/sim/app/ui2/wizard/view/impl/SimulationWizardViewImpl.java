@@ -31,16 +31,18 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 	@Override
 	public void showWizard() {
 		final CreateSimulationStep simulationStep = new CreateSimulationStep();
-		final CreateSelectorStep selectorStep = new CreateSelectorStep(callback.getSelectorTypes(), callback.getFormFieldFactory());
-		final CreateIdProviderStep idProviderStep = new CreateIdProviderStep(callback.getRequestIdProviderTypes());
+		final CreateBeanStep<RequestMapping<?>> selectorStep = 
+			new CreateBeanStep<RequestMapping<?>>(callback.getSelectorTypes(), callback.getFormFieldFactory(), "Selector");
+		final CreateBeanStep<RequestIdProvider<?>> idProviderStep = 
+			new CreateBeanStep<RequestIdProvider<?>>(callback.getRequestIdProviderTypes(), callback.getFormFieldFactory(), "Request ID Provider");
 
 		Wizard wizard = new Wizard();
 		wizard.addStep(simulationStep);
 		wizard.addStep(selectorStep);
 		wizard.addStep(idProviderStep);
 
-		setWidth("600px");
-		setHeight("400px");
+		setWidth("750px");
+		setHeight("550px");
 		center();
 		setContent(wizard);
 
@@ -49,18 +51,16 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 		wizard.addListener(new WizardProgressListener() {
 			@Override public void wizardCompleted(WizardCompletedEvent event) {
 				String simulationId = simulationStep.getSimulationId();
-				RequestMapping<?> selector = selectorStep.getSelector();
-				RequestIdProvider<?> idProvider = idProviderStep.getRequestIdProvider();
+				RequestMapping<?> selector = selectorStep.getBean();
+				RequestIdProvider<?> idProvider = idProviderStep.getBean();
 				callback.onWizardComplete(simulationId, selector, idProvider);
 				closeWizard();
 			}
 			@Override public void wizardCancelled(WizardCancelledEvent event) {
 				closeWizard();
 			}
-			@Override public void stepSetChanged(WizardStepSetChangedEvent event) {
-			}
-			@Override public void activeStepChanged(WizardStepActivationEvent event) {
-			}
+			@Override public void stepSetChanged(WizardStepSetChangedEvent event) { }
+			@Override public void activeStepChanged(WizardStepActivationEvent event) { }
 		});
 	}
 
