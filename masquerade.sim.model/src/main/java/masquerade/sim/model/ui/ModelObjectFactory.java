@@ -2,7 +2,6 @@ package masquerade.sim.model.ui;
 
 import java.lang.reflect.Constructor;
 
-import masquerade.sim.model.listener.CreateListener;
 import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.ui.Window;
@@ -13,7 +12,7 @@ import com.vaadin.ui.Window.Notification;
  */
 public class ModelObjectFactory {
 	
-	public static void createModelObject(Window window, Class<?> type, CreateListener listener, String name) {
+	public static Object createModelObject(Window window, Class<?> type, String name) {
 		String typeName = type.getSimpleName();
 		try {
 			// By convention, a constructor with a single String argument is the constructor that accepts an object name. 
@@ -24,14 +23,15 @@ public class ModelObjectFactory {
 				notifyError(window,  
 					"No possible constructor found to create a " + typeName + ", expected " + typeName + "(String name) or " + typeName + "()",
 					typeName, ex);
-				return;
+				return null;
 			}
 			Object value = constructor.newInstance(name);
-			listener.notifyCreate(value);
+			return value;
 		} catch (Exception e) {
 			String exMessage = e.getMessage();
 			String errMsg = e.getClass().getName() + " " + (exMessage == null ? "" : exMessage);
 			notifyError(window, errMsg, typeName, e);
+			return null;
 		}
 	}
 	

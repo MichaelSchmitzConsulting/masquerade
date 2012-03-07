@@ -9,6 +9,8 @@ import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.plugin.PluginRegistry;
 
+import com.vaadin.ui.FormFieldFactory;
+
 /**
  * Presenter for {@link SimulationWizardView}
  */
@@ -16,10 +18,12 @@ public class SimulationWizardPresenter implements SimulationViewCallback {
 
 	private final SimulationWizardView view;
 	private final PluginRegistry pluginRegistry;
+	private final FormFieldFactory fieldFactory;
 
-	public SimulationWizardPresenter(SimulationWizardView view, PluginRegistry pluginRegistry) {
+	public SimulationWizardPresenter(SimulationWizardView view, PluginRegistry pluginRegistry, FormFieldFactory fieldFactory) {
 		this.view = view;
 		this.pluginRegistry = pluginRegistry;
+		this.fieldFactory = fieldFactory;
 	}
 
 	public void showWizard(SimulationWizardCallback callback) {
@@ -34,5 +38,10 @@ public class SimulationWizardPresenter implements SimulationViewCallback {
 	@Override
 	public Collection<Class<?>> getRequestIdProviderTypes() {
 		return pluginRegistry.getExtensions(RequestIdProvider.class);
+	}
+
+	@Override
+	public FormFieldFactory getFormFieldFactory() {
+		return fieldFactory;
 	}
 }

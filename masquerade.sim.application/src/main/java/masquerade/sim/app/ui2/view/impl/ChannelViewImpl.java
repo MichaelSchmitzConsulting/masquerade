@@ -10,7 +10,7 @@ import masquerade.sim.model.ui.MasterDetailView.AddListener;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -21,7 +21,7 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 	private final MasterDetailView masterDetailView;
 	private ChannelViewCallback callback;
 
-	public ChannelViewImpl() {
+	public ChannelViewImpl(FormFieldFactory fieldFactory) {
 		setCaption("Listener");
 		setMargin(true);
 		setSpacing(true);
@@ -33,7 +33,7 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 				callback.onSelection((ChannelInfo) event.getProperty().getValue());
 			}
 		};
-		masterDetailView = new MasterDetailView(DefaultFieldFactory.get(), false, selectionListener);
+		masterDetailView = new MasterDetailView(fieldFactory, false, selectionListener);
 		addComponent(masterDetailView);
 		setExpandRatio(masterDetailView, 1.0f);
 		masterDetailView.addAddListener(new AddListener() {

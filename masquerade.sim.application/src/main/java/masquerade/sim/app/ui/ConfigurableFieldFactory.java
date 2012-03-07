@@ -23,10 +23,6 @@ public class ConfigurableFieldFactory extends DefaultFieldFactory {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DESCRIPTION = "description";
-/*		NOT_REQUIRED.add("user");
-		NOT_REQUIRED.add("password");
-		NOT_REQUIRED.add("namespaceURI");
-*/
 
 	@Reference protected PluginRegistry pluginRegistry;
 	

@@ -25,7 +25,7 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 	public void showWizard() {
 		Wizard wizard = new Wizard();
 		wizard.addStep(new CreateSimulationStep());
-		wizard.addStep(new CreateSelectorStep(callback.getSelectorTypes()));
+		wizard.addStep(new CreateSelectorStep(callback.getSelectorTypes(), callback.getFormFieldFactory()));
 		wizard.addStep(new CreateIdProviderStep(callback.getRequestIdProviderTypes()));
 
 		setContent(wizard);

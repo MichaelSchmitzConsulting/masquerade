@@ -6,6 +6,7 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.plugin.PluginRegistry;
 
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.Window;
 
 /**
@@ -17,9 +18,9 @@ public class SimulationWizard {
 		void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider);
 	}
 	
-	public static void showWizard(SimulationWizardCallback callback, Window parent, PluginRegistry pluginRegistry) {
+	public static void showWizard(SimulationWizardCallback callback, Window parent, PluginRegistry pluginRegistry, FormFieldFactory fieldFactory) {
 		SimulationWizardViewImpl view = new SimulationWizardViewImpl(parent);
-		SimulationWizardPresenter presenter = new SimulationWizardPresenter(view, pluginRegistry);
+		SimulationWizardPresenter presenter = new SimulationWizardPresenter(view, pluginRegistry, fieldFactory);
 		view.bind(presenter);
 		presenter.showWizard(callback);
 	}

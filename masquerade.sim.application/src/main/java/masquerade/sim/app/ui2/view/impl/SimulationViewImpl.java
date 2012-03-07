@@ -10,6 +10,7 @@ import masquerade.sim.model.ui.MasterDetailView.AddListener;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -21,13 +22,13 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	private final MasterDetailView masterDetailView;
 	private SimulationViewCallback callback;
 
-	public SimulationViewImpl() {
+	public SimulationViewImpl(FormFieldFactory fieldFactory) {
 		setCaption("Simulations");
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
 		
-		masterDetailView = new MasterDetailView();
+		masterDetailView = new MasterDetailView(fieldFactory);
 		addComponent(masterDetailView);
 		setExpandRatio(masterDetailView, 1.0f);
 		

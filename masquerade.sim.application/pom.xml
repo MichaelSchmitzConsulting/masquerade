@@ -58,14 +58,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>customfield</artifactId><!-- Required here for inclusion in 
-				widgetset compilation -->
+			<artifactId>customfield</artifactId><!-- Required here for inclusion in widgetset compilation -->
 			<scope>provided</scope><!-- Referencing bundle -->
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>codemirror2</artifactId><!-- Required here for inclusion in 
-				widgetset compilation -->
+			<artifactId>codemirror2</artifactId><!-- Required here for inclusion in widgetset compilation -->
 			<scope>provided</scope><!-- Referencing bundle -->
 		</dependency>
 		<dependency>

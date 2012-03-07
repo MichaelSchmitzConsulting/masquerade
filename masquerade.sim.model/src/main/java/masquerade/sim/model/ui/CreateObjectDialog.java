@@ -71,7 +71,8 @@ public class CreateObjectDialog extends Window {
 					Class<?> type = (Class<?>) select.getValue();
 					StringBuilder vetoMsg = new StringBuilder();
 					if (approver.canCreate(type, name, vetoMsg)) {
-						ModelObjectFactory.createModelObject(getWindow(), type, listener, name);
+						Object value = ModelObjectFactory.createModelObject(getWindow(), type, name);
+						listener.notifyCreate(value);
 						WindowUtil.getRoot(getWindow()).removeWindow(CreateObjectDialog.this);
 					} else {
 						WindowUtil.showErrorNotification(getWindow(), "Cannot create object", vetoMsg.toString());

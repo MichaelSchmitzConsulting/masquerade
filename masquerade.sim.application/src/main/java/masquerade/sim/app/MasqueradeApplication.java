@@ -34,6 +34,7 @@ import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.Window;
 
 /**
@@ -120,6 +121,7 @@ public class MasqueradeApplication extends Application {
 		PluginManager pluginManager = serviceLocator.getPluginManager();
 		PluginRegistry pluginRegistry = serviceLocator.getPluginRegistry();
 		ChannelListenerRegistry channelListenerRegistry = serviceLocator.getChannelListenerRegistry();
+		FormFieldFactory fieldFactory = serviceLocator.getFieldFactory();
 		
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
@@ -128,14 +130,14 @@ public class MasqueradeApplication extends Application {
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 
-		SimulationFactory simulationFactory = new SimulationFactoryImpl(mainWindow, pluginRegistry, modelRepository);
-		SimulationViewImpl simulations = new SimulationViewImpl();
+		SimulationFactory simulationFactory = new SimulationFactoryImpl(mainWindow, pluginRegistry, modelRepository, fieldFactory);
+		SimulationViewImpl simulations = new SimulationViewImpl(fieldFactory);
 		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory);
 		simulations.bind(simulationPresenter);
 		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl));
 		
 		ChannelFactory channelFactory = new ChannelFactoryImpl(pluginRegistry, modelRepository, mainWindow);
-		ChannelViewImpl channels = new ChannelViewImpl();
+		ChannelViewImpl channels = new ChannelViewImpl(fieldFactory);
 		ChannelPresenter channelPresenter = new ChannelPresenter(channels, modelRepository, channelFactory, channelListenerRegistry);
 		channels.bind(channelPresenter);
 		mainLayout.addTab(channels, LISTENER.icon(baseUrl));

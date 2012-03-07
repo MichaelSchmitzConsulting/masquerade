@@ -12,18 +12,19 @@ import masquerade.sim.model.impl.SequenceScript;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginRegistry;
 
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.Window;
 
 public class SimulationFactoryImpl implements SimulationFactory {
 
 	private final Window window;
 	private final PluginRegistry pluginRegistry;
-	private final ModelRepository modelRepository;
+	private final FormFieldFactory fieldFactory;
 
-	public SimulationFactoryImpl(Window window, PluginRegistry pluginRegistry, ModelRepository modelRepository) {
+	public SimulationFactoryImpl(Window window, PluginRegistry pluginRegistry, ModelRepository modelRepository, FormFieldFactory fieldFactory) {
 		this.window = window;
 		this.pluginRegistry = pluginRegistry;
-		this.modelRepository = modelRepository;
+		this.fieldFactory = fieldFactory;
 	}
 
 	@Override
@@ -35,6 +36,6 @@ public class SimulationFactoryImpl implements SimulationFactory {
 				callback.onCreate(simulation);
 			}
 		};
-		SimulationWizard.showWizard(wizardCallback, window, pluginRegistry);
+		SimulationWizard.showWizard(wizardCallback, window, pluginRegistry, fieldFactory);
 	}
 }
