@@ -11,7 +11,7 @@ public interface ChannelView {
 	void setChannelList(List<ChannelInfo> channels);
 	void setDetailEditorBean(Object bean);
 	
-	interface Callback {
+	interface ChannelViewCallback {
 		void onSelection(ChannelInfo selection);
 		void onRemove(ChannelInfo selection);
 		void onAdd();

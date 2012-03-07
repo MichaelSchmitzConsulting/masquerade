@@ -15,7 +15,7 @@ import masquerade.sim.util.ClassUtil;
 /**
  * Presenter for {@link ChannelView}
  */
-public class ChannelPresenter implements ChannelView.Callback {
+public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 	private final ChannelView view;
 	private final ModelRepository modelRepository;
 	private final ChannelFactory channelFactory;
@@ -58,6 +58,7 @@ public class ChannelPresenter implements ChannelView.Callback {
 		channelFactory.createChannel(new ChannelFactoryCallback() {
 			@Override
 			public void onCreate(Channel channel) {
+				modelRepository.insertChannel(channel);
 				channelListenerRegistry.startOrRestart(channel.getName());
 				// Refresh channel list after creating a new channel
 				onRefresh();

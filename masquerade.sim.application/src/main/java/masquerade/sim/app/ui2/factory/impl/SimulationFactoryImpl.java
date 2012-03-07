@@ -1,15 +1,18 @@
 package masquerade.sim.app.ui2.factory.impl;
 
-import com.vaadin.ui.Window;
-
 import masquerade.sim.app.ui2.factory.SimulationFactory;
-import masquerade.sim.model.ModelInstanceTypeProvider;
+import masquerade.sim.app.ui2.wizard.SimulationWizard;
+import masquerade.sim.app.ui2.wizard.SimulationWizard.SimulationWizardCallback;
+import masquerade.sim.model.RequestIdProvider;
+import masquerade.sim.model.RequestMapping;
+import masquerade.sim.model.Script;
 import masquerade.sim.model.Simulation;
-import masquerade.sim.model.listener.CreateApprover;
-import masquerade.sim.model.listener.CreateListener;
+import masquerade.sim.model.impl.DefaultSimulation;
+import masquerade.sim.model.impl.SequenceScript;
 import masquerade.sim.model.repository.ModelRepository;
-import masquerade.sim.model.ui.CreateObjectDialog;
 import masquerade.sim.plugin.PluginRegistry;
+
+import com.vaadin.ui.Window;
 
 public class SimulationFactoryImpl implements SimulationFactory {
 
@@ -25,31 +28,13 @@ public class SimulationFactoryImpl implements SimulationFactory {
 
 	@Override
 	public void createSimulation(final SimulationFactoryCallback callback) {
-		ModelInstanceTypeProvider instanceTypeProvider = new ModelInstanceTypeProvider(Simulation.class, pluginRegistry);
-		CreateApprover createApprover = new CreateApprover() {
-			@Override
-			public boolean isNameUsed(Class<?> baseType, String usedName) {
-				return modelRepository.getSimulation(usedName) != null;
-			}
-			@Override
-			public boolean canCreate(Class<?> type, String name, StringBuilder errorMsg) {
-				if (isNameUsed(Simulation.class, name)) {
-					errorMsg.append("Simulation with ID " + name + " already exists");
-					return false;
-				} else {
-					return true;
-				}
-			}
-		};
-		CreateListener createListener = new CreateListener() {
-			@Override
-			public void notifyCreate(Object value) {
-				Simulation simulation = (Simulation) value;
-				modelRepository.insertSimulation(simulation);
+		SimulationWizardCallback wizardCallback = new SimulationWizardCallback() {
+			@Override public void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
+				Script script = new SequenceScript(simulationId + "Script");
+				Simulation simulation = new DefaultSimulation(simulationId, selector, idProvider, script);
 				callback.onCreate(simulation);
 			}
 		};
-		
-		CreateObjectDialog.showModal(window, "Create Simulation", "newSimulationId", createListener, createApprover, instanceTypeProvider);
+		SimulationWizard.showWizard(wizardCallback, window, pluginRegistry);
 	}
 }

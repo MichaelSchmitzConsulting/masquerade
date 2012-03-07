@@ -9,7 +9,7 @@ import masquerade.sim.app.ui2.view.SimulationView;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ModelRepository;
 
-public class SimulationPresenter implements SimulationView.Callback {
+public class SimulationPresenter implements SimulationView.SimulationViewCallback {
 
 	private final SimulationView view;
 	private final ModelRepository modelRepository;

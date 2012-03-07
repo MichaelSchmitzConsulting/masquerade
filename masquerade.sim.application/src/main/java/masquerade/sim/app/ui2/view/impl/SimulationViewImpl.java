@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 public class SimulationViewImpl extends VerticalLayout implements SimulationView {
 
 	private final MasterDetailView masterDetailView;
-	private Callback callback;
+	private SimulationViewCallback callback;
 
 	public SimulationViewImpl() {
 		setCaption("Simulations");
@@ -55,7 +55,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		// TODO Auto-generated method stub
 	}
 
-	public void bind(Callback callback) {
+	public void bind(SimulationViewCallback callback) {
 		this.callback = callback;
 	}
 }

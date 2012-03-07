@@ -49,7 +49,6 @@ public class ChannelFactoryImpl implements ChannelFactory {
 			@Override
 			public void notifyCreate(Object value) {
 				Channel channel = (Channel) value;
-				modelRepository.insertChannel(channel);
 				callback.onCreate(channel);
 			}
 		};

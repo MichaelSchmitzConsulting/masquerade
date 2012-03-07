@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 	private final MasterDetailView masterDetailView;
-	private Callback callback;
+	private ChannelViewCallback callback;
 
 	public ChannelViewImpl() {
 		setCaption("Listener");
@@ -49,7 +49,7 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 		});
 	}
 	
-	public void bind(Callback callback) {
+	public void bind(ChannelViewCallback callback) {
 		this.callback = callback;
 		callback.onRefresh();
 	}

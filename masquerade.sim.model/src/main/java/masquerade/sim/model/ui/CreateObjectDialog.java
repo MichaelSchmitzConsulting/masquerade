@@ -1,12 +1,9 @@
 package masquerade.sim.model.ui;
 
-import java.lang.reflect.Constructor;
 import java.util.Collection;
 
 import masquerade.sim.model.listener.CreateApprover;
 import masquerade.sim.model.listener.CreateListener;
-import masquerade.sim.status.StatusLog;
-import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.ClassUtil;
 import masquerade.sim.util.WindowUtil;
 
@@ -23,7 +20,6 @@ import com.vaadin.ui.Window;
 public class CreateObjectDialog extends Window {
 	
 	private static final String COMPONENT_WIDTH = "250px";
-	private static final StatusLog log = StatusLogger.get(CreateObjectDialog.class);
 
 	public static void showModal(Window parent, String caption, String defaultName, CreateListener listener, CreateApprover approver, InstanceTypeProvider instanceTypes) {
 		CreateObjectDialog dialog = new CreateObjectDialog(caption, defaultName, listener, approver, instanceTypes);
@@ -48,7 +44,7 @@ public class CreateObjectDialog extends Window {
 		nameText.setWidth(COMPONENT_WIDTH);
 		addComponent(nameText);
 		
-		// Type selection radios
+		// Type selection dropdown
 		final Select select = new Select("Type");
 		select.setNewItemsAllowed(false);
 		select.setRequired(true);
@@ -75,7 +71,7 @@ public class CreateObjectDialog extends Window {
 					Class<?> type = (Class<?>) select.getValue();
 					StringBuilder vetoMsg = new StringBuilder();
 					if (approver.canCreate(type, name, vetoMsg)) {
-						doCreate(getWindow(), type, listener, name);
+						ModelObjectFactory.createModelObject(getWindow(), type, listener, name);
 						WindowUtil.getRoot(getWindow()).removeWindow(CreateObjectDialog.this);
 					} else {
 						WindowUtil.showErrorNotification(getWindow(), "Cannot create object", vetoMsg.toString());
@@ -88,38 +84,5 @@ public class CreateObjectDialog extends Window {
 		// layout; you can use either. Alignments are set using the layout
 		layout.addComponent(createButton);
 		layout.setComponentAlignment(createButton, Alignment.TOP_RIGHT);
-	}	
-
-	// TODO: Refactor out of dialog
-	private static void doCreate(Window window, Class<?> type, CreateListener listener, String name) {
-		String typeName = type.getSimpleName();
-		try {
-			// By convention, a constructor with a single String argument is the constructor that accepts an object name. 
-			Constructor<?> constructor;
-			try {
-				constructor = type.getConstructor(String.class);
-			} catch (NoSuchMethodException ex) {
-				notifyError(window,  
-					"No possible constructor found to create a " + typeName + ", expected " + typeName + "(String name) or " + typeName + "()",
-					typeName, ex);
-				return;
-			}
-			Object value = constructor.newInstance(name);
-			listener.notifyCreate(value);
-		} catch (Exception e) {
-			String exMessage = e.getMessage();
-			String errMsg = e.getClass().getName() + " " + (exMessage == null ? "" : exMessage);
-			notifyError(window, errMsg, typeName, e);
-		}
-	}
-	
-	private static void notifyError(Window window, String msg, String typeName, Exception e) {
-		String caption = "Unable to create " + typeName;
-		log .error(caption + ": " + msg, e);
-		
-		WindowUtil.getRoot(window).showNotification(
-             caption,
-             "<br/>" + msg,
-             Notification.TYPE_ERROR_MESSAGE);
 	}
 }

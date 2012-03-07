@@ -11,7 +11,7 @@ public interface SimulationView {
 	void setSimulationList(List<String> simulations);
 	void setCurrentSimulation(Simulation simulation);
 	
-	interface Callback {
+	interface SimulationViewCallback {
 		void onSimulationSelected(String id);
 		void onRemove(String id);
 		void onAdd();
