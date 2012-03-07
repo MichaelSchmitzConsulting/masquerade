@@ -20,7 +20,7 @@ public class SimulationWizard {
 	
 	public static void showWizard(SimulationWizardCallback callback, Window parent, PluginRegistry pluginRegistry, FormFieldFactory fieldFactory) {
 		SimulationWizardViewImpl view = new SimulationWizardViewImpl(parent);
-		SimulationWizardPresenter presenter = new SimulationWizardPresenter(view, pluginRegistry, fieldFactory);
+		SimulationWizardPresenter presenter = new SimulationWizardPresenter(view, pluginRegistry, fieldFactory, callback);
 		view.bind(presenter);
 		presenter.showWizard(callback);
 	}

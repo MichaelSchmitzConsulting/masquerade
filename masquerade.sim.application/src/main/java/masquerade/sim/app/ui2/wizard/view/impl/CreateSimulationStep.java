@@ -27,9 +27,10 @@ public class CreateSimulationStep implements WizardStep {
 	public Component getContent() {
 		if (layout == null) {
 			layout = new VerticalLayout();
-			layout.addComponent(new Label("Simulation ID"));
+			layout.addComponent(new Label("Please enter a name for the Simulation"));
 			
-			simulationIdText = new TextField(null, "newSimuation");
+			simulationIdText = new TextField(null, "newSimulation");
+			simulationIdText.setImmediate(true);
 			layout.addComponent(simulationIdText);		
 		}
 		return layout;
@@ -37,16 +38,20 @@ public class CreateSimulationStep implements WizardStep {
 
 	@Override
 	public boolean onAdvance() {
-		String simId = (String) simulationIdText.getValue();
-		boolean canAdvance = StringUtils.isBlank(simId);
+		boolean canAdvance = StringUtils.isNotBlank(getSimulationId());
 		if (!canAdvance) {
 			simulationIdText.setComponentError(new UserError("Please enter a simulation ID"));
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean onBack() {
 		return true;
+	}
+
+	public String getSimulationId() {
+		return (String) simulationIdText.getValue();
 	}
 }

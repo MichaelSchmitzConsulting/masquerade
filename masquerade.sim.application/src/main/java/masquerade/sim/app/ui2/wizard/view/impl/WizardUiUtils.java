@@ -9,9 +9,12 @@ import com.vaadin.ui.Select;
 
 public class WizardUiUtils {
 	public static Select createTypeSelectDropdown(Collection<Class<?>> instanceTypes) {
-		Select selector = new Select("Type");
+		Select selector = new Select();
 		selector.setNewItemsAllowed(false);
 		selector.setRequired(true);
+		selector.setImmediate(true);
+		selector.setNullSelectionAllowed(false);
+		selector.setRequired(false);
         
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		BeanItemContainer<?> container = new BeanItemContainer(Class.class, instanceTypes);

@@ -2,6 +2,8 @@ package masquerade.sim.app.ui2.wizard.view;
 
 import java.util.Collection;
 
+import masquerade.sim.app.ui2.wizard.SimulationWizard.SimulationWizardCallback;
+
 import com.vaadin.ui.FormFieldFactory;
 
 /**
@@ -9,12 +11,11 @@ import com.vaadin.ui.FormFieldFactory;
  */
 public interface SimulationWizardView {
 
-	interface SimulationViewCallback {
+	interface SimulationWizardViewCallback extends SimulationWizardCallback {
 		Collection<Class<?>> getSelectorTypes();
 		Collection<Class<?>> getRequestIdProviderTypes();
 		FormFieldFactory getFormFieldFactory();
 	}
 	
 	void showWizard();
-	void closeWizard();
 }

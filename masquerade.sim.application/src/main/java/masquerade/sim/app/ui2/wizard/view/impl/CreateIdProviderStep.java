@@ -22,6 +22,8 @@ public class CreateIdProviderStep implements WizardStep {
 	private Select selectorTypeDropdown;
 
 	public CreateIdProviderStep(Collection<Class<?>> idProviderTypes) {
+		if (idProviderTypes.isEmpty())
+			throw new IllegalArgumentException("Request ID Provider wizard step requires at least one Request ID Provider type to be available");
 		this.idProviderTypes = idProviderTypes;
 	}
 
@@ -50,5 +52,9 @@ public class CreateIdProviderStep implements WizardStep {
 	@Override
 	public boolean onBack() {
 		return true;
+	}
+
+	public RequestIdProvider<?> getRequestIdProvider() {
+		return null;
 	}
 }
