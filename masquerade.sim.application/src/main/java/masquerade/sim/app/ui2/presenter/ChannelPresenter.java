@@ -49,7 +49,9 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 
 	@Override
 	public void onRemove(ChannelInfo selection) {
-		modelRepository.deleteChannel(selection.getId());
+		String id = selection.getId();
+		channelListenerRegistry.stop(id);
+		modelRepository.deleteChannel(id);
 		onRefresh();
 	}
 
