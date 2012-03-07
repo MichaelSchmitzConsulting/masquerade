@@ -68,7 +68,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>wizards-for-vaadin</artifactId>
+			<artifactId>wizards-for-vaadin</artifactId><!-- Required here for inclusion in widgetset compilation -->
 			<scope>provided</scope><!-- Referencing bundle -->
 		</dependency>
 		<!-- Masquerade Model bundle -->
@@ -103,6 +103,7 @@
 						<Import-Package>
 							!com.google.gwt.core.client,
 							!com.google.gwt.user.client,
+							!com.google.gwt.user.client.ui,
 							*,
 						</Import-Package>
 						<!-- Vaadin theme resources - specified as DynamicImport because 1.) 
@@ -110,8 +111,8 @@
 							not found by Bnd because of being loaded dynamically -->
 						<DynamicImport-Package>VAADIN.*</DynamicImport-Package>
 						<!-- Embed Vaadin Add-Ons that do not provide OSGi metadata -->
-						<Embed-Dependency>*;artifactId=codemirror2|customfield</Embed-Dependency>
-						<_exportcontents>org.vaadin.addon.*,org.vaadin.codemirror2.*</_exportcontents>
+						<Embed-Dependency>*;artifactId=codemirror2|customfield|wizards-for-vaadin</Embed-Dependency>
+						<_exportcontents>org.vaadin.addon.*,org.vaadin.codemirror2.*,org.vaadin.teemu.wizards.*</_exportcontents>
 					</instructions>
 				</configuration>
 			</plugin>

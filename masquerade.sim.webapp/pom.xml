@@ -143,21 +143,6 @@
 			<artifactId>vaadin</artifactId>
 			<scope>provided</scope><!-- Included as bundle -->
 		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>customfield</artifactId>
-			<scope>provided</scope><!-- Referencing bundle -->
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>codemirror2</artifactId>
-			<scope>provided</scope><!-- Referencing bundle -->
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>wizards-for-vaadin</artifactId>
-			<scope>provided</scope><!-- Referencing bundle -->
-		</dependency>
 		<!-- JMS -->
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
