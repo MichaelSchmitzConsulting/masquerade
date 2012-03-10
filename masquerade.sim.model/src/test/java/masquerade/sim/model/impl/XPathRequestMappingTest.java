@@ -24,7 +24,7 @@ public class XPathRequestMappingTest {
 	 */
 	@Test
 	public void testMatches() {
-		XPathRequestMapping mapping = new XPathRequestMapping("testMapping");
+		XPathRequestMapping mapping = new XPathRequestMapping();
 		mapping.setMatchXpath("/bla");
 		
 		Map<String, String> nsMap = Collections.emptyMap();

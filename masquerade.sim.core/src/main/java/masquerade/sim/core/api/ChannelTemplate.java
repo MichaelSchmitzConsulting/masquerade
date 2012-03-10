@@ -20,7 +20,7 @@ public class ChannelTemplate {
 
 	public void insert(Importer importer, ServletInputStream inputStream) {
 		Channel channel = importer.insertChannel(inputStream);
-		channelListenerRegistry.startOrRestart(channel.getName());
+		channelListenerRegistry.startOrRestart(channel.getId());
 	}
 
 	public void deleteChannel(ModelRepository modelRepository, String id) {

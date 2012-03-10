@@ -19,10 +19,10 @@ public abstract class JmsChannel extends AbstractChannel {
 	private boolean isTopic = false;
 	private int concurrentConsumers = 20;
 
-	public JmsChannel(String name) {
-		super(name);
+	public JmsChannel(String id) {
+		super(id);
 	}
-
+	
 	public abstract Class<? extends ConnectionFactoryProvider> connectionFactoryProvider();
 	
 	@Optional

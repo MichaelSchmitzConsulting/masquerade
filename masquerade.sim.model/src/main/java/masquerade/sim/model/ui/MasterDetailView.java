@@ -3,7 +3,6 @@ package masquerade.sim.model.ui;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import masquerade.sim.model.Named;
 import masquerade.sim.model.listener.DeleteApprover;
 import masquerade.sim.model.listener.DeleteListener;
 import masquerade.sim.model.listener.UpdateListener;
@@ -53,7 +52,7 @@ public class MasterDetailView extends CustomComponent {
 	}
 
 	private ComponentContainer mainContainer;
-    private ComponentContainer detailContainer;
+    private ComponentContainer detailContainer;	
     private Table masterTable;
 	private DetailViewUpdateListener detailViewUpdateListener = createDefaultDetailViewUpdateListener();
 	private Component detailView;
@@ -230,13 +229,7 @@ public class MasterDetailView extends CustomComponent {
 					setDetailView(null);
 					removeButton.setEnabled(false);
 				} else {
-					String name;
-					if (obj instanceof Named) {
-						Named named = (Named) obj;
-						name = named.getName();
-					} else {
-						name = obj.toString();
-					}
+					String name = obj.toString();
 					WindowUtil.showErrorNotification(getWindow(), "Cannot remove "+ name, msg.toString());
 				}
 			}

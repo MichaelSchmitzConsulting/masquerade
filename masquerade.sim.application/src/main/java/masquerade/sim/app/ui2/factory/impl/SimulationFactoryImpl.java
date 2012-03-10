@@ -31,7 +31,7 @@ public class SimulationFactoryImpl implements SimulationFactory {
 	public void createSimulation(final SimulationFactoryCallback callback) {
 		SimulationWizardCallback wizardCallback = new SimulationWizardCallback() {
 			@Override public void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
-				Script script = new SequenceScript(simulationId + "Script");
+				Script script = new SequenceScript();
 				Simulation simulation = new DefaultSimulation(simulationId, selector, idProvider, script);
 				callback.onCreate(simulation);
 			}

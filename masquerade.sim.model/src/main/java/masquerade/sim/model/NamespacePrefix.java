@@ -1,34 +1,21 @@
 package masquerade.sim.model;
 
-public class NamespacePrefix implements Named {
-	private String name = "ns";
+public class NamespacePrefix {
+	private String pfx = "ns";
 	private String namespace = "http://example.com/ns";
-	
-	/**
-	 * @param prefix
-	 * @param namespace
-	 */
-	public NamespacePrefix(String prefix) {
-		this.name = prefix;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
 	
 	/**
 	 * @return the prefix
 	 */
 	public String getPrefix() {
-		return name;
+		return pfx;
 	}
 
 	/**
 	 * @param prefix the prefix to set
 	 */
 	public void setPrefix(String prefix) {
-		this.name = prefix;
+		this.pfx = prefix;
 	}
 
 	/**
@@ -51,6 +38,6 @@ public class NamespacePrefix implements Named {
 	
 	@Override
 	public String toString() {
-		return "Namespace Prefix: " + name;
+		return "Namespace Prefix: " + pfx;
 	}
 }

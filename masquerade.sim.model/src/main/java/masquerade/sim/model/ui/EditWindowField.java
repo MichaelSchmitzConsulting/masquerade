@@ -1,6 +1,5 @@
 package masquerade.sim.model.ui;
 
-import masquerade.sim.model.listener.SaveListener;
 import masquerade.sim.util.WindowUtil;
 
 import org.vaadin.addon.customfield.CustomField;
@@ -27,21 +26,18 @@ public class EditWindowField extends CustomField {
 	private WindowFactory windowFactory;
 	private HorizontalLayout mainLayout;
 	private int positionX = -1;
-	private SaveListener saveListener;
 
 	/**
 	 * Creates a field with an 'Edit...' button that opens a modal MasterDetailEditWindow to edit a collection
 	 * @param valueType
 	 * @param containedType
-	 * @param saveListener 
 	 * @param instanceTypes
 	 * @param fieldFactory
 	 * @param windowFactory
 	 */
-	public EditWindowField(Class<?> valueType, Class<?> containedType, InstanceTypeProvider instanceTypeProvider, SaveListener saveListener, FormFieldFactory fieldFactory, WindowFactory windowFactory) {
+	public EditWindowField(Class<?> valueType, Class<?> containedType, InstanceTypeProvider instanceTypeProvider, FormFieldFactory fieldFactory, WindowFactory windowFactory) {
 		this.type = valueType;
 		this.instanceTypeProvider = instanceTypeProvider;
-		this.saveListener = saveListener;
 		this.containedType = containedType;
 		this.fieldFactory = fieldFactory;
 		this.windowFactory = windowFactory;
@@ -77,7 +73,7 @@ public class EditWindowField extends CustomField {
 		Property property = this;
 		Window window;
 		if (windowFactory == null) {
-			window = new MasterDetailEditWindow("Edit", property, fieldFactory, containedType, instanceTypeProvider, saveListener, true);
+			window = new MasterDetailEditWindow("Edit", property, fieldFactory, containedType, instanceTypeProvider, true);
 			if (positionX  != -1) {
 				window.setPositionX(positionX);
 			}

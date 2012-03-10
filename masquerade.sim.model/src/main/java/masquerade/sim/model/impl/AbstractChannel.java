@@ -7,24 +7,24 @@ import masquerade.sim.model.Channel;
  */
 public abstract class AbstractChannel implements Channel {
 
-	private String name;
+	private String id;
+	private String description = "";
 
-	protected AbstractChannel(String name) {
-		this.name = name;
+	protected AbstractChannel(String id) {
+		this.id = id;
 	}
 
 	@Override
-	public final String getName() {
-		return name;
+	public final String getId() {
+		return id;
 	}
 
 	@Override
-	public String getDescription() {
-		return toString();
+	public final String getDescription() {
+		return description;
 	}
 
-	@Override
-	final public String toString() {
-		return getName();
-	}	
+	public final void setDescription(String description) {
+		this.description = description;
+	}
 }

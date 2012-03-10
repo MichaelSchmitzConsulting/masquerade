@@ -43,7 +43,7 @@ public final class SendTestRequestActionImpl implements SendTestRequestAction {
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		ResponseDestination responseDestination = new ByteArrayResponseDestination(responseOutput);
 		
-		simulationRunner.runSimulation(responseDestination, channel.getName(), "Request Test UI", content, new Date());
+		simulationRunner.runSimulation(responseDestination, channel.getId(), "Request Test UI", content, new Date());
 		
 		return new String(responseOutput.toByteArray());
 	}

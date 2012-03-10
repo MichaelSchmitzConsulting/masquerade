@@ -27,7 +27,7 @@ public class DefaultSimulation implements Simulation {
 	}
 
 	/** Constructor for serialization */
-	protected DefaultSimulation(String id) {
+	public DefaultSimulation(String id) {
 		this.id = id;
 	}
 

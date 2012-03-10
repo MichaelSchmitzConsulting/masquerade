@@ -4,6 +4,10 @@ import masquerade.sim.model.impl.step.AbstractSimulationStep;
 
 public class CopyRequestToResponseStep extends AbstractSimulationStep {
 
+	public CopyRequestToResponseStep() {
+		super("step");
+	}
+
 	public CopyRequestToResponseStep(String name) {
 		super(name);
 	}

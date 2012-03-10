@@ -22,17 +22,13 @@ import org.w3c.dom.Document;
  * {@link RequestIdProvider} fetching a request ID from a list of XPaths, 
  * taking the first matching XPath's value as ID source.
  */
-public class XpathAlternativesRequestIdProvider extends AbstractRequestIdProvider<Document> {
+public class XpathAlternativesRequestIdProvider implements RequestIdProvider<Document> {
 
 	private String xpaths = "";
 	
 	/** XPath per-thread cache to avoid recompiling XPaths for every request */
 	private transient volatile ThreadLocalCache<Collection<XPathExpression>> xpathCache;
 	
-	public XpathAlternativesRequestIdProvider(String name) {
-		super(name);
-	}
-
 	/**
 	 * @return A string with a list of XPaths separated by line separators
 	 */
@@ -70,11 +66,6 @@ public class XpathAlternativesRequestIdProvider extends AbstractRequestIdProvide
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public String toString() {
-		return getName() + " (XPath alternatives request ID provider)";
 	}
 
 	/**

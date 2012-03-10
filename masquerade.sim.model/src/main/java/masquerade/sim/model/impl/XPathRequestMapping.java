@@ -20,8 +20,8 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 	private volatile String xpath = "";
 	private transient ThreadLocalCache<XPathExpression> xpathCache;
 	
-	public XPathRequestMapping(String name) {
-		super(name, Document.class);
+	public XPathRequestMapping() {
+		super(Document.class);
 	}
 
 	/**
@@ -48,11 +48,6 @@ public class XPathRequestMapping extends AbstractRequestMapping<Document> {
 	public void setMatchXpath(String xpath) {
 		this.xpath = xpath;
 		xpathCache().clear();
-	}
-
-	@Override
-	public String toString() {
-		return getName() + " (XPath mapping)";
 	}
 	
 	private XPathExpression createXPath(NamespaceResolver namespaceResolver) throws XPathExpressionException {

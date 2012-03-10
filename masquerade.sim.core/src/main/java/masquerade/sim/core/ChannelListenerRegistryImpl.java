@@ -81,7 +81,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 				try {
 					updateChannel(channel);
 				} catch (Exception ex) {
-					log.error( "Exception while starting channel " + channel.getName(), ex);
+					log.error( "Exception while starting channel " + channel.getId(), ex);
 				}
 			}
 		}
@@ -128,7 +128,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	private void updateChannel(Channel changedChannel) {
 		synchronized (channels) {
 			@SuppressWarnings("unchecked")
-			ChannelListener<Channel> listener = getChannelListener(changedChannel.getName(), ChannelListener.class);
+			ChannelListener<Channel> listener = getChannelListener(changedChannel.getId(), ChannelListener.class);
 			
 			if (listener == null) {
 				startChannel(changedChannel);
@@ -143,7 +143,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 
 	private void startChannel(Channel changedChannel) {
-		String channelName = changedChannel.getName();
+		String channelName = changedChannel.getId();
 		if (changedChannel.isActive()) {
 			log.info("Starting channel " + channelName);
 			doStart(changedChannel, channelName);

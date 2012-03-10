@@ -85,7 +85,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 				SimulationContext context = new SimulationContextImpl(requestId, request, responseTrigger, initialContextVariables, converter, fileLoader, namespaceResolver, responseProvider);
 
 				// Log request
-				HistoryEntry entry = logRequest(requestTimestamp, receiveTimestamp, channelId, clientInfo, request, requestHistory, script, requestId);
+				HistoryEntry entry = logRequest(requestTimestamp, receiveTimestamp, channelId, clientInfo, request, requestHistory, simulation.getId(), requestId);
 
 				// Run simulation script
 				Object response = runScript(responseDestination, script, context, entry);
@@ -123,9 +123,9 @@ public class SimulationRunnerImpl implements SimulationRunner {
 		return responseTrigger;
 	}
 
-	private HistoryEntry logRequest(Date requestTimestamp, Date receiveTimestamp, String channelName, String clientInfo, Object request, RequestHistory requestHistory, Script script, String requestId) {
+	private HistoryEntry logRequest(Date requestTimestamp, Date receiveTimestamp, String channelName, String clientInfo, Object request, RequestHistory requestHistory, String simulationId, String requestId) {
 		HistoryEntry entry = 
-			requestHistory.logRequest(requestTimestamp, receiveTimestamp, channelName, script.getName(), clientInfo, requestId, converter.convert(request, String.class));
+			requestHistory.logRequest(requestTimestamp, receiveTimestamp, channelName, simulationId, clientInfo, requestId, converter.convert(request, String.class));
 		return entry;
 	}
 

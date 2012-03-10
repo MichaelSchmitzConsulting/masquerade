@@ -12,7 +12,7 @@ import com.vaadin.ui.Window.Notification;
  */
 public class ModelObjectFactory {
 	
-	public static Object createModelObject(Window window, Class<?> type, String name) {
+	public static Object createNamedModelObject(Window window, Class<?> type, String name) {
 		String typeName = type.getSimpleName();
 		try {
 			// By convention, a constructor with a single String argument is the constructor that accepts an object name. 
@@ -35,9 +35,21 @@ public class ModelObjectFactory {
 		}
 	}
 	
+	public static Object createModelObject(Window window, Class<?> type) {
+		String typeName = type.getSimpleName();
+		try {
+			return type.newInstance();
+		} catch (Exception e) {
+			String exMessage = e.getMessage();
+			String errMsg = e.getClass().getName() + " " + (exMessage == null ? "" : exMessage);
+			notifyError(window, errMsg, typeName, e);
+			return null;
+		}
+	}
+	
 	private static void notifyError(Window window, String msg, String typeName, Exception e) {
 		String caption = "Unable to create " + typeName;
-		
+
 		WindowUtil.getRoot(window).showNotification(
              caption,
              "<br/>" + msg,

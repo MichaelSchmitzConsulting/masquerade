@@ -3,12 +3,11 @@ package masquerade.sim.model;
 /**
  * A channel receives requests
  */
-public interface Channel extends Named {
+public interface Channel {
 	/**
 	 * @return Unique channel name
 	 */
-	@Override
-	String getName();
+	String getId();
 	
 	/**
 	 * @return Channel description

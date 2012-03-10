@@ -7,6 +7,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.RequestContext;
+import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.util.ThreadLocalCache;
 import masquerade.sim.util.XPathUtil;
 
@@ -15,16 +16,12 @@ import org.w3c.dom.Document;
 /**
  * Extract unique request IDs from XML documents using an XPath
  */
-public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> {
+public class XPathRequestIdProvider implements RequestIdProvider<Document> {
 
 	private volatile String xpath = "";
 	
 	private transient volatile ThreadLocalCache<XPathExpression> xpathCache;
 	
-	public XPathRequestIdProvider(String name) {
-		super(name);
-	}
-
 	/**
      * @return the xpath
      */
@@ -62,11 +59,6 @@ public class XPathRequestIdProvider extends AbstractRequestIdProvider<Document> 
 			throw new IllegalArgumentException("Failed to evaluate XPath on request", e);
 		}
     }
-
-	@Override
-    public String toString() {
-	    return getName() + " (XPath request ID provider)";
-    }	
 	
 	private XPathExpression createXPath(NamespaceResolver namespaceResolver) throws XPathExpressionException {
 		XPath xpath = XPathUtil.createXPath(namespaceResolver);

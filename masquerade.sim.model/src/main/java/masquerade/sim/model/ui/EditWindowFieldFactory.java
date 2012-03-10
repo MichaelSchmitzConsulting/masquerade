@@ -2,7 +2,6 @@ package masquerade.sim.model.ui;
 
 import java.util.Collection;
 
-import masquerade.sim.model.listener.SaveListener;
 import masquerade.sim.model.ui.EditWindowField.WindowFactory;
 import masquerade.sim.plugin.FieldFactory;
 
@@ -17,12 +16,10 @@ public class EditWindowFieldFactory implements FieldFactory {
 	private WindowFactory windowFactory;
 	private int positionX = -1;
 	private InstanceTypeProvider instanceTypeProvider;
-	private SaveListener saveListener;
 
-	public EditWindowFieldFactory(String caption, FormFieldFactory fieldFactory, Class<?> containedType, InstanceTypeProvider instanceTypeProvider, SaveListener saveListener) {
+	public EditWindowFieldFactory(String caption, FormFieldFactory fieldFactory, Class<?> containedType, InstanceTypeProvider instanceTypeProvider) {
 		this(caption, fieldFactory, containedType, (WindowFactory) null);
 		this.instanceTypeProvider = instanceTypeProvider;
-		this.saveListener = saveListener;
 	}
 	
 	public EditWindowFieldFactory(String caption, FormFieldFactory fieldFactory, Class<?> containedType, WindowFactory windowFactory) {
@@ -41,7 +38,7 @@ public class EditWindowFieldFactory implements FieldFactory {
 
 	@Override
 	public Field createField(Object existingValue) {
-		EditWindowField field = new EditWindowField(Collection.class, containedType, instanceTypeProvider, saveListener, fieldFactory, windowFactory);
+		EditWindowField field = new EditWindowField(Collection.class, containedType, instanceTypeProvider, fieldFactory, windowFactory);
 		if (positionX  != -1) {
 			field.setPositionX(positionX);
 		}

@@ -6,12 +6,7 @@ package masquerade.sim.model;
  * Dynamic request expectations will be matched against the request using
  * the unique ID.  
  */
-public interface RequestIdProvider<R> extends Named {
-	@Override
-	String getName();
-	String getDescription();
-	
-	
+public interface RequestIdProvider<R> {
 	Class<R> getAcceptedRequestType();
 	String getUniqueId(R request, RequestContext context);
 }

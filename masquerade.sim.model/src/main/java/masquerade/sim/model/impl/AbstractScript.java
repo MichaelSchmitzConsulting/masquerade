@@ -7,17 +7,7 @@ import masquerade.sim.model.Script;
  */
 public abstract class AbstractScript implements Script {
 
-	private String name;
 	private String description = "";
-
-	public AbstractScript(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public final String getName() {
-		return name;
-	}
 
 	@Override
 	public final String getDescription() {

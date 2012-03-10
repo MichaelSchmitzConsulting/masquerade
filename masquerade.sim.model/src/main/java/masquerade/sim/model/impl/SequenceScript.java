@@ -13,8 +13,7 @@ public class SequenceScript extends AbstractScript {
 
 	private List<SimulationStep> simulationSteps;
 
-	public SequenceScript(String name) {
-		super(name);
+	public SequenceScript() {
 		this.simulationSteps = new ArrayList<SimulationStep>();
 	}
 	
@@ -40,10 +39,4 @@ public class SequenceScript extends AbstractScript {
     public void setSimulationSteps(List<SimulationStep> simulationSteps) {
     	this.simulationSteps = new ArrayList<SimulationStep>(simulationSteps);
     }
-
-	@Override
-	public String toString() {
-		return getName() + " (" + simulationSteps.size() + " steps)";
-	}
-
 }

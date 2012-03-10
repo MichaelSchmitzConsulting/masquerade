@@ -2,7 +2,7 @@ package masquerade.sim.app.ui;
 
 import masquerade.sim.model.listener.CreateApprover;
 import masquerade.sim.model.listener.CreateListener;
-import masquerade.sim.model.ui.CreateObjectDialog;
+import masquerade.sim.model.ui.CreateNamedObjectDialog;
 import masquerade.sim.model.ui.InstanceTypeProvider;
 import masquerade.sim.model.ui.MasterDetailView;
 import masquerade.sim.model.ui.MasterDetailView.AddListener;
@@ -11,7 +11,7 @@ import masquerade.sim.util.ClassUtil;
 import com.vaadin.data.Container;
 
 /**
- * Listener showing a {@link CreateObjectDialog} for the a model type, 
+ * Listener showing a {@link CreateNamedObjectDialog} for the a model type, 
  * providing a list of model type implementation choices and 
  * notifiying a {@link CreateListener} upon object creation.
  * Queries a {@link CreateApprover} if the model object can be created
@@ -51,7 +51,7 @@ public final class ModelAddListener implements AddListener {
 			usedName = name + (i++); 
 		}
 		
-		CreateObjectDialog.showModal(view.getWindow(), caption, usedName, new CreateNotifier(), createApprover, instanceTypeProvider);
+		CreateNamedObjectDialog.showModal(view.getWindow(), caption, usedName, new CreateNotifier(), createApprover, instanceTypeProvider);
 	}
 	
 	private class CreateNotifier implements CreateListener {

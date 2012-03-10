@@ -13,8 +13,8 @@ public class DefaultJmsChannel extends JmsChannel {
 	private String url = "";
 	private Class<? extends ConnectionFactoryProvider> connectionFactoryProvider = ActiveMqConnectionFactoryProvider.class;
 
-	public DefaultJmsChannel(String name) {
-		super(name);
+	public DefaultJmsChannel(String id) {
+		super(id);
 	}
 
 	public String getUrl() {

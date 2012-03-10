@@ -120,6 +120,12 @@
 			<artifactId>org.apache.servicemix.bundles.xstream</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Commons-beanutils bundle -->
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.commons-beanutils</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<!-- xmlpull bundle (required by xstream bundle) -->
 		<dependency>
 			<groupId>org.apache.servicemix.bundles</groupId>

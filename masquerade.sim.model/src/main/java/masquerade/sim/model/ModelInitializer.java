@@ -1,9 +1,9 @@
 package masquerade.sim.model;
 
+import masquerade.sim.model.impl.DefaultSimulation;
 import masquerade.sim.model.impl.DynamicScript;
 import masquerade.sim.model.impl.ProvidedResponse;
 import masquerade.sim.model.impl.SequenceScript;
-import masquerade.sim.model.impl.DefaultSimulation;
 import masquerade.sim.model.impl.SoapFaultStep;
 import masquerade.sim.model.impl.XPathRequestIdProvider;
 import masquerade.sim.model.impl.XPathRequestMapping;
@@ -25,7 +25,6 @@ import masquerade.sim.model.impl.step.ScriptFileStep;
 import masquerade.sim.model.impl.step.SendIntermediateResponseStep;
 import masquerade.sim.model.impl.step.SetResponseContentStep;
 import masquerade.sim.model.impl.step.WaitStep;
-import masquerade.sim.model.listener.SaveListener;
 import masquerade.sim.model.ui.CodeMirrorFieldFactory;
 import masquerade.sim.model.ui.EditWindowFieldFactory;
 import masquerade.sim.model.ui.FileSelectFieldFactory;
@@ -101,14 +100,7 @@ public class ModelInitializer {
 
 	private void registerFieldFactories() {
 		InstanceTypeProvider instanceTypeProvider = new ModelInstanceTypeProvider(SimulationStep.class, pluginRegistry);
-		SaveListener saveListener = new SaveListener() {
-			@Override
-			public void onSave(Object value) {
-				// TODO Auto-generated method stub
-				throw new UnsupportedOperationException();
-			}
-		};
-		EditWindowFieldFactory stepEditorFactory = new EditWindowFieldFactory("Steps", fieldFactory, SimulationStep.class, instanceTypeProvider, saveListener);
+		EditWindowFieldFactory stepEditorFactory = new EditWindowFieldFactory("Steps", fieldFactory, SimulationStep.class, instanceTypeProvider);
 		pluginRegistry.registerPropertyEditor(
 				SequenceScript.class,
 				"simulationSteps",

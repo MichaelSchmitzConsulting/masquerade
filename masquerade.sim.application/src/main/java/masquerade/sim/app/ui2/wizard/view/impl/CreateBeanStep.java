@@ -1,8 +1,8 @@
 package masquerade.sim.app.ui2.wizard.view.impl;
 
 import java.util.Collection;
-import java.util.UUID;
 
+import masquerade.sim.app.util.BeanUiUtils;
 import masquerade.sim.model.ui.ModelObjectFactory;
 
 import org.vaadin.teemu.wizards.WizardStep;
@@ -54,10 +54,10 @@ public class CreateBeanStep<B> implements WizardStep {
 			layout.setSpacing(true);
 
 			Class<?> initialType = beanTypes.iterator().next();
-			typeDropdown = WizardUiUtils.createTypeSelectDropdown(beanTypes);
+			typeDropdown = BeanUiUtils.createTypeSelectDropdown(beanTypes);
 			layout.addComponent(typeDropdown);
 
-			// DetailLayout
+			// Detail Layout
 			GridLayout detailLayout = new GridLayout();
 			detailLayout.setSizeFull();
 			layout.addComponent(detailLayout);
@@ -91,27 +91,8 @@ public class CreateBeanStep<B> implements WizardStep {
 
 	private Component createInitialForm(Class<?> initialType) {
 		// TODO: Refactor error handling/notification out of ModelObjectFactory
-		// TODO: Remove names on non-toplevel simulation objects, keep only IDs
-		// on Simulation and Channel
-		Object bean = ModelObjectFactory.createModelObject(layout.getWindow(), initialType, UUID.randomUUID().toString());
-		return createForm(bean);
-	}
-
-	private Component createForm(Object bean) {
-		form = new Form();
-		form.setSizeFull();
-		String shortTypeName = bean.getClass().getSimpleName();
-		form.setCaption(shortTypeName);
-		form.setWriteThrough(true);
-		form.setInvalidCommitted(false);
-		form.setFormFieldFactory(fieldFactory);
-
-		BeanItem<?> item = new BeanItem<Object>(bean);
-		form.setItemDataSource(item);
-
-		form.getLayout().setSizeFull();
-
-		return form;
+		Object bean = ModelObjectFactory.createModelObject(layout.getWindow(), initialType);
+		return form = BeanUiUtils.createForm(bean, fieldFactory);
 	}
 
 	@Override

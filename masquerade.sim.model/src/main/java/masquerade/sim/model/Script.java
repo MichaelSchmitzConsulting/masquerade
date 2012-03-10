@@ -3,9 +3,7 @@ package masquerade.sim.model;
 /**
  * A simulation script definition
  */
-public interface Script extends Named {
-	@Override
-	String getName();
+public interface Script {
 	String getDescription();
 
 	/**

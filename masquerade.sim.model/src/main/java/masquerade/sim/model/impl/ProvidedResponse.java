@@ -10,22 +10,13 @@ import masquerade.sim.model.response.ResponseProvider;
  */
 public class ProvidedResponse extends AbstractProvidedResponseScript {
 	
-	public ProvidedResponse(String name) {
-		super(name);
-	}
-	
 	@Override
 	protected Object getResponse(SimulationContext simulationContext, String id) {
 		Object response = simulationContext.getResponseProvider().getResponse(id);
 		if (response == null) {
-			log.warning("ProvidedResponse Script " + getName() + " - received a request a a valid request ID (" + id + ") but found no matching response");
+			log.warning("ProvidedResponse Script - received a request a a valid request ID (" + id + ") but found no matching response");
 			return EMPTY_RESPONSE;
 		}
 		return response;
-	}
-
-	@Override
-	public String toString() {
-		return getName() + " (provided response)";
 	}
 }

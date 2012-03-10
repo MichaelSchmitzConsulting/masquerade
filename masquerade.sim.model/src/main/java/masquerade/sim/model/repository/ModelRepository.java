@@ -22,12 +22,24 @@ public interface ModelRepository {
 	 * @return Channel with this id, or <code>null</code> if not found
 	 */
 	Channel getChannel(String id);
+
+	/**
+	 * Returns a copy of the channel with the given Id, safe to be edited e.g. in the UI
+	 * before being put back into the repository.
+	 * @param id Channel ID
+	 * @return Channel with this id, or <code>null</code> if not found
+	 */
+	Channel getChannelForUpdate(String id);
 	
 	/**
+	 * Returns a copy of the simulation with the given id, the copy
+	 * can be freely upated (e.g. in the UI) before being put back into
+	 * the repository.
+	 * 
 	 * @param id Simulation ID
 	 * @return The simulation with this id, or <code>null</code> if not found
 	 */
-	Simulation getSimulation(String id);
+	Simulation getSimulationForUpdate(String id);
 	
 	/**
 	 * Assign a simulation to be active on a channel
@@ -37,7 +49,7 @@ public interface ModelRepository {
 	void assignSimulationToChannel(String simulationId, String channelId);
 	
 	/**
-	 * @return The {@link Settings} instance contained in this repository
+	 * @return A copy of the {@link Settings} contained in this repository
 	 */
 	Settings getSettings();
 

@@ -15,8 +15,8 @@ public class WebSphereMqJmsChannel extends JmsChannel {
 	private String channel = "SYSTEM.DEF.SVRCONN";
 	private String queueManager = "QM_localhost";
 
-	public WebSphereMqJmsChannel(String name) {
-		super(name);
+	public WebSphereMqJmsChannel(String id) {
+		super(id);
 	}
 
 	@Override

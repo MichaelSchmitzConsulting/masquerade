@@ -4,8 +4,7 @@ package masquerade.sim.model;
 /**
  * A single step in a simulation script
  */
-public interface SimulationStep extends Named {
-	@Override
+public interface SimulationStep {
 	String getName();
 	String getDescription();
 	

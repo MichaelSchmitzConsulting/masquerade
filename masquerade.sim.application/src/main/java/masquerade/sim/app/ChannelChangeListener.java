@@ -21,7 +21,7 @@ public class ChannelChangeListener implements CreateListener, UpdateListener, De
 	public void notifyDelete(Object obj) {
 		if (obj instanceof Channel) {
 			Channel channel = (Channel) obj;
-			channelListenerRegistry.stop(channel.getName());
+			channelListenerRegistry.stop(channel.getId());
 		}
 	}
 
@@ -29,7 +29,7 @@ public class ChannelChangeListener implements CreateListener, UpdateListener, De
 	public void notifyUpdated(Object obj) {
 		if (obj instanceof Channel) {
 			Channel channel = (Channel) obj;
-			channelListenerRegistry.startOrRestart(channel.getName());
+			channelListenerRegistry.startOrRestart(channel.getId());
 		}
 	}
 
@@ -37,7 +37,7 @@ public class ChannelChangeListener implements CreateListener, UpdateListener, De
 	public void notifyCreate(Object obj) {
 		if (obj instanceof Channel) {
 			Channel channel = (Channel) obj;
-			channelListenerRegistry.startOrRestart(channel.getName());
+			channelListenerRegistry.startOrRestart(channel.getId());
 		}
 	}
 }

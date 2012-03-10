@@ -56,7 +56,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		replyDestinationName = config.substituteVariables(channel.getResponseDestinationName());
 		
 		isTopic = channel.isTopic();
-		channelName = channel.getName();
+		channelName = channel.getId();
 		log.info("Creating connection factory for JMS channel " + channelName);
 		
 		ConnectionFactory connectionFactory = createConnectionFactory(channel, context);
@@ -181,7 +181,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 			provider = channel.connectionFactoryProvider().newInstance();
 			return provider.getConnectionFactory(channel, context);
 		} catch (Throwable t) {
-			log.error("Unable to create a connection factory for JMS channel " + channel.getName(), t);
+			log.error("Unable to create a connection factory for JMS channel " + channel.getId(), t);
 			return null;
 		}
 	}

@@ -55,13 +55,13 @@ public class ModelUploadIT extends ClientBased {
 		uploadTestChannel(TEST_CHANNEL_ID, TEST_CHANNEL_PATH);
 		uploadTestChannel(TEST_CHANNEL_ID_2, TEST_CHANNEL_PATH_2);
 		
-		XPathRequestMapping selector = new XPathRequestMapping("testMapping");
+		XPathRequestMapping selector = new XPathRequestMapping();
 		selector.setMatchXpath("/*");
 		
-		XPathRequestIdProvider requestIdProvider = new XPathRequestIdProvider("testId");
+		XPathRequestIdProvider requestIdProvider = new XPathRequestIdProvider();
 		requestIdProvider.setXpath("/*/@id");
 		
-		SequenceScript script = new SequenceScript("testScript");
+		SequenceScript script = new SequenceScript();
 		script.getSimulationSteps().add(new CopyRequestToResponseStep("step"));
 		
 		Simulation simulation = new DefaultSimulation("testSim", selector, requestIdProvider, script);

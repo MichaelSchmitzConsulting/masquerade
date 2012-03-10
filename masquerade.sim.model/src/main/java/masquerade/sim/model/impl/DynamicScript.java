@@ -15,10 +15,6 @@ public class DynamicScript extends AbstractProvidedResponseScript {
 
 	private final static StatusLog log = StatusLogger.get(DynamicScript.class);
 	
-	public DynamicScript(String name) {
-		super(name);
-	}
-
 	@Override
 	protected Object getResponse(SimulationContext context, String requestId) throws Exception {
 		List<SimulationStep> steps = context.getResponseProvider().getResponseScript(requestId);
@@ -31,10 +27,5 @@ public class DynamicScript extends AbstractProvidedResponseScript {
 		}
 		
 		return context.getContent(Object.class);
-	}
-
-	@Override
-	public String toString() {
-		return getName() + " (dynamic script)";
 	}
 }

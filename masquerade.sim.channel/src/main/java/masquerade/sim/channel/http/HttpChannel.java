@@ -12,8 +12,8 @@ public class HttpChannel extends AbstractChannel {
 	private String location = "/exam/ple";
 	private String responseContentType = "text/xml";
 
-	public HttpChannel(String name) {
-		super(name);
+	public HttpChannel(String id) {
+		super(id);
 	}
 
 	public String getLocation() {

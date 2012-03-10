@@ -7,26 +7,14 @@ import masquerade.sim.model.RequestMapping;
  */
 public abstract class AbstractRequestMapping<R> implements RequestMapping<R> {
 
-	private String name;
 	private Class<R> acceptedRequestType;
 	
-	protected AbstractRequestMapping(String name, Class<R> acceptedRequestType) {
-	    this.name = name;
+	protected AbstractRequestMapping(Class<R> acceptedRequestType) {
 	    this.acceptedRequestType = acceptedRequestType;
     }
 
 	@Override
 	public Class<R> acceptedRequestType() {
 		return acceptedRequestType;
-	}
-
-	@Override
-	public final String getName() {
-		return name;
-	}
-
-	@Override
-	public String getDescription() {
-		return toString();
 	}
 }

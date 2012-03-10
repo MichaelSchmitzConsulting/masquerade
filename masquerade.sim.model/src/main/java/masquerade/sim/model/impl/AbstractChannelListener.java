@@ -20,7 +20,7 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	@Override
 	public final void start(T channel, SimulationRunner simulationRunner, ChannelListenerContext context) {
 		this.simulationRunner = simulationRunner;
-		this.channelId = channel.getName();
+		this.channelId = channel.getId();
 		
 		onStart(channel, context);
 	}

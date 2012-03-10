@@ -14,17 +14,13 @@ public abstract class AbstractProvidedResponseScript extends AbstractScript {
 	protected static final String EMPTY_RESPONSE = "";
 	protected static final StatusLog log = StatusLogger.get(ProvidedResponse.class);
 
-	public AbstractProvidedResponseScript(String name) {
-		super(name);
-	}
-
 	@Override
 	public final Object run(SimulationContext simulationContext) throws Exception {
 		String id = simulationContext.getRequestId();
 		if (id != null) {
 			return getResponse(simulationContext, id);
 		} else {
-			log.warning("ProvidedResponse Script " + getName() + " - received a request with no valid request ID");
+			log.warning("ProvidedResponse Script - received a request (" + id + ") with no valid request ID");
 			return EMPTY_RESPONSE;
 		}
 	}

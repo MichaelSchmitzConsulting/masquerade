@@ -6,7 +6,7 @@ import masquerade.sim.model.ModelInstanceTypeProvider;
 import masquerade.sim.model.listener.CreateApprover;
 import masquerade.sim.model.listener.CreateListener;
 import masquerade.sim.model.repository.ModelRepository;
-import masquerade.sim.model.ui.CreateObjectDialog;
+import masquerade.sim.model.ui.CreateNamedObjectDialog;
 import masquerade.sim.plugin.PluginRegistry;
 
 import com.vaadin.ui.Window;
@@ -53,7 +53,7 @@ public class ChannelFactoryImpl implements ChannelFactory {
 			}
 		};
 		
-		CreateObjectDialog.showModal(window, "Create Channel", "newChannelId", createListener, createApprover, instanceTypeProvider);
+		CreateNamedObjectDialog.showModal(window, "Create Channel", "newChannelId", createListener, createApprover, instanceTypeProvider);
 	}
 
 }

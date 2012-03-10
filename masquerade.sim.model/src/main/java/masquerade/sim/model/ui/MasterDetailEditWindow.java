@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import masquerade.sim.model.listener.CreateListener;
 import masquerade.sim.model.listener.DeleteListener;
-import masquerade.sim.model.listener.SaveListener;
 import masquerade.sim.model.listener.UpdateListener;
 import masquerade.sim.model.ui.MasterDetailView.AddListener;
 import masquerade.sim.util.AlwaysApprover;
@@ -28,14 +27,11 @@ public class MasterDetailEditWindow extends Window {
 	
 	private final Property property;
 	private final MasterDetailView masterDetailView;
-	private final SaveListener saveListener;
 
-	public MasterDetailEditWindow(String caption, Property property, FormFieldFactory fieldFactory, Class<?> containedType, InstanceTypeProvider instanceTypes, SaveListener saveListener, boolean isAllowItemReordering) {
+	public MasterDetailEditWindow(String caption, Property property, FormFieldFactory fieldFactory, Class<?> containedType, InstanceTypeProvider instanceTypes, boolean isAllowItemReordering) {
 		super(caption);
 		setModal(true);
 		setWidth("800px");
-		
-		this.saveListener = saveListener;
 		
 		if (!Collection.class.isAssignableFrom(property.getType())) {
 			throw new IllegalArgumentException("Dialog can only handle Collection item types, received " + property.getType().getName());
@@ -56,16 +52,16 @@ public class MasterDetailEditWindow extends Window {
         masterDetailView.addFormCommitListener(createUpdateListener(masterDetailView));
         masterDetailView.addDeleteListener(createDeleteListener(masterDetailView));
         masterDetailView.addAddListener(createAddListener(containedType, masterDetailView, container, instanceTypes));
-        masterDetailView.setWriteThrough(true); // Write directly to underlying bean item container, no save button (ok closes the dialog and will save the property value)
+        masterDetailView.setWriteThrough(true); // Write directly to underlying bean item container, no done button (done closes the dialog and will save the property value)
         masterDetailView.setSizeFull();
         masterDetailView.setMasterTableWidth("230px");
 		layout.addComponent(masterDetailView);
 		layout.setExpandRatio(masterDetailView, 1.0f);
 		
 		// Close button
-		Button close = new Button("Save", new Button.ClickListener() {
+		Button close = new Button("Done", new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
-				onSave();
+				onDone();
 			}
 		});
 
@@ -86,7 +82,7 @@ public class MasterDetailEditWindow extends Window {
 				if (name.length() > 1) {
 					name = name.substring(0, 1).toLowerCase() + name.substring(1);
 				}
-				CreateObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container), new AlwaysApprover(), instanceTypes);
+				CreateNamedObjectDialog.showModal(getWindow(), caption, name, objectCreatedListener(view, container), new AlwaysApprover(), instanceTypes);
 			}
 		};
 	}
@@ -122,7 +118,7 @@ public class MasterDetailEditWindow extends Window {
 		};
 	}
 
-	private void onSave() {
+	private void onDone() {
 		// close the window by removing it from the parent window
 		WindowUtil.getRoot(getWindow()).removeWindow(this);
 
@@ -136,9 +132,5 @@ public class MasterDetailEditWindow extends Window {
 		value.clear();
 		value.addAll(itemIds);
 		property.setValue(value);
-		
-		if (saveListener != null) {
-			saveListener.onSave(value);
-		}
 	}
 }

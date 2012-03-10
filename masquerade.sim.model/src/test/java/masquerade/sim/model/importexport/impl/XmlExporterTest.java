@@ -28,7 +28,7 @@ public class XmlExporterTest {
 		PluginRegistry pluginRegistry = new PluginRegistryImpl();
 		XStreamUnmarshallerFactory factory = new XStreamUnmarshallerFactory(pluginRegistry);
 		Channel result = (Channel) factory.createXStream().fromXML(stream.toString());
-		assertEquals("test", result.getName());
+		assertEquals("test", result.getId());
 	}
 
 }

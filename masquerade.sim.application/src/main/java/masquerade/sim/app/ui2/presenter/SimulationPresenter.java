@@ -23,7 +23,11 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 
 	@Override
 	public void onSimulationSelected(String id) {
-		Simulation simulation = modelRepository.getSimulation(id);
+		if (id == null) {
+			return;
+		}
+		
+		Simulation simulation = modelRepository.getSimulationForUpdate(id);
 		if (simulation != null) {
 			view.setCurrentSimulation(simulation);			
 		} else {

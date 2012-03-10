@@ -33,7 +33,7 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 		if (selection == null) {
 			view.setDetailEditorBean(null);
 		} else {
-			Channel channel = modelRepository.getChannel(selection.getId());
+			Channel channel = modelRepository.getChannelForUpdate(selection.getId());
 			showChannel(channel);
 		}
 	}
@@ -61,7 +61,7 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 			@Override
 			public void onCreate(Channel channel) {
 				modelRepository.insertChannel(channel);
-				channelListenerRegistry.startOrRestart(channel.getName());
+				channelListenerRegistry.startOrRestart(channel.getId());
 				// Refresh channel list after creating a new channel
 				onRefresh();
 			}
@@ -78,7 +78,7 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 		List<ChannelInfo> channels = new ArrayList<ChannelInfo>();
 		for (Channel channel : modelRepository.getChannels()) {
 			String type = ClassUtil.fromCamelCase(channel.getClass());
-			channels.add(new ChannelInfo(channel.getName(), type));
+			channels.add(new ChannelInfo(channel.getId(), type));
 		}
 		return channels;
 	}	

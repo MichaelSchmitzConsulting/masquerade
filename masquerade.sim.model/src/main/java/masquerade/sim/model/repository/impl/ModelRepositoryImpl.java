@@ -43,9 +43,16 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	@Override
-	public Simulation getSimulation(String id) {
+	public Channel getChannelForUpdate(String id) {
+		Channel channel = getChannel(id);
+		return ModelBeanUtils.copyChannel(channel); 
+	}
+
+	@Override
+	public Simulation getSimulationForUpdate(String id) {
 		synchronized (lock) {
-			return simulations.get(id);
+			Simulation simulation = simulations.get(id);
+			return ModelBeanUtils.copySimulation(simulation);
 		}
 	}
 
@@ -101,7 +108,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 	@Override
 	public void insertChannel(Channel channel) {
 		synchronized (lock) {
-			channels.put(channel.getName(), channel);
+			channels.put(channel.getId(), channel);
 		}
 	}
 

@@ -41,7 +41,7 @@ public class HttpStandaloneChannelListener extends AbstractChannelListener<HttpS
 				StringUtil.removeLeadingSlash(channel.getLocation()));
 		
 		port = channel.getPort();
-		name = channel.getName();
+		name = channel.getId();
 		
 		String serverAttributeKey = serverAttributeKey(port);
 		Server startedServer = context.getAttribute(serverAttributeKey);
