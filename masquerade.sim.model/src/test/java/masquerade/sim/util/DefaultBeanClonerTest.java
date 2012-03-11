@@ -41,6 +41,7 @@ public class DefaultBeanClonerTest {
 		private Set<TestBean> set = new HashSet<TestBean>();
 		private Map<String, TestBean> linkedMap = new LinkedHashMap<String, TestBean>();
 		private Set<TestBean> linkedSet = new LinkedHashSet<TestBean>();
+		private Class<?> someClass = Object.class;
 		
 		/** Constructor for nested bean, does not recursively TestBean */
 		public TestBean() {
@@ -76,6 +77,7 @@ public class DefaultBeanClonerTest {
 			result = prime * result + ((set == null) ? 0 : set.hashCode());
 			result = prime * result + ((someBoxedDouble == null) ? 0 : someBoxedDouble.hashCode());
 			result = prime * result + ((someBoxedInteger == null) ? 0 : someBoxedInteger.hashCode());
+			result = prime * result + ((someClass == null) ? 0 : someClass.hashCode());
 			long temp;
 			temp = Double.doubleToLongBits(someDouble);
 			result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -129,6 +131,11 @@ public class DefaultBeanClonerTest {
 					return false;
 			} else if (!someBoxedInteger.equals(other.someBoxedInteger))
 				return false;
+			if (someClass == null) {
+				if (other.someClass != null)
+					return false;
+			} else if (!someClass.equals(other.someClass))
+				return false;
 			if (Double.doubleToLongBits(someDouble) != Double.doubleToLongBits(other.someDouble))
 				return false;
 			if (someInt != other.someInt)
@@ -144,13 +151,6 @@ public class DefaultBeanClonerTest {
 			} else if (!someStrings.equals(other.someStrings))
 				return false;
 			return true;
-		}
-
-		@Override
-		public String toString() {
-			return "TestBean [someInt=" + someInt + ", someDouble=" + someDouble + ", someBoxedDouble=" + someBoxedDouble + ", someString=" + someString
-					+ ", someBoxedInteger=" + someBoxedInteger + ", someStrings=" + someStrings + ", nestedBean=" + nestedBean + ", map=" + map + ", set="
-					+ set + ", linkedMap=" + linkedMap + ", linkedSet=" + linkedSet + "]";
 		}
 
 		public int getSomeInt() {
@@ -239,6 +239,14 @@ public class DefaultBeanClonerTest {
 
 		public void setLinkedSet(Set<TestBean> linkedSet) {
 			this.linkedSet = linkedSet;
+		}
+
+		public Class<?> getSomeClass() {
+			return someClass;
+		}
+
+		public void setSomeClass(Class<?> someClass) {
+			this.someClass = someClass;
 		}
 	}
 }

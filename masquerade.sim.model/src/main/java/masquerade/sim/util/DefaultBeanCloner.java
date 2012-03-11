@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * Creates deep clones of Java Beans, taking special cases such as collections, maps,
- * numbers, strings and primitives into account.
+ * numbers, strings, primitives and classes into account.
  * 
  * Instances are safe to use from multiple threads at the same time.
  */
@@ -63,9 +63,9 @@ public class DefaultBeanCloner implements BeanCloner {
 		
 		Class<?> type = sourceValue.getClass();
 
-		if (type.isPrimitive() || Number.class.isAssignableFrom(type) || String.class == type) {
+		if (type.isPrimitive() || Number.class.isAssignableFrom(type) || String.class == type || Class.class == type) {
 			// Copy primitive type properties using boxing/unboxing which is a copy by value already
-			// Number & String are immutable, keep reference to original value
+			// Number, String, Class are immutable, keep reference to original value
 			return sourceValue;
 		} else if (LinkedHashMap.class.isAssignableFrom(type)) {
 			// Copy ordered maps
