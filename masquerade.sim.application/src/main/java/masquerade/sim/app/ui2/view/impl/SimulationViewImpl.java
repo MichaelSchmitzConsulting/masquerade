@@ -41,13 +41,11 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	private SimulationViewCallback callback;
 	private Table simulationList;
 	private VerticalLayout scriptTab;
-
 	private VerticalLayout idProviderTab;
-
 	private VerticalLayout selectorTab;
-
 	private VerticalLayout namespacesTab;
 
+	private VerticalLayout detailLayout;
 	
 	public SimulationViewImpl(FormFieldFactory fieldFactory) {
 		this.fieldFactory = fieldFactory;
@@ -127,22 +125,35 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
         leftLayout.setWidth(LIST_WIDTH);
 	    mainLayout.addComponent(leftLayout);
 
-	    // Script/Selector/ID Provider/Namespaces tabs
-	    TabSheet tabsheet = new TabSheet();
-        tabsheet.setSizeFull();
-        tabsheet.setStyleName(Reindeer.TABSHEET_MINIMAL);
+	    detailLayout = new VerticalLayout();
+	    detailLayout.setSpacing(true);
+	    
+	    TabSheet tabSheet = new TabSheet();
+        tabSheet.setSizeFull();
+        tabSheet.setStyleName(Reindeer.TABSHEET_MINIMAL);
 
         scriptTab = new VerticalLayout();
-		tabsheet.addTab(scriptTab, "Script");
+		tabSheet.addTab(scriptTab, "Script");
         selectorTab = new VerticalLayout();
-        tabsheet.addTab(selectorTab, "Selector");
+        tabSheet.addTab(selectorTab, "Selector");
         idProviderTab = new VerticalLayout();
-        tabsheet.addTab(idProviderTab, "Request ID Provider");
+        tabSheet.addTab(idProviderTab, "Request ID Provider");
         namespacesTab = new VerticalLayout();
-        tabsheet.addTab(namespacesTab, "Namespaces");
-
-        mainLayout.addComponent(tabsheet);
-	    mainLayout.setExpandRatio(tabsheet, 1.0f);
+        tabSheet.addTab(namespacesTab, "Namespaces");
+        detailLayout.addComponent(tabSheet);
+        
+        // Save button
+        Button saveButton = new Button("Save", new ClickListener() {
+			@Override public void buttonClick(ClickEvent event) {
+				callback.onSave();
+				getWindow().showNotification("Saved", "Simulation updated");
+			}
+		});
+        detailLayout.addComponent(saveButton);
+        detailLayout.setVisible(false); // Initially invisible, until a simulation is selected
+        
+        mainLayout.addComponent(detailLayout);
+	    mainLayout.setExpandRatio(detailLayout, 1.0f);
 	    
 	    mainLayout.setSizeFull();
 	    mainLayout.setSpacing(true);
@@ -163,17 +174,23 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	
 	@Override
 	public void setCurrentSimulation(Simulation simulation) {
-		Script script = simulation.getScript();
-		setFormToTab(BeanUiUtils.createForm(script, fieldFactory), scriptTab);
-		
-		RequestMapping<?> requestMapping = simulation.getSelector();
-		setFormToTab(BeanUiUtils.createForm(requestMapping, fieldFactory), selectorTab);
-		
-		RequestIdProvider<?> idProvider = simulation.getRequestIdProvider();
-		setFormToTab(BeanUiUtils.createForm(idProvider, fieldFactory), idProviderTab);
-		
-		Label namespaces = new Label("TODO: Namespaces");
-		setFormToTab(namespaces, namespacesTab);
+		if (simulation == null) {
+			detailLayout.setVisible(false);
+		} else {
+			detailLayout.setVisible(true);
+			
+			Script script = simulation.getScript();
+			setFormToTab(BeanUiUtils.createForm(script, fieldFactory), scriptTab);
+			
+			RequestMapping<?> requestMapping = simulation.getSelector();
+			setFormToTab(BeanUiUtils.createForm(requestMapping, fieldFactory), selectorTab);
+			
+			RequestIdProvider<?> idProvider = simulation.getRequestIdProvider();
+			setFormToTab(BeanUiUtils.createForm(idProvider, fieldFactory), idProviderTab);
+			
+			Label namespaces = new Label("TODO: Namespaces");
+			setFormToTab(namespaces, namespacesTab);
+		}
 	}
 
 	private static void setFormToTab(Component component, VerticalLayout tabLayout) {
@@ -227,6 +244,15 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 			} else if (!id.equals(other.id))
 				return false;
 			return true;
+		}
+	}
+
+	@Override
+	public void setSelection(String id) {
+		if (id == null) {
+			simulationList.setValue(null);
+		} else {
+			simulationList.setValue(new SimulationInfo(id));			
 		}
 	}
 }

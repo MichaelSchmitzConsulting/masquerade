@@ -10,11 +10,13 @@ import masquerade.sim.model.Simulation;
 public interface SimulationView {
 	void setSimulationList(List<String> simulations);
 	void setCurrentSimulation(Simulation simulation);
+	void setSelection(String id);
 	
 	interface SimulationViewCallback {
 		void onSimulationSelected(String id);
 		void onRemove(String id);
 		void onAdd();
 		void onRefresh();
+		void onSave();
 	}
 }

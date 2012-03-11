@@ -41,8 +41,8 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 		wizard.addStep(selectorStep);
 		wizard.addStep(idProviderStep);
 
-		setWidth("750px");
-		setHeight("550px");
+		setWidth("600px");
+		setHeight("300px");
 		center();
 		setContent(wizard);
 

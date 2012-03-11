@@ -330,6 +330,8 @@ public class MasterDetailView extends CustomComponent {
                     BeanItem<?> item = (BeanItem<?>) form.getItemDataSource();
                     fireFormCommited(item.getBean());
                     
+                    masterTable.select(null);
+                    
 					getWindow().showNotification("Saved", shortTypeName + " updated");
                 } catch (InvalidValueException e) {
                     // Ignored, we'll let the Form handle the errors
