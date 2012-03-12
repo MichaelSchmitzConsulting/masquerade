@@ -42,7 +42,7 @@ public class ChannelService extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (ID.equals(req.getPathInfo())) {
 			ChannelTemplate channelTemplate = new ChannelTemplate(channelListenerRegistry);
-			channelTemplate.insert(importer, req.getInputStream());
+			channelTemplate.insert(importer, req.getInputStream(), false);
 		} else {
 			ResponseTemplate.errorResponse(resp, "Invalid request URL");
 		}

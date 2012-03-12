@@ -18,8 +18,8 @@ public class ChannelTemplate {
 		this.channelListenerRegistry = channelListenerRegistry;
 	}
 
-	public void insert(Importer importer, ServletInputStream inputStream) {
-		Channel channel = importer.insertChannel(inputStream);
+	public void insert(Importer importer, ServletInputStream inputStream, boolean isPersistChannel) {
+		Channel channel = importer.insertChannel(inputStream, isPersistChannel);
 		channelListenerRegistry.startOrRestart(channel.getId());
 	}
 

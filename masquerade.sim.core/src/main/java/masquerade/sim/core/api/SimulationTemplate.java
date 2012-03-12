@@ -21,8 +21,8 @@ public class SimulationTemplate {
 		this.importer = importer;
 	}
 
-	public void insertSimulation(ServletInputStream inputStream, String[] channelIds) {
-		Simulation simulation = importer.insertSimulation(inputStream);
+	public void insertSimulation(ServletInputStream inputStream, String[] channelIds, boolean isPersistSimulation) {
+		Simulation simulation = importer.insertSimulation(inputStream, isPersistSimulation);
 		if (channelIds != null) {
 			assignSimulationToChannel(simulation.getId(), Arrays.asList(channelIds));
 		}

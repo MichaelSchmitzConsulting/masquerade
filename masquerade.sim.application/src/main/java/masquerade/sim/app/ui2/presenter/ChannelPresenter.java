@@ -5,10 +5,11 @@ import java.util.List;
 
 import masquerade.sim.app.ui2.factory.ChannelFactory;
 import masquerade.sim.app.ui2.factory.ChannelFactory.ChannelFactoryCallback;
+import masquerade.sim.app.ui2.view.ChannelInfo;
 import masquerade.sim.app.ui2.view.ChannelView;
-import masquerade.sim.app.ui2.view.ChannelView.ChannelInfo;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.Channel;
+import masquerade.sim.model.repository.ChannelWrapper;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.util.ClassUtil;
 
@@ -60,7 +61,7 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 		channelFactory.createChannel(new ChannelFactoryCallback() {
 			@Override
 			public void onCreate(Channel channel) {
-				modelRepository.insertChannel(channel);
+				modelRepository.insertChannel(channel, true);
 				channelListenerRegistry.startOrRestart(channel.getId());
 				// Refresh channel list after creating a new channel
 				onRefresh();
@@ -76,9 +77,10 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 
 	private List<ChannelInfo> buildChannelInfoList() {
 		List<ChannelInfo> channels = new ArrayList<ChannelInfo>();
-		for (Channel channel : modelRepository.getChannels()) {
+		for (ChannelWrapper wrapper : modelRepository.listChannels()) {
+			Channel channel = wrapper.getChannel();
 			String type = ClassUtil.fromCamelCase(channel.getClass());
-			channels.add(new ChannelInfo(channel.getId(), type));
+			channels.add(new ChannelInfo(channel.getId(), type, wrapper.isPersistent()));
 		}
 		return channels;
 	}	

@@ -6,8 +6,10 @@ import java.util.List;
 import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.SimulationFactory.SimulationFactoryCallback;
 import masquerade.sim.app.ui2.view.SimulationView;
+import masquerade.sim.app.ui2.view.impl.SimulationViewImpl.SimulationInfo;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ModelRepository;
+import masquerade.sim.model.repository.SimulationWrapper;
 
 public class SimulationPresenter implements SimulationView.SimulationViewCallback {
 
@@ -53,7 +55,7 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 		simulationFactory.createSimulation(new SimulationFactoryCallback() {
 			@Override
 			public void onCreate(Simulation simulation) {
-				modelRepository.insertSimulation(simulation);
+				modelRepository.insertSimulation(simulation, true);
 				onRefresh();
 				view.setSelection(simulation.getId());
 				view.setCurrentSimulation(simulation);
@@ -64,9 +66,11 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 
 	@Override
 	public void onRefresh() {
-		List<String> simulations = new ArrayList<String>();
-		for (Simulation simulation : modelRepository.getSimulations()) {
-			simulations.add(simulation.getId());
+		List<SimulationInfo> simulations = new ArrayList<SimulationInfo>();
+		for (SimulationWrapper wrapper : modelRepository.listSimulations()) {
+			Simulation simulation = wrapper.getSimulation();
+			SimulationInfo info = new SimulationInfo(simulation.getId(), wrapper.isPersistent());
+			simulations.add(info);
 		}
 		view.setSelection(null);
 		currentSelection = null;
@@ -76,7 +80,7 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	@Override
 	public void onSave() {
 		if (currentSelection != null) {
-			modelRepository.insertSimulation(currentSelection);
+			modelRepository.insertSimulation(currentSelection, true);
 			view.setCurrentSimulation(null);
 			view.setSelection(null);
 			currentSelection = null;

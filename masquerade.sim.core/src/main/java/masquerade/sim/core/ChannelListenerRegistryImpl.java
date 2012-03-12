@@ -12,6 +12,7 @@ import masquerade.sim.model.ChannelListenerContext;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.VariableHolder;
 import masquerade.sim.model.impl.ChannelListenerContextImpl;
+import masquerade.sim.model.repository.ChannelWrapper;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
@@ -74,10 +75,11 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	 */
 	@Override
 	public void startAll() {
-		Collection<Channel> list = modelRepository.getChannels();
+		Collection<ChannelWrapper> list = modelRepository.listChannels();
 		
 		synchronized (channels) {
-			for (Channel channel : list) {
+			for (ChannelWrapper wrapper : list) {
+				Channel channel = wrapper.getChannel();
 				try {
 					updateChannel(channel);
 				} catch (Exception ex) {

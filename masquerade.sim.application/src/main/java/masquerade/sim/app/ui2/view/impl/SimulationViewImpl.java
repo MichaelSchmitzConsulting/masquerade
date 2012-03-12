@@ -1,7 +1,5 @@
 package masquerade.sim.app.ui2.view.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import masquerade.sim.app.ui2.view.SimulationView;
@@ -161,12 +159,13 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	    addComponent(mainLayout);
 	}
 	
+	public void bind(SimulationViewCallback callback) {
+		this.callback = callback;
+		callback.onRefresh();
+	}
+
 	@Override
-	public void setSimulationList(List<String> simulationIds) {
-		Collection<SimulationInfo> simulations = new ArrayList<SimulationInfo>(simulationIds.size());
-		for (String id : simulationIds) {
-			simulations.add(new SimulationInfo(id));
-		}
+	public void setSimulationList(List<SimulationInfo> simulations) {
 		Container container = new BeanItemContainer<SimulationInfo>(SimulationInfo.class, simulations);
 		simulationList.setContainerDataSource(container);
 		simulationList.setVisibleColumns(new Object[] { "simulation" });
@@ -208,19 +207,32 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		panel.setContent(panelLayout);
 	}
 
-	public void bind(SimulationViewCallback callback) {
-		this.callback = callback;
-		callback.onRefresh();
+	@Override
+	public void setSelection(String id) {
+		if (id == null) {
+			simulationList.setValue(null);
+		} else {
+			simulationList.setValue(new SimulationInfo(id));			
+		}
 	}
-	
+
 	/** Bean to show in Master/Detail view's master table */
 	public static final class SimulationInfo {
 		private final String id;
-		public SimulationInfo(String id) {
+		private Boolean isPersistent;
+		public SimulationInfo(String id, boolean isPersistent) {
+			this.id = id;
+			this.isPersistent = isPersistent;
+		}
+		/** Constructor for settings selection, persistent flag is not taken into account in equals */
+		private SimulationInfo(String id) {
 			this.id = id;
 		}
 		public String getSimulation() {
 			return id;
+		}
+		public boolean isPersistent() {
+			return isPersistent;
 		}
 		@Override
 		public int hashCode() {
@@ -244,15 +256,6 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 			} else if (!id.equals(other.id))
 				return false;
 			return true;
-		}
-	}
-
-	@Override
-	public void setSelection(String id) {
-		if (id == null) {
-			simulationList.setValue(null);
-		} else {
-			simulationList.setValue(new SimulationInfo(id));			
 		}
 	}
 }

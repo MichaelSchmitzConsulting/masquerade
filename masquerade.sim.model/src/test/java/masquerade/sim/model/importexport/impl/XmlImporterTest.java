@@ -42,9 +42,9 @@ public class XmlImporterTest {
 		Channel channel = new ChannelStub("test");
 		xstream.toXML(channel, writer);
 		
-		importer.insertChannel(new ByteArrayInputStream(outputStream.toByteArray()));
+		importer.insertChannel(new ByteArrayInputStream(outputStream.toByteArray()), false);
 		
-		assertEquals(1, importer.modelRepository.getChannels().size());
+		assertEquals(1, importer.modelRepository.listChannels().size());
 	}
 
 	@Test
@@ -52,9 +52,9 @@ public class XmlImporterTest {
 		Simulation simulation = new DefaultSimulation("test", null, null, null);
 		xstream.toXML(simulation, writer);
 		
-		importer.insertSimulation(new ByteArrayInputStream(outputStream.toByteArray()));
+		importer.insertSimulation(new ByteArrayInputStream(outputStream.toByteArray()), false);
 		
-		assertEquals(1, importer.modelRepository.getSimulations().size());
+		assertEquals(1, importer.modelRepository.listSimulations().size());
 	}
 
 }

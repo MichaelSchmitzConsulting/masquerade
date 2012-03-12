@@ -17,19 +17,4 @@ public interface ChannelView {
 		void onAdd();
 		void onRefresh();
 	}
-	
-	class ChannelInfo {
-		private final String id;
-		private final String  type;
-		public ChannelInfo(String id, String type) {
-			this.id = id;
-			this.type = type;
-		}
-		public String getId() {
-			return id;
-		}
-		public String getType() {
-			return type;
-		}
-	}
 }

@@ -2,6 +2,7 @@ package masquerade.sim.app.ui2.view.impl;
 
 import java.util.List;
 
+import masquerade.sim.app.ui2.view.ChannelInfo;
 import masquerade.sim.app.ui2.view.ChannelView;
 import masquerade.sim.model.listener.DeleteListener;
 import masquerade.sim.model.ui.MasterDetailView;

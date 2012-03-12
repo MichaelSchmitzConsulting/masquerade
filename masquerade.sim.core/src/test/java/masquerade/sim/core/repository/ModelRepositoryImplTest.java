@@ -19,6 +19,8 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
+import masquerade.sim.model.repository.ChannelWrapper;
+import masquerade.sim.model.repository.SimulationWrapper;
 import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 
 import org.junit.Before;
@@ -40,16 +42,26 @@ public class ModelRepositoryImplTest {
 	public void testChannels() {
 		Channel channel1 = new ChannelStub("id1");
 		Channel channel2 = new ChannelStub("id2");
-		repo.insertChannel(channel1);
-		repo.insertChannel(channel2);
+		repo.insertChannel(channel1, false);
+		repo.insertChannel(channel2, false);
 		
-		Collection<Channel> channels = repo.getChannels();
-		assertEquals(2, channels.size());
+		Collection<ChannelWrapper> wrappers = repo.listChannels();
+		assertEquals(2, wrappers.size());
+		
+		Collection<Channel> channels = channels(wrappers);
 		assertTrue(channels.contains(channel1));
 		assertTrue(channels.contains(channel2));
 		
 		assertSame(channel1, repo.getChannel("id1"));
 		assertSame(channel2, repo.getChannel("id2"));
+	}
+
+	private static Collection<Channel> channels(Collection<ChannelWrapper> wrappers) {
+		Collection<Channel> channels = new ArrayList<Channel>();
+		for (ChannelWrapper wrapper : wrappers) {
+			channels.add(wrapper.getChannel());
+		}
+		return channels;
 	}
 
 	@Test
@@ -60,14 +72,14 @@ public class ModelRepositoryImplTest {
 		expect(simulation2.getId()).andReturn("id2");
 		replay(simulation1, simulation2);
 		
-		repo.insertSimulation(simulation1);
-		repo.insertSimulation(simulation2);
-		repo.insertChannel(new ChannelStub("cid1"));
+		repo.insertSimulation(simulation1, false);
+		repo.insertSimulation(simulation2, false);
+		repo.insertChannel(new ChannelStub("cid1"), false);
 		repo.assignSimulationToChannel("id1", "cid1");
 		repo.assignSimulationToChannel("id2", "cid1");
 		
-		Collection<Simulation> simulations = repo.getSimulations();
-		assertEquals(2, simulations.size());
+		Collection<SimulationWrapper> wrappers = repo.listSimulations();
+		assertEquals(2, wrappers.size());
 		
 		Collection<Simulation> ids = new ArrayList<Simulation>();
 		ids.add(simulation1);
@@ -76,9 +88,9 @@ public class ModelRepositoryImplTest {
 		
 		repo.deleteSimulation(simulation1.getId());
 
-		simulations = repo.getSimulations();
-		assertEquals(1, simulations.size());
-		assertSame(simulation2, simulations.iterator().next());
+		wrappers = repo.listSimulations();
+		assertEquals(1, wrappers.size());
+		assertSame(simulation2, wrappers.iterator().next().getSimulation());
 		
 		assertEquals(Collections.singletonList(simulation2), repo.getSimulationsForChannel("cid1"));
 		
@@ -99,23 +111,23 @@ public class ModelRepositoryImplTest {
 	@Test
 	public void testDelete() {
 		Channel channel = new ChannelStub("foo");
-		repo.insertChannel(channel);
+		repo.insertChannel(channel, false);
 		
 		Simulation simulation = createStrictMock(Simulation.class);
 		expect(simulation.getId()).andReturn("bar");
 		replay(simulation);
-		repo.insertSimulation(simulation);
+		repo.insertSimulation(simulation, false);
 		
 		repo.deleteChannels();
-		assertTrue(repo.getChannels().isEmpty());
-		assertFalse(repo.getSimulations().isEmpty());
+		assertTrue(repo.listChannels().isEmpty());
+		assertFalse(repo.listSimulations().isEmpty());
 		
 		repo.deleteSimulations();
-		assertTrue(repo.getSimulations().isEmpty());
+		assertTrue(repo.listSimulations().isEmpty());
 		
-		repo.insertChannel(channel);
+		repo.insertChannel(channel, false);
 		repo.deleteSimulations();
-		assertFalse(repo.getChannels().isEmpty());
+		assertFalse(repo.listChannels().isEmpty());
 	}
 
 }

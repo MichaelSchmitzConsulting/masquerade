@@ -28,16 +28,16 @@ public class XmlImporter implements Importer {
 	@Reference ChannelListenerRegistry channelListenerRegistry;
 	
 	@Override
-	public Channel insertChannel(InputStream inputStream) {
+	public Channel insertChannel(InputStream inputStream, boolean isPersistChannel) {
 		Channel channel = (Channel) unmarshal(inputStream);
-		modelRepository.insertChannel(channel);
+		modelRepository.insertChannel(channel, isPersistChannel);
 		return channel;
 	}
 
 	@Override
-	public Simulation insertSimulation(InputStream inputStream) {
+	public Simulation insertSimulation(InputStream inputStream, boolean isPersistSimulation) {
 		Simulation simulation = (Simulation) unmarshal(inputStream);
-		modelRepository.insertSimulation(simulation);
+		modelRepository.insertSimulation(simulation, isPersistSimulation);
 		return simulation;
 	}
 

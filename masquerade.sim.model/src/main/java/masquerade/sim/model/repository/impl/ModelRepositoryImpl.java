@@ -12,7 +12,9 @@ import java.util.Set;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
+import masquerade.sim.model.repository.ChannelWrapper;
 import masquerade.sim.model.repository.ModelRepository;
+import masquerade.sim.model.repository.SimulationWrapper;
 
 /**
  * Default implementation of {@link ModelRepository}, implements in-memory storage
@@ -23,22 +25,23 @@ public class ModelRepositoryImpl implements ModelRepository {
 	private final Object lock = new Object();
 	private final Object settingsLock = new Object();
 	
-	private final Map<String, Channel> channels = new HashMap<String, Channel>();
-	private final Map<String, Simulation> simulations = new HashMap<String, Simulation>();
+	private final Map<String, ChannelWrapper> channels = new HashMap<String, ChannelWrapper>();
+	private final Map<String, SimulationWrapper> simulations = new HashMap<String, SimulationWrapper>();
 	private final Map<String, Set<String>> channelToSimulations = new HashMap<String, Set<String>>();
 	private Settings settings;
 	
 	@Override
-	public Collection<Channel> getChannels() {
+	public Collection<ChannelWrapper> listChannels() {
 		synchronized (lock) {
-			return new ArrayList<Channel>(channels.values());
+			return new ArrayList<ChannelWrapper>(channels.values());
 		}
 	}
 
 	@Override
 	public Channel getChannel(String id) {
 		synchronized (lock) {
-			return channels.get(id);
+			ChannelWrapper wrapper = channels.get(id);
+			return wrapper == null ? null : wrapper.getChannel();
 		}
 	}
 
@@ -51,8 +54,8 @@ public class ModelRepositoryImpl implements ModelRepository {
 	@Override
 	public Simulation getSimulationForUpdate(String id) {
 		synchronized (lock) {
-			Simulation simulation = simulations.get(id);
-			return ModelBeanUtils.copySimulation(simulation);
+			SimulationWrapper wrapper = simulations.get(id);
+			return wrapper == null ? null : ModelBeanUtils.copySimulation(wrapper.getSimulation());
 		}
 	}
 
@@ -95,9 +98,9 @@ public class ModelRepositoryImpl implements ModelRepository {
 			if (simIds != null) {
 				ret = new ArrayList<Simulation>();
 				for (String simId : simIds) {
-					Simulation simulation = simulations.get(simId);
-					if (simulation != null) {
-						ret.add(simulation);
+					SimulationWrapper wrapper = simulations.get(simId);
+					if (wrapper != null) {
+						ret.add(wrapper.getSimulation());
 					}
 				}
 			}
@@ -106,23 +109,33 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	@Override
-	public void insertChannel(Channel channel) {
+	public void insertChannel(Channel channel, boolean isPersistent) {
+		if (channel == null) {
+			return;
+		}
+
 		synchronized (lock) {
-			channels.put(channel.getId(), channel);
+			ChannelWrapper wrapper = new ChannelWrapperImpl(channel, isPersistent);
+			channels.put(channel.getId(), wrapper);
 		}
 	}
 
 	@Override
-	public void insertSimulation(Simulation simulation) {
+	public void insertSimulation(Simulation simulation, boolean isPersistent) {
+		if (simulation == null) {
+			return;
+		}
+		
 		synchronized (lock) {
-			simulations.put(simulation.getId(), simulation);
+			SimulationWrapper wrapper = new SimulatioWrapperImpl(simulation, isPersistent);
+			simulations.put(simulation.getId(), wrapper);
 		}
 	}
 	
 	@Override
-	public Collection<Simulation> getSimulations() {
+	public Collection<SimulationWrapper> listSimulations() {
 		synchronized (lock) {
-			return new ArrayList<Simulation>(simulations.values());
+			return new ArrayList<SimulationWrapper>(simulations.values());
 		}
 	}
 

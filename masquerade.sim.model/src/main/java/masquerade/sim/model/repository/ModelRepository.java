@@ -13,9 +13,9 @@ import masquerade.sim.model.Simulation;
 public interface ModelRepository {
 
 	/**
-	 * @return All {@link Channel channels} contained in this repository
+	 * @return All available channels
 	 */
-	Collection<Channel> getChannels();
+	Collection<ChannelWrapper> listChannels();
 	
 	/**
 	 * @param id Channel ID
@@ -69,8 +69,11 @@ public interface ModelRepository {
 	 * Add/replace a channel, depending on whether a channel with 
 	 * the same ID exists or not. 
 	 * @param channel
+	 * @param isPersistent Whether to persist this channel across restarts. Typically the case 
+	 *                     with channels manually created in the UI, but not with channels
+	 *                     uploaded by test cases.
 	 */
-	void insertChannel(Channel channel);
+	void insertChannel(Channel channel, boolean isPersistent);
 
 	/**
 	 * Delete a single channel
@@ -86,8 +89,11 @@ public interface ModelRepository {
 	 * Add/replace a simulation, depending on wheter a simulation
 	 * with the same ID already exists.
 	 * @param simulation
+	 * @param isPersistent Whether to persist this simulation across restarts. Typically the case 
+	 *                     with simulations manually created in the UI, but not with simulations
+	 *                     uploaded by test cases.
 	 */
-	void insertSimulation(Simulation simulation);
+	void insertSimulation(Simulation simulation, boolean isPersistent);
 
 	/**
 	 * Delete a simulation
@@ -103,6 +109,5 @@ public interface ModelRepository {
 	/**
 	 * @return All available simulations
 	 */
-	Collection<Simulation> getSimulations();
-	
+	Collection<SimulationWrapper> listSimulations();
 }

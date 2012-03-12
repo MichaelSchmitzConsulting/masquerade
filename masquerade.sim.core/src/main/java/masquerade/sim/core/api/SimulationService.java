@@ -37,7 +37,7 @@ public class SimulationService extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (ID.equals(req.getPathInfo())) {
 			SimulationTemplate simulationTemplate = new SimulationTemplate(modelRepository, importer);
-			simulationTemplate.insertSimulation(req.getInputStream(), req.getParameterValues(PARAM_CHANNEL_ID));
+			simulationTemplate.insertSimulation(req.getInputStream(), req.getParameterValues(PARAM_CHANNEL_ID), false);
 		} else {
 			ResponseTemplate.errorResponse(resp, "Invalid request URL");
 		}

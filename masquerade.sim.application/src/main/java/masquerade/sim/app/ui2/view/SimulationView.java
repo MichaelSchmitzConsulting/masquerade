@@ -2,13 +2,14 @@ package masquerade.sim.app.ui2.view;
 
 import java.util.List;
 
+import masquerade.sim.app.ui2.view.impl.SimulationViewImpl.SimulationInfo;
 import masquerade.sim.model.Simulation;
 
 /**
  * View allowing to view and edit {@link Simulation}s.
  */
 public interface SimulationView {
-	void setSimulationList(List<String> simulations);
+	void setSimulationList(List<SimulationInfo> simulations);
 	void setCurrentSimulation(Simulation simulation);
 	void setSelection(String id);
 	

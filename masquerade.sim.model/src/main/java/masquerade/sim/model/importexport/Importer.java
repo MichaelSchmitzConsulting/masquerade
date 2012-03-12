@@ -10,7 +10,7 @@ import masquerade.sim.model.Simulation;
  */
 public interface Importer {
 
-	Channel insertChannel(InputStream inputStream);
-	Simulation insertSimulation(InputStream inputStream);
+	Channel insertChannel(InputStream inputStream, boolean isPersistChannel);
+	Simulation insertSimulation(InputStream inputStream, boolean isPersistSimulation);
 
 }
