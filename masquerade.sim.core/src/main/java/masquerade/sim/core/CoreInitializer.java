@@ -97,7 +97,8 @@ public class CoreInitializer {
 			ModelPersistenceService persistenceService = new XmlModelPersistence(modelFile, settingsFile, pluginRegistry);
 			
 			// Create repository and publish as OSGi service
-			ModelRepository modelRepository = new ModelRepositoryImpl(persistenceService);
+			ModelRepositoryImpl modelRepository = new ModelRepositoryImpl(persistenceService);
+			modelRepository.load();
 			registerService(ModelRepository.class, modelRepository, bundleContext);
 			
 			// Create request history

@@ -85,13 +85,8 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public Settings getSettings() {
 		synchronized (settingsLock) {
 			if (settings == null) {
-				Settings loaded = persistenceService.loadSettings();
-				if (loaded == null) {
-					// Initial settings
-					loaded = new Settings();
-					persistenceService.persistSettings(loaded);
-				}
-				settings = loaded;
+				// Default settings if not yet persisted
+				settings = new Settings();
 			}
 			return settings.clone();			
 		}
@@ -126,7 +121,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 	@Override
 	public void insertChannel(Channel channel, boolean isPersistent) {
 		if (channel == null) {
-			return;
+			throw new IllegalArgumentException("Missing channel");
 		}
 
 		synchronized (lock) {
@@ -165,11 +160,11 @@ public class ModelRepositoryImpl implements ModelRepository {
 	@Override
 	public void insertSimulation(Simulation simulation, boolean isPersistent) {
 		if (simulation == null) {
-			return;
+			throw new IllegalArgumentException("Missing simulation");
 		}
 		
 		synchronized (lock) {
-			SimulationWrapper wrapper = new SimulatioWrapperImpl(simulation, isPersistent);
+			SimulationWrapper wrapper = new SimulationWrapperImpl(simulation, isPersistent);
 			simulations.put(simulation.getId(), wrapper);
 			
 			if (isPersistent) {
@@ -189,7 +184,11 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public boolean deleteChannel(String id) {
 		synchronized (lock) {
 			channelToSimulations.remove(id);
-			return channels.remove(id) != null;
+			ChannelWrapper wrapper = channels.remove(id);
+			if (wrapper != null && wrapper.isPersistent()) {
+				updatePersistentState();
+			}
+			return wrapper != null;
 		}
 	}
 
@@ -198,6 +197,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 		synchronized (lock) {
 			channels.clear();
 			channelToSimulations.clear();
+			updatePersistentState();
 		}
 	}
 
@@ -210,7 +210,11 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public boolean deleteSimulation(String id) {
 		synchronized (lock) {
 			removeSimulationToChannelAssignment(id);
-			return simulations.remove(id) != null;
+			SimulationWrapper wrapper = simulations.remove(id);
+			if (wrapper != null && wrapper.isPersistent()) {
+				updatePersistentState();
+			}
+			return wrapper != null;
 		}
 	}
 
@@ -225,6 +229,45 @@ public class ModelRepositoryImpl implements ModelRepository {
 		synchronized (lock) {
 			simulations.clear();
 			channelToSimulations.clear();
+			updatePersistentState();
+		}
+	}
+
+	/**
+	 * Loads model and settings from persistent state
+	 */
+	public void load() {
+		synchronized (lock) {
+			SimulationModel model = persistenceService.loadModel();
+			
+			if (model != null) {
+				loadChannels(model);
+				loadSimulations(model);
+				loadSimulationAssignments(model);
+			}
+		}
+		
+		synchronized (settingsLock) {
+			settings = persistenceService.loadSettings();
+		}
+	}
+
+	private void loadSimulationAssignments(SimulationModel model) {
+		channelToSimulations.clear();
+		channelToSimulations.putAll(model.getChannelToSimulations());
+	}
+
+	private void loadChannels(SimulationModel model) {
+		channels.clear();
+		for (Channel channel : model.getChannels()) {
+			channels.put(channel.getId(), new ChannelWrapperImpl(channel, true));				
+		}
+	}
+
+	private void loadSimulations(SimulationModel model) {
+		simulations.clear();
+		for (Simulation simulation : model.getSimulations()) {
+			simulations.put(simulation.getId(), new SimulationWrapperImpl(simulation, true));				
 		}
 	}
 }
