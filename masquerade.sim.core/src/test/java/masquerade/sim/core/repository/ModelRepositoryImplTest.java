@@ -20,6 +20,7 @@ import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ChannelWrapper;
+import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.SimulationWrapper;
 import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 
@@ -31,11 +32,14 @@ import org.junit.Test;
  */
 public class ModelRepositoryImplTest {
 
+	private static final String PROPS = "xyz=abc";
 	private ModelRepositoryImpl repo;
+	private ModelPersistenceService persistence;
 
 	@Before
 	public void setUp() {
-		repo = new ModelRepositoryImpl();
+		persistence = createStrictMock(ModelPersistenceService.class);
+		repo = new ModelRepositoryImpl(persistence);
 	}
 	
 	@Test
@@ -99,13 +103,22 @@ public class ModelRepositoryImplTest {
 
 	@Test
 	public void testSettings() {
+		expect(persistence.loadSettings()).andReturn(null);
+		persistence.persistSettings(new Settings());
+		Settings updatedSettings = new Settings();
+		updatedSettings.setConfigurationProperties(PROPS);
+		persistence.persistSettings(updatedSettings);
+		replay(persistence);
+
 		Settings settings = repo.getSettings();
 		assertNotNull(settings);
 		assertNotSame(settings, repo.getSettings()); // Settings should be cloned, not a live reference
 		
-		settings.setConfigurationProperties("xyz=abc");
+		settings.setConfigurationProperties(PROPS);
 		repo.updateSettings(settings);
 		assertEquals(settings, repo.getSettings());
+		
+		verify(persistence);
 	}
 
 	@Test

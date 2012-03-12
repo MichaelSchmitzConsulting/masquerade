@@ -70,6 +70,11 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback {
 	}
 
 	@Override
+	public void onSave(Channel channel, boolean isPersistent) {
+		modelRepository.insertChannel(channel, isPersistent);
+	}
+
+	@Override
 	public void onRefresh() {
 		List<ChannelInfo> channels = buildChannelInfoList();
 		view.setChannelList(channels);

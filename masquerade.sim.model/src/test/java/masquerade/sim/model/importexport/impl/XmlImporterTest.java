@@ -11,6 +11,7 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.impl.DefaultSimulation;
+import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 import masquerade.sim.plugin.impl.PluginRegistryImpl;
 import masquerade.sim.util.XStreamMarshallerFactory;
@@ -19,6 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
+
+import static org.easymock.EasyMock.*;
 
 public class XmlImporterTest {
 
@@ -29,8 +32,11 @@ public class XmlImporterTest {
 
 	@Before
 	public void setUp() {
+		ModelPersistenceService persistenceService = createStrictMock(ModelPersistenceService.class);
+		replay(persistenceService);
+		
 		importer = new XmlImporter();
-		importer.modelRepository = new ModelRepositoryImpl();
+		importer.modelRepository = new ModelRepositoryImpl(persistenceService);
 		importer.pluginRegistry = new PluginRegistryImpl();
 		xstream = new XStreamMarshallerFactory().createXStream();
 		outputStream = new ByteArrayOutputStream();

@@ -15,6 +15,7 @@ public interface ChannelView {
 		void onSelection(ChannelInfo selection);
 		void onRemove(ChannelInfo selection);
 		void onAdd();
+		void onSave(Channel channel, boolean isPersistent);
 		void onRefresh();
 	}
 }

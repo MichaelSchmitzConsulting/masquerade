@@ -4,7 +4,9 @@ import java.util.List;
 
 import masquerade.sim.app.ui2.view.ChannelInfo;
 import masquerade.sim.app.ui2.view.ChannelView;
+import masquerade.sim.model.Channel;
 import masquerade.sim.model.listener.DeleteListener;
+import masquerade.sim.model.listener.UpdateListener;
 import masquerade.sim.model.ui.MasterDetailView;
 import masquerade.sim.model.ui.MasterDetailView.AddListener;
 
@@ -46,6 +48,14 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 			@Override public void notifyDelete(Object obj) {
 				ChannelInfo selection = (ChannelInfo) masterDetailView.getSelection();
 				callback.onRemove(selection);
+			}
+		});
+		masterDetailView.addFormCommitListener(new UpdateListener() {
+			@Override
+			public void notifyUpdated(Object obj) {
+				ChannelInfo info = (ChannelInfo) masterDetailView.getSelection();
+				Channel channel = (Channel) obj;
+				callback.onSave(channel, info.isPersistent());
 			}
 		});
 	}

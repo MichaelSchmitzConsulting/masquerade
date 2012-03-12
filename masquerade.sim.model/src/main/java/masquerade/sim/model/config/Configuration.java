@@ -21,5 +21,14 @@ public interface Configuration {
 	String getMasqueradeVersion();
 	
 	String getMasqueradeBuildTimestamp();
-	
+
+	/**
+	 * @return Location of the persistent store, usually a file containing persistent model objects e.g. as XML
+	 */
+	File getModelPersistenceLocation();
+
+	/**
+	 * @return Location of the persistent store, usually a file containing persistent settings
+	 */
+	File getSettingsPersistenceLocation();
 }

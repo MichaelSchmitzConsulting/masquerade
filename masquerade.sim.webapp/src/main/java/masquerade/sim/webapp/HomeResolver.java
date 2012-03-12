@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class HomeResolver {
+	private static final String MODEL_PERSISTENCE_FILE_NAME = "simulation.xml";
+	private static final String SETTINGS_PERSISTENCE_FILE_NAME = "settings.xml";
+	
 	private static final String SYSPROP_MASQUERADE_HOME = "masquerade.home";
 	private static final String SYSPROP_MASQUERADE_REQUESTLOG_DIR = "masquerade.requestlog.dir";
 	private static final String SYSPROP_MASQUERADE_ARTIFACT_DIR = "masquerade.artifact.dir";
@@ -16,6 +19,16 @@ public class HomeResolver {
 
 	public HomeResolver(String appDirName) {
 		this.appDirName = appDirName;
+	}
+	
+	public File getModelPersistenceLocation() {
+		File home = getMasqueradeHome();
+		return new File(home, MODEL_PERSISTENCE_FILE_NAME);
+	}
+
+	public File getSettingsPersistenceLocation() {
+		File home = getMasqueradeHome();
+		return new File(home, SETTINGS_PERSISTENCE_FILE_NAME);
 	}
 	
 	/**
@@ -48,33 +61,6 @@ public class HomeResolver {
 	 */
 	public File getPluginLocation() throws IOException {
 		return getDirFromPropertyOrHomeSubdir(SYSPROP_MASQUERADE_PLUGIN_DIR, "plugins");
-	}
-
-	/**
-	 * Reads the masquerade reuest log settings from the system property
-	 * <code>masquerade.request.log.dir</code>, or places it in the webapp's
-	 * work directory if not set.
-	 * 
-	 * @param postfix 
-	 * @return Where the masquerade database should be located
-	 */
-	public File getDbFileLocation(DbType dbType) {
-		String dbFileBase;
-		
-		switch (dbType) {
-		case MODEL:
-			dbFileBase = "model";
-			break;
-		case HISTORY:
-			dbFileBase = "history";
-			break;
-		default:
-			throw new IllegalArgumentException(dbType.name());
-		}
-		
-		File home = getMasqueradeHome();
-		File dbFile = new File(home, dbFileBase + "-db.db4o");
-		return dbFile.getAbsoluteFile();
 	}
 
 	/**

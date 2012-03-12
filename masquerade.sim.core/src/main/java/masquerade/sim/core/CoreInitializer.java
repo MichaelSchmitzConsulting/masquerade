@@ -1,7 +1,6 @@
 package masquerade.sim.core;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -10,6 +9,7 @@ import masquerade.sim.core.converter.CompoundConverter;
 import masquerade.sim.core.history.InMemoryRequestHistoryStorage;
 import masquerade.sim.core.history.RequestHistoryCleanupJob;
 import masquerade.sim.core.history.RequestHistoryImpl;
+import masquerade.sim.core.persistence.XmlModelPersistence;
 import masquerade.sim.model.Converter;
 import masquerade.sim.model.FileLoader;
 import masquerade.sim.model.Settings;
@@ -18,6 +18,7 @@ import masquerade.sim.model.config.Configuration;
 import masquerade.sim.model.history.RequestHistory;
 import masquerade.sim.model.impl.FileLoaderImpl;
 import masquerade.sim.model.listener.SettingsChangeListener;
+import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.repository.impl.ModelRepositoryImpl;
 import masquerade.sim.model.response.ResponseProvider;
@@ -88,8 +89,15 @@ public class CoreInitializer {
 			// Create configuration variable holder
 			ConfigurationVariableHolder configVariableHolder = new ConfigurationVariableHolder(converter); 
 
+			// Create model persistence service for repository
+			File modelFile = configuration.getModelPersistenceLocation();
+			log.info("Model persistence location: " + modelFile.getAbsolutePath());
+			File settingsFile = configuration.getSettingsPersistenceLocation();
+			log.info("Settings persistence location: " + settingsFile.getAbsolutePath());
+			ModelPersistenceService persistenceService = new XmlModelPersistence(modelFile, settingsFile, pluginRegistry);
+			
 			// Create repository and publish as OSGi service
-			ModelRepository modelRepository = new ModelRepositoryImpl();
+			ModelRepository modelRepository = new ModelRepositoryImpl(persistenceService);
 			registerService(ModelRepository.class, modelRepository, bundleContext);
 			
 			// Create request history
@@ -128,9 +136,6 @@ public class CoreInitializer {
 			cleanupJob.start();
 			
 			log.info("Simulator started");
-		} catch (IOException ex) {
-			log.error("I/O Error starting Masquerade", ex);
-			throw new IllegalArgumentException("Cannot create dir", ex);
 		} catch (Exception ex) {
 			log.error("Error starting Masquerade", ex);
 			throw ex;

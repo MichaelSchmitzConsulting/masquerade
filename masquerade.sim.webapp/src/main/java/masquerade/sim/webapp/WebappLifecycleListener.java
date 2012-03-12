@@ -15,11 +15,11 @@ import org.osgi.framework.Constants;
  * Starts/stops the OSGi framework as the webapp is started and stopped.
  */
 public final class WebappLifecycleListener implements ServletContextListener {
-	// Matches properties in ConfigurationImpl, which is not available on the webapps
+	// Matches properties in ConfigurationImpl, which is not available on webapp
 	// classpath as it is a bundle
+	private static final String MODEL_PERSISTENCE_LOCATION = "masquerade.configuration.modelPersistenceLocation";
+	private static final String SETTINGS_PERSISTENCE_LOCATION = "masquerade.configuration.settingsPersistenceLocation";
 	private static final String ARTIFACT_ROOT_LOCATION = "masquerade.configuration.artifactRootLocation";
-	private static final String MODEL_DB_FILE_LOCATION = "masquerade.configuration.modelDbFileLocation";
-	private static final String HISTORY_DB_FILE_LOCATION = "masquerade.configuration.historyDbFileLocation";
 	private static final String REQUEST_LOG_DIR = "masquerade.configuration.requestLogDir";
 	private static final String PLUGIN_LOCATION = "masquerade.configuration.pluginLocation";
 	private static final String MASQUERADE_VERSION = "masquerade.version";
@@ -47,9 +47,9 @@ public final class WebappLifecycleListener implements ServletContextListener {
 		
 		// Set location configuration properties 
 		try {
+			service.setProperty(MODEL_PERSISTENCE_LOCATION, resolver.getModelPersistenceLocation().getAbsolutePath());
+			service.setProperty(SETTINGS_PERSISTENCE_LOCATION, resolver.getSettingsPersistenceLocation().getAbsolutePath());
 			service.setProperty(ARTIFACT_ROOT_LOCATION, resolver.getArtifactRootLocation().getAbsolutePath());
-			service.setProperty(MODEL_DB_FILE_LOCATION, resolver.getDbFileLocation(DbType.MODEL).getAbsolutePath());
-			service.setProperty(HISTORY_DB_FILE_LOCATION, resolver.getDbFileLocation(DbType.HISTORY).getAbsolutePath());
 			service.setProperty(REQUEST_LOG_DIR, resolver.getRequestLogDir().getAbsolutePath());
 			service.setProperty(PLUGIN_LOCATION, resolver.getPluginLocation().getAbsolutePath());
 		} catch (IOException ex) {

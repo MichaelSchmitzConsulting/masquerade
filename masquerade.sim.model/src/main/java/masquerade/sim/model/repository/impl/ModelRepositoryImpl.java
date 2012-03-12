@@ -13,7 +13,9 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ChannelWrapper;
+import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.ModelRepository;
+import masquerade.sim.model.repository.SimulationModel;
 import masquerade.sim.model.repository.SimulationWrapper;
 
 /**
@@ -22,6 +24,8 @@ import masquerade.sim.model.repository.SimulationWrapper;
  */
 public class ModelRepositoryImpl implements ModelRepository {
 
+	private final ModelPersistenceService persistenceService;
+	
 	private final Object lock = new Object();
 	private final Object settingsLock = new Object();
 	
@@ -30,6 +34,10 @@ public class ModelRepositoryImpl implements ModelRepository {
 	private final Map<String, Set<String>> channelToSimulations = new HashMap<String, Set<String>>();
 	private Settings settings;
 	
+	public ModelRepositoryImpl(ModelPersistenceService persistenceService) {
+		this.persistenceService = persistenceService;
+	}
+
 	@Override
 	public Collection<ChannelWrapper> listChannels() {
 		synchronized (lock) {
@@ -77,7 +85,13 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public Settings getSettings() {
 		synchronized (settingsLock) {
 			if (settings == null) {
-				settings = new Settings();
+				Settings loaded = persistenceService.loadSettings();
+				if (loaded == null) {
+					// Initial settings
+					loaded = new Settings();
+					persistenceService.persistSettings(loaded);
+				}
+				settings = loaded;
 			}
 			return settings.clone();			
 		}
@@ -87,6 +101,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public void updateSettings(Settings settings) {
 		synchronized (settingsLock) {
 			this.settings = settings;
+			persistenceService.persistSettings(settings);
 		}
 	}
 
@@ -117,7 +132,34 @@ public class ModelRepositoryImpl implements ModelRepository {
 		synchronized (lock) {
 			ChannelWrapper wrapper = new ChannelWrapperImpl(channel, isPersistent);
 			channels.put(channel.getId(), wrapper);
+		
+			if (isPersistent) {
+				updatePersistentState();
+			}
 		}
+	}
+
+	private void updatePersistentState() {
+		persistenceService.persistModel(createPersistentModel());
+	}
+
+	/** Callers must hold {@link #lock} */
+	private SimulationModel createPersistentModel() {
+		Collection<Channel> chans = new ArrayList<Channel>();
+		for (ChannelWrapper wrapper : channels.values()) {
+			if (wrapper.isPersistent()) {
+				chans.add(wrapper.getChannel());
+			}
+		}
+		
+		Collection<Simulation> sims = new ArrayList<Simulation>();
+		for (SimulationWrapper wrapper : simulations.values()) {
+			if (wrapper.isPersistent()) {
+				sims.add(wrapper.getSimulation());
+			}
+		}
+		
+		return new SimulationModel(chans, sims, channelToSimulations);
 	}
 
 	@Override
@@ -129,6 +171,10 @@ public class ModelRepositoryImpl implements ModelRepository {
 		synchronized (lock) {
 			SimulationWrapper wrapper = new SimulatioWrapperImpl(simulation, isPersistent);
 			simulations.put(simulation.getId(), wrapper);
+			
+			if (isPersistent) {
+				updatePersistentState();
+			}
 		}
 	}
 	
