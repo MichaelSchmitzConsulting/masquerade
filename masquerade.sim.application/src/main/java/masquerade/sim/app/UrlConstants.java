@@ -1,7 +1,7 @@
 package masquerade.sim.app;
 
 /**
- * 
+ * URL paths for application servlets and static content
  */
 public final class UrlConstants {
 	public static final String APP_PATH = "/app";
