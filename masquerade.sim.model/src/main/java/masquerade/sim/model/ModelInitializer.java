@@ -33,6 +33,8 @@ import masquerade.sim.model.ui.InstanceTypeProvider;
 import masquerade.sim.model.ui.TextAreaFieldFactory;
 import masquerade.sim.model.ui.UiConstant;
 import masquerade.sim.plugin.PluginRegistry;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -48,6 +50,8 @@ import com.vaadin.ui.FormFieldFactory;
 @Component
 public class ModelInitializer {
 
+	private final static StatusLog log = StatusLogger.get(ModelInitializer.class);
+	
 	@Reference protected PluginRegistry pluginRegistry;
 	@Reference protected FileLoader fileLoader;
 	@Reference protected FormFieldFactory fieldFactory;
@@ -56,6 +60,8 @@ public class ModelInitializer {
 	protected void activate(ComponentContext componentContext) {
 		registerExtensions();
 		registerFieldFactories();
+		
+		log.info("Model bundle initialized");
 	}
 
 	private void registerExtensions() {

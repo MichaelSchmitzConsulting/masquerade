@@ -28,23 +28,25 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	public void onSimulationSelected(String id) {
 		if (id == null) {
 			currentSelection = null;
-			view.setCurrentSimulation(null);
+			view.deselectSimulation();
 			return;
 		}
 		
 		Simulation simulation = modelRepository.getSimulationForUpdate(id);
 		currentSelection = simulation;
-		view.setCurrentSimulation(simulation);			
 		if (simulation == null) {
+			view.deselectSimulation();
 			// Selected simulation does no longer exist in repository, refresh view 
 			onRefresh();
+		} else {
+			view.setCurrentSimulation(simulation, modelRepository.getAllChannelIds(), modelRepository.getChannelsForSimulation(simulation.getId()));
 		}
 	}
 
 	@Override
 	public void onRemove(String id) {
 		modelRepository.deleteSimulation(id);
-		view.setCurrentSimulation(null);
+		view.deselectSimulation();
 		view.setSelection(null);
 		currentSelection = null;
 		onRefresh();
@@ -57,8 +59,9 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 			public void onCreate(Simulation simulation) {
 				modelRepository.insertSimulation(simulation, true);
 				onRefresh();
-				view.setSelection(simulation.getId());
-				view.setCurrentSimulation(simulation);
+				String simulationId = simulation.getId();
+				view.setSelection(simulationId);
+				view.setCurrentSimulation(simulation, modelRepository.getAllChannelIds(), modelRepository.getChannelsForSimulation(simulationId));
 				currentSelection = simulation;
 			}
 		});
@@ -80,8 +83,9 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	@Override
 	public void onSave() {
 		if (currentSelection != null) {
-			modelRepository.insertSimulation(currentSelection, true);
-			view.setCurrentSimulation(null);
+			modelRepository.insertSimulation(currentSelection, true, view.getChannelAssignments());
+			
+			view.deselectSimulation();
 			view.setSelection(null);
 			currentSelection = null;
 		}

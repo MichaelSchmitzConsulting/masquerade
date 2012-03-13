@@ -1,5 +1,8 @@
 package masquerade.sim.app.ui2.view.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import masquerade.sim.app.ui2.view.SimulationView;
@@ -24,6 +27,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -38,12 +42,16 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	private final FormFieldFactory fieldFactory;
 	private SimulationViewCallback callback;
 	private Table simulationList;
+	private VerticalLayout channelTab;
 	private VerticalLayout scriptTab;
 	private VerticalLayout idProviderTab;
 	private VerticalLayout selectorTab;
 	private VerticalLayout namespacesTab;
 
 	private VerticalLayout detailLayout;
+
+	private TwinColSelect channelSelect;
+
 	
 	public SimulationViewImpl(FormFieldFactory fieldFactory) {
 		this.fieldFactory = fieldFactory;
@@ -130,6 +138,8 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
         tabSheet.setSizeFull();
         tabSheet.setStyleName(Reindeer.TABSHEET_MINIMAL);
 
+        channelTab = new VerticalLayout();
+		tabSheet.addTab(channelTab, "Channel");
         scriptTab = new VerticalLayout();
 		tabSheet.addTab(scriptTab, "Script");
         selectorTab = new VerticalLayout();
@@ -172,11 +182,17 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	}
 	
 	@Override
-	public void setCurrentSimulation(Simulation simulation) {
+	public void deselectSimulation() {
+		setCurrentSimulation(null, null, null);
+	}
+
+	@Override
+	public void setCurrentSimulation(Simulation simulation, Collection<String> allChannels, Collection<String> assignedToChannels) {
 		if (simulation == null) {
 			detailLayout.setVisible(false);
 		} else {
 			detailLayout.setVisible(true);
+			setFormToTab(createChannelAssignmentView(allChannels, assignedToChannels), channelTab);
 			
 			Script script = simulation.getScript();
 			setFormToTab(BeanUiUtils.createForm(script, fieldFactory), scriptTab);
@@ -190,6 +206,37 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 			Label namespaces = new Label("TODO: Namespaces");
 			setFormToTab(namespaces, namespacesTab);
 		}
+	}
+
+	@Override
+	public Collection<String> getChannelAssignments() {
+		@SuppressWarnings("unchecked")
+		Collection<String> channelIds = (Collection<String>) channelSelect.getValue();
+		return channelIds;
+	}
+
+	private Component createChannelAssignmentView(Collection<String> allChannels, Collection<String> assignedToChannels) {
+		channelSelect = new TwinColSelect();
+        for (String channel : sort(allChannels)) {
+            channelSelect.addItem(channel);
+        }
+        channelSelect.setValue(sort(assignedToChannels));
+        
+        channelSelect.setRows(10);
+        channelSelect.setNullSelectionAllowed(true);
+        channelSelect.setMultiSelect(true);
+        channelSelect.setImmediate(true);
+        channelSelect.setLeftColumnCaption("Available channels");
+        channelSelect.setRightColumnCaption("Active on channels");
+        channelSelect.setWidth("400px");
+        
+        return channelSelect;
+	}
+
+	private List<String> sort(Collection<String> allChannels) {
+		List<String> sortedChannels = new ArrayList<String>(allChannels);
+		Collections.sort(sortedChannels);
+		return sortedChannels;
 	}
 
 	private static void setFormToTab(Component component, VerticalLayout tabLayout) {

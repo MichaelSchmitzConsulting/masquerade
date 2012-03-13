@@ -1,8 +1,6 @@
 package masquerade.sim.util;
 
-import masquerade.sim.model.SimulationStep;
 import masquerade.sim.plugin.PluginRegistry;
-import masquerade.sim.plugin.impl.ExtensionClassLoader;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -21,8 +19,7 @@ public class XStreamUnmarshallerFactory {
 	public XStream createXStream() {
 		XStream xstream = xstreamMarshallerFactory.createXStream();
 
-		ClassLoader modelClassLoader = SimulationStep.class.getClassLoader();
-		ExtensionClassLoader classLoader = new ExtensionClassLoader(pluginRegistry, modelClassLoader);
+		ClassLoader classLoader = pluginRegistry.createExtensionClassLoader();
 		xstream.setClassLoader(classLoader);
 		
 		return xstream;

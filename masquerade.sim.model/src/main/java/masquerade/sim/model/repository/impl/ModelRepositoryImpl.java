@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -68,15 +69,13 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	@Override
-	public void assignSimulationToChannel(String simulationId, String channelId) {
+	public void assignSimulationToChannels(String simulationId, Collection<String> channelIds) {
 		synchronized (lock) {
-			if (channels.containsKey(channelId)) {
-				Set<String> sims = channelToSimulations.get(channelId);
-				if (sims == null) {
-					sims = new LinkedHashSet<String>();
-					channelToSimulations.put(channelId, sims);
+			for (String channelId : channelIds) {
+				if (channels.containsKey(channelId)) {
+					Set<String> sims = channelToSimulations.get(channelId);
+					sims.add(simulationId);
 				}
-				sims.add(simulationId);
 			}
 		}
 	}
@@ -127,6 +126,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 		synchronized (lock) {
 			ChannelWrapper wrapper = new ChannelWrapperImpl(channel, isPersistent);
 			channels.put(channel.getId(), wrapper);
+			channelToSimulations.put(channel.getId(), new LinkedHashSet<String>());
 		
 			if (isPersistent) {
 				updatePersistentState();
@@ -154,18 +154,41 @@ public class ModelRepositoryImpl implements ModelRepository {
 			}
 		}
 		
-		return new SimulationModel(chans, sims, channelToSimulations);
+		Map<String, Set<String>> persistentAssignments = new HashMap<String, Set<String>>();
+		for (Map.Entry<String, Set<String>> assignment : channelToSimulations.entrySet()) {
+			String channelId = assignment.getKey();
+			if (channels.get(channelId).isPersistent()) {				
+				Set<String> persistentSimIds = new LinkedHashSet<String>();
+				Set<String> simulationIds = assignment.getValue();
+				for (String simId : simulationIds) {
+					if (simulations.get(simId).isPersistent()) {
+						persistentSimIds.add(simId);
+					}
+				}
+				
+				persistentAssignments.put(channelId, persistentSimIds);				
+			}
+		}
+		
+		return new SimulationModel(chans, sims, persistentAssignments);
 	}
 
 	@Override
 	public void insertSimulation(Simulation simulation, boolean isPersistent) {
+		insertSimulation(simulation, isPersistent, Collections.<String>emptySet());
+	}
+	
+	@Override
+	public void insertSimulation(Simulation simulation, boolean isPersistent, Collection<String> assignToChannelIds) {
 		if (simulation == null) {
 			throw new IllegalArgumentException("Missing simulation");
 		}
 		
 		synchronized (lock) {
 			SimulationWrapper wrapper = new SimulationWrapperImpl(simulation, isPersistent);
-			simulations.put(simulation.getId(), wrapper);
+			String simulationId = simulation.getId();
+			simulations.put(simulationId, wrapper);
+			assignSimulationToChannels(simulationId, assignToChannelIds);
 			
 			if (isPersistent) {
 				updatePersistentState();
@@ -269,5 +292,31 @@ public class ModelRepositoryImpl implements ModelRepository {
 		for (Simulation simulation : model.getSimulations()) {
 			simulations.put(simulation.getId(), new SimulationWrapperImpl(simulation, true));				
 		}
+	}
+
+	@Override
+	public Collection<String> getAllChannelIds() {
+		Collection<String> channelIds = new HashSet<String>();
+		synchronized (lock) {
+			for (ChannelWrapper channel : channels.values()) {
+				channelIds.add(channel.getChannel().getId());
+			}
+		}
+		return channelIds;
+	}
+
+	@Override
+	public Collection<String> getChannelsForSimulation(String simulationId) {
+		Collection<String> channelIds = new HashSet<String>();
+		synchronized (lock) {
+			for (Map.Entry<String, Set<String>> entry : channelToSimulations.entrySet()) {
+				Set<String> simulationIds = entry.getValue();
+				if (simulationIds.contains(simulationId)) {
+					String channelId = entry.getKey();
+					channelIds.add(channelId);
+				}
+			}
+		}
+		return channelIds;
 	}
 }

@@ -12,6 +12,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,6 +20,7 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.ChannelStub;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.Simulation;
+import masquerade.sim.model.SimulationStub;
 import masquerade.sim.model.repository.ChannelWrapper;
 import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.SimulationWrapper;
@@ -51,13 +53,25 @@ public class ModelRepositoryImplTest {
 		
 		Collection<ChannelWrapper> wrappers = repo.listChannels();
 		assertEquals(2, wrappers.size());
-		
+				
 		Collection<Channel> channels = channels(wrappers);
 		assertTrue(channels.contains(channel1));
 		assertTrue(channels.contains(channel2));
 		
 		assertSame(channel1, repo.getChannel("id1"));
 		assertSame(channel2, repo.getChannel("id2"));
+		
+		Collection<Simulation> sims = repo.getSimulationsForChannel(channel1.getId());
+		assertTrue(sims.isEmpty());
+		sims = repo.getSimulationsForChannel(channel2.getId());
+		assertTrue(sims.isEmpty());
+
+		Simulation simulation = new SimulationStub("sim1");
+		repo.insertSimulation(simulation, false);
+		repo.assignSimulationToChannels("sim1", Collections.singleton("id1"));
+		Collection<Simulation> simulationsForChannel = repo.getSimulationsForChannel("id1");
+		assertEquals(1, simulationsForChannel.size());
+		assertEquals("sim1", simulationsForChannel.iterator().next().getId());
 	}
 
 	private static Collection<Channel> channels(Collection<ChannelWrapper> wrappers) {
@@ -79,8 +93,8 @@ public class ModelRepositoryImplTest {
 		repo.insertSimulation(simulation1, false);
 		repo.insertSimulation(simulation2, false);
 		repo.insertChannel(new ChannelStub("cid1"), false);
-		repo.assignSimulationToChannel("id1", "cid1");
-		repo.assignSimulationToChannel("id2", "cid1");
+		repo.assignSimulationToChannels("id1", Arrays.asList("cid1"));
+		repo.assignSimulationToChannels("id2", Arrays.asList("cid1"));
 		
 		Collection<SimulationWrapper> wrappers = repo.listSimulations();
 		assertEquals(2, wrappers.size());

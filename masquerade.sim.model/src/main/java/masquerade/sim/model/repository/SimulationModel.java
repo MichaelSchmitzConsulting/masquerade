@@ -29,7 +29,7 @@ public class SimulationModel {
 		this.channelToSimulations = new HashMap<String, Set<String>>();
 		for (Map.Entry<String, Set<String>> entry : channelToSimulations.entrySet()) {
 			Set<String> value = new LinkedHashSet<String>(entry.getValue());
-			channelToSimulations.put(entry.getKey(), value);
+			this.channelToSimulations.put(entry.getKey(), value);
 		}
 	}
 

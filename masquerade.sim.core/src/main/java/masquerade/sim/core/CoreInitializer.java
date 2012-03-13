@@ -34,6 +34,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkListener;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.packageadmin.PackageAdmin;
@@ -51,8 +52,9 @@ public class CoreInitializer {
 	
 	private ApplicationContext context;
 	private Collection<ServiceRegistration> registrations = new ArrayList<ServiceRegistration>();
+	private InternalPluginManager pluginManager;
 
-	private InternalPluginManager pluginManager; 
+	private FrameworkListener initializingListener; 
 	
 	/**
 	 * Application startup, initialize database, configuration and all channel listeners
@@ -98,7 +100,6 @@ public class CoreInitializer {
 			
 			// Create repository and publish as OSGi service
 			ModelRepositoryImpl modelRepository = new ModelRepositoryImpl(persistenceService);
-			modelRepository.load();
 			registerService(ModelRepository.class, modelRepository, bundleContext);
 			
 			// Create request history
@@ -129,14 +130,13 @@ public class CoreInitializer {
 			
 			// Create application context
 			context = new ApplicationContext(listenerRegistry, modelRepository, requestHistory, fileLoader, converter, artifactsRoot, cleanupJob, settingsChangeListener, configVariableHolder);
-
-			// Start channels
-			listenerRegistry.startAll();
 			
 			// Start request history cleanup job
 			cleanupJob.start();
 			
-			log.info("Simulator started");
+			// Add start event listener to load model and start channels after OSGi framework is fully initialized
+			initializingListener = new CoreInitializerFrameworkListener(modelRepository, listenerRegistry);
+			componentContext.getBundleContext().addFrameworkListener(initializingListener);
 		} catch (Exception ex) {
 			log.error("Error starting Masquerade", ex);
 			throw ex;
@@ -150,6 +150,10 @@ public class CoreInitializer {
 	 */
 	@Deactivate
 	public void deactivate(ComponentContext componentContext) throws Exception {
+		if (initializingListener != null) {
+			componentContext.getBundleContext().removeFrameworkListener(initializingListener);
+		}
+		
 		log.info("Shutting down masquerade simulator");
 		if (context != null) {
 			context.getRequestHistoryCleanupJob().stop();

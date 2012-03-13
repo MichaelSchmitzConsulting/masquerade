@@ -69,6 +69,7 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 	public void setChannelList(List<ChannelInfo> channels) {
 		BeanItemContainer<ChannelInfo> container = new BeanItemContainer<ChannelInfo>(ChannelInfo.class, channels);
 		masterDetailView.setDataSource(container);
+		masterDetailView.setVisibleColumns(new String[] { "id", "type", "persistent" });
 		masterDetailView.setDetailEditorBean(null);
 	}
 

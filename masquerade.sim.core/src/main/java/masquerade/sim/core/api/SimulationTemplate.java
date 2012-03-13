@@ -29,8 +29,6 @@ public class SimulationTemplate {
 	}
 
 	private void assignSimulationToChannel(String simulationId, List<String> channelIds) {
-		for (String channelId : channelIds) {
-			modelRepository.assignSimulationToChannel(simulationId, channelId);			
-		}
+		modelRepository.assignSimulationToChannels(simulationId, channelIds);			
 	}
 }

@@ -127,6 +127,7 @@ public class MainLayout extends VerticalLayout {
 	public void addTab(Component component, Resource icon) {
 		tabSheet.addTab(component, 0);
 		tabSheet.getTab(component).setIcon(icon);
+		tabSheet.setSelectedTab(component);
 	}
 
 	private void addLink(HorizontalLayout header, Button.ClickListener listener, String caption, String description, Resource icon) {

@@ -18,6 +18,11 @@ public interface ModelRepository {
 	Collection<ChannelWrapper> listChannels();
 	
 	/**
+	 * @return All available channel IDs
+	 */
+	Collection<String> getAllChannelIds();
+	
+	/**
 	 * @param id Channel ID
 	 * @return Channel with this id, or <code>null</code> if not found
 	 */
@@ -44,9 +49,9 @@ public interface ModelRepository {
 	/**
 	 * Assign a simulation to be active on a channel
 	 * @param simulationId
-	 * @param channelId
+	 * @param channelIds
 	 */
-	void assignSimulationToChannel(String simulationId, String channelId);
+	void assignSimulationToChannels(String simulationId, Collection<String> channelIds);
 	
 	/**
 	 * @return A copy of the {@link Settings} contained in this repository
@@ -64,7 +69,14 @@ public interface ModelRepository {
 	 * @return Simulations assigned to this channel
 	 */
 	Collection<Simulation> getSimulationsForChannel(String channelId);
-
+	
+	/**
+	 * Lists all channel IDs the given simulation is assigned to
+	 * @param simulationId
+	 * @return List of channel IDs
+	 */
+	Collection<String> getChannelsForSimulation(String simulationId);
+	
 	/**
 	 * Add/replace a channel, depending on whether a channel with 
 	 * the same ID exists or not. 
@@ -94,6 +106,17 @@ public interface ModelRepository {
 	 *                     uploaded by test cases.
 	 */
 	void insertSimulation(Simulation simulation, boolean isPersistent);
+
+	/**
+	 * Add/replace a simulation, depending on wheter a simulation
+	 * with the same ID already exists.
+	 * @param simulation
+	 * @param isPersistent Whether to persist this simulation across restarts. Typically the case 
+	 *                     with simulations manually created in the UI, but not with simulations
+	 *                     uploaded by test cases.
+	 * @param channelIds Channels to assign this simulation to
+	 */
+	void insertSimulation(Simulation simulation, boolean isPersistent, Collection<String> channelIds);
 
 	/**
 	 * Delete a simulation
