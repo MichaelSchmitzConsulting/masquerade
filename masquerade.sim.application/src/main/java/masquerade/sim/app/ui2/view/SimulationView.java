@@ -20,7 +20,6 @@ public interface SimulationView {
 		void onSimulationSelected(String id);
 		void onRemove(String id);
 		void onAdd();
-		void onRefresh();
 		void onSave();
 	}
 }

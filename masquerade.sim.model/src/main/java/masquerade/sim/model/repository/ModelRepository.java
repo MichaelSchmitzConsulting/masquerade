@@ -133,4 +133,16 @@ public interface ModelRepository {
 	 * @return All available simulations
 	 */
 	Collection<SimulationWrapper> listSimulations();
+
+	/**
+	 * @param id
+	 * @return <code>true</code> if a simulation with this ID exists in the repository
+	 */
+	boolean containsSimulation(String id);
+
+	/**
+	 * @param id
+	 * @return <code>true</code> if a channel with this ID exists in the repository
+	 */
+	boolean containsChannel(String id);
 }

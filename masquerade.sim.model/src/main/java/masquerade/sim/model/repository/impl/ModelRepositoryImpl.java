@@ -319,4 +319,18 @@ public class ModelRepositoryImpl implements ModelRepository {
 		}
 		return channelIds;
 	}
+
+	@Override
+	public boolean containsSimulation(String id) {
+		synchronized (lock) {
+			return simulations.containsKey(id);
+		}
+	}
+
+	@Override
+	public boolean containsChannel(String id) {
+		synchronized (lock) {
+			return channels.containsKey(id);
+		}
+	}
 }

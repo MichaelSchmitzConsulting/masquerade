@@ -62,7 +62,6 @@ public class ChannelViewImpl extends VerticalLayout implements ChannelView {
 	
 	public void bind(ChannelViewCallback callback) {
 		this.callback = callback;
-		callback.onRefresh();
 	}
 	
 	@Override

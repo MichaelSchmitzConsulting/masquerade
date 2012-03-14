@@ -19,11 +19,13 @@ public class SimulationFactoryImpl implements SimulationFactory {
 
 	private final Window window;
 	private final PluginRegistry pluginRegistry;
+	private final ModelRepository modelRepository;
 	private final FormFieldFactory fieldFactory;
-
+	
 	public SimulationFactoryImpl(Window window, PluginRegistry pluginRegistry, ModelRepository modelRepository, FormFieldFactory fieldFactory) {
 		this.window = window;
 		this.pluginRegistry = pluginRegistry;
+		this.modelRepository = modelRepository;
 		this.fieldFactory = fieldFactory;
 	}
 
@@ -36,6 +38,6 @@ public class SimulationFactoryImpl implements SimulationFactory {
 				callback.onCreate(simulation);
 			}
 		};
-		SimulationWizard.showWizard(wizardCallback, window, pluginRegistry, fieldFactory);
+		SimulationWizard.showWizard(wizardCallback, window, pluginRegistry, fieldFactory, modelRepository);
 	}
 }

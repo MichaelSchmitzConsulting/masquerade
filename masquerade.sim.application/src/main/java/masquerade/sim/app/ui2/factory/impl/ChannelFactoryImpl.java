@@ -32,17 +32,8 @@ public class ChannelFactoryImpl implements ChannelFactory {
 		ModelInstanceTypeProvider instanceTypeProvider = new ModelInstanceTypeProvider(Channel.class, pluginRegistry);
 		CreateApprover createApprover = new CreateApprover() {
 			@Override
-			public boolean isNameUsed(Class<?> baseType, String usedName) {
-				return modelRepository.getChannel(usedName) != null;
-			}
-			@Override
-			public boolean canCreate(Class<?> type, String name, StringBuilder errorMsg) {
-				if (isNameUsed(Channel.class, name)) {
-					errorMsg.append("Channel with ID " + name + " already exists");
-					return false;
-				} else {
-					return true;
-				}
+			public boolean isNameUsed(String usedName) {
+				return modelRepository.containsChannel(usedName);
 			}
 		};		
 		CreateListener createListener = new CreateListener() {

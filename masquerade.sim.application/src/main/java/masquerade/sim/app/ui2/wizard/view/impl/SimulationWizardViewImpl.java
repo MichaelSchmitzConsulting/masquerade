@@ -30,7 +30,7 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 
 	@Override
 	public void showWizard() {
-		final CreateSimulationStep simulationStep = new CreateSimulationStep();
+		final CreateSimulationStep simulationStep = new CreateSimulationStep(callback);
 		final CreateBeanStep<RequestMapping<?>> selectorStep = 
 			new CreateBeanStep<RequestMapping<?>>(callback.getSelectorTypes(), callback.getFormFieldFactory(), "Selector");
 		final CreateBeanStep<RequestIdProvider<?>> idProviderStep = 

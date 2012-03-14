@@ -3,11 +3,8 @@ package masquerade.sim.model.ui;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import masquerade.sim.model.listener.DeleteApprover;
 import masquerade.sim.model.listener.DeleteListener;
 import masquerade.sim.model.listener.UpdateListener;
-import masquerade.sim.util.AlwaysApprover;
-import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -60,7 +57,6 @@ public class MasterDetailView extends CustomComponent {
 	private Collection<UpdateListener> formCommitListeners = new LinkedHashSet<UpdateListener>();
 	private Collection<AddListener> addListeners = new LinkedHashSet<AddListener>();
 	private Collection<DeleteListener> deleteListeners = new LinkedHashSet<DeleteListener>();
-	private DeleteApprover deleteApprover = new AlwaysApprover();
 	private boolean isWriteThrough = false;
 	private VerticalLayout leftLayout;
 	private boolean isUpDownButtons;
@@ -158,10 +154,6 @@ public class MasterDetailView extends CustomComponent {
 		deleteListeners.remove(deleteListener);
 	}
 	
-	public void setDeleteApprover(DeleteApprover approver) {
-		deleteApprover = approver;
-	}
-	
 	public void setMasterTableWidth(String width) {
 		masterTable.setWidth(width);
 		leftLayout.setWidth(width);
@@ -223,15 +215,9 @@ public class MasterDetailView extends CustomComponent {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Object obj = masterTable.getValue();
-				StringBuilder msg = new StringBuilder(0);
-				if (deleteApprover.canDelete(obj, msg)) {
-					fireDeleteObject(obj);
-					setDetailView(null);
-					removeButton.setEnabled(false);
-				} else {
-					String name = obj.toString();
-					WindowUtil.showErrorNotification(getWindow(), "Cannot remove "+ name, msg.toString());
-				}
+				fireDeleteObject(obj);
+				setDetailView(null);
+				removeButton.setEnabled(false);
 			}
 		});
         masterTable.addListener(new ValueChangeListener() {

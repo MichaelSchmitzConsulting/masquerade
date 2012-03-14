@@ -69,13 +69,12 @@ public class CreateNamedObjectDialog extends Window {
 					getWindow().showNotification("Please specify a name");
 				} else {
 					Class<?> type = (Class<?>) select.getValue();
-					StringBuilder vetoMsg = new StringBuilder();
-					if (approver.canCreate(type, name, vetoMsg)) {
+					if (!approver.isNameUsed(name)) {
 						Object value = ModelObjectFactory.createNamedModelObject(getWindow(), type, name);
 						listener.notifyCreate(value);
 						WindowUtil.getRoot(getWindow()).removeWindow(CreateNamedObjectDialog.this);
 					} else {
-						WindowUtil.showErrorNotification(getWindow(), "Cannot create object", vetoMsg.toString());
+						WindowUtil.showErrorNotification(getWindow(), "Unable to create object", "Name is already taken, please choose a different name.");
 					}
 				}
 			}

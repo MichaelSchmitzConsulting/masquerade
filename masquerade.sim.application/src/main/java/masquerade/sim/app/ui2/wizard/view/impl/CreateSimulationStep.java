@@ -1,5 +1,7 @@
 package masquerade.sim.app.ui2.wizard.view.impl;
 
+import masquerade.sim.model.listener.CreateApprover;
+
 import org.apache.commons.lang.StringUtils;
 import org.vaadin.teemu.wizards.WizardStep;
 
@@ -15,8 +17,13 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class CreateSimulationStep implements WizardStep {
 
+	private final CreateApprover approver;
 	private ComponentContainer layout;
 	private TextField simulationIdText;
+
+	public CreateSimulationStep(CreateApprover approver) {
+		this.approver = approver;
+	}
 
 	@Override
 	public String getCaption() {
@@ -38,9 +45,12 @@ public class CreateSimulationStep implements WizardStep {
 
 	@Override
 	public boolean onAdvance() {
-		boolean canAdvance = StringUtils.isNotBlank(getSimulationId());
-		if (!canAdvance) {
+		if (StringUtils.isBlank(getSimulationId())) {
 			simulationIdText.setComponentError(new UserError("Please enter a simulation ID"));
+			return false;
+		}
+		if (approver.isNameUsed(getSimulationId())) {
+			simulationIdText.setComponentError(new UserError("This simulation ID is already being used, please enter a different ID"));
 			return false;
 		}
 		return true;

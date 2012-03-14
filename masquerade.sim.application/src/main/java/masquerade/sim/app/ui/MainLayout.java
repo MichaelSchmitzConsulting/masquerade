@@ -70,7 +70,8 @@ public class MainLayout extends VerticalLayout {
 
 	private StatusView statusView;
 
-	private TabSheet tabSheet;
+	private final TabSheet tabSheet;
+	private final Map<Component, Refreshable> refreshMap = new HashMap<Component, Refreshable>();
 
 	public MainLayout(Resource logo, RequestHistory requestHistory, File artifactRoot,
 			SendTestRequestAction sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl, 
@@ -124,10 +125,13 @@ public class MainLayout extends VerticalLayout {
 		setExpandRatio(tabSheet, 1.0f);
 	}
 	
-	public void addTab(Component component, Resource icon) {
+	public void addTab(Component component, Resource icon, Refreshable refreshListener) {
 		tabSheet.addTab(component, 0);
 		tabSheet.getTab(component).setIcon(icon);
 		tabSheet.setSelectedTab(component);
+		if (refreshListener != null) {
+			refreshMap.put(component, refreshListener);
+		}
 	}
 
 	private void addLink(HorizontalLayout header, Button.ClickListener listener, String caption, String description, Resource icon) {
@@ -180,27 +184,26 @@ public class MainLayout extends VerticalLayout {
 		tabSheet.addTab(status, "Log", STATUS.icon(baseUrl));
 
 		// Refresh view contents on tab selection
-		Map<Component, RefreshListener> refreshMap = new HashMap<Component, RefreshListener>();
 		refreshMap.put(requestTester, createTestRefresher());
 		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
 		refreshMap.put(status, createStatusViewRefresher());
-		tabSheet.addListener(createTabSelectionListener(refreshMap));
+		tabSheet.addListener(createTabSelectionListener());
 
 		return tabSheet;
 	}
 
-	private RefreshListener createTestRefresher() {
-		return new RefreshListener() {
+	private Refreshable createTestRefresher() {
+		return new Refreshable() {
 			@Override
-			public void refresh() {
+			public void onRefresh() {
 				// TODO Auto-generated method stub
 			}
 		};
 	}
 
-	private RefreshListener createStatusViewRefresher() {
-		return new RefreshListener() {
-			@Override public void refresh() {
+	private Refreshable createStatusViewRefresher() {
+		return new Refreshable() {
+			@Override public void onRefresh() {
 				statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
 			}
 		};
@@ -213,9 +216,9 @@ public class MainLayout extends VerticalLayout {
 		statusView.setSizeFull();
 		
 		statusView.addRefreshListener(new ClickListener() {
-			private RefreshListener refresher = createStatusViewRefresher();
+			private Refreshable refresher = createStatusViewRefresher();
 			@Override public void buttonClick(ClickEvent event) {
-				refresher.refresh();
+				refresher.onRefresh();
 			}
 		});
 		
@@ -229,10 +232,10 @@ public class MainLayout extends VerticalLayout {
 		return statusView;
 	}
 
-	private RefreshListener createHistoryRefresher(RequestHistory requestHistory) {
+	private Refreshable createHistoryRefresher(RequestHistory requestHistory) {
 		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
-		return new RefreshListener() {
-			@Override public void refresh() {
+		return new Refreshable() {
+			@Override public void onRefresh() {
 				requestHistoryView.refresh((Filterable) history.createContainer());
 			}
 		};
@@ -248,7 +251,7 @@ public class MainLayout extends VerticalLayout {
 		return new FileManagerView(artifactRoot);
 	}
 
-	private SelectedTabChangeListener createTabSelectionListener(final Map<Component, RefreshListener> refreshMap) {
+	private SelectedTabChangeListener createTabSelectionListener() {
 		return new SelectedTabChangeListener() {
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
@@ -258,11 +261,11 @@ public class MainLayout extends VerticalLayout {
 		};
 	}
 
-	private void refreshTab(final Map<Component, RefreshListener> refreshMap, TabSheet tabSheet) {
+	private void refreshTab(final Map<Component, Refreshable> refreshMap, TabSheet tabSheet) {
 		Component tabLayout = tabSheet.getSelectedTab();
-		RefreshListener refreshment = refreshMap.get(tabLayout);
+		Refreshable refreshment = refreshMap.get(tabLayout);
 		if (refreshment != null) {
-			refreshment.refresh();
+			refreshment.onRefresh();
 		}
 	}
 
@@ -277,8 +280,8 @@ public class MainLayout extends VerticalLayout {
 		layout.addComponent(requestHistoryView);
 		layout.setExpandRatio(requestHistoryView, 1.0f);
 
-		final RefreshListener refresher = createHistoryRefresher(requestHistory);
-		refresher.refresh();
+		final Refreshable refresher = createHistoryRefresher(requestHistory);
+		refresher.onRefresh();
 
 		// Show request details on double click
 		requestHistoryView.addItemClickListener(new ItemClickListener() {
@@ -300,7 +303,7 @@ public class MainLayout extends VerticalLayout {
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addListener(new ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
-				refresher.refresh();
+				refresher.onRefresh();
 			}
 		});
 		bottomLayout.addComponent(refreshButton);
@@ -310,7 +313,7 @@ public class MainLayout extends VerticalLayout {
 		clearButton.addListener(new ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
 				requestHistory.clear();
-				refresher.refresh();
+				refresher.onRefresh();
 			}
 		});
 		bottomLayout.addComponent(clearButton);

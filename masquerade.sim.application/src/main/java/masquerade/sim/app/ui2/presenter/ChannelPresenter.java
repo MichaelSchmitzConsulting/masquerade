@@ -3,6 +3,7 @@ package masquerade.sim.app.ui2.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import masquerade.sim.app.ui.Refreshable;
 import masquerade.sim.app.ui2.factory.ChannelFactory;
 import masquerade.sim.app.ui2.factory.ChannelFactory.ChannelFactoryCallback;
 import masquerade.sim.app.ui2.view.ChannelInfo;
@@ -16,7 +17,7 @@ import masquerade.sim.util.ClassUtil;
 /**
  * Presenter for {@link ChannelView}
  */
-public class ChannelPresenter implements ChannelView.ChannelViewCallback {
+public class ChannelPresenter implements ChannelView.ChannelViewCallback, Refreshable {
 	private final ChannelView view;
 	private final ModelRepository modelRepository;
 	private final ChannelFactory channelFactory;

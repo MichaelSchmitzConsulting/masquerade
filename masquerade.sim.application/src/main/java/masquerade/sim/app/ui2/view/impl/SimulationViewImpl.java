@@ -171,7 +171,6 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	
 	public void bind(SimulationViewCallback callback) {
 		this.callback = callback;
-		callback.onRefresh();
 	}
 
 	@Override

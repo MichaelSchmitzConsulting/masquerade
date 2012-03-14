@@ -7,6 +7,7 @@ import masquerade.sim.app.ui2.wizard.view.SimulationWizardView;
 import masquerade.sim.app.ui2.wizard.view.SimulationWizardView.SimulationWizardViewCallback;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
+import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginRegistry;
 
 import com.vaadin.ui.FormFieldFactory;
@@ -20,12 +21,14 @@ public class SimulationWizardPresenter implements SimulationWizardViewCallback {
 	private final PluginRegistry pluginRegistry;
 	private final FormFieldFactory fieldFactory;
 	private final SimulationWizardCallback delegate;
+	private final ModelRepository modelRepository;
 
-	public SimulationWizardPresenter(SimulationWizardView view, PluginRegistry pluginRegistry, FormFieldFactory fieldFactory, SimulationWizardCallback delegate) {
+	public SimulationWizardPresenter(SimulationWizardView view, PluginRegistry pluginRegistry, FormFieldFactory fieldFactory, SimulationWizardCallback delegate, ModelRepository modelRepository) {
 		this.view = view;
 		this.pluginRegistry = pluginRegistry;
 		this.fieldFactory = fieldFactory;
 		this.delegate = delegate;
+		this.modelRepository = modelRepository;
 	}
 
 	public void showWizard() {
@@ -50,5 +53,10 @@ public class SimulationWizardPresenter implements SimulationWizardViewCallback {
 	@Override
 	public void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
 		delegate.onWizardComplete(simulationId, selector, idProvider);
+	}
+
+	@Override
+	public boolean isNameUsed(String id) {
+		return modelRepository.containsSimulation(id);
 	}
 }

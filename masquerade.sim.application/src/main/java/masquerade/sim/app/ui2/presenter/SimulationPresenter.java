@@ -3,6 +3,7 @@ package masquerade.sim.app.ui2.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import masquerade.sim.app.ui.Refreshable;
 import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.SimulationFactory.SimulationFactoryCallback;
 import masquerade.sim.app.ui2.view.SimulationView;
@@ -11,7 +12,7 @@ import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.repository.SimulationWrapper;
 
-public class SimulationPresenter implements SimulationView.SimulationViewCallback {
+public class SimulationPresenter implements SimulationView.SimulationViewCallback, Refreshable {
 
 	private final SimulationView view;
 	private final ModelRepository modelRepository;

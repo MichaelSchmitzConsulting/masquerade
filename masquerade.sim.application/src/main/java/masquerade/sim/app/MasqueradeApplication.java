@@ -134,13 +134,15 @@ public class MasqueradeApplication extends Application {
 		SimulationViewImpl simulations = new SimulationViewImpl(fieldFactory);
 		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory);
 		simulations.bind(simulationPresenter);
-		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl));
+		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl), simulationPresenter);
+		simulationPresenter.onRefresh();
 		
 		ChannelFactory channelFactory = new ChannelFactoryImpl(pluginRegistry, modelRepository, mainWindow);
 		ChannelViewImpl channels = new ChannelViewImpl(fieldFactory);
 		ChannelPresenter channelPresenter = new ChannelPresenter(channels, modelRepository, channelFactory, channelListenerRegistry);
 		channels.bind(channelPresenter);
-		mainLayout.addTab(channels, LISTENER.icon(baseUrl));
+		mainLayout.addTab(channels, LISTENER.icon(baseUrl), channelPresenter);
+		channelPresenter.onRefresh();
 		
 		mainWindow.setContent(mainLayout);
 	}
