@@ -33,6 +33,9 @@ import org.junit.Test;
  */
 public class ModelRepositoryImplTest {
 
+	private static final String SIM_ID_2 = "id2";
+	private static final String SIM_ID_1 = "id1";
+	private static final String CHANNEL_ID_1 = "cid1";
 	private static final String PROPS = "xyz=abc";
 	private ModelRepositoryImpl repo;
 	private ModelPersistenceService persistence;
@@ -45,8 +48,8 @@ public class ModelRepositoryImplTest {
 	
 	@Test
 	public void testChannels() {
-		Channel channel1 = new ChannelStub("id1");
-		Channel channel2 = new ChannelStub("id2");
+		Channel channel1 = new ChannelStub(SIM_ID_1);
+		Channel channel2 = new ChannelStub(SIM_ID_2);
 		repo.insertChannel(channel1, false);
 		repo.insertChannel(channel2, false);
 		
@@ -57,8 +60,8 @@ public class ModelRepositoryImplTest {
 		assertTrue(channels.contains(channel1));
 		assertTrue(channels.contains(channel2));
 		
-		assertEquals("id1", repo.getChannel("id1").getId());
-		assertEquals("id2", repo.getChannel("id2").getId());
+		assertEquals(SIM_ID_1, repo.getChannel(SIM_ID_1).getId());
+		assertEquals(SIM_ID_2, repo.getChannel(SIM_ID_2).getId());
 		
 		Collection<Simulation> sims = repo.getSimulationsForChannel(channel1.getId());
 		assertTrue(sims.isEmpty());
@@ -67,8 +70,8 @@ public class ModelRepositoryImplTest {
 
 		Simulation simulation = new SimulationStub("sim1");
 		repo.insertSimulation(simulation, false);
-		repo.assignSimulationToChannels("sim1", Collections.singleton("id1"));
-		Collection<Simulation> simulationsForChannel = repo.getSimulationsForChannel("id1");
+		repo.assignSimulationToChannels("sim1", Collections.singleton(SIM_ID_1));
+		Collection<Simulation> simulationsForChannel = repo.getSimulationsForChannel(SIM_ID_1);
 		assertEquals(1, simulationsForChannel.size());
 		assertEquals("sim1", simulationsForChannel.iterator().next().getId());
 	}
@@ -85,23 +88,25 @@ public class ModelRepositoryImplTest {
 	public void testGetSimulation() {
 		Simulation simulation1 = createStrictMock(Simulation.class);
 		Simulation simulation2 = createStrictMock(Simulation.class);
-		expect(simulation1.getId()).andReturn("id1").times(2);
-		expect(simulation2.getId()).andReturn("id2");
+		expect(simulation1.getId()).andReturn(SIM_ID_1).times(2);
+		expect(simulation2.getId()).andReturn(SIM_ID_2).times(2);
 		replay(simulation1, simulation2);
 		
 		repo.insertSimulation(simulation1, false);
 		repo.insertSimulation(simulation2, false);
-		repo.insertChannel(new ChannelStub("cid1"), false);
-		repo.assignSimulationToChannels("id1", Arrays.asList("cid1"));
-		repo.assignSimulationToChannels("id2", Arrays.asList("cid1"));
+		repo.insertChannel(new ChannelStub(CHANNEL_ID_1), false);
+		repo.assignSimulationToChannels(SIM_ID_1, Arrays.asList(CHANNEL_ID_1));
+		repo.assignSimulationToChannels(SIM_ID_2, Arrays.asList(CHANNEL_ID_1));
 		
 		Collection<SimulationWrapper> wrappers = repo.listSimulations();
 		assertEquals(2, wrappers.size());
 		
-		Collection<Simulation> ids = new ArrayList<Simulation>();
-		ids.add(simulation1);
-		ids.add(simulation2);
-		assertEquals(ids, repo.getSimulationsForChannel("cid1"));
+		Collection<String> ids = Arrays.asList(SIM_ID_1, SIM_ID_2);
+		Collection<String> storedIds = new ArrayList<String>();
+		for (Simulation simulation : repo.getSimulationsForChannel(CHANNEL_ID_1)) {
+			storedIds.add(simulation.getId());
+		}
+		assertEquals(ids, storedIds);
 		
 		repo.deleteSimulation(simulation1.getId());
 
@@ -109,7 +114,9 @@ public class ModelRepositoryImplTest {
 		assertEquals(1, wrappers.size());
 		assertEquals(simulation2.getId(), wrappers.iterator().next().getSimulation().getId());
 		
-		assertEquals(Collections.singletonList(simulation2), repo.getSimulationsForChannel("cid1"));
+		Collection<Simulation> simsOnChannel = repo.getSimulationsForChannel(CHANNEL_ID_1);
+		assertEquals(1, simsOnChannel.size());
+		assertEquals(SIM_ID_2, simsOnChannel.iterator().next().getId());
 		
 		verify(simulation1, simulation2);
 	}
