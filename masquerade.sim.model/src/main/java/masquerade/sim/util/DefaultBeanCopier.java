@@ -20,17 +20,15 @@ import java.util.Set;
  * 
  * Instances are safe to use from multiple threads at the same time.
  */
-public class DefaultBeanCloner implements BeanCloner {
+public class DefaultBeanCopier implements BeanCopier {
 	private static final String MSG = "Unable to clone bean property";
 
 	@Override
-	public void cloneBean(Object source, Object target) {
+	public void copyBean(Object source, Object target) {
 		try {
 			// TODO: Remember path for better error messages
-			// TODO: Handle circular references
+			// TODO: Handle cycles
 			internalClone(source, target);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException(MSG, e);
 		} catch (IllegalAccessException e) {
 			throw new IllegalArgumentException(MSG, e);
 		} catch (InvocationTargetException e) {
@@ -48,7 +46,7 @@ public class DefaultBeanCloner implements BeanCloner {
 		for (PropertyDescriptor prop : beanInfo.getPropertyDescriptors()) {
 			if (isReadWrite(prop)) {
 				Object sourceValue = prop.getReadMethod().invoke(source);
-				Object valueCopy = cloneBean(sourceValue);
+				Object valueCopy = copyBean(sourceValue);
 				
 				prop.getWriteMethod().invoke(target, valueCopy);
 			}
@@ -56,14 +54,14 @@ public class DefaultBeanCloner implements BeanCloner {
 	}
 
 	@Override
-	public Object cloneBean(Object sourceValue) {
+	public Object copyBean(Object sourceValue) {
 		if (sourceValue == null) {
 			return null;
 		}
 		
 		Class<?> type = sourceValue.getClass();
 
-		if (type.isPrimitive() || Number.class.isAssignableFrom(type) || String.class == type || Class.class == type) {
+		if (type.isPrimitive() || Number.class.isAssignableFrom(type) || String.class == type || Class.class == type || Boolean.class == type) {
 			// Copy primitive type properties using boxing/unboxing which is a copy by value already
 			// Number, String, Class are immutable, keep reference to original value
 			return sourceValue;
@@ -95,7 +93,7 @@ public class DefaultBeanCloner implements BeanCloner {
 		} else {
 			// Copy anything else as Bean, instantiate using default constructor
 			Object valueCopy = instantiateBean(type);
-			cloneBean(sourceValue, valueCopy);
+			copyBean(sourceValue, valueCopy);
 			return valueCopy;
 		}
 	}
@@ -112,7 +110,7 @@ public class DefaultBeanCloner implements BeanCloner {
 
 	private Collection<Object> copyCollection(Collection<?> source, Collection<Object> target) {
 		for (Object value : source) {
-			Object copy = cloneBean(value);
+			Object copy = copyBean(value);
 			target.add(copy);
 		}
 		return target;
@@ -120,8 +118,8 @@ public class DefaultBeanCloner implements BeanCloner {
 
 	private Map<Object, Object> copyMap(Map<?, ?> source, Map<Object, Object> target) {
 		for (Map.Entry<?, ?> entry: source.entrySet()) {
-			Object keyCopy = cloneBean(entry.getKey());
-			Object valueCopy = cloneBean(entry.getValue());
+			Object keyCopy = copyBean(entry.getKey());
+			Object valueCopy = copyBean(entry.getValue());
 			target.put(keyCopy, valueCopy);
 		}
 		return target;

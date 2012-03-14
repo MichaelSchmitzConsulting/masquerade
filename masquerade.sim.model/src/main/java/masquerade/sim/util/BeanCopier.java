@@ -3,7 +3,7 @@ package masquerade.sim.util;
 /**
  * Creates deep clones of Java Beans
  */
-public interface BeanCloner {
+public interface BeanCopier {
 
 	/**
 	 * Copies all read/write properties from a source bean instance to a target bean instance. Beans
@@ -14,7 +14,7 @@ public interface BeanCloner {
 	 * @exception IllegalArgumentException If the properties cannot be copied, e.g. due to incompatible instances or due to nested properties not 
 	 *                                     conforming to the java beans spec (e.g. no default constructor).
 	 */
-	void cloneBean(Object source, Object target);
+	void copyBean(Object source, Object target);
 
 	/**
 	 * Creates a copy of a bean instance using it's type's default constructor, and copies all 
@@ -26,6 +26,6 @@ public interface BeanCloner {
 	 * @exception IllegalArgumentException If the properties cannot be copied, e.g. due to incompatible instances or due to nested properties not 
 	 *                                     conforming to the java beans spec (e.g. no default constructor).
 	 */
-	Object cloneBean(Object source);
+	Object copyBean(Object source);
 
 }

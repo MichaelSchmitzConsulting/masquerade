@@ -14,16 +14,16 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
- * Test case for {@link DefaultBeanCloner}
+ * Test case for {@link DefaultBeanCopier}
  */
-public class DefaultBeanClonerTest {
+public class DefaultBeanCopierTest {
 	@Test
-	public void testCloneBean() {
-		BeanCloner cloner = new DefaultBeanCloner();
+	public void testCopyBean() {
+		BeanCopier cloner = new DefaultBeanCopier();
 		
 		TestBean nestedBean = new TestBean();
 		TestBean source = new TestBean(nestedBean);
-		Object result = cloner.cloneBean(source);
+		Object result = cloner.copyBean(source);
 		
 		assertEquals(source.toString(), result.toString());
 		assertEquals(source, result);

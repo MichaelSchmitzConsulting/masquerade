@@ -5,24 +5,24 @@ import java.lang.reflect.Constructor;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.impl.DefaultSimulation;
-import masquerade.sim.util.DefaultBeanCloner;
+import masquerade.sim.util.DefaultBeanCopier;
 
 /**
  * Handles bean cloning
  */
 public class ModelBeanUtils {
 
-	private static DefaultBeanCloner beanCloner = new DefaultBeanCloner();
+	private static DefaultBeanCopier beanCloner = new DefaultBeanCopier();
 
 	public static Simulation copySimulation(Simulation simulation) {
 		Simulation copy = new DefaultSimulation(simulation.getId());
-		beanCloner.cloneBean(simulation, copy);
+		beanCloner.copyBean(simulation, copy);
         return copy;
 	}
 
 	public static Channel copyChannel(Channel channel) {
 		Channel copy = createNewChannelInstance(channel.getId(), channel.getClass());
-		beanCloner.cloneBean(channel, copy);
+		beanCloner.copyBean(channel, copy);
         return copy;
 	}
 
