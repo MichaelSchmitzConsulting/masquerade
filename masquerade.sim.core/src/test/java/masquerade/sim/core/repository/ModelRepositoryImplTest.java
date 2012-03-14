@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * Test case for {@link ModelRepositoryImpl}
  */
 public class ModelRepositoryImplTest {
 
@@ -58,8 +57,8 @@ public class ModelRepositoryImplTest {
 		assertTrue(channels.contains(channel1));
 		assertTrue(channels.contains(channel2));
 		
-		assertSame(channel1, repo.getChannel("id1"));
-		assertSame(channel2, repo.getChannel("id2"));
+		assertEquals("id1", repo.getChannel("id1").getId());
+		assertEquals("id2", repo.getChannel("id2").getId());
 		
 		Collection<Simulation> sims = repo.getSimulationsForChannel(channel1.getId());
 		assertTrue(sims.isEmpty());
@@ -108,7 +107,7 @@ public class ModelRepositoryImplTest {
 
 		wrappers = repo.listSimulations();
 		assertEquals(1, wrappers.size());
-		assertSame(simulation2, wrappers.iterator().next().getSimulation());
+		assertEquals(simulation2.getId(), wrappers.iterator().next().getSimulation().getId());
 		
 		assertEquals(Collections.singletonList(simulation2), repo.getSimulationsForChannel("cid1"));
 		

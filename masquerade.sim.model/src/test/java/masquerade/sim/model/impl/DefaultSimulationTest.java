@@ -1,7 +1,6 @@
 package masquerade.sim.model.impl;
 
 import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
-
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
