@@ -122,6 +122,10 @@ public class ModelRepositoryImpl implements ModelRepository {
 		if (channel == null) {
 			throw new IllegalArgumentException("Missing channel");
 		}
+		
+		// Create clone to prevent storing a live object which might be altered
+		// outside of the control of the repository
+		channel = ModelBeanUtils.copyChannel(channel);
 
 		synchronized (lock) {
 			ChannelWrapper wrapper = new ChannelWrapperImpl(channel, isPersistent);
@@ -183,6 +187,10 @@ public class ModelRepositoryImpl implements ModelRepository {
 		if (simulation == null) {
 			throw new IllegalArgumentException("Missing simulation");
 		}
+		
+		// Create clone to prevent storing a live object which might be altered
+		// outside of the control of the repository
+		simulation = ModelBeanUtils.copySimulation(simulation);
 		
 		synchronized (lock) {
 			SimulationWrapper wrapper = new SimulationWrapperImpl(simulation, isPersistent);
