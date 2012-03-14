@@ -177,7 +177,7 @@ public class ChannelListenerRegistryImpl implements ChannelListenerRegistry {
 	}
 
 	private void restartChannel(ChannelListener<Channel> listener, Channel changedChannel) {
-		log.info("Restarting channel " + changedChannel);
+		log.info("Restarting channel " + changedChannel.getId());
 		listener.stop(context);
 		listener.start(changedChannel, simulationRunner, context);
 	}
