@@ -4,6 +4,7 @@ import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.config.Configuration;
 import masquerade.sim.model.history.RequestHistory;
+import masquerade.sim.model.importexport.Importer;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginManager;
@@ -28,6 +29,7 @@ public class AppServiceLocatorImpl implements AppServiceLocator {
 	@Reference protected FormFieldFactory fieldFactory;
 	@Reference protected PluginManager pluginManager;
 	@Reference protected ChannelListenerRegistry channelListenerRegistry;
+	@Reference protected Importer importer;
 	
 	@Override
 	public ModelRepository getModelRepository() {
@@ -72,5 +74,10 @@ public class AppServiceLocatorImpl implements AppServiceLocator {
 	@Override
 	public PluginRegistry getPluginRegistry() {
 		return pluginRegistry;
+	}
+
+	@Override
+	public Importer getImpporter() {
+		return importer;
 	}
 }

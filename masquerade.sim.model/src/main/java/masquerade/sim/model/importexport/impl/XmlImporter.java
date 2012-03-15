@@ -48,12 +48,13 @@ public class XmlImporter implements Importer {
 	}
 
 	@Override
-	public void importModel(InputStream stream, boolean isReplaceExistingConfiguration) {
+	public SimulationModel importModel(InputStream stream, boolean isReplaceExistingConfiguration) {
 		SimulationModel model = (SimulationModel) unmarshal(stream);
 		if (isReplaceExistingConfiguration) {
 			 modelRepository.clear();
 		}
 		
 		modelRepository.insertSimulationModel(model);
+		return model;
 	}
 }

@@ -21,6 +21,7 @@ import masquerade.sim.app.ui.view.FileManagerView;
 import masquerade.sim.app.ui.view.RequestHistoryView;
 import masquerade.sim.app.ui.view.RequestTestView;
 import masquerade.sim.app.ui.view.StatusView;
+import masquerade.sim.app.ui2.view.MainView;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.history.HistoryEntry;
 import masquerade.sim.model.history.RequestHistory;
@@ -59,23 +60,24 @@ import com.vaadin.ui.themes.BaseTheme;
  * main content.
  */
 @SuppressWarnings("serial")
-public class MainLayout extends VerticalLayout {
+public class MainViewImpl extends VerticalLayout implements MainView {
 
 	private static final boolean RESPONSE = false;
-
 	private static final boolean REQUEST = true;
 
+	private final MainViewCallback callback;
 	private RequestTestView requestTestView;
 	private RequestHistoryView requestHistoryView;
 
 	private StatusView statusView;
-
 	private final TabSheet tabSheet;
 	private final Map<Component, Refreshable> refreshMap = new HashMap<Component, Refreshable>();
 
-	public MainLayout(Resource logo, RequestHistory requestHistory, File artifactRoot,
+	public MainViewImpl(MainViewCallback callback, Resource logo, RequestHistory requestHistory, File artifactRoot,
 			SendTestRequestAction sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl, 
 			final PluginManager pluginManager, final SettingsProvider settingsProvider, final String versionInformation) {
+		
+		this.callback = callback;
 		
 		setSizeFull();
 		setMargin(true);
@@ -104,7 +106,7 @@ public class MainLayout extends VerticalLayout {
 		Button.ClickListener importExportListener = new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// TODO
+				MainViewImpl.this.callback.onImportExport();
 			}
 		};
 		addLink(header, importExportListener, "Import/Export", "Import and export simulation configuration", IMPORTEXPORT.icon(baseUrl));

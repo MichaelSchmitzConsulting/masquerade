@@ -8,12 +8,13 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import masquerade.sim.app.ui.MainLayout;
+import masquerade.sim.app.ui.MainViewImpl;
 import masquerade.sim.app.ui2.factory.ChannelFactory;
 import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
 import masquerade.sim.app.ui2.factory.impl.SimulationFactoryImpl;
 import masquerade.sim.app.ui2.presenter.ChannelPresenter;
+import masquerade.sim.app.ui2.presenter.MainViewPresenter;
 import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
@@ -21,6 +22,7 @@ import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.config.Configuration;
 import masquerade.sim.model.history.RequestHistory;
+import masquerade.sim.model.importexport.Importer;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.settings.ModelSettingsProvider;
@@ -122,11 +124,13 @@ public class MasqueradeApplication extends Application {
 		PluginRegistry pluginRegistry = serviceLocator.getPluginRegistry();
 		ChannelListenerRegistry channelListenerRegistry = serviceLocator.getChannelListenerRegistry();
 		FormFieldFactory fieldFactory = serviceLocator.getFieldFactory();
+		Importer importer = serviceLocator.getImpporter();
 		
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
 		// TODO: Refactor MainLayput for not to contain any tab content/logic
-		MainLayout mainLayout = new MainLayout(logo, requestHistory, artifactRoot, new SendTestRequestActionImpl(simulationRunner),
+		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry);
+		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo, requestHistory, artifactRoot, new SendTestRequestActionImpl(simulationRunner),
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 

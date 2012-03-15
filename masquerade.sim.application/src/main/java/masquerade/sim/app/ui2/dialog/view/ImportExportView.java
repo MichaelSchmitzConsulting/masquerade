@@ -17,5 +17,7 @@ public interface ImportExportView {
 		UploadHandler createUploadHandler();
 	}
 
+	void bind(ImportExportViewCallback callback);
 	void show();
+	void showUploadFailedErrorMessage(String reasonMsg);
 }

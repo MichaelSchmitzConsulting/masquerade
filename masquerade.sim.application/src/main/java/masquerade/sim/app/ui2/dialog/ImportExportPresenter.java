@@ -11,9 +11,11 @@ import masquerade.sim.app.ui2.dialog.ImportUploadHandler.UploadListener;
 import masquerade.sim.app.ui2.dialog.view.ImportExportView;
 import masquerade.sim.app.ui2.dialog.view.ImportExportView.ImportExportViewCallback;
 import masquerade.sim.app.util.NamedFileResource;
+import masquerade.sim.channellistener.ChannelListenerRegistry;
+import masquerade.sim.model.Channel;
 import masquerade.sim.model.importexport.Exporter;
 import masquerade.sim.model.importexport.Importer;
-import masquerade.sim.model.importexport.impl.XmlImporter;
+import masquerade.sim.model.importexport.impl.XmlExporter;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.repository.SimulationModel;
 import masquerade.sim.status.StatusLog;
@@ -23,7 +25,6 @@ import org.apache.commons.io.IOUtils;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.Resource;
-import com.vaadin.ui.Window;
 
 /**
  * Presenter for {@link ImportExportView}
@@ -36,19 +37,19 @@ public class ImportExportPresenter implements ImportExportViewCallback {
 	private final ImportExportView view;
 	private final Exporter exporter;
 	private final ModelRepository modelRepository;
-	private final Window window;
 	private final Application application;
 	private final Importer importer;
+	private final ChannelListenerRegistry channelListenerRegistry; 
 
 	private boolean isReplaceExistingConfiguration;
 
-	public ImportExportPresenter(ImportExportView view, ModelRepository modelRepository, Exporter exporter, Application application, Window window) {
+	public ImportExportPresenter(ImportExportView view, ModelRepository modelRepository, Application application, Importer importer, ChannelListenerRegistry channelListenerRegistry) {
 		this.view = view;
 		this.modelRepository = modelRepository;
-		this.exporter = exporter;
 		this.application = application;
-		this.window = window;
-		this.importer = new XmlImporter();
+		this.importer = importer;
+		this.exporter = new XmlExporter();
+		this.channelListenerRegistry = channelListenerRegistry;
 	}
 
 	public void showDialog() {
@@ -95,14 +96,22 @@ public class ImportExportPresenter implements ImportExportViewCallback {
 			public void onUploadDone(InputStream stream) {
 				handleUpload(stream);
 			}
-		}, MAX_UPLOAD_SIZE, window);
+			@Override
+			public void onUploadFailed(String reasonMsg) {
+				view.showUploadFailedErrorMessage(reasonMsg);
+			}
+		}, MAX_UPLOAD_SIZE);
 	}
 
 	private void handleUpload(InputStream stream) {
 		// Import new configuration
 		log.info("Importing uploaded configuration (replace = " + isReplaceExistingConfiguration + ")...");
-		importer.importModel(stream, isReplaceExistingConfiguration);
+		SimulationModel model = importer.importModel(stream, isReplaceExistingConfiguration);
 		log.info("Import done");
-
+		
+		
+		for (Channel channel : model.getChannels()) {
+			channelListenerRegistry.startOrRestart(channel.getId());
+		}
 	}
 }

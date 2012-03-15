@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import masquerade.sim.app.ui2.dialog.UploadHandler;
 import masquerade.sim.app.ui2.dialog.view.ImportExportView;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -25,6 +27,8 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class ImportExportViewImpl extends Window implements ImportExportView {
 
+	private static final StatusLog log = StatusLogger.get(ImportExportViewImpl.class);
+	
 	private final Window parentWindow;
 	private ImportExportViewCallback callback;
 
@@ -35,11 +39,12 @@ public class ImportExportViewImpl extends Window implements ImportExportView {
 		setModal(true);
 		setWidth("500px");
 		setResizable(false);
-		setContent(buildLayout());
 	}
 	
+	@Override
 	public void bind(ImportExportViewCallback callback) {
 		this.callback = callback;
+		setContent(buildLayout());
 	}
 	
 	@Override
@@ -62,8 +67,9 @@ public class ImportExportViewImpl extends Window implements ImportExportView {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				try {
-					ImportExportViewImpl.this.open(callback.provideDownload());
+					getWindow().open(callback.provideDownload());
 				} catch (IOException e) {
+					log.error("Download error", e);
 					WindowUtil.showErrorNotification(ImportExportViewImpl.this, "Error creating download", e.getClass().getName() + ": " + e.getMessage());
 				}
 			}
@@ -99,5 +105,10 @@ public class ImportExportViewImpl extends Window implements ImportExportView {
 		layout.addComponent(new Label("Channels and simulations with conflicting IDs will be replaced in any case"));
 
 		return layout;
+	}
+
+	@Override
+	public void showUploadFailedErrorMessage(String reasonMsg) {
+		WindowUtil.showErrorNotification(parentWindow, "Upload failed", "Upload failed:\n" + reasonMsg == null ? "Unknown reason (file too large?)" : reasonMsg);
 	}
 }

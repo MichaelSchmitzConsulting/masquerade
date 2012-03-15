@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.StringUtil;
-import masquerade.sim.util.WindowUtil;
 
 import org.apache.commons.io.IOUtils;
 
@@ -18,7 +17,6 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.Upload.FailedEvent;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.SucceededEvent;
-import com.vaadin.ui.Window;
 
 /**
  * Handles simulation model uploads
@@ -27,11 +25,11 @@ import com.vaadin.ui.Window;
 public class ImportUploadHandler implements UploadHandler {
 	public static interface UploadListener {
 		public void onUploadDone(InputStream stream);
+		public void onUploadFailed(String reasonMsg);
 	}
 	
 	private final static StatusLog log = StatusLogger.get(ImportUploadHandler.class);
 
-	private final Window window;
 	private final long maxSize;
 	private final UploadListener uploadListener;
 
@@ -39,10 +37,9 @@ public class ImportUploadHandler implements UploadHandler {
 	private File tempFile;
 	private Upload upload;
 
-	public ImportUploadHandler(UploadListener uploadListener, long maxSize, Window window) {
+	public ImportUploadHandler(UploadListener uploadListener, long maxSize) {
 		this.uploadListener = uploadListener;
 		this.maxSize = maxSize;
-		this.window = window;
 	}
 
 	@Override
@@ -114,6 +111,6 @@ public class ImportUploadHandler implements UploadHandler {
 		Exception reason = event.getReason();
 		log.error("Upload failed", reason);
 		String reasonMsg = StringUtil.strackTrace(reason);
-		WindowUtil.showErrorNotification(window, "Upload failed", "Upload failed:\n" + reasonMsg == null ? "Unknown reason (file too large?)" : reasonMsg);
+		uploadListener.onUploadFailed(reasonMsg);
 	}
 }

@@ -1,6 +1,5 @@
 package masquerade.sim.model.importexport;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import masquerade.sim.model.Channel;
@@ -20,7 +19,8 @@ public interface Importer {
 	 * Imports a {@link SimulationModel} into a {@link ModelRepository}
 	 * @param stream Stream to read serialized model from
 	 * @param isReplaceExistingConfiguration If true, the existing configuration is cleared before importing
+	 * @return The imported model
 	 */
-	void importModel(InputStream stream, boolean isReplaceExistingConfiguration);
+	SimulationModel importModel(InputStream stream, boolean isReplaceExistingConfiguration);
 
 }

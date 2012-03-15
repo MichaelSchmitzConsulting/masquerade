@@ -4,6 +4,7 @@ import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.config.Configuration;
 import masquerade.sim.model.history.RequestHistory;
+import masquerade.sim.model.importexport.Importer;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginManager;
@@ -23,4 +24,5 @@ public interface AppServiceLocator {
 	PluginManager getPluginManager();
 	PluginRegistry getPluginRegistry();
 	ChannelListenerRegistry getChannelListenerRegistry();
+	Importer getImpporter();
 }
