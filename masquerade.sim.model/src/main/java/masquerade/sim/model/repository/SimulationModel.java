@@ -14,7 +14,8 @@ import masquerade.sim.model.Simulation;
 /**
  * Data transfer object holding all available objects
  * in a {@link ModelRepository}, for loading/saving from/to
- * persistent state using a {@link ModelPersistenceService}.  
+ * persistent state using a {@link ModelPersistenceService},
+ * or for import/export.  
  */
 public class SimulationModel {
 	public static final SimulationModel EMPTY = new SimulationModel();

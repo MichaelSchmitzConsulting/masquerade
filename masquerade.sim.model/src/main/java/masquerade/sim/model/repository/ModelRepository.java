@@ -145,4 +145,21 @@ public interface ModelRepository {
 	 * @return <code>true</code> if a channel with this ID exists in the repository
 	 */
 	boolean containsChannel(String id);
+	
+	/**
+	 * Creates a {@link SimulationModel} instance for saving/exporting.
+	 * @return All persistent channels and simulations contained in this repository 
+	 */
+	SimulationModel getSimulationModel();
+
+	/**
+	 * Removes all simulations and channels
+	 */
+	void clear();
+
+	/**
+	 * Inserts all channels and simulations contained in a {@link SimulationModel}
+	 * @param model
+	 */
+	void insertSimulationModel(SimulationModel model);
 }

@@ -341,4 +341,30 @@ public class ModelRepositoryImpl implements ModelRepository {
 			return channels.containsKey(id);
 		}
 	}
+
+	@Override
+	public SimulationModel getSimulationModel() {
+		synchronized (lock) {
+			return createPersistentModel();			
+		}
+	}
+
+	@Override
+	public void clear() {
+		deleteChannels();
+		deleteSimulations();
+	}
+
+	@Override
+	public void insertSimulationModel(SimulationModel model) {
+		synchronized(lock) {
+			for (Channel channel : model.getChannels()) {
+				insertChannel(channel, true);
+			}
+			for (Simulation simulation : model.getSimulations()) {
+				insertSimulation(simulation, true);
+			}
+			channelToSimulations.putAll(model.getChannelToSimulations());
+		}
+	}
 }

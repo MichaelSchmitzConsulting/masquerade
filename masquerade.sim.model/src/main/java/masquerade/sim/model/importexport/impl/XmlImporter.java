@@ -7,6 +7,7 @@ import masquerade.sim.model.Channel;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.importexport.Importer;
 import masquerade.sim.model.repository.ModelRepository;
+import masquerade.sim.model.repository.SimulationModel;
 import masquerade.sim.plugin.PluginRegistry;
 import masquerade.sim.util.XStreamUnmarshallerFactory;
 
@@ -44,5 +45,15 @@ public class XmlImporter implements Importer {
 	private Object unmarshal(InputStream inputStream) {
 		XStream xstream = new XStreamUnmarshallerFactory(pluginRegistry).createXStream();
 		return xstream.fromXML(inputStream);
+	}
+
+	@Override
+	public void importModel(InputStream stream, boolean isReplaceExistingConfiguration) {
+		SimulationModel model = (SimulationModel) unmarshal(stream);
+		if (isReplaceExistingConfiguration) {
+			 modelRepository.clear();
+		}
+		
+		modelRepository.insertSimulationModel(model);
 	}
 }
