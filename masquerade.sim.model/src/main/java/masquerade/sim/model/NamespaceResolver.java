@@ -16,4 +16,10 @@ public interface NamespaceResolver {
 	 * @return All known namespace prefixes
 	 */
 	Map<String, String> getKnownNamespaces();
+	
+	void setPrefixes(Map<String, String> pfxs);
+	
+	void addPrefix(String prefix, String URI);
+	
+	void removePrefix(String prefix);
 }

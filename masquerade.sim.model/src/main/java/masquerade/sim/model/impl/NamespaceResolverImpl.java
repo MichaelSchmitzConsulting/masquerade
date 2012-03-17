@@ -10,7 +10,7 @@ import masquerade.sim.model.NamespaceResolver;
  * Stub implementation of {@link NamespaceResolver} for use in tests
  */
 public class NamespaceResolverImpl implements NamespaceResolver {
-	private final Map<String, String> ns = new ConcurrentHashMap<String, String>();
+	private volatile Map<String, String> ns = new ConcurrentHashMap<String, String>();
 	
 	public void declareNamespace(String prefix, String uri) {
 		ns.put(prefix, uri);
@@ -24,5 +24,20 @@ public class NamespaceResolverImpl implements NamespaceResolver {
 	@Override
 	public Map<String, String> getKnownNamespaces() {
 		return new HashMap<String, String>(ns);
+	}
+
+	@Override
+	public void addPrefix(String prefix, String URI) {
+		ns.put(prefix, URI);
+	}
+
+	@Override
+	public void removePrefix(String prefix) {
+		ns.remove(prefix);
+	}
+
+	@Override
+	public void setPrefixes(Map<String, String> pfxs) {
+		ns = new ConcurrentHashMap<String, String>(pfxs);
 	}
 }
