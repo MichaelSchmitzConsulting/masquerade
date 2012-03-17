@@ -43,9 +43,9 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 
 		setWidth("600px");
 		setHeight("300px");
-		center();
 		setContent(wizard);
 
+		center();
 		WindowUtil.getRoot(parent).addWindow(this);
 
 		wizard.addListener(new WizardProgressListener() {

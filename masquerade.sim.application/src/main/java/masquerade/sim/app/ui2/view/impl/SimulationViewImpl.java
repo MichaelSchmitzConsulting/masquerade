@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import masquerade.sim.app.ui2.view.SimulationView;
 import masquerade.sim.app.util.BeanUiUtils;
+import masquerade.sim.app.util.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
@@ -209,8 +210,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 			RequestIdProvider<?> idProvider = simulation.getRequestIdProvider();
 			setComponentToTab(BeanUiUtils.createForm(idProvider, fieldFactory), idProviderTab);
 			
-			Map<String, String> sortedNsMap = new TreeMap<String, String>(namespaces);
-			Component namespaceView = createNamespaceView(sortedNsMap);
+			Component namespaceView = createNamespaceView(namespaces);
 			setComponentToTab(namespaceView, namespacesTab);
 		}
 	}
@@ -253,7 +253,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		final Button editButton = new Button("Edit...", new ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
 				NamespacePrefix selection = (NamespacePrefix) nsTable.getValue();
-				callback.onEditNamespacePrefix(selection.getPrefix());
+				callback.onEditNamespacePrefix(selection.getPrefix(), selection.getUri());
 			}
 		});
 		editButton.setEnabled(false);
@@ -270,6 +270,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		buttonLayout.setSpacing(true);
 		buttonLayout.addComponent(addButton);
 		buttonLayout.addComponent(removeButton);
+		buttonLayout.addComponent(editButton);
 		layout.addComponent(buttonLayout);
 		
 		layout.setExpandRatio(nsTable, 1.0f);
@@ -278,7 +279,8 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	}
 
 	private void setNamespaceTableContent(Map<String, String> nsMap) {
-		Container nsContainer = buildNsPrefixContainer(nsMap);
+		Map<String, String> sortedNsMap = new TreeMap<String, String>(nsMap);
+		Container nsContainer = buildNsPrefixContainer(sortedNsMap);
 		nsTable.setContainerDataSource(nsContainer);
 	}
 
@@ -385,27 +387,6 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 			} else if (!id.equals(other.id))
 				return false;
 			return true;
-		}
-	}
-	
-	public static class NamespacePrefix {
-		private String prefix;
-		private String uri;
-		public NamespacePrefix(String prefix, String uri) {
-			this.prefix = prefix;
-			this.uri = uri;
-		}
-		public String getPrefix() {
-			return prefix;
-		}
-		public void setPrefix(String prefix) {
-			this.prefix = prefix;
-		}
-		public String getUri() {
-			return uri;
-		}
-		public void setUri(String uri) {
-			this.uri = uri;
 		}
 	}
 }

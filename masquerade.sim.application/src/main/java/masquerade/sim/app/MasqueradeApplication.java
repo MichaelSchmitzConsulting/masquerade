@@ -136,7 +136,7 @@ public class MasqueradeApplication extends Application {
 
 		SimulationFactory simulationFactory = new SimulationFactoryImpl(mainWindow, pluginRegistry, modelRepository, fieldFactory);
 		SimulationViewImpl simulations = new SimulationViewImpl(fieldFactory);
-		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory);
+		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory, mainWindow);
 		simulations.bind(simulationPresenter);
 		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl), simulationPresenter);
 		simulationPresenter.onRefresh();

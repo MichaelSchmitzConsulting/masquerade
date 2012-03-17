@@ -25,6 +25,6 @@ public interface SimulationView {
 		void onSave();
 		void onRemoveNamespacePrefix(String prefix);
 		void onAddNamespacePrefix();
-		void onEditNamespacePrefix(String prefix);
+		void onEditNamespacePrefix(String prefix, String uri);
 	}
 }

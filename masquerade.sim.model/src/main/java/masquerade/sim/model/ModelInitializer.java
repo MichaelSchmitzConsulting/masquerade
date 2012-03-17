@@ -99,9 +99,6 @@ public class ModelInitializer {
 		pluginRegistry.registerExtension(SimulationStep.class, SetResponseContentStep.class);
 		pluginRegistry.registerExtension(SimulationStep.class, SoapFaultStep.class);
 		pluginRegistry.registerExtension(SimulationStep.class, WaitStep.class);
-		
-		// Namespace prefix
-		pluginRegistry.registerExtension(NamespacePrefix.class, NamespacePrefix.class);
 	}
 
 	private void registerFieldFactories() {

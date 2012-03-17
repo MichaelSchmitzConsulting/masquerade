@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui2.dialog.view.EditNamespacePrefixView.EditNamespacePrefixViewCallback;
+import masquerade.sim.app.ui2.dialog.view.impl.EditNamespacePrefixViewImpl;
 import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.SimulationFactory.SimulationFactoryCallback;
 import masquerade.sim.app.ui2.view.SimulationView;
@@ -15,18 +17,24 @@ import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.model.repository.SimulationWrapper;
 
-public class SimulationPresenter implements SimulationView.SimulationViewCallback, Refreshable {
+import com.vaadin.ui.Window;
 
+public class SimulationPresenter implements SimulationView.SimulationViewCallback, Refreshable, EditNamespacePrefixViewCallback {
+
+	private static final String DEFAULT_URI = "http://example.com/ns";
+	
 	private final SimulationView view;
 	private final ModelRepository modelRepository;
 	private final SimulationFactory simulationFactory;
+	private final Window parent;
 	private Simulation currentSelection = null;
 	private Map<String, String> namespaces = new HashMap<String, String>();
 	
-	public SimulationPresenter(SimulationView view, ModelRepository modelRepository, SimulationFactory simulationFactory) {
+	public SimulationPresenter(SimulationView view, ModelRepository modelRepository, SimulationFactory simulationFactory, Window parent) {
 		this.view = view;
 		this.modelRepository = modelRepository;
 		this.simulationFactory = simulationFactory;
+		this.parent = parent;
 	}
 
 	@Override
@@ -54,7 +62,7 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 			namespaces = null;
 		} else {
 			currentSelection = selection;
-			namespaces = selection.getNamespaceResolver().getKnownNamespaces();
+			reloadNamespaces();
 		}
 	}
 
@@ -110,19 +118,26 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	@Override
 	public void onRemoveNamespacePrefix(String prefix) {
 		currentSelection.getNamespaceResolver().removePrefix(prefix);
+		reloadNamespaces();
+		view.setNamespaces(namespaces);
 	}
 
 	@Override
 	public void onAddNamespacePrefix() {
-		// TODO: Edit popup dialog
 		NamespaceResolver namespaceResolver = currentSelection.getNamespaceResolver();
 		Map<String, String> namespaces = namespaceResolver.getKnownNamespaces();
 		int i = 0;
 		while (namespaces.containsKey(nsKey(i))) {
 			i++;
 		}
-		namespaces.put(nsKey(i), "http://example.com/ns");
-		view.setNamespaces(namespaces);
+		namespaces.put(nsKey(i), DEFAULT_URI);
+		
+		editNamespacePrefix(nsKey(i), DEFAULT_URI);
+	}
+
+	private void editNamespacePrefix(String pfx, String uri) {
+		EditNamespacePrefixViewImpl pfxView = new EditNamespacePrefixViewImpl(parent);
+		pfxView.show(this, pfx, uri);
 	}
 
 	private static String nsKey(int i) {
@@ -130,7 +145,26 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	}
 
 	@Override
-	public void onEditNamespacePrefix(String prefix) {
-		// TODO: Edit popup dialog
+	public void onEditNamespacePrefix(String prefix, String uri) {
+		editNamespacePrefix(prefix, uri);
+	}
+
+	@Override
+	public void onPrefixUpdated(String originalPrefix, String prefix, String uri) {
+		currentSelection.getNamespaceResolver().addPrefix(prefix, uri);
+		if (!originalPrefix.equals(prefix)) {
+			currentSelection.getNamespaceResolver().removePrefix(originalPrefix);
+		}
+		reloadNamespaces();
+		view.setNamespaces(namespaces);
+	}
+
+	private void reloadNamespaces() {
+		namespaces = currentSelection.getNamespaceResolver().getKnownNamespaces();
+	}
+
+	@Override
+	public boolean isPrefixAvailable(String pfx) {
+		return currentSelection.getNamespaceResolver().resolveNamespacePrefix(pfx) == null;
 	}
 }
