@@ -2,6 +2,7 @@ package masquerade.sim.app;
 
 import static masquerade.sim.app.ui.Icons.LISTENER;
 import static masquerade.sim.app.ui.Icons.SIMULATION;
+import static masquerade.sim.app.ui.Icons.TEST;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +16,10 @@ import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
 import masquerade.sim.app.ui2.factory.impl.SimulationFactoryImpl;
 import masquerade.sim.app.ui2.presenter.ChannelPresenter;
 import masquerade.sim.app.ui2.presenter.MainViewPresenter;
+import masquerade.sim.app.ui2.presenter.RequestTestPresenter;
 import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
+import masquerade.sim.app.ui2.view.impl.RequestTestViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
@@ -130,10 +133,17 @@ public class MasqueradeApplication extends Application {
 		
 		// TODO: Refactor MainLayput for not to contain any tab content/logic
 		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry);
-		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo, requestHistory, artifactRoot, new SendTestRequestActionImpl(simulationRunner),
+		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo, requestHistory, artifactRoot,
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 
+		// Request test tab
+		RequestTestViewImpl requestTestView = new RequestTestViewImpl();
+		RequestTestPresenter requestTestPresenter = new RequestTestPresenter(simulationRunner, modelRepository, requestTestView);
+		requestTestView.bind(requestTestPresenter);
+		mainLayout.addTab(requestTestView, TEST.icon(baseUrl), requestTestPresenter);
+		
+		// Simulations tab
 		SimulationFactory simulationFactory = new SimulationFactoryImpl(mainWindow, pluginRegistry, modelRepository, fieldFactory);
 		SimulationViewImpl simulations = new SimulationViewImpl(fieldFactory);
 		SimulationPresenter simulationPresenter = new SimulationPresenter(simulations, modelRepository, simulationFactory, mainWindow);
@@ -141,6 +151,7 @@ public class MasqueradeApplication extends Application {
 		mainLayout.addTab(simulations, SIMULATION.icon(baseUrl), simulationPresenter);
 		simulationPresenter.onRefresh();
 		
+		// Listeners tab
 		ChannelFactory channelFactory = new ChannelFactoryImpl(pluginRegistry, modelRepository, mainWindow);
 		ChannelViewImpl channels = new ChannelViewImpl(fieldFactory);
 		ChannelPresenter channelPresenter = new ChannelPresenter(channels, modelRepository, channelFactory, channelListenerRegistry);

@@ -9,6 +9,6 @@ public class AlwaysApprover implements CreateApprover {
 
 	@Override
 	public boolean isNameUsed(String id) {
-		return true;
+		return false;
 	}
 }

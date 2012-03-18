@@ -6,7 +6,6 @@ import static masquerade.sim.app.ui.Icons.PLUGINS;
 import static masquerade.sim.app.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.app.ui.Icons.SETTINGS;
 import static masquerade.sim.app.ui.Icons.STATUS;
-import static masquerade.sim.app.ui.Icons.TEST;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,12 +13,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import masquerade.sim.app.SendTestRequestAction;
 import masquerade.sim.app.binding.ContainerFactory;
 import masquerade.sim.app.binding.RequestHistoryContainerFactory;
 import masquerade.sim.app.ui.view.FileManagerView;
 import masquerade.sim.app.ui.view.RequestHistoryView;
-import masquerade.sim.app.ui.view.RequestTestView;
 import masquerade.sim.app.ui.view.StatusView;
 import masquerade.sim.app.ui2.view.MainView;
 import masquerade.sim.model.Settings;
@@ -65,19 +62,15 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 	private static final boolean RESPONSE = false;
 	private static final boolean REQUEST = true;
 
-	private final MainViewCallback callback;
-	private RequestTestView requestTestView;
 	private RequestHistoryView requestHistoryView;
 
 	private StatusView statusView;
 	private final TabSheet tabSheet;
 	private final Map<Component, Refreshable> refreshMap = new HashMap<Component, Refreshable>();
 
-	public MainViewImpl(MainViewCallback callback, Resource logo, RequestHistory requestHistory, File artifactRoot,
-			SendTestRequestAction sendTestRequestAction, final SettingsChangeListener settingsChangeListener, String baseUrl, 
+	public MainViewImpl(final MainViewCallback callback, Resource logo, RequestHistory requestHistory, File artifactRoot,
+			final SettingsChangeListener settingsChangeListener, String baseUrl, 
 			final PluginManager pluginManager, final SettingsProvider settingsProvider, final String versionInformation) {
-		
-		this.callback = callback;
 		
 		setSizeFull();
 		setMargin(true);
@@ -106,7 +99,7 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		Button.ClickListener importExportListener = new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				MainViewImpl.this.callback.onImportExport();
+				callback.onImportExport();
 			}
 		};
 		addLink(header, importExportListener, "Import/Export", "Import and export simulation configuration", IMPORTEXPORT.icon(baseUrl));
@@ -122,7 +115,7 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		// Add header to layout
 		addComponent(header);
 
-		tabSheet = createTabSheet(requestHistory, artifactRoot, sendTestRequestAction, baseUrl);
+		tabSheet = createTabSheet(requestHistory, artifactRoot, baseUrl);
 		addComponent(tabSheet);
 		setExpandRatio(tabSheet, 1.0f);
 	}
@@ -167,10 +160,9 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		PluginDialog.showModal(getWindow(), pluginManager);
 	}
 
-	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, SendTestRequestAction sendTestRequestAction, String baseUrl) {
+	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, String baseUrl) {
 				
 		Component fileManager = createFileManager(artifactRoot);
-		Component requestTester = createRequestTestView(sendTestRequestAction);
 		Component requestHistoryUi = createRequestHistoryView(requestHistory);
 		Component status = createStatusView();
 
@@ -181,26 +173,15 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 
 		// Add tabs
 		tabSheet.addTab(fileManager, "Files", ARTIFACT.icon(baseUrl));
-		tabSheet.addTab(requestTester, "Test", TEST.icon(baseUrl));
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
 		tabSheet.addTab(status, "Log", STATUS.icon(baseUrl));
 
 		// Refresh view contents on tab selection
-		refreshMap.put(requestTester, createTestRefresher());
 		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
 		refreshMap.put(status, createStatusViewRefresher());
 		tabSheet.addListener(createTabSelectionListener());
 
 		return tabSheet;
-	}
-
-	private Refreshable createTestRefresher() {
-		return new Refreshable() {
-			@Override
-			public void onRefresh() {
-				// TODO Auto-generated method stub
-			}
-		};
 	}
 
 	private Refreshable createStatusViewRefresher() {
@@ -241,12 +222,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 				requestHistoryView.refresh((Filterable) history.createContainer());
 			}
 		};
-	}
-
-	private Component createRequestTestView(SendTestRequestAction sendTestRequestAction) {
-		requestTestView = new RequestTestView(sendTestRequestAction);
-		requestTestView.setMargin(true);
-		return requestTestView;
 	}
 
 	private Component createFileManager(File artifactRoot) {
