@@ -22,6 +22,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -295,8 +296,12 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 
 	private void onCopyButton() {
 		HorizontalLayout layout = new HorizontalLayout();
+		layout.setMargin(true);
+		layout.setSpacing(true);
 		
-		layout.addComponent(new Label("Simulation:"));
+		Label label = new Label("Simulation:");
+		layout.addComponent(label);
+		layout.setComponentAlignment(label, Alignment.MIDDLE_LEFT);
 		
 		final Select select = new Select();
 		select.setNullSelectionAllowed(false);
@@ -307,6 +312,8 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		}
 		Container simulations = new IndexedContainer(simulationIds);
 		select.setContainerDataSource(simulations);
+		layout.addComponent(select);
+		layout.setComponentAlignment(select, Alignment.MIDDLE_CENTER);
 
 		final Window window = new Window("Copy Namespaces from Simulation", layout);
 		window.setModal(true);
@@ -318,8 +325,8 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 				WindowUtil.getRoot(getWindow()).removeWindow(window);
 			}
 		});
-		layout.addComponent(select);
 		layout.addComponent(copyButton);
+		layout.setComponentAlignment(copyButton, Alignment.MIDDLE_RIGHT);
 		
 		WindowUtil.getRoot(getWindow()).addWindow(window);
 	}
