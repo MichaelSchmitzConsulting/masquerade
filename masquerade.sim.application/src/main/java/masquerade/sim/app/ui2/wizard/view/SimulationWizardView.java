@@ -13,6 +13,7 @@ import com.vaadin.ui.FormFieldFactory;
 public interface SimulationWizardView {
 
 	interface SimulationWizardViewCallback extends SimulationWizardCallback, CreateApprover {
+		Collection<Class<?>> getScriptTypes();
 		Collection<Class<?>> getSelectorTypes();
 		Collection<Class<?>> getRequestIdProviderTypes();
 		FormFieldFactory getFormFieldFactory();

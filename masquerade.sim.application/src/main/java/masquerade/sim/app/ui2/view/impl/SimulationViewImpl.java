@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import masquerade.sim.app.ui2.view.SimulationView;
 import masquerade.sim.app.util.BeanUiUtils;
@@ -14,11 +15,13 @@ import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.Simulation;
+import masquerade.sim.util.WindowUtil;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -28,10 +31,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.Select;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
 
 /**
@@ -57,6 +62,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	private VerticalLayout detailLayout;
 	private TwinColSelect channelSelect;
 	private Table nsTable;
+	private List<SimulationInfo> simulations;
 
 	public SimulationViewImpl(FormFieldFactory fieldFactory) {
 		this.fieldFactory = fieldFactory;
@@ -180,6 +186,8 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 
 	@Override
 	public void setSimulationList(List<SimulationInfo> simulations) {
+		this.simulations = new ArrayList<SimulationInfo>(simulations);
+		
 		Container container = new BeanItemContainer<SimulationInfo>(SimulationInfo.class, simulations);
 		simulationList.setContainerDataSource(container);
 		simulationList.setVisibleColumns(new String[] { PROP_SIMULATION, PROP_PERSISTENT });
@@ -265,17 +273,55 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 				editButton.setEnabled(isSelection);
 			}
 		});
+		final Button copyButton = new Button("Copy from...", new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				onCopyButton();
+			}
+		});
 		
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 		buttonLayout.setSpacing(true);
 		buttonLayout.addComponent(addButton);
 		buttonLayout.addComponent(removeButton);
 		buttonLayout.addComponent(editButton);
+		buttonLayout.addComponent(copyButton);
 		layout.addComponent(buttonLayout);
 		
 		layout.setExpandRatio(nsTable, 1.0f);
 		layout.setSizeFull();
 		return layout;
+	}
+
+	private void onCopyButton() {
+		HorizontalLayout layout = new HorizontalLayout();
+		
+		layout.addComponent(new Label("Simulation:"));
+		
+		final Select select = new Select();
+		select.setNullSelectionAllowed(false);
+		select.setNewItemsAllowed(false);
+		Collection<String> simulationIds = new TreeSet<String>();
+		for (SimulationInfo sim : simulations) {
+			simulationIds.add(sim.getSimulation());
+		}
+		Container simulations = new IndexedContainer(simulationIds);
+		select.setContainerDataSource(simulations);
+
+		final Window window = new Window("Copy Namespaces from Simulation", layout);
+		window.setModal(true);
+		
+		Button copyButton = new Button("Copy", new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				callback.onCopyNamespaces((String) select.getValue());
+				WindowUtil.getRoot(getWindow()).removeWindow(window);
+			}
+		});
+		layout.addComponent(select);
+		layout.addComponent(copyButton);
+		
+		WindowUtil.getRoot(getWindow()).addWindow(window);
 	}
 
 	private void setNamespaceTableContent(Map<String, String> nsMap) {
@@ -350,14 +396,18 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 	/** Bean to show in Master/Detail view's master table */
 	public static final class SimulationInfo {
 		private final String id;
-		private Boolean isPersistent;
+		private final boolean isPersistent;
 		public SimulationInfo(String id, boolean isPersistent) {
 			this.id = id;
 			this.isPersistent = isPersistent;
 		}
-		/** Constructor for settings selection, persistent flag is not taken into account in equals */
+		/** 
+		 * Constructor for selecting a simulation in the list which contains SimulationInfo beans,
+		 * persistent flag is not taken into account in equals, selection is based solely on ID.
+		 */
 		private SimulationInfo(String id) {
 			this.id = id;
+			this.isPersistent = false;
 		}
 		public String getSimulation() {
 			return id;

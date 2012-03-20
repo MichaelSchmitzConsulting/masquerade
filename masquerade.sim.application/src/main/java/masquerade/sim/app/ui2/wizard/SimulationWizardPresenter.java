@@ -7,6 +7,7 @@ import masquerade.sim.app.ui2.wizard.view.SimulationWizardView;
 import masquerade.sim.app.ui2.wizard.view.SimulationWizardView.SimulationWizardViewCallback;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
+import masquerade.sim.model.Script;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginRegistry;
 
@@ -46,13 +47,18 @@ public class SimulationWizardPresenter implements SimulationWizardViewCallback {
 	}
 
 	@Override
+	public Collection<Class<?>> getScriptTypes() {
+		return pluginRegistry.getExtensions(Script.class);
+	}
+
+	@Override
 	public FormFieldFactory getFormFieldFactory() {
 		return fieldFactory;
 	}
 
 	@Override
-	public void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
-		delegate.onWizardComplete(simulationId, selector, idProvider);
+	public void onWizardComplete(String simulationId, Script script, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
+		delegate.onWizardComplete(simulationId, script, selector, idProvider);
 	}
 
 	@Override

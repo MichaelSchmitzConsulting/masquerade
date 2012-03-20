@@ -20,6 +20,8 @@ public interface NamespaceResolver {
 	void setPrefixes(Map<String, String> pfxs);
 	
 	void addPrefix(String prefix, String URI);
+	void addPrefixes(Map<String, String> prefixes);
 	
 	void removePrefix(String prefix);
+
 }

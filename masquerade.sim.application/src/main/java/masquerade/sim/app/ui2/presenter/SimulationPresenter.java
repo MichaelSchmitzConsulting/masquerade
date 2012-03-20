@@ -167,4 +167,16 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	public boolean isPrefixAvailable(String pfx) {
 		return currentSelection.getNamespaceResolver().resolveNamespacePrefix(pfx) == null;
 	}
+
+	@Override
+	public void onCopyNamespaces(String simulationId) {
+		Simulation simulation = modelRepository.getSimulationForUpdate(simulationId);
+		if (simulation != null && currentSelection != null) {
+			currentSelection.getNamespaceResolver().addPrefixes(
+					simulation.getNamespaceResolver().getKnownNamespaces());
+			
+			reloadNamespaces();
+			view.setNamespaces(namespaces);
+		}
+	}
 }

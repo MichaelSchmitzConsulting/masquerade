@@ -8,7 +8,6 @@ import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.impl.DefaultSimulation;
-import masquerade.sim.model.impl.SequenceScript;
 import masquerade.sim.model.repository.ModelRepository;
 import masquerade.sim.plugin.PluginRegistry;
 
@@ -32,8 +31,8 @@ public class SimulationFactoryImpl implements SimulationFactory {
 	@Override
 	public void createSimulation(final SimulationFactoryCallback callback) {
 		SimulationWizardCallback wizardCallback = new SimulationWizardCallback() {
-			@Override public void onWizardComplete(String simulationId, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
-				Script script = new SequenceScript();
+			@Override 
+			public void onWizardComplete(String simulationId, Script script, RequestMapping<?> selector, RequestIdProvider<?> idProvider) {
 				Simulation simulation = new DefaultSimulation(simulationId, selector, idProvider, script);
 				callback.onCreate(simulation);
 			}

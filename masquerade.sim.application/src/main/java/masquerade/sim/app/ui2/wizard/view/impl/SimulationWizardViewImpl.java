@@ -3,6 +3,7 @@ package masquerade.sim.app.ui2.wizard.view.impl;
 import masquerade.sim.app.ui2.wizard.view.SimulationWizardView;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
+import masquerade.sim.model.Script;
 import masquerade.sim.util.WindowUtil;
 
 import org.vaadin.teemu.wizards.Wizard;
@@ -31,6 +32,8 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 	@Override
 	public void showWizard() {
 		final CreateSimulationStep simulationStep = new CreateSimulationStep(callback);
+		final CreateBeanStep<Script> scriptStep = 
+			new CreateBeanStep<Script>(callback.getScriptTypes(), callback.getFormFieldFactory(), "Script");
 		final CreateBeanStep<RequestMapping<?>> selectorStep = 
 			new CreateBeanStep<RequestMapping<?>>(callback.getSelectorTypes(), callback.getFormFieldFactory(), "Selector");
 		final CreateBeanStep<RequestIdProvider<?>> idProviderStep = 
@@ -38,9 +41,11 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 
 		Wizard wizard = new Wizard();
 		wizard.addStep(simulationStep);
+		wizard.addStep(scriptStep);
 		wizard.addStep(selectorStep);
 		wizard.addStep(idProviderStep);
 
+		setCaption("Create Simulation");
 		setWidth("600px");
 		setHeight("300px");
 		setContent(wizard);
@@ -53,7 +58,8 @@ public class SimulationWizardViewImpl extends Window implements SimulationWizard
 				String simulationId = simulationStep.getSimulationId();
 				RequestMapping<?> selector = selectorStep.getBean();
 				RequestIdProvider<?> idProvider = idProviderStep.getBean();
-				callback.onWizardComplete(simulationId, selector, idProvider);
+				Script script = scriptStep.getBean();
+				callback.onWizardComplete(simulationId, script, selector, idProvider);
 				closeWizard();
 			}
 			@Override public void wizardCancelled(WizardCancelledEvent event) {

@@ -32,6 +32,13 @@ public class NamespaceResolverImpl implements NamespaceResolver {
 	}
 
 	@Override
+	public void addPrefixes(Map<String, String> prefixes) {
+		for (Map.Entry<String, String> mapping : prefixes.entrySet()) {
+			addPrefix(mapping.getKey(), mapping.getValue());
+		}
+	}
+
+	@Override
 	public void removePrefix(String prefix) {
 		ns.remove(prefix);
 	}
