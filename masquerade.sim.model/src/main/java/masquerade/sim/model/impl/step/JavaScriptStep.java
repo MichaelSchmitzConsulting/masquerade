@@ -14,6 +14,9 @@ public class JavaScriptStep extends AbstractScriptedStep {
 		super(name);
 	}
 
+	public JavaScriptStep() {
+	}
+
 	/**
 	 * @param script the script to set
 	 */

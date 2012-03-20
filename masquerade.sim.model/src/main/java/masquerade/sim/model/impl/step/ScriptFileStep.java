@@ -21,6 +21,9 @@ public class ScriptFileStep extends AbstractScriptedStep {
 		super(name);
 	}
 
+	public ScriptFileStep() {
+	}
+
 	/**
 	 * @return the scriptFileName
 	 */

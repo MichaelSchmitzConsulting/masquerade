@@ -9,4 +9,7 @@ public class MissingScriptEngineException extends Exception {
 	public MissingScriptEngineException(String msg) {
 		super(msg);
 	}
+
+	public MissingScriptEngineException() {
+	}
 }

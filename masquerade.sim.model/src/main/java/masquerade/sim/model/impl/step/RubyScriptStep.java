@@ -8,6 +8,9 @@ public class RubyScriptStep extends AbstractScriptedStep {
 		super(name);
 	}
 	
+	public RubyScriptStep() {
+	}
+
 	/**
 	 * @return The Ruby Script
 	 */

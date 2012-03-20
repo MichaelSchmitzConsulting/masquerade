@@ -23,6 +23,9 @@ public class LoadTemplateToVariableStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public LoadTemplateToVariableStep() {
+	}
+
 	public String getTemplateName() {
 		return templateName;
 	}

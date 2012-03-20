@@ -1,6 +1,8 @@
 package masquerade.sim.model.impl.step;
 
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import static org.junit.Assert.assertEquals;
+
 import masquerade.sim.model.SimulationContextStub;
 import masquerade.sim.util.DomUtil;
 
@@ -30,5 +32,9 @@ public class RenameRootElementStepTest {
  		assertEquals("aaa", el.getPrefix());
  		assertEquals("http://test", el.getNamespaceURI());
 	}
-
+	
+	@Test
+	public void testClone() throws Exception {
+		assertCanClone(new RenameRootElementStep("bla"));
+	}
 }

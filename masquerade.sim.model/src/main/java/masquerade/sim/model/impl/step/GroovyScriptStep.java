@@ -8,6 +8,9 @@ public class GroovyScriptStep extends AbstractScriptedStep {
 		super(name);
 	}
 
+	public GroovyScriptStep() {
+	}
+
 	/**
 	 * @return The Groovy Script
 	 */

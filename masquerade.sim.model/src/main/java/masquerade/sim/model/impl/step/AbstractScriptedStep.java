@@ -20,6 +20,9 @@ public abstract class AbstractScriptedStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public AbstractScriptedStep() {
+	}
+
 	/**
 	 * @return the description
 	 */

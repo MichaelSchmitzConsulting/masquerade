@@ -20,6 +20,10 @@ public class RenameRootElementStep extends AbstractSimulationStep {
 		super(name);
 	}
 	
+	public RenameRootElementStep() {
+		super();
+	}
+	
 	@Override
 	public void execute(SimulationContext context) throws Exception {
 		Document doc = context.getContent(Document.class);

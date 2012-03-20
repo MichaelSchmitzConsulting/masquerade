@@ -13,6 +13,9 @@ public class SetResponseContentStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 	
+	public SetResponseContentStep() {
+	}
+
 	/**
 	 * @return the content
 	 */

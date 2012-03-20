@@ -12,6 +12,9 @@ public abstract class AbstractSubstitutingStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public AbstractSubstitutingStep() {
+	}
+
 	/**
 	 * @return <code>true</code> if variables from the context should be susbstitued when loading the template
 	 */

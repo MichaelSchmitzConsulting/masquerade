@@ -30,6 +30,9 @@ public class RenameXmlNodeStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public RenameXmlNodeStep() {
+	}
+
 	/**
 	 * @return the namespaceURI
 	 */

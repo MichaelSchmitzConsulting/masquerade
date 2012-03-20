@@ -13,6 +13,9 @@ public class SendIntermediateResponseStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public SendIntermediateResponseStep() {
+	}
+
 	@Override
 	public void execute(SimulationContext context) throws Exception {
 		context.sendIntermediateResponse();

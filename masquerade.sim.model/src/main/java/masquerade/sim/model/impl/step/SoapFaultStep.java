@@ -1,10 +1,9 @@
-package masquerade.sim.model.impl;
+package masquerade.sim.model.impl.step;
 
 import java.io.IOException;
 
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationStep;
-import masquerade.sim.model.impl.step.AbstractSubstitutingStep;
 
 import org.apache.commons.io.IOUtils;
 
@@ -34,6 +33,9 @@ public class SoapFaultStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 	
+	public SoapFaultStep() {
+	}
+
 	/**
 	 * Substitutes {@link #VAR_SOAP_FAULTCODE} and {@link #VAR_SOAP_FAULTSTRING} (with default
 	 * values if variables not set in context) and returns a SOAP fault message.

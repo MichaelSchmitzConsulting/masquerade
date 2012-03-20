@@ -21,6 +21,9 @@ public class LoadTemplateStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public LoadTemplateStep() {
+	}
+
 	/**
 	 * @return the templateName
 	 */

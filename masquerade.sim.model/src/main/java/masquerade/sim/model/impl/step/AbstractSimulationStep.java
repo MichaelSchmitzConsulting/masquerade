@@ -10,13 +10,20 @@ public abstract class AbstractSimulationStep implements SimulationStep {
 	private String name;
 	
 	public AbstractSimulationStep(String name) {
-		super();
 		this.name = name;
+	}
+
+	public AbstractSimulationStep() {
+		this.name = "step";
 	}
 
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

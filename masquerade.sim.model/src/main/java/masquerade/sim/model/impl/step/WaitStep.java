@@ -10,6 +10,9 @@ public class WaitStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public WaitStep() {
+	}
+
 	public int getWaitMillis() {
 		return waitMillis;
 	}
