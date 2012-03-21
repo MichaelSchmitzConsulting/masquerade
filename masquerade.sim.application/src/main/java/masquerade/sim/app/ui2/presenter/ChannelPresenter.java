@@ -1,6 +1,7 @@
 package masquerade.sim.app.ui2.presenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import masquerade.sim.app.ui.Refreshable;
@@ -89,6 +90,7 @@ public class ChannelPresenter implements ChannelView.ChannelViewCallback, Refres
 			String type = ClassUtil.fromCamelCase(channel.getClass());
 			channels.add(new ChannelInfo(channel.getId(), type, wrapper.isPersistent()));
 		}
+		Collections.sort(channels);
 		return channels;
 	}	
 }

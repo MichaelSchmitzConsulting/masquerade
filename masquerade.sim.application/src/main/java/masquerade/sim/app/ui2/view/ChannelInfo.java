@@ -3,7 +3,7 @@ package masquerade.sim.app.ui2.view;
 /**
  * Channel information as displayed in the {@link ChannelView}
  */
-public class ChannelInfo {
+public class ChannelInfo implements Comparable<ChannelInfo> {
 	private final String id;
 	private final String  type;
 	private final boolean isPersistent;
@@ -43,5 +43,9 @@ public class ChannelInfo {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	@Override
+	public int compareTo(ChannelInfo other) {
+		return id.compareTo(other.id);
 	}
 }
