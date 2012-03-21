@@ -2,6 +2,7 @@ package masquerade.sim.model.impl.step;
 
 import static masquerade.sim.model.impl.step.StepTestSupport.assertElementExists;
 import static masquerade.sim.model.impl.step.StepTestSupport.assertElementNotExists;
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationContextStub;
 import masquerade.sim.util.DomUtil;
@@ -30,5 +31,10 @@ public class ReplaceElementStepTest {
 		
 		assertElementExists(request, "/root/newChild");
 		assertElementNotExists(request, "/root/child");
+	}
+	
+	@Test
+	public void testClone() {
+		assertCanClone(new ReplaceElementStep());
 	}
 }

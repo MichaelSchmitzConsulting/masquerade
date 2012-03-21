@@ -33,6 +33,9 @@ public class ReplaceElementStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public ReplaceElementStep() {
+	}
+
 	@Override
     public void execute(SimulationContext context) throws Exception {
 		Element response = parseResponseElement(context);

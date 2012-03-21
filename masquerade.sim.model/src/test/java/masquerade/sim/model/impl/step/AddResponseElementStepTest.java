@@ -1,5 +1,6 @@
 package masquerade.sim.model.impl.step;
 
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import static org.junit.Assert.assertEquals;
 
 
@@ -72,5 +73,10 @@ public class AddResponseElementStepTest {
 		
 		Element child = (Element) response.getDocumentElement().getElementsByTagName("child").item(0);
 		assertEquals(VAR_VALUE, child.getAttribute("id"));
+	}
+
+	@Test
+	public void testClone() {
+		assertCanClone(new AddResponseElementStep());
 	}
 }

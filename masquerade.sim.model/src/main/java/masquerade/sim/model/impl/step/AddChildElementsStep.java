@@ -41,6 +41,9 @@ public class AddChildElementsStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public AddChildElementsStep() {
+	}
+
 	public String getParentXpath() {
 		return parentXpath;
 	}

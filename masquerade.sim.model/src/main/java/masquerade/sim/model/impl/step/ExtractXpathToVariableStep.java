@@ -20,6 +20,9 @@ public class ExtractXpathToVariableStep extends AbstractSimulationStep {
 		super(name);
 	}
 
+	public ExtractXpathToVariableStep() {
+	}
+
 	@Override
 	public void execute(SimulationContext context) throws Exception {
 		Document request = context.getRequest(Document.class);

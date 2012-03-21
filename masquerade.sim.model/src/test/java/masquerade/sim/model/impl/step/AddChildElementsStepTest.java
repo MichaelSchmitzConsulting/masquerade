@@ -1,5 +1,6 @@
 package masquerade.sim.model.impl.step;
 
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -41,6 +42,11 @@ public class AddChildElementsStepTest {
 		assertTrue(XPathUtil.evaluateBoolean("/root/x/child1", result));
 		assertTrue(XPathUtil.evaluateBoolean("/root/x/child2", result));
 		assertEquals(2, result.getElementsByTagName("x").item(0).getChildNodes().getLength());
+	}
+
+	@Test
+	public void testClone() {
+		assertCanClone(new AddChildElementsStep());
 	}
 
 }

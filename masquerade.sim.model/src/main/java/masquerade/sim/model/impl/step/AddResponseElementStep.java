@@ -35,6 +35,9 @@ public class AddResponseElementStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public AddResponseElementStep() {
+	}
+
 	@Override
     public void execute(SimulationContext context) throws Exception {
 	    Document content = context.getContent(Document.class);

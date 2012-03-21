@@ -1,5 +1,6 @@
 package masquerade.sim.model.impl.step;
 
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import static org.junit.Assert.assertEquals;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationContextStub;
@@ -29,6 +30,11 @@ public class ExtractXpathToVariableStepTest {
 		step.execute(context);
 		
 		assertEquals("123", context.getVariable(VAR));
+	}
+
+	@Test
+	public void testClone() {
+		assertCanClone(new ExtractXpathToVariableStep());
 	}
 
 }

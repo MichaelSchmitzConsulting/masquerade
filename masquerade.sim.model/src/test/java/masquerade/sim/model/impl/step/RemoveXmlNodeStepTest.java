@@ -1,6 +1,7 @@
 package masquerade.sim.model.impl.step;
 
 import static masquerade.sim.model.impl.step.StepTestSupport.assertElementNotExists;
+import static masquerade.sim.util.BeanCloneAssert.assertCanClone;
 import masquerade.sim.model.SimulationContext;
 import masquerade.sim.model.SimulationContextStub;
 import masquerade.sim.util.DomUtil;
@@ -24,5 +25,10 @@ public class RemoveXmlNodeStepTest {
 		step.execute(context);
 		
 		assertElementNotExists(request, "/root/child");
+	}
+
+	@Test
+	public void testClone() {
+		assertCanClone(new RemoveXmlNodeStep());
 	}
 }

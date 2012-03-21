@@ -29,6 +29,9 @@ public class RemoveXmlNodeStep extends AbstractSubstitutingStep {
 		super(name);
 	}
 
+	public RemoveXmlNodeStep() {
+	}
+
 	@Override
     public void execute(SimulationContext context) throws Exception {
 		if (isEmpty(nodeXpath)) {
