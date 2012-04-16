@@ -54,7 +54,9 @@ public class CoreInitializer {
 	private Collection<ServiceRegistration> registrations = new ArrayList<ServiceRegistration>();
 	private InternalPluginManager pluginManager;
 
-	private FrameworkListener initializingListener; 
+	private FrameworkListener initializingListener;
+
+	private InMemoryRequestHistoryStorage requestHistoryStorage; 
 	
 	/**
 	 * Application startup, initialize database, configuration and all channel listeners
@@ -102,8 +104,8 @@ public class CoreInitializer {
 			ModelRepositoryImpl modelRepository = new ModelRepositoryImpl(persistenceService);
 			registerService(ModelRepository.class, modelRepository, bundleContext);
 			
-			// Create request history
-			RequestHistory requestHistory = new RequestHistoryImpl(new InMemoryRequestHistoryStorage(), requestLogDir);
+			requestHistoryStorage = new InMemoryRequestHistoryStorage();
+			RequestHistory requestHistory = new RequestHistoryImpl(requestHistoryStorage, requestLogDir);
 			registerService(RequestHistory.class, requestHistory, bundleContext);
 
 			// Create response provider
@@ -174,7 +176,9 @@ public class CoreInitializer {
 		}
 		
 		// Clear request history log files if kept in-memory
-		InMemoryRequestHistoryStorage.onShutdown();
+		if (requestHistoryStorage != null) {
+			requestHistoryStorage.onShutdown();
+		}
 	}
 
 	private <T> void registerService(Class<T> serviceInterface, T service, BundleContext bundleContext) {

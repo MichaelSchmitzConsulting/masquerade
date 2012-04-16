@@ -10,10 +10,10 @@ import masquerade.sim.model.history.HistoryEntry;
 
 public class InMemoryRequestHistoryStorage implements RequestHistoryStorage {
 
-	private final static Object lock = new Object();
+	private final Object lock = new Object();
 	
-	private static List<HistoryEntry> store = new ArrayList<HistoryEntry>();
-	private final static Map<String, HistoryEntry> requestId2EntryMap = new HashMap<String, HistoryEntry>();
+	private List<HistoryEntry> store = new ArrayList<HistoryEntry>();
+	private final Map<String, HistoryEntry> requestId2EntryMap = new HashMap<String, HistoryEntry>();
 	
 	@Override
 	public void newEntry(HistoryEntry entry) {
@@ -37,7 +37,7 @@ public class InMemoryRequestHistoryStorage implements RequestHistoryStorage {
 		clearSharedStorage();
 	}
 
-	private static void clearSharedStorage() {
+	private void clearSharedStorage() {
 		List<HistoryEntry> toDelete;
 		synchronized (lock) {
 			toDelete = new ArrayList<HistoryEntry>(store);
@@ -109,7 +109,7 @@ public class InMemoryRequestHistoryStorage implements RequestHistoryStorage {
 		deleteFiles(removalList);
 	}
 
-	public static void onShutdown() {
+	public void onShutdown() {
 		clearSharedStorage();
 	}
 }
