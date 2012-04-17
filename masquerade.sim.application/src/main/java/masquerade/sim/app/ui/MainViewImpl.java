@@ -1,6 +1,5 @@
 package masquerade.sim.app.ui;
 
-import static masquerade.sim.app.ui.Icons.ARTIFACT;
 import static masquerade.sim.app.ui.Icons.IMPORTEXPORT;
 import static masquerade.sim.app.ui.Icons.PLUGINS;
 import static masquerade.sim.app.ui.Icons.REQUEST_HISTORY;
@@ -14,7 +13,6 @@ import java.util.Map;
 
 import masquerade.sim.app.binding.ContainerFactory;
 import masquerade.sim.app.binding.RequestHistoryContainerFactory;
-import masquerade.sim.app.ui.view.FileManagerView;
 import masquerade.sim.app.ui.view.RequestHistoryView;
 import masquerade.sim.app.ui2.view.MainView;
 import masquerade.sim.model.Settings;
@@ -157,7 +155,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 	}
 
 	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, String baseUrl) {				
-		Component fileManager = createFileManager(artifactRoot);
 		Component requestHistoryUi = createRequestHistoryView(requestHistory);
 
 		// Tabsheet
@@ -166,7 +163,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		tabSheet.setWidth("100%");
 
 		// Add tabs
-		tabSheet.addTab(fileManager, "Files", ARTIFACT.icon(baseUrl));
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
 
 		// Refresh view contents on tab selection
@@ -183,10 +179,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 				requestHistoryView.refresh((Filterable) history.createContainer());
 			}
 		};
-	}
-
-	private Component createFileManager(File artifactRoot) {
-		return new FileManagerView(artifactRoot);
 	}
 
 	private SelectedTabChangeListener createTabSelectionListener() {

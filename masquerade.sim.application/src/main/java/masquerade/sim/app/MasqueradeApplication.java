@@ -1,5 +1,6 @@
 package masquerade.sim.app;
 
+import static masquerade.sim.app.ui.Icons.ARTIFACT;
 import static masquerade.sim.app.ui.Icons.LISTENER;
 import static masquerade.sim.app.ui.Icons.SIMULATION;
 import static masquerade.sim.app.ui.Icons.STATUS;
@@ -16,11 +17,13 @@ import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
 import masquerade.sim.app.ui2.factory.impl.SimulationFactoryImpl;
 import masquerade.sim.app.ui2.presenter.ChannelPresenter;
+import masquerade.sim.app.ui2.presenter.FileManagerPresenter;
 import masquerade.sim.app.ui2.presenter.MainViewPresenter;
 import masquerade.sim.app.ui2.presenter.RequestTestPresenter;
 import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.presenter.StatusViewPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
+import masquerade.sim.app.ui2.view.impl.FileManagerViewImpl;
 import masquerade.sim.app.ui2.view.impl.RequestTestViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
 import masquerade.sim.app.ui2.view.impl.StatusViewImpl;
@@ -145,6 +148,12 @@ public class MasqueradeApplication extends Application {
 		StatusViewPresenter statusViewPresenter = new StatusViewPresenter(statusView);
 		statusView.bind(statusViewPresenter);
 		mainLayout.addTab(statusView, STATUS.icon(baseUrl), statusViewPresenter);
+		
+		// File manager tab
+		FileManagerViewImpl fileView = new FileManagerViewImpl();
+		FileManagerPresenter filePresenter = new FileManagerPresenter(artifactRoot, fileView);
+		fileView.bind(filePresenter);
+		mainLayout.addTab(fileView, ARTIFACT.icon(baseUrl), filePresenter);
 		
 		// Request test tab
 		RequestTestViewImpl requestTestView = new RequestTestViewImpl();
