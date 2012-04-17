@@ -72,7 +72,7 @@ public class SimulationViewImpl extends VerticalLayout implements SimulationView
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
-
+		
 		// Create layout
 	    HorizontalLayout mainLayout = new HorizontalLayout();
 	    

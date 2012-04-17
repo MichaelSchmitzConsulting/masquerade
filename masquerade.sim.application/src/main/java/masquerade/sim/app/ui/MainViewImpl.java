@@ -5,7 +5,6 @@ import static masquerade.sim.app.ui.Icons.IMPORTEXPORT;
 import static masquerade.sim.app.ui.Icons.PLUGINS;
 import static masquerade.sim.app.ui.Icons.REQUEST_HISTORY;
 import static masquerade.sim.app.ui.Icons.SETTINGS;
-import static masquerade.sim.app.ui.Icons.STATUS;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import masquerade.sim.app.binding.ContainerFactory;
 import masquerade.sim.app.binding.RequestHistoryContainerFactory;
 import masquerade.sim.app.ui.view.FileManagerView;
 import masquerade.sim.app.ui.view.RequestHistoryView;
-import masquerade.sim.app.ui.view.StatusView;
 import masquerade.sim.app.ui2.view.MainView;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.history.HistoryEntry;
@@ -26,7 +24,6 @@ import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.listener.UpdateListener;
 import masquerade.sim.model.settings.SettingsProvider;
 import masquerade.sim.plugin.PluginManager;
-import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.WindowUtil;
 
 import org.apache.commons.io.IOUtils;
@@ -64,7 +61,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 
 	private RequestHistoryView requestHistoryView;
 
-	private StatusView statusView;
 	private final TabSheet tabSheet;
 	private final Map<Component, Refreshable> refreshMap = new HashMap<Component, Refreshable>();
 
@@ -160,11 +156,9 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		PluginDialog.showModal(getWindow(), pluginManager);
 	}
 
-	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, String baseUrl) {
-				
+	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, String baseUrl) {				
 		Component fileManager = createFileManager(artifactRoot);
 		Component requestHistoryUi = createRequestHistoryView(requestHistory);
-		Component status = createStatusView();
 
 		// Tabsheet
 		TabSheet tabSheet = new TabSheet();
@@ -174,45 +168,12 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		// Add tabs
 		tabSheet.addTab(fileManager, "Files", ARTIFACT.icon(baseUrl));
 		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
-		tabSheet.addTab(status, "Log", STATUS.icon(baseUrl));
 
 		// Refresh view contents on tab selection
 		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
-		refreshMap.put(status, createStatusViewRefresher());
 		tabSheet.addListener(createTabSelectionListener());
 
 		return tabSheet;
-	}
-
-	private Refreshable createStatusViewRefresher() {
-		return new Refreshable() {
-			@Override public void onRefresh() {
-				statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
-			}
-		};
-	}
-
-	private Component createStatusView() {
-		statusView = new StatusView();
-		statusView.setSizeFull();
-		statusView.setMargin(true);
-		statusView.setSizeFull();
-		
-		statusView.addRefreshListener(new ClickListener() {
-			private Refreshable refresher = createStatusViewRefresher();
-			@Override public void buttonClick(ClickEvent event) {
-				refresher.onRefresh();
-			}
-		});
-		
-		statusView.addClearListener(new ClickListener() {
-			@Override public void buttonClick(ClickEvent event) {
-				StatusLogger.REPOSITORY.clear();
-				statusView.refresh(StatusLogger.REPOSITORY.latestStatusLogs());
-			}
-		});
-		
-		return statusView;
 	}
 
 	private Refreshable createHistoryRefresher(RequestHistory requestHistory) {

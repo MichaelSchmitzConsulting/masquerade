@@ -1,10 +1,11 @@
-package masquerade.sim.app.ui.view;
+package masquerade.sim.app.ui2.view.impl;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.util.Collection;
 
 import masquerade.sim.app.ui.SourceViewWindow;
+import masquerade.sim.app.ui2.view.StatusView;
 import masquerade.sim.status.Status;
 
 import org.vaadin.codemirror2.client.ui.CodeMode;
@@ -14,6 +15,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
@@ -24,7 +26,7 @@ import com.vaadin.ui.VerticalLayout;
  * Informations, warnings, errors.
  */
 @SuppressWarnings("serial")
-public class StatusView extends VerticalLayout {
+public class StatusViewImpl extends VerticalLayout implements StatusView {
 	private static final String[] COLUMNS = new String[]{ 
 		"timestamp", "severity", "message" 
 	};
@@ -35,25 +37,32 @@ public class StatusView extends VerticalLayout {
 
 	private Button clearButton;
 
-	public StatusView() {
+	private StatusViewCallback callback;
+
+	public StatusViewImpl() {
+		setCaption("Event Log");
 		buildLayout();
 	}
 
+	@Override
 	public void refresh(Collection<Status> statusLog) {
 		table.setContainerDataSource(createContainer(statusLog));
 		table.setVisibleColumns(COLUMNS);
 		table.setColumnExpandRatio("message", 1.0f);
 	}
 	
-	public void addRefreshListener(ClickListener clickListener) {
-		refreshButton.addListener(clickListener);
-	}
-	
 	public void addClearListener(ClickListener clickListener) {
 		clearButton.addListener(clickListener);
 	}
 	
+	public void bind(StatusViewCallback callback) {
+		this.callback = callback;
+	}
+
 	private void buildLayout() {
+		setSizeFull();
+		setMargin(true);
+		
 		// Table
 		table = new Table();
 		table.setSizeFull();
@@ -79,10 +88,22 @@ public class StatusView extends VerticalLayout {
 		buttonLayout.setSpacing(true);
 		refreshButton = new Button("Refresh");
 		buttonLayout.addComponent(refreshButton);
-
+		refreshButton.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				callback.onRefresh();
+			}
+		});
+		
 		clearButton = new Button("Clear");
 		buttonLayout.addComponent(clearButton);
 		addComponent(buttonLayout);
+		clearButton.addListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				callback.onClear();
+			}
+		});
 	}
 
 	private Container createContainer(Collection<Status> statusLog) {

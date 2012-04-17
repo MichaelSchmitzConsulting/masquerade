@@ -2,6 +2,7 @@ package masquerade.sim.app;
 
 import static masquerade.sim.app.ui.Icons.LISTENER;
 import static masquerade.sim.app.ui.Icons.SIMULATION;
+import static masquerade.sim.app.ui.Icons.STATUS;
 import static masquerade.sim.app.ui.Icons.TEST;
 
 import java.io.File;
@@ -18,9 +19,11 @@ import masquerade.sim.app.ui2.presenter.ChannelPresenter;
 import masquerade.sim.app.ui2.presenter.MainViewPresenter;
 import masquerade.sim.app.ui2.presenter.RequestTestPresenter;
 import masquerade.sim.app.ui2.presenter.SimulationPresenter;
+import masquerade.sim.app.ui2.presenter.StatusViewPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
 import masquerade.sim.app.ui2.view.impl.RequestTestViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
+import masquerade.sim.app.ui2.view.impl.StatusViewImpl;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.SimulationRunner;
 import masquerade.sim.model.config.Configuration;
@@ -137,6 +140,12 @@ public class MasqueradeApplication extends Application {
 				settingsChangeListener, baseUrl, pluginManager, 
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 
+		// Status/logging tab
+		StatusViewImpl statusView = new StatusViewImpl();
+		StatusViewPresenter statusViewPresenter = new StatusViewPresenter(statusView);
+		statusView.bind(statusViewPresenter);
+		mainLayout.addTab(statusView, STATUS.icon(baseUrl), statusViewPresenter);
+		
 		// Request test tab
 		RequestTestViewImpl requestTestView = new RequestTestViewImpl();
 		RequestTestPresenter requestTestPresenter = new RequestTestPresenter(simulationRunner, modelRepository, requestTestView);
