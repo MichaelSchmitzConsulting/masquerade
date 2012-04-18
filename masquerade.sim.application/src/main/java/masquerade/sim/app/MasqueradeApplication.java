@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import masquerade.sim.app.ui.MainViewImpl;
 import masquerade.sim.app.ui2.factory.ChannelFactory;
 import masquerade.sim.app.ui2.factory.SimulationFactory;
 import masquerade.sim.app.ui2.factory.impl.ChannelFactoryImpl;
@@ -26,6 +25,7 @@ import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.presenter.StatusViewPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
 import masquerade.sim.app.ui2.view.impl.FileManagerViewImpl;
+import masquerade.sim.app.ui2.view.impl.MainViewImpl;
 import masquerade.sim.app.ui2.view.impl.RequestHistoryViewImpl;
 import masquerade.sim.app.ui2.view.impl.RequestTestViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
@@ -141,10 +141,9 @@ public class MasqueradeApplication extends Application {
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
 		// Main view container with tab sheet and top links
-		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry, pluginManager);
-		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo,
-				settingsChangeListener, baseUrl,
-				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
+		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry,
+				pluginManager, settingsProvider, settingsChangeListener, getVersionInformation(serviceLocator.getConfiguration()));
+		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo, baseUrl);
 
 		// Request history tab
 		RequestHistoryViewImpl requestHistoryView = new RequestHistoryViewImpl();

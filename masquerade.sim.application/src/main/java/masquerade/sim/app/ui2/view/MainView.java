@@ -9,5 +9,6 @@ public interface MainView {
 	public interface MainViewCallback {
 		void onImportExport();
 		void onManagePlugins();
+		void onSettings();
 	}
 }
