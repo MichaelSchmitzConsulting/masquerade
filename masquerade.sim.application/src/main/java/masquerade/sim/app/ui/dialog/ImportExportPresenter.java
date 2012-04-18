@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.dialog;
+package masquerade.sim.app.ui.dialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,9 +7,9 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import masquerade.sim.app.ui2.dialog.ImportUploadHandler.UploadListener;
-import masquerade.sim.app.ui2.dialog.view.ImportExportView;
-import masquerade.sim.app.ui2.dialog.view.ImportExportView.ImportExportViewCallback;
+import masquerade.sim.app.ui.dialog.ImportUploadHandler.UploadListener;
+import masquerade.sim.app.ui.dialog.view.ImportExportView;
+import masquerade.sim.app.ui.dialog.view.ImportExportView.ImportExportViewCallback;
 import masquerade.sim.app.util.NamedFileResource;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.Channel;

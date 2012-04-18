@@ -1,6 +1,6 @@
-package masquerade.sim.app.ui2.factory.impl;
+package masquerade.sim.app.ui.factory.impl;
 
-import masquerade.sim.app.ui2.factory.ChannelFactory;
+import masquerade.sim.app.ui.factory.ChannelFactory;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.ModelInstanceTypeProvider;
 import masquerade.sim.model.listener.CreateApprover;

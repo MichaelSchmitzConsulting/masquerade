@@ -1,12 +1,12 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import masquerade.sim.app.ui.UploadFileWindow;
-import masquerade.sim.app.ui.UploadFileWindow.UploadResultListener;
-import masquerade.sim.app.ui2.view.FileManagerView;
+import masquerade.sim.app.ui.dialog.UploadFileWindow;
+import masquerade.sim.app.ui.dialog.UploadFileWindow.UploadResultListener;
+import masquerade.sim.app.ui.view.FileManagerView;
 import masquerade.sim.model.FileType;
 import masquerade.sim.model.listener.DeleteListener;
 import masquerade.sim.model.ui.MasterDetailView;

@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import masquerade.sim.app.ui2.view.SimulationView;
+import masquerade.sim.app.ui.view.SimulationView;
 import masquerade.sim.app.util.BeanUiUtils;
 import masquerade.sim.app.util.NamespacePrefix;
 import masquerade.sim.model.RequestIdProvider;

@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
 import java.io.File;
 
-import masquerade.sim.app.ui2.view.FileManagerView;
-import masquerade.sim.app.ui2.view.FileManagerView.FileManagerViewCallback;
+import masquerade.sim.app.ui.view.FileManagerView;
+import masquerade.sim.app.ui.view.FileManagerView.FileManagerViewCallback;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 

@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import java.util.List;
 
-import masquerade.sim.app.ui2.view.ChannelInfo;
-import masquerade.sim.app.ui2.view.ChannelView;
+import masquerade.sim.app.ui.view.ChannelInfo;
+import masquerade.sim.app.ui.view.ChannelView;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.listener.DeleteListener;
 import masquerade.sim.model.listener.UpdateListener;

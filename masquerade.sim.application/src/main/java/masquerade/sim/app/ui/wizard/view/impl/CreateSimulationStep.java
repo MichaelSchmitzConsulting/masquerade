@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.wizard.view.impl;
+package masquerade.sim.app.ui.wizard.view.impl;
 
 import masquerade.sim.model.listener.CreateApprover;
 

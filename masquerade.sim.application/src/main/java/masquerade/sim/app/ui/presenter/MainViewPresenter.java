@@ -1,12 +1,12 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
-import masquerade.sim.app.ui.PluginDialog;
-import masquerade.sim.app.ui2.dialog.ImportExportPresenter;
-import masquerade.sim.app.ui2.dialog.view.ImportExportView;
-import masquerade.sim.app.ui2.dialog.view.impl.ImportExportViewImpl;
-import masquerade.sim.app.ui2.dialog.view.impl.SettingsDialog;
-import masquerade.sim.app.ui2.view.MainView;
-import masquerade.sim.app.ui2.view.MainView.MainViewCallback;
+import masquerade.sim.app.ui.dialog.ImportExportPresenter;
+import masquerade.sim.app.ui.dialog.PluginDialog;
+import masquerade.sim.app.ui.dialog.view.ImportExportView;
+import masquerade.sim.app.ui.dialog.view.impl.ImportExportViewImpl;
+import masquerade.sim.app.ui.dialog.view.impl.SettingsDialog;
+import masquerade.sim.app.ui.view.MainView;
+import masquerade.sim.app.ui.view.MainView.MainViewCallback;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.importexport.Importer;

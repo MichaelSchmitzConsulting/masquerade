@@ -1,14 +1,14 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import masquerade.sim.app.ui2.Refreshable;
-import masquerade.sim.app.ui2.factory.ChannelFactory;
-import masquerade.sim.app.ui2.factory.ChannelFactory.ChannelFactoryCallback;
-import masquerade.sim.app.ui2.view.ChannelInfo;
-import masquerade.sim.app.ui2.view.ChannelView;
+import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui.factory.ChannelFactory;
+import masquerade.sim.app.ui.factory.ChannelFactory.ChannelFactoryCallback;
+import masquerade.sim.app.ui.view.ChannelInfo;
+import masquerade.sim.app.ui.view.ChannelView;
 import masquerade.sim.channellistener.ChannelListenerRegistry;
 import masquerade.sim.model.Channel;
 import masquerade.sim.model.repository.ChannelWrapper;

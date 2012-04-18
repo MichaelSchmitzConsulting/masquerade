@@ -1,11 +1,11 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui2.dialog.view.impl.SourceViewWindow;
-import masquerade.sim.app.ui2.view.StatusView;
+import masquerade.sim.app.ui.dialog.view.impl.SourceViewWindow;
+import masquerade.sim.app.ui.view.StatusView;
 import masquerade.sim.status.Status;
 
 import org.vaadin.codemirror2.client.ui.CodeMode;

@@ -1,13 +1,13 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
-import masquerade.sim.app.ui2.Refreshable;
-import masquerade.sim.app.ui2.view.RequestTestView;
-import masquerade.sim.app.ui2.view.RequestTestView.RequestTestViewCallback;
+import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui.view.RequestTestView;
+import masquerade.sim.app.ui.view.RequestTestView.RequestTestViewCallback;
 import masquerade.sim.model.ResponseCallback;
 import masquerade.sim.model.ResponseDestination;
 import masquerade.sim.model.SimulationRunner;

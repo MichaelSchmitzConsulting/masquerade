@@ -1,8 +1,8 @@
-package masquerade.sim.app.ui2.wizard.view;
+package masquerade.sim.app.ui.wizard.view;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui2.wizard.SimulationWizard.SimulationWizardCallback;
+import masquerade.sim.app.ui.wizard.SimulationWizard.SimulationWizardCallback;
 import masquerade.sim.model.listener.CreateApprover;
 
 import com.vaadin.ui.FormFieldFactory;

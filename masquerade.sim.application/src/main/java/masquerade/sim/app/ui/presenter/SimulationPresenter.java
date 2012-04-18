@@ -1,17 +1,17 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import masquerade.sim.app.ui2.Refreshable;
-import masquerade.sim.app.ui2.dialog.view.EditNamespacePrefixView.EditNamespacePrefixViewCallback;
-import masquerade.sim.app.ui2.dialog.view.impl.EditNamespacePrefixViewImpl;
-import masquerade.sim.app.ui2.factory.SimulationFactory;
-import masquerade.sim.app.ui2.factory.SimulationFactory.SimulationFactoryCallback;
-import masquerade.sim.app.ui2.view.SimulationView;
-import masquerade.sim.app.ui2.view.impl.SimulationViewImpl.SimulationInfo;
+import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui.dialog.view.EditNamespacePrefixView.EditNamespacePrefixViewCallback;
+import masquerade.sim.app.ui.dialog.view.impl.EditNamespacePrefixViewImpl;
+import masquerade.sim.app.ui.factory.SimulationFactory;
+import masquerade.sim.app.ui.factory.SimulationFactory.SimulationFactoryCallback;
+import masquerade.sim.app.ui.view.SimulationView;
+import masquerade.sim.app.ui.view.impl.SimulationViewImpl.SimulationInfo;
 import masquerade.sim.model.NamespaceResolver;
 import masquerade.sim.model.Simulation;
 import masquerade.sim.model.repository.ModelRepository;

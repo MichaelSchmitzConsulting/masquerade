@@ -1,10 +1,10 @@
-package masquerade.sim.app.ui2.wizard;
+package masquerade.sim.app.ui.wizard;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui2.wizard.SimulationWizard.SimulationWizardCallback;
-import masquerade.sim.app.ui2.wizard.view.SimulationWizardView;
-import masquerade.sim.app.ui2.wizard.view.SimulationWizardView.SimulationWizardViewCallback;
+import masquerade.sim.app.ui.wizard.SimulationWizard.SimulationWizardCallback;
+import masquerade.sim.app.ui.wizard.view.SimulationWizardView;
+import masquerade.sim.app.ui.wizard.view.SimulationWizardView.SimulationWizardViewCallback;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;

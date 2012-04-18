@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;

@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.view;
+package masquerade.sim.app.ui.view;
 
 import java.util.Collection;
 

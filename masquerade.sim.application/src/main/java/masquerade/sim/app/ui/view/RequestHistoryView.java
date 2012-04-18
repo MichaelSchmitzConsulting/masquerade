@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.view;
+package masquerade.sim.app.ui.view;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.Filterable;
 
-import masquerade.sim.app.ui2.Refreshable;
+import masquerade.sim.app.ui.Refreshable;
 import masquerade.sim.model.history.HistoryEntry;
 
 /**

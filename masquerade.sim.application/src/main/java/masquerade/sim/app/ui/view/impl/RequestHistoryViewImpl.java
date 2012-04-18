@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import org.vaadin.codemirror2.client.ui.CodeMode;
 
-import masquerade.sim.app.ui2.dialog.view.impl.SourceViewWindow;
-import masquerade.sim.app.ui2.view.RequestHistoryView;
+import masquerade.sim.app.ui.dialog.view.impl.SourceViewWindow;
+import masquerade.sim.app.ui.view.RequestHistoryView;
 import masquerade.sim.model.history.HistoryEntry;
 import masquerade.sim.util.WindowUtil;
 

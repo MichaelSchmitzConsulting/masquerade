@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.dialog;
+package masquerade.sim.app.ui.dialog;
 
 import com.vaadin.ui.Upload.FailedListener;
 import com.vaadin.ui.Upload.ProgressListener;

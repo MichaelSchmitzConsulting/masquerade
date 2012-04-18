@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.factory;
+package masquerade.sim.app.ui.factory;
 
 import masquerade.sim.model.Channel;
 

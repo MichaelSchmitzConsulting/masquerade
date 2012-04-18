@@ -1,8 +1,8 @@
-package masquerade.sim.app.ui2.view;
+package masquerade.sim.app.ui.view;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui2.Refreshable;
+import masquerade.sim.app.ui.Refreshable;
 import masquerade.sim.status.Status;
 
 /**

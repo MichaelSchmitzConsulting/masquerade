@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.dialog.view;
+package masquerade.sim.app.ui.dialog.view;
 
 /**
  * Dialog for editing namespace prefix to URI mappings

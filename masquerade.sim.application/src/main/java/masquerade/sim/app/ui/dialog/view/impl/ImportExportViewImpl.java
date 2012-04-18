@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.dialog.view.impl;
+package masquerade.sim.app.ui.dialog.view.impl;
 
 import java.io.IOException;
 
-import masquerade.sim.app.ui2.dialog.UploadHandler;
-import masquerade.sim.app.ui2.dialog.view.ImportExportView;
+import masquerade.sim.app.ui.dialog.UploadHandler;
+import masquerade.sim.app.ui.dialog.view.ImportExportView;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.WindowUtil;

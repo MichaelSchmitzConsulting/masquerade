@@ -1,6 +1,6 @@
-package masquerade.sim.app.ui2.wizard.view.impl;
+package masquerade.sim.app.ui.wizard.view.impl;
 
-import masquerade.sim.app.ui2.wizard.view.SimulationWizardView;
+import masquerade.sim.app.ui.wizard.view.SimulationWizardView;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;

@@ -1,10 +1,10 @@
-package masquerade.sim.app.ui2.view;
+package masquerade.sim.app.ui.view;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import masquerade.sim.app.ui2.view.impl.SimulationViewImpl.SimulationInfo;
+import masquerade.sim.app.ui.view.impl.SimulationViewImpl.SimulationInfo;
 import masquerade.sim.model.Simulation;
 
 /**

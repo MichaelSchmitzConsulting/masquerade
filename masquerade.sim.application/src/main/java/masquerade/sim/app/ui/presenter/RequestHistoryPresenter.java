@@ -1,11 +1,11 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import masquerade.sim.app.binding.RequestHistoryContainerFactory;
-import masquerade.sim.app.ui2.view.RequestHistoryView;
-import masquerade.sim.app.ui2.view.RequestHistoryView.RequestHistoryViewCallback;
+import masquerade.sim.app.ui.view.RequestHistoryView;
+import masquerade.sim.app.ui.view.RequestHistoryView.RequestHistoryViewCallback;
 import masquerade.sim.model.history.HistoryEntry;
 import masquerade.sim.model.history.RequestHistory;
 

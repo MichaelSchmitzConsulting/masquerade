@@ -1,8 +1,8 @@
-package masquerade.sim.app.ui2.factory.impl;
+package masquerade.sim.app.ui.factory.impl;
 
-import masquerade.sim.app.ui2.factory.SimulationFactory;
-import masquerade.sim.app.ui2.wizard.SimulationWizard;
-import masquerade.sim.app.ui2.wizard.SimulationWizard.SimulationWizardCallback;
+import masquerade.sim.app.ui.factory.SimulationFactory;
+import masquerade.sim.app.ui.wizard.SimulationWizard;
+import masquerade.sim.app.ui.wizard.SimulationWizard.SimulationWizardCallback;
 import masquerade.sim.model.RequestIdProvider;
 import masquerade.sim.model.RequestMapping;
 import masquerade.sim.model.Script;

@@ -1,14 +1,14 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
-import static masquerade.sim.app.ui2.Icons.IMPORTEXPORT;
-import static masquerade.sim.app.ui2.Icons.PLUGINS;
-import static masquerade.sim.app.ui2.Icons.SETTINGS;
+import static masquerade.sim.app.ui.Icons.IMPORTEXPORT;
+import static masquerade.sim.app.ui.Icons.PLUGINS;
+import static masquerade.sim.app.ui.Icons.SETTINGS;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import masquerade.sim.app.ui2.Refreshable;
-import masquerade.sim.app.ui2.view.MainView;
+import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui.view.MainView;
 
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Alignment;

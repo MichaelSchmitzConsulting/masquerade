@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.dialog.view.impl;
+package masquerade.sim.app.ui.dialog.view.impl;
 
 import masquerade.sim.model.Settings;
 import masquerade.sim.model.listener.UpdateListener;

@@ -1,9 +1,9 @@
-package masquerade.sim.app.ui2.view.impl;
+package masquerade.sim.app.ui.view.impl;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui2.dialog.view.impl.SourceViewWindow;
-import masquerade.sim.app.ui2.view.RequestTestView;
+import masquerade.sim.app.ui.dialog.view.impl.SourceViewWindow;
+import masquerade.sim.app.ui.view.RequestTestView;
 import masquerade.sim.status.StatusLog;
 import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.WindowUtil;

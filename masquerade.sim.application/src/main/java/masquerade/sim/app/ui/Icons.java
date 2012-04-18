@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2;
+package masquerade.sim.app.ui;
 
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.Resource;

@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2;
+package masquerade.sim.app.ui;
 
 import java.lang.reflect.Method;
 

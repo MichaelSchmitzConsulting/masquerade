@@ -1,8 +1,8 @@
-package masquerade.sim.app.ui2.dialog.view;
+package masquerade.sim.app.ui.dialog.view;
 
 import java.io.IOException;
 
-import masquerade.sim.app.ui2.dialog.UploadHandler;
+import masquerade.sim.app.ui.dialog.UploadHandler;
 
 import com.vaadin.terminal.Resource;
 

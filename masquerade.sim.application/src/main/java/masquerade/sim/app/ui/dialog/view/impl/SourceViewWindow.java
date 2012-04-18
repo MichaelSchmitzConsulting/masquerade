@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui2.dialog.view.impl;
+package masquerade.sim.app.ui.dialog.view.impl;
 
 import masquerade.sim.util.WindowUtil;
 

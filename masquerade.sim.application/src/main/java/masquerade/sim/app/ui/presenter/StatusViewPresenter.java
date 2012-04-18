@@ -1,7 +1,7 @@
-package masquerade.sim.app.ui2.presenter;
+package masquerade.sim.app.ui.presenter;
 
-import masquerade.sim.app.ui2.view.StatusView;
-import masquerade.sim.app.ui2.view.StatusView.StatusViewCallback;
+import masquerade.sim.app.ui.view.StatusView;
+import masquerade.sim.app.ui.view.StatusView.StatusViewCallback;
 import masquerade.sim.status.StatusLogger;
 
 /**
