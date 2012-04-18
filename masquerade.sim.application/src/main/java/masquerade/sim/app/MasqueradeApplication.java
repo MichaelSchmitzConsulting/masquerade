@@ -141,9 +141,9 @@ public class MasqueradeApplication extends Application {
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
 		// Main view container with tab sheet and top links
-		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry);
+		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry, pluginManager);
 		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo,
-				settingsChangeListener, baseUrl, pluginManager,
+				settingsChangeListener, baseUrl,
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 
 		// Request history tab

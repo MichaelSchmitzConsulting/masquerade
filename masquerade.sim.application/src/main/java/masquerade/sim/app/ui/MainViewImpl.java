@@ -14,7 +14,6 @@ import masquerade.sim.model.Settings;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.listener.UpdateListener;
 import masquerade.sim.model.settings.SettingsProvider;
-import masquerade.sim.plugin.PluginManager;
 
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Alignment;
@@ -41,7 +40,7 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 
 	public MainViewImpl(final MainViewCallback callback, Resource logo,
 			final SettingsChangeListener settingsChangeListener, String baseUrl, 
-			final PluginManager pluginManager, final SettingsProvider settingsProvider, final String versionInformation) {
+			final SettingsProvider settingsProvider, final String versionInformation) {
 		
 		setSizeFull();
 		setMargin(true);
@@ -61,7 +60,7 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		// Plugins link
 		Button.ClickListener pluginsListener = new Button.ClickListener() {
 			@Override public void buttonClick(ClickEvent event) {
-				showPluginsDialog(pluginManager);
+				callback.onManagePlugins();
 			}
 		};
 		addLink(header, pluginsListener, "Plugins", "Manage plugins", PLUGINS.icon(baseUrl));
@@ -125,10 +124,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 				settingsChangeListener.settingsChanged(oldSettings, settings);
 			}
 		}, versionInformation);
-	}
-
-	private void showPluginsDialog(PluginManager pluginManager) {
-		PluginDialog.showModal(getWindow(), pluginManager);
 	}
 
 	private TabSheet createTabSheet() {				
