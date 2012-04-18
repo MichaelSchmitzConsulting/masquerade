@@ -1,10 +1,11 @@
 package masquerade.sim.app;
 
-import static masquerade.sim.app.ui.Icons.ARTIFACT;
-import static masquerade.sim.app.ui.Icons.LISTENER;
-import static masquerade.sim.app.ui.Icons.SIMULATION;
-import static masquerade.sim.app.ui.Icons.STATUS;
-import static masquerade.sim.app.ui.Icons.TEST;
+import static masquerade.sim.app.ui2.Icons.ARTIFACT;
+import static masquerade.sim.app.ui2.Icons.LISTENER;
+import static masquerade.sim.app.ui2.Icons.REQUEST_HISTORY;
+import static masquerade.sim.app.ui2.Icons.SIMULATION;
+import static masquerade.sim.app.ui2.Icons.STATUS;
+import static masquerade.sim.app.ui2.Icons.TEST;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,11 +20,13 @@ import masquerade.sim.app.ui2.factory.impl.SimulationFactoryImpl;
 import masquerade.sim.app.ui2.presenter.ChannelPresenter;
 import masquerade.sim.app.ui2.presenter.FileManagerPresenter;
 import masquerade.sim.app.ui2.presenter.MainViewPresenter;
+import masquerade.sim.app.ui2.presenter.RequestHistoryPresenter;
 import masquerade.sim.app.ui2.presenter.RequestTestPresenter;
 import masquerade.sim.app.ui2.presenter.SimulationPresenter;
 import masquerade.sim.app.ui2.presenter.StatusViewPresenter;
 import masquerade.sim.app.ui2.view.impl.ChannelViewImpl;
 import masquerade.sim.app.ui2.view.impl.FileManagerViewImpl;
+import masquerade.sim.app.ui2.view.impl.RequestHistoryViewImpl;
 import masquerade.sim.app.ui2.view.impl.RequestTestViewImpl;
 import masquerade.sim.app.ui2.view.impl.SimulationViewImpl;
 import masquerade.sim.app.ui2.view.impl.StatusViewImpl;
@@ -137,12 +140,18 @@ public class MasqueradeApplication extends Application {
 		
 		SettingsProvider settingsProvider = new ModelSettingsProvider(modelRepository);
 		
-		// TODO: Refactor MainLayput for not to contain any tab content/logic
+		// Main view container with tab sheet and top links
 		MainViewPresenter mainViewPresenter = new MainViewPresenter(modelRepository, (Application) this, mainWindow, importer, channelListenerRegistry);
-		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo, requestHistory, artifactRoot,
-				settingsChangeListener, baseUrl, pluginManager, 
+		MainViewImpl mainLayout = new MainViewImpl(mainViewPresenter, logo,
+				settingsChangeListener, baseUrl, pluginManager,
 				settingsProvider, getVersionInformation(serviceLocator.getConfiguration()));
 
+		// Request history tab
+		RequestHistoryViewImpl requestHistoryView = new RequestHistoryViewImpl();
+		RequestHistoryPresenter requestHistoryPresenter = new RequestHistoryPresenter(requestHistoryView, requestHistory);
+		requestHistoryView.bind(requestHistoryPresenter);
+		mainLayout.addTab(requestHistoryView, REQUEST_HISTORY.icon(baseUrl), requestHistoryPresenter);
+		
 		// Status/logging tab
 		StatusViewImpl statusView = new StatusViewImpl();
 		StatusViewPresenter statusViewPresenter = new StatusViewPresenter(statusView);

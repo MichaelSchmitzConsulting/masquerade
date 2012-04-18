@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
-import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui2.Refreshable;
 import masquerade.sim.app.ui2.view.RequestTestView;
 import masquerade.sim.app.ui2.view.RequestTestView.RequestTestViewCallback;
 import masquerade.sim.model.ResponseCallback;

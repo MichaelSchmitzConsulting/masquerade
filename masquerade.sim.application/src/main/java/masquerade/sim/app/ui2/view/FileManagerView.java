@@ -2,7 +2,7 @@ package masquerade.sim.app.ui2.view;
 
 import java.io.File;
 
-import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui2.Refreshable;
 
 /**
  * View for managing files (e.g. response templates)

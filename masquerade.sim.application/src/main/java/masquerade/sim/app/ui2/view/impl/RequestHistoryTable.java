@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui.view;
+package masquerade.sim.app.ui2.view.impl;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -26,12 +26,12 @@ import com.vaadin.ui.VerticalLayout;
  * @see #addItemClickListener(ItemClickListener)
  */
 @SuppressWarnings("serial")
-public class RequestHistoryView extends VerticalLayout {
+public class RequestHistoryTable extends VerticalLayout {
 	
 	private TextField filterField;
 	private Table table;
 	
-	public RequestHistoryView() {
+	public RequestHistoryTable() {
 		buildLayout();
 	}
 	
@@ -40,7 +40,7 @@ public class RequestHistoryView extends VerticalLayout {
 	 * {@link HistoryEntry} objects.
 	 * @param container
 	 */
-	public void refresh(Filterable container) {
+	public void setData(Filterable container) {
 		table.setContainerDataSource(container);
         Set<Object> visCols = new LinkedHashSet<Object>(Arrays.asList(table.getVisibleColumns()));
         visCols.remove("requestTime");

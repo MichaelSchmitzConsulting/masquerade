@@ -1,46 +1,28 @@
 package masquerade.sim.app.ui;
 
-import static masquerade.sim.app.ui.Icons.IMPORTEXPORT;
-import static masquerade.sim.app.ui.Icons.PLUGINS;
-import static masquerade.sim.app.ui.Icons.REQUEST_HISTORY;
-import static masquerade.sim.app.ui.Icons.SETTINGS;
+import static masquerade.sim.app.ui2.Icons.IMPORTEXPORT;
+import static masquerade.sim.app.ui2.Icons.PLUGINS;
+import static masquerade.sim.app.ui2.Icons.SETTINGS;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import masquerade.sim.app.binding.ContainerFactory;
-import masquerade.sim.app.binding.RequestHistoryContainerFactory;
-import masquerade.sim.app.ui.view.RequestHistoryView;
+import masquerade.sim.app.ui2.Refreshable;
+import masquerade.sim.app.ui2.dialog.view.impl.SettingsDialog;
 import masquerade.sim.app.ui2.view.MainView;
 import masquerade.sim.model.Settings;
-import masquerade.sim.model.history.HistoryEntry;
-import masquerade.sim.model.history.RequestHistory;
 import masquerade.sim.model.listener.SettingsChangeListener;
 import masquerade.sim.model.listener.UpdateListener;
 import masquerade.sim.model.settings.SettingsProvider;
 import masquerade.sim.plugin.PluginManager;
-import masquerade.sim.util.WindowUtil;
 
-import org.apache.commons.io.IOUtils;
-import org.vaadin.codemirror2.client.ui.CodeMode;
-
-import com.vaadin.data.Container.Filterable;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.event.ItemClickEvent;
-import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
@@ -54,15 +36,10 @@ import com.vaadin.ui.themes.BaseTheme;
 @SuppressWarnings("serial")
 public class MainViewImpl extends VerticalLayout implements MainView {
 
-	private static final boolean RESPONSE = false;
-	private static final boolean REQUEST = true;
-
-	private RequestHistoryView requestHistoryView;
-
 	private final TabSheet tabSheet;
 	private final Map<Component, Refreshable> refreshMap = new HashMap<Component, Refreshable>();
 
-	public MainViewImpl(final MainViewCallback callback, Resource logo, RequestHistory requestHistory, File artifactRoot,
+	public MainViewImpl(final MainViewCallback callback, Resource logo,
 			final SettingsChangeListener settingsChangeListener, String baseUrl, 
 			final PluginManager pluginManager, final SettingsProvider settingsProvider, final String versionInformation) {
 		
@@ -109,7 +86,7 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		// Add header to layout
 		addComponent(header);
 
-		tabSheet = createTabSheet(requestHistory, artifactRoot, baseUrl);
+		tabSheet = createTabSheet();
 		addComponent(tabSheet);
 		setExpandRatio(tabSheet, 1.0f);
 	}
@@ -154,31 +131,16 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		PluginDialog.showModal(getWindow(), pluginManager);
 	}
 
-	private TabSheet createTabSheet(RequestHistory requestHistory, File artifactRoot, String baseUrl) {				
-		Component requestHistoryUi = createRequestHistoryView(requestHistory);
-
+	private TabSheet createTabSheet() {				
 		// Tabsheet
 		TabSheet tabSheet = new TabSheet();
 		tabSheet.setHeight("100%");
 		tabSheet.setWidth("100%");
 
-		// Add tabs
-		tabSheet.addTab(requestHistoryUi, "History", REQUEST_HISTORY.icon(baseUrl));
-
 		// Refresh view contents on tab selection
-		refreshMap.put(requestHistoryUi, createHistoryRefresher(requestHistory));
 		tabSheet.addListener(createTabSelectionListener());
 
 		return tabSheet;
-	}
-
-	private Refreshable createHistoryRefresher(RequestHistory requestHistory) {
-		final ContainerFactory history = new RequestHistoryContainerFactory(requestHistory);
-		return new Refreshable() {
-			@Override public void onRefresh() {
-				requestHistoryView.refresh((Filterable) history.createContainer());
-			}
-		};
 	}
 
 	private SelectedTabChangeListener createTabSelectionListener() {
@@ -196,110 +158,6 @@ public class MainViewImpl extends VerticalLayout implements MainView {
 		Refreshable refreshment = refreshMap.get(tabLayout);
 		if (refreshment != null) {
 			refreshment.onRefresh();
-		}
-	}
-
-	private Component createRequestHistoryView(final RequestHistory requestHistory) {
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSizeFull();
-
-		// Log table
-		requestHistoryView = new RequestHistoryView();
-		requestHistoryView.setMargin(true);
-		requestHistoryView.setSizeFull();
-		layout.addComponent(requestHistoryView);
-		layout.setExpandRatio(requestHistoryView, 1.0f);
-
-		final Refreshable refresher = createHistoryRefresher(requestHistory);
-		refresher.onRefresh();
-
-		// Show request details on double click
-		requestHistoryView.addItemClickListener(new ItemClickListener() {
-			@Override public void itemClick(ItemClickEvent event) {
-				if (event.isDoubleClick()) {
-					showHistoryContent(((HistoryEntry) event.getItemId()), REQUEST);
-				}
-			}
-		});
-
-		// Button layout container
-		HorizontalLayout bottomLayout = new HorizontalLayout();
-		bottomLayout.setMargin(false, true, true, true);
-		bottomLayout.setSpacing(true);
-		bottomLayout.setWidth("100%");
-		bottomLayout.setSpacing(true);
-		
-		// Refresh button
-		Button refreshButton = new Button("Refresh");
-		refreshButton.addListener(new ClickListener() {
-			@Override public void buttonClick(ClickEvent event) {
-				refresher.onRefresh();
-			}
-		});
-		bottomLayout.addComponent(refreshButton);
-
-		// Clear button
-		Button clearButton = new Button("Clear");
-		clearButton.addListener(new ClickListener() {
-			@Override public void buttonClick(ClickEvent event) {
-				requestHistory.clear();
-				refresher.onRefresh();
-			}
-		});
-		bottomLayout.addComponent(clearButton);
-
-		// Spacer
-		Label spacer = new Label("Double-click on history entry to show details");
-		bottomLayout.addComponent(spacer);
-		bottomLayout.setExpandRatio(spacer, 1.0f);
-
-		// Show request button
-		final Button requestButton = new Button("Show Request");
-		requestButton.setEnabled(false);
-		requestButton.addListener(new ClickListener() {
-			@Override public void buttonClick(ClickEvent event) {
-				HistoryEntry entry = requestHistoryView.getSelection();
-				showHistoryContent(entry, REQUEST);
-			}
-		});
-		bottomLayout.addComponent(requestButton);
-
-		// Show response button
-		final Button responseButton = new Button("Show Response");
-		responseButton.setEnabled(false);
-		responseButton.addListener(new ClickListener() {
-			@Override public void buttonClick(ClickEvent event) {
-				HistoryEntry entry = requestHistoryView.getSelection();
-				showHistoryContent(entry, RESPONSE);
-			}
-		});
-		bottomLayout.addComponent(responseButton);
-		
-		// Enable/disable buttons upon selection
-		requestHistoryView.addValueChangeListener(new ValueChangeListener() {
-			@Override public void valueChange(ValueChangeEvent event) {
-				boolean enabled = event.getProperty().getValue() != null;
-				responseButton.setEnabled(enabled);
-				requestButton.setEnabled(enabled);
-			}
-		});
-		
-		layout.addComponent(bottomLayout);
-
-		return layout;
-	}
-
-	private void showHistoryContent(HistoryEntry historyEntry, boolean isRequest) {
-		if (historyEntry != null) {
-			String content;
-			try {
-				InputStream stream = isRequest ? historyEntry.readRequestData() : historyEntry.readResponseData();
-				content = IOUtils.toString(stream);
-				String title = (isRequest ? "Request" : "Response") + " Viewer";
-				SourceViewWindow.showModal(getWindow(), title, content, CodeMode.XML);
-			} catch (IOException e) {
-				WindowUtil.showErrorNotification(getWindow(), "Error retrieving content", "Unable to retrieve request: " + e.getMessage());
-			}
 		}
 	}
 }

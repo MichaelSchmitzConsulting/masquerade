@@ -1,4 +1,4 @@
-package masquerade.sim.app.ui;
+package masquerade.sim.app.ui2;
 
 /**
  * Listener handling view data reloadings

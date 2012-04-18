@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui2.Refreshable;
 import masquerade.sim.app.ui2.factory.ChannelFactory;
 import masquerade.sim.app.ui2.factory.ChannelFactory.ChannelFactoryCallback;
 import masquerade.sim.app.ui2.view.ChannelInfo;

@@ -4,7 +4,7 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.util.Collection;
 
-import masquerade.sim.app.ui.SourceViewWindow;
+import masquerade.sim.app.ui2.dialog.view.impl.SourceViewWindow;
 import masquerade.sim.app.ui2.view.StatusView;
 import masquerade.sim.status.Status;
 

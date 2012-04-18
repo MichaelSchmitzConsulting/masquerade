@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import masquerade.sim.app.ui.Refreshable;
+import masquerade.sim.app.ui2.Refreshable;
 import masquerade.sim.app.ui2.dialog.view.EditNamespacePrefixView.EditNamespacePrefixViewCallback;
 import masquerade.sim.app.ui2.dialog.view.impl.EditNamespacePrefixViewImpl;
 import masquerade.sim.app.ui2.factory.SimulationFactory;

@@ -6,6 +6,7 @@ import masquerade.sim.model.history.HistoryEntry;
 import masquerade.sim.model.history.RequestHistory;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.Container.Filterable;
 import com.vaadin.data.util.BeanItemContainer;
 
 /**
@@ -27,7 +28,7 @@ public class RequestHistoryContainerFactory implements ContainerFactory {
 	}
 
 	@Override
-	public Container createContainer() {
+	public Filterable createContainer() {
 		List<HistoryEntry> initialContent = requestHistory.getLatestRequests(MAX_AMOUNT);
 		BeanItemContainer<?> container = new BeanItemContainer<HistoryEntry>(HistoryEntry.class, initialContent);
 		return container;
