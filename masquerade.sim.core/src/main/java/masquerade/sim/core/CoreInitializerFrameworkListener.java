@@ -27,9 +27,9 @@ public class CoreInitializerFrameworkListener implements FrameworkListener {
 	@Override
 	public void frameworkEvent(FrameworkEvent event) {
 		if (event.getType() == FrameworkEvent.STARTED) {
-			log.info("Loading model repository from persitent state");
+			log.info("Loading model repository from persistent state");
 			modelRepository.load();
-
+			
 			log.info("Starting all available channels");
 			channelListenerRegistry.startAll();
 		}
