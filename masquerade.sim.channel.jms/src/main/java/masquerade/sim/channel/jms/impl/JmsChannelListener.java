@@ -67,6 +67,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		
 		log.info("Starting JmsChannelListener " + channelName);
 		container = new DefaultMessageListenerContainer();
+		container.setBeanName("JMS-Channel-" + channel.getId());
 		container.setPubSubDomain(isTopic);
 		container.setConnectionFactory(connectionFactory);
 		container.setDestinationName(destinationName);
