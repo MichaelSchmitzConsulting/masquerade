@@ -123,6 +123,8 @@ public class ModelRepositoryImplTest {
 
 	@Test
 	public void testSettings() {
+		expect(persistence.loadSettings()).andReturn(null);
+
 		Settings updatedSettings = new Settings();
 		updatedSettings.setConfigurationProperties(PROPS);
 		persistence.persistSettings(updatedSettings);

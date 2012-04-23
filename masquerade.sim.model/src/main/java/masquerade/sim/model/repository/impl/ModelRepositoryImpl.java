@@ -84,11 +84,21 @@ public class ModelRepositoryImpl implements ModelRepository {
 	public Settings getSettings() {
 		synchronized (settingsLock) {
 			if (settings == null) {
-				// Default settings if not yet persisted
-				settings = new Settings();
+				settings = loadSettings();
 			}
 			return settings.clone();			
 		}
+	}
+
+	private Settings loadSettings() {
+		Settings loaded = persistenceService.loadSettings();
+		
+		if (loaded == null) {
+			// Default settings if not yet persisted
+			loaded = new Settings();
+		}
+		
+		return loaded;
 	}
 
 	@Override
@@ -265,7 +275,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 	}
 
 	/**
-	 * Loads model and settings from persistent state
+	 * Loads model from persistent state
 	 */
 	public void load() {
 		synchronized (lock) {
@@ -276,10 +286,6 @@ public class ModelRepositoryImpl implements ModelRepository {
 				loadSimulations(model);
 				loadSimulationAssignments(model);
 			}
-		}
-		
-		synchronized (settingsLock) {
-			settings = persistenceService.loadSettings();
 		}
 	}
 

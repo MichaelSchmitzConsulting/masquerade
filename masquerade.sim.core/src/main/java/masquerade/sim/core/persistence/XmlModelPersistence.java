@@ -9,6 +9,8 @@ import masquerade.sim.model.Settings;
 import masquerade.sim.model.repository.ModelPersistenceService;
 import masquerade.sim.model.repository.SimulationModel;
 import masquerade.sim.plugin.PluginRegistry;
+import masquerade.sim.status.StatusLog;
+import masquerade.sim.status.StatusLogger;
 import masquerade.sim.util.XStreamMarshallerFactory;
 import masquerade.sim.util.XStreamUnmarshallerFactory;
 
@@ -21,6 +23,8 @@ import com.thoughtworks.xstream.XStream;
  */
 public class XmlModelPersistence implements ModelPersistenceService {
 
+	private final static StatusLog log = StatusLogger.get(XmlModelPersistence.class);
+	
 	private final File modelPersistenceFile;
 	private final File settingsPersistenceFile;
 	private final XStreamMarshallerFactory marshallerFactory;
@@ -57,6 +61,7 @@ public class XmlModelPersistence implements ModelPersistenceService {
 	@Override
 	public Settings loadSettings() {
 		if (!settingsPersistenceFile.exists()) {
+			log.warning("Settings persistence file not found: " + settingsPersistenceFile.getAbsolutePath());
 			return null;
 		}
 		return unmarshal(settingsPersistenceFile);
