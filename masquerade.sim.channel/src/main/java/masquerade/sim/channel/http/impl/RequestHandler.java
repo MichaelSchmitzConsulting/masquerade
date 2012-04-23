@@ -96,7 +96,8 @@ class RequestHandler extends AbstractHandler {
 		try {
 			response.setContentType(contentType);
 			ResponseDestination responseDestination = new DefaultResponseDestination(response.getOutputStream());
-			processor.processRequest(HttpUtil.clientInfo(request), requestContent, responseDestination, new Date());
+			Date now = new Date(); // HTTP channel does not support the notion of a request/receive timestamp
+			processor.processRequest(HttpUtil.clientInfo(request), requestContent, responseDestination, now, now);
 		} catch (IOException e) {
 			throw e;
 		} catch (Exception e) {

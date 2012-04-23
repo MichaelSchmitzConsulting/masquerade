@@ -30,7 +30,8 @@ public class RequestTestPresenter implements RequestTestViewCallback, Refreshabl
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		ResponseDestination responseDestination = new ByteArrayResponseDestination(responseOutput);
 		
-		simulationRunner.runSimulation(responseDestination, channelId, "Request Test UI", content, new Date());
+		Date now = new Date();
+		simulationRunner.runSimulation(responseDestination, channelId, "Request Test UI", content, now, now);
 		
 		return new String(responseOutput.toByteArray());
 	}

@@ -36,7 +36,7 @@ public abstract class AbstractChannelListener<T extends Channel> implements Chan
 	protected abstract void onStop(ChannelListenerContext channelListenerContext); 
 	
 	@Override
-	public void processRequest(String clientInfo,  Object request, ResponseDestination responseDestination, Date requestTimestamp) throws Exception {
-		simulationRunner.runSimulation(responseDestination, channelId, clientInfo, request, requestTimestamp);
+	public void processRequest(String clientInfo,  Object request, ResponseDestination responseDestination, Date requestTimestamp, Date receiveTimestamp) throws Exception {
+		simulationRunner.runSimulation(responseDestination, channelId, clientInfo, request, requestTimestamp, receiveTimestamp);
 	}
 }

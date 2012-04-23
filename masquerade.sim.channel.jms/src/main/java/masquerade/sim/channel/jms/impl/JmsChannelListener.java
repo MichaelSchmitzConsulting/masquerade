@@ -94,10 +94,11 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	
 	@Override
 	public void onMessage(Message msg, Session session) {
+		Date receiveTimestamp = new Date();
 		if (msg instanceof TextMessage) {
 			TextMessage txt = (TextMessage) msg;
 			try {
-				onMessageInternal(txt, session);
+				onMessageInternal(txt, session, receiveTimestamp);
 			} catch (Throwable e) {
 				log.error("Exception while handling JMS message", e);
 			}
@@ -106,7 +107,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 		}
 	}
 
-	private void onMessageInternal(final TextMessage txt, final Session session) throws JMSException, Exception {
+	private void onMessageInternal(final TextMessage txt, final Session session, Date receiveTimestamp) throws JMSException, Exception {
 		// Read request
 		String text = txt.getText();
 		final String correlationId = txt.getJMSCorrelationID();
@@ -119,7 +120,7 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 
 		// Process request
 		ResponseDestination responseDestination = createResponseDestination(txt, session, correlationId, responseOutput);
-		processRequest("jms:" + destinationName, text, responseDestination, new Date(timestamp));
+		processRequest("jms:" + destinationName, text, responseDestination, new Date(timestamp), receiveTimestamp);
 		
 		// Send response
 		if (responseOutput.size() > 0) {

@@ -29,7 +29,8 @@ public class HttpChannelListener extends AbstractChannelListener<HttpChannel> {
 	public void processRequest(String clientInfo, InputStream content, OutputStream servletOutputStream) throws Exception {
 		Document doc = DomUtil.parse(content);
 		ResponseDestination responseDestination = new DefaultResponseDestination(servletOutputStream);
-		processRequest(clientInfo, doc, responseDestination, new Date());
+		Date now = new Date();
+		processRequest(clientInfo, doc, responseDestination, now, now);
 	}
 	
 	@Override

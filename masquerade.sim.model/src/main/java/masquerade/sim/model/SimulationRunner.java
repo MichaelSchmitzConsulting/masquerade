@@ -7,5 +7,5 @@ import java.util.Date;
  */
 public interface SimulationRunner {
 	void runSimulation(ResponseDestination responseDestination, String channelName, String clientInfo, Object request,
-			Date requestTimestamp) throws Exception;
+			Date requestTimestamp, Date receiveTimestamp) throws Exception;
 }

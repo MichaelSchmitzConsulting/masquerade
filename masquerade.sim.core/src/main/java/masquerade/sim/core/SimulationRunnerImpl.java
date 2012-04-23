@@ -64,9 +64,7 @@ public class SimulationRunnerImpl implements SimulationRunner {
 	}
 
 	@Override
-	public void runSimulation(ResponseDestination responseDestination, String channelId, String clientInfo, Object request, Date requestTimestamp) throws Exception {
-		Date receiveTimestamp = new Date();
-		
+	public void runSimulation(ResponseDestination responseDestination, String channelId, String clientInfo, Object request, Date requestTimestamp, Date receiveTimestamp) throws Exception {
 		Collection<Simulation> simulations = modelRepository.getSimulationsForChannel(channelId);
 		
 		for (Simulation simulation : simulations) {
