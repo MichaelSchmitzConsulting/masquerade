@@ -1,5 +1,6 @@
 package masquerade.sim.channel.jms.impl;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.io.ByteArrayOutputStream;
@@ -110,7 +111,8 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	private void onMessageInternal(final TextMessage txt, final Session session, Date receiveTimestamp) throws JMSException, Exception {
 		// Read request
 		String text = txt.getText();
-		final String correlationId = txt.getJMSCorrelationID();
+		final String correlationId = getCorrelationId(txt);
+		
 		ByteArrayOutputStream responseOutput = new ByteArrayOutputStream();
 		long timestamp = txt.getJMSTimestamp();
 		if (timestamp == 0) {
@@ -128,6 +130,19 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 
 			sendReply(correlationId, response, session, txt.getJMSReplyTo());
 		}
+	}
+
+	/**
+	 * Determine correlation ID for respionse message. Use JMSCorrelationID property if
+	 * set, otherwise use JMSMessageID.
+	 * @see http://docs.oracle.com/cd/E13159_01/osb/docs10gr3/interopjms/MsgIDPatternforJMS.html
+	 */
+	private static String getCorrelationId(Message txt) throws JMSException {
+		String jmsCorrelationID = txt.getJMSCorrelationID();
+		if (isEmpty(jmsCorrelationID)) {
+			jmsCorrelationID = txt.getJMSMessageID();
+		}
+		return jmsCorrelationID;
 	}
 
 	private DefaultResponseDestination createResponseDestination(final TextMessage txt, final Session session, final String correlationId, ByteArrayOutputStream responseOutput) {
