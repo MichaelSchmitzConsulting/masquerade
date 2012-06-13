@@ -206,6 +206,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 			SimulationWrapper wrapper = new SimulationWrapperImpl(simulation, isPersistent);
 			String simulationId = simulation.getId();
 			simulations.put(simulationId, wrapper);
+			removeSimulationToChannelAssignment(simulationId);
 			assignSimulationToChannels(simulationId, assignToChannelIds);
 			
 			if (isPersistent) {
