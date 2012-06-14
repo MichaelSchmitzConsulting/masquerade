@@ -206,7 +206,6 @@ public class ModelRepositoryImpl implements ModelRepository {
 			SimulationWrapper wrapper = new SimulationWrapperImpl(simulation, isPersistent);
 			String simulationId = simulation.getId();
 			simulations.put(simulationId, wrapper);
-			removeSimulationToChannelAssignment(simulationId);
 			assignSimulationToChannels(simulationId, assignToChannelIds);
 			
 			if (isPersistent) {
@@ -372,6 +371,14 @@ public class ModelRepositoryImpl implements ModelRepository {
 				insertSimulation(simulation, true);
 			}
 			channelToSimulations.putAll(model.getChannelToSimulations());
+		}
+	}
+
+	@Override
+	public void replaceSimulationToChannelAssignments(String simulationId, Collection<String> channelIds) {
+		synchronized (lock) {
+			removeSimulationToChannelAssignment(simulationId);
+			assignSimulationToChannels(simulationId, channelIds);
 		}
 	}
 }

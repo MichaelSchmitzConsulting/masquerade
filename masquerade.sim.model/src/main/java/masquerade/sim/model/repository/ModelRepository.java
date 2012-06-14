@@ -162,4 +162,11 @@ public interface ModelRepository {
 	 * @param model
 	 */
 	void insertSimulationModel(SimulationModel model);
+
+	/**
+	 * Assign simulation to given list of channels, removing any existing assignments first
+	 * @param id
+	 * @param channelIds
+	 */
+	void replaceSimulationToChannelAssignments(String id, Collection<String> channelIds);
 }

@@ -87,8 +87,8 @@ public class JmsChannelListener extends AbstractChannelListener<JmsChannel> impl
 	@Override
 	public synchronized void onStop(ChannelListenerContext context) {
 		if (container != null) {
-			log.info("Stopping JmsChannelListener");
-			container.stop();
+			log.info("Shutting down JmsChannelListener " + channelName);
+			container.shutdown();
 			container = null;
 		}
 	}

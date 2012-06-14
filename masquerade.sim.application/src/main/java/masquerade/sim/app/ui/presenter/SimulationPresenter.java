@@ -107,7 +107,8 @@ public class SimulationPresenter implements SimulationView.SimulationViewCallbac
 	public void onSave() {
 		if (currentSelection != null) {
 			currentSelection.getNamespaceResolver().setPrefixes(namespaces);
-			modelRepository.insertSimulation(currentSelection, true, view.getChannelAssignments());
+			modelRepository.insertSimulation(currentSelection, true);
+			modelRepository.replaceSimulationToChannelAssignments(currentSelection.getId(), view.getChannelAssignments());
 			
 			view.deselectSimulation();
 			view.setSelection(null);
