@@ -139,8 +139,14 @@ public class ModelRepositoryImpl implements ModelRepository {
 
 		synchronized (lock) {
 			ChannelWrapper wrapper = new ChannelWrapperImpl(channel, isPersistent);
-			channels.put(channel.getId(), wrapper);
-			channelToSimulations.put(channel.getId(), new LinkedHashSet<String>());
+			// Add or replace channel
+			String channelId = channel.getId();
+			channels.put(channelId, wrapper);
+			
+			// Insert empty channel assignment list if not yet present (to avoid clearing existing assignments)
+			if (!channelToSimulations.containsKey(channelId)) {
+				channelToSimulations.put(channelId, new LinkedHashSet<String>());
+			}
 		
 			if (isPersistent) {
 				updatePersistentState();
