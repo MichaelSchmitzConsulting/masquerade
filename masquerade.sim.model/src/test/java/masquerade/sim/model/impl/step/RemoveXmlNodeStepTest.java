@@ -17,7 +17,7 @@ public class RemoveXmlNodeStepTest {
 	@Test
 	public void testExecute() throws Exception {
 		RemoveXmlNodeStep step = new RemoveXmlNodeStep("test");
-		step.setNodeXpathh("/root/child");
+		step.setNodeXpath("/root/child");
 		
 		Document request = DomUtil.parse("<root><child/></root>");
 		

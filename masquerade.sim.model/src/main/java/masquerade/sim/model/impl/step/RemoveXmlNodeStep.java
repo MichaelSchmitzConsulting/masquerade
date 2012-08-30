@@ -51,7 +51,7 @@ public class RemoveXmlNodeStep extends AbstractSubstitutingStep {
 		return nodeXpath;
 	}
 
-	public void setNodeXpathh(String nodeXpath) {
+	public void setNodeXpath(String nodeXpath) {
 		this.nodeXpath = nodeXpath;
 		xpathCache.clear();
 	}
